@@ -23,14 +23,21 @@ class DashBuilder(object):
         self.app = dash.Dash(__name__, external_stylesheets=self.external_stylesheets)
         self.colors = {
             'background': '#ffffff',
-            'text': '#7FDBFF'
+            'text': '#111111'
         }
+
+        @self.app.callback(
+        dash.dependencies.Output(component_id='output-container-range-slider', component_property='children'),
+        [dash.dependencies.Input(component_id='my-range-slider', component_property='value')])
+        def update_output(value):
+            return '您的篩選條件包含 "{}"'.format(value)
+        
 
         self.app.layout = html.Div(
             style={'backgroundColor': self.colors['background']}, 
             children=[
                 html.H1(
-                    children='Hello Dash',
+                    children='台股選股系統',
                     style={
                         'textAlign': 'center',
                         'color': self.colors['text']
@@ -38,7 +45,7 @@ class DashBuilder(object):
                 ),
                 # 2. Div 
                 html.Div(
-                    children='''Dash: A web application framework for Python.''', 
+                    children='''A web application framework for TW stock information.''', 
                     style={
                         'textAlign': 'center',
                         'color': self.colors['text']
@@ -48,18 +55,34 @@ class DashBuilder(object):
                 dcc.Markdown(
                     children=
                         """
-                            Dash apps can be written in Markdown.\n
-                            Dash uses the [CommonMark](http://commonmark.org/)
-                            specification of Markdown.\n
-                            Check out their [60 Second Markdown Tutorial](http://commonmark.org/help/)
-                            if this is your first introduction to Markdown!\n
+                            請根據您的需求進行篩選，並按下查詢\n
                         """
                 ),
+                dcc.Dropdown(
+                    id='demo-dropdown',
+                    options=[
+                        {'label': 'New York City', 'value': 'NYC'},
+                        {'label': 'Montreal', 'value': 'MTL'},
+                        {'label': 'San Francisco', 'value': 'SF'}
+                    ],
+                    value='NYC',
+                    multi=True
+                ),
+                html.Div(id='dd-output-container'),
+
+                dcc.RangeSlider(
+                    id='my-range-slider',
+                    min=0,
+                    max=20,
+                    step=0.5,
+                    value=[5, 15]
+                ),
+                html.Div(id='output-container-range-slider'),
 
                 dcc.Graph(
                     id='scatter plot',
                     figure = px.scatter(self.df, x="營業額", y="每股淨值",
-                                        size='population', color='continent', hover_name='country',
+                                        color='industry_category', hover_name='stock_name',
                                         log_x=True, size_max=60)
                 )
             ]
@@ -78,3 +101,4 @@ def generate_table(dataframe, max_rows=10):
             ]) for i in range(min(len(dataframe), max_rows))
         ])
     ])
+

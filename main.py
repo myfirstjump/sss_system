@@ -28,7 +28,6 @@ def PLACEHOLDER_main():
     main_obj = CLASSPLACEHOLDER()
     data = main_obj.data_loading()
     data = main_obj.data_processing(data)
-    print(data.head())
     main_obj.dash_server(data) # Run dash server
 
 if __name__ == "__main__":

@@ -9,6 +9,9 @@ class DataProcessing(object):
     def sss_demo_data_processing(self, data):
 
         
+        new_col_0 = np.random.exponential(70, data.shape[0])
+        new_data = self.add_column_to_pd_dataframe(data, '股價', new_col_0)
+
         new_col_1 = np.random.exponential(5, data.shape[0])
         new_data = self.add_column_to_pd_dataframe(data, '每股淨值', new_col_1)
 
