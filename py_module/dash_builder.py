@@ -17,7 +17,6 @@ class DashBuilder(object):
     def __init__(self, data):
         
         # self.df = pd.read_csv('https://gist.githubusercontent.com/chriddyp/5d1ea79569ed194d432e56108a04d188/raw/a9f9e8076b837d541398e999dcbac2b2826a81f8/gdp-life-exp-2007.csv')
-        self.df = data
 
         self.external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
         self.app = dash.Dash(__name__, external_stylesheets=self.external_stylesheets)
@@ -26,12 +25,98 @@ class DashBuilder(object):
             'text': '#111111'
         }
 
-        @self.app.callback(
-        dash.dependencies.Output(component_id='output-container-range-slider', component_property='children'),
-        [dash.dependencies.Input(component_id='my-range-slider', component_property='value')])
-        def update_output(value):
-            return '您的篩選條件包含 "{}"'.format(value)
+        # @self.app.callback(
+        # dash.dependencies.Output(component_id='output-container-range-slider', component_property='children'),
+        # [dash.dependencies.Input(component_id='my-range-slider', component_property='value')])
+        # def update_output(value):
+        #     return '您的篩選條件包含 "{}"'.format(value)
+
+        # @self.app.callback(
+        # dash.dependencies.Output(component_id='output-container-range-slider', component_property='children'),
+        # [dash.dependencies.Input(component_id='my-range-slider', component_property='value')])
+        # def update_output(value):
+        #     return '您的篩選條件包含 "{}"'.format(value)       
         
+
+        '''
+        ---Callback test1---
+        Output id is the corresponding Graph; Output property is the FIGURE? <- 從未定義過figure，但其實是Graph的一個property
+        Input id is the slider and the property is slider value <- make sense.
+        '''
+        # @self.app.callback(
+        #     dash.dependencies.Output(component_id='graph-controlled-by-slider', component_property='figure'),
+        #     dash.dependencies.Input(component_id='the-slider-no1', component_property='value')
+        # )
+        # def update_figure(value):
+        #     # filtered_df = data['股價'].between(lower_bound, upper_bound, inclusive=True)
+        #     filtered_df = data[data['industry_category'] == value]
+        #     fig = px.scatter(filtered_df, x="營業額", y="每股淨值",
+        #                         color='industry_category', hover_name='stock_name', size='股價')
+        #     fig.update_layout(transition_duration=500)
+
+        #     return fig
+
+
+        '''
+        ---Callback test2---
+        測試Input和RangeSlider連動 --> 失敗! Sync的功能還沒有很齊全 Slider可以，但是Rangeslider不確定。
+        '''
+        # @self.app.callback(
+        #     [dash.dependencies.Output(component_id='price-range-slider', component_property='value')],
+        #     dash.dependencies.Output(component_id='price-range-input-left', component_property='value'),
+        #     [dash.dependencies.Input(component_id='price-range-slider', component_property='value')]
+        #     dash.dependencies.Input(component_id='price-range-input-left', component_property='value'),
+        # )
+        # def update_output(slide_value, left_value, right_value):
+        #     ctx = dash.callback_context
+        #     trigger_id = ctx.triggered[0]["prop_id"].split(".")[0]
+        #     if trigger_id == 'price-range-slider':
+        #         low_slide, high_slide = slide_value
+        #         return slide_value, low_slide, high_slide
+        #     elif trigger_id == 'price-range-input-left:
+
+        #         return [left_value, right_value]
+        '''
+        ---callback---
+        測試Input和Input之間的最大最小值互相限制
+        '''    
+        @self.app.callback(
+            dash.dependencies.Output(component_id='price-range-input-right', component_property='min'),
+            dash.dependencies.Input(component_id='price-range-input-left', component_property='value'),
+            # dash.dependencies.Output(component_id='price-range-input-right', component_property='value'),
+        )
+        def update_right_range_min(left_value):
+            # ctx = dash.callback_context
+            # trigger_id = ctx.triggered[0]["prop_id"].split(".")[0]
+            return left_value
+        
+        @self.app.callback(
+            dash.dependencies.Output(component_id='price-range-input-left', component_property='max'),
+            dash.dependencies.Input(component_id='price-range-input-right', component_property='value'),
+        )
+        def update_left_range_max(right_value):
+            return right_value        
+
+        '''
+        ---callback---
+        測試Input price與scatter plot連動
+        '''  
+        @self.app.callback(
+            dash.dependencies.Output(component_id='price-volume-fig', component_property='figure'),
+            dash.dependencies.Input(component_id='price-range-input-right', component_property='value'),
+            dash.dependencies.Input(component_id='price-range-input-left', component_property='value'),
+        )
+        def update_figure(high_price,low_price, ):
+            data_filter = (data['股價'] > low_price) & (data['股價'] < high_price)
+            filtered_data = data[data_filter]
+            print(filtered_data)
+            fig = px.scatter(
+                filtered_data, x='股價', y='每股淨值',
+                color='industry_category', hover_name='stock_name'
+            )
+            fig.update_layout(transition_duration=500)
+            return fig
+
 
         self.app.layout = html.Div(
             style={'backgroundColor': self.colors['background']}, 
@@ -52,38 +137,118 @@ class DashBuilder(object):
                     }
                 ),
 
-                dcc.Markdown(
-                    children=
-                        """
-                            請根據您的需求進行篩選，並按下查詢\n
-                        """
-                ),
-                dcc.Dropdown(
-                    id='demo-dropdown',
-                    options=[
-                        {'label': 'New York City', 'value': 'NYC'},
-                        {'label': 'Montreal', 'value': 'MTL'},
-                        {'label': 'San Francisco', 'value': 'SF'}
-                    ],
-                    value='NYC',
-                    multi=True
-                ),
-                html.Div(id='dd-output-container'),
 
-                dcc.RangeSlider(
-                    id='my-range-slider',
-                    min=0,
-                    max=20,
-                    step=0.5,
-                    value=[5, 15]
-                ),
-                html.Div(id='output-container-range-slider'),
+                # dcc.Dropdown(
+                #     id='demo-dropdown',
+                #     options=[
+                #         {'label': 'New York City', 'value': 'NYC'},
+                #         {'label': 'Montreal', 'value': 'MTL'},
+                #         {'label': 'San Francisco', 'value': 'SF'}
+                #     ],
+                #     value='NYC',
+                #     multi=True
+                # ),
+                # html.Div(id='dd-output-container'),
 
-                dcc.Graph(
-                    id='scatter plot',
-                    figure = px.scatter(self.df, x="營業額", y="每股淨值",
-                                        color='industry_category', hover_name='stock_name',
-                                        log_x=True, size_max=60)
+                # dcc.RangeSlider(
+                #     id='my-range-slider',
+                #     min=data['每股淨值'].min(),
+                #     max=data['每股淨值'].max(),
+                #     step=0.5,
+                #     value=[5, 10]
+                # ),
+                # html.Div(id='output-container-range-slider'),
+
+                # dcc.Graph(
+                #     id='scatter plot',
+                #     figure = px.scatter(data, x="營業額", y="每股淨值",
+                #                         color='industry_category', hover_name='stock_name', size='股價',
+                #                         log_x=True, size_max=60)
+                # )
+
+                # """
+                #     ---Callback test1---
+                #     利用Callback方式，建立一個互動的slider去控制一個scatter plot。
+                #     1. 首先建立Graph
+                #     2. 再來建立Slider
+                #     3. 到layout前建立callback
+                # """
+                html.Div([
+                    dcc.Markdown(
+                        children=
+                            """
+                                請根據您想查詢的產業，進行篩選\n
+                            """
+                    ),
+                    dcc.Dropdown(
+                        id='industry-category-select',
+                        options=[{'label': i, 'value': i} for i in data['industry_category'].unique()],
+                        value='食品工業'
+                    ),
+                ],
+                style={'width': '48%', 'display': 'inline-block'}),
+
+                html.Div([
+                        dcc.Markdown(
+                            children=
+                                """
+                                    請根據您想查詢的公司名稱，進行篩選\n
+                                """
+                        ),
+                    dcc.Dropdown(
+                        id='stock-name-select',
+                        options=[{'label': i, 'value': i} for i in data['stock_name'].unique()],
+                        value='台積電'
+                    ),
+                ],
+                style={'width': '48%', 'float': 'right', 'display': 'inline-block'}),
+                
+                html.Div(html.Br()),
+                html.Div(html.Br()),
+
+                ### Select Price Range
+                html.Div([
+                    dcc.Markdown(
+                        children=
+                            """
+                                請輸入股價查詢範圍\n
+                            """
+                    ),
+                    dcc.Input(
+                        id='price-range-input-left',
+                        type='number',
+                        min=0,
+                        max=1000,
+                        value=0,
+                        placeholder='最小值'
+                    ),
+
+                    dcc.Input(
+                        id='price-range-input-right',
+                        type='number',
+                        min=0,
+                        max=1000,
+                        value=1000,
+                        placeholder='最大值'
+                    ),
+                ],
+                style={'width': '48%' ,'display': 'inline-block'}),
+
+                html.Div([
+                    html.Br(),
+                    dcc.Graph(id='price-volume-fig'),
+                    # dcc.RangeSlider(
+                    #     id='price-range-slider',
+                    #     min=0,
+                    #     max=1000,
+                    #     value=[50, 500],
+                    #     allowCross=False,
+                    #     # vertical=True,
+                    #     marks={0:'0',  100:'100', 200:'200',300:'300',400:'400',500:'500',600:'600',700:'700',800:'800',900:'900',1000:'1000',}
+                    # ),
+                    generate_table(data.tail())
+                ],
+                # style={'float': 'right'}
                 )
             ]
         )
