@@ -1,8 +1,9 @@
 import dash
 import dash_core_components as dcc
 import dash_html_components as html
+from dash.dependencies import Output, Input, State
 import plotly.express as px
-import pandas as pd6352
+import pandas as pd
 
 from py_module.utils import Header, make_dash_table
 
@@ -40,13 +41,85 @@ class DashBuilder(object):
             'input_placeholder': '10',
         }
 
+        # 股本
+        @self.app.callback(
+            Output('equity-right', 'min'),
+            Input('equity-left', 'value'),
+        )        
+        def update_equity_min(left_value):
+            '''
+            dcc.Input股價最小值、最大值應有互相影響
+            當最小值輸入後，最大值的min限制應該會改變。
+            '''
+            return left_value
+        
+        @self.app.callback(
+            Output('equity-left', 'max'),
+            Input('equity-right', 'value'),
+        )
+        def update_equity_max(right_value):
+            '''
+            dcc.Input股價最小值、最大值應有互相影響
+            當最大值輸入後，最小值的max限制應該會改變。
+            '''
+            return right_value
+        
+        # 股價
+        @self.app.callback(
+            Output('price-right', 'min'),
+            Input('price-left', 'value'),
+        )        
+        def update_price_min(left_value):
+            '''
+            dcc.Input股價最小值、最大值應有互相影響
+            當最小值輸入後，最大值的min限制應該會改變。
+            '''
+            return left_value
+        
+        @self.app.callback(
+            Output('price-left', 'max'),
+            Input('price-right', 'value'),
+        )
+        def update_price_max(right_value):
+            '''
+            dcc.Input股價最小值、最大值應有互相影響
+            當最大值輸入後，最小值的max限制應該會改變。
+            '''
+            return right_value
+
+
+        # 振幅
+        @self.app.callback(
+            Output('amplitude-right', 'min'),
+            Input('amplitude-left', 'value'),
+        )        
+        def update_amplitude_min(left_value):
+            '''
+            dcc.Input股價最小值、最大值應有互相影響
+            當最小值輸入後，最大值的min限制應該會改變。
+            '''
+            return left_value
+        
+        @self.app.callback(
+            Output('amplitude-left', 'max'),
+            Input('amplitude-right', 'value'),
+        )
+        def update_amplitude_max(right_value):
+            '''
+            dcc.Input股價最小值、最大值應有互相影響
+            當最大值輸入後，最小值的max限制應該會改變。
+            '''
+            return right_value      
+
+
+
         self.app.layout = html.Div( # TOP DIV
             style={'backgroundColor': self.colors['background']}, 
             children=[
                 html.H1(
                     children='台股選股系統',
                     style={
-                        'textAlign': 'center',
+                        'textAlign': 'left',
                         'color': self.colors['text']
                     }
                 ),
@@ -54,7 +127,7 @@ class DashBuilder(object):
                 html.Div(
                     children='''A web application framework for TW stock information.''', 
                     style={
-                        'textAlign': 'center',
+                        'textAlign': 'left',
                         'color': self.colors['text']
                     }
                 ),
@@ -69,12 +142,20 @@ class DashBuilder(object):
                             html.P("01 股本範圍",
                                 style={'width': self.style['query_statment_width'], 'display': 'inline-block'}), 
                             dcc.Input(
-                                placeholder=self.dcc_elements['input_placeholder'],
+                                id='equity-left',
+                                type='number',
+                                min=0,
+                                max=999999,
+                                placeholder='最小值',
                                 style={'width': self.style['unit_input_width'], 'display': 'inline-block', 'height':self.style['input_height']}), 
                             html.P(" 億   ~",
                                 style={'width': '15%', 'display': 'inline-block'}), 
                             dcc.Input(
-                                placeholder=self.dcc_elements['input_placeholder'],
+                                id='equity-right',
+                                type='number',
+                                min=0,
+                                max=999999,
+                                placeholder='最大值',
                                 style={'width': self.style['unit_input_width'], 'display': 'inline-block', 'height':self.style['input_height']}), 
                             html.P(" 億",
                                 style={'width': '10%', 'display': 'inline-block'})
@@ -88,12 +169,20 @@ class DashBuilder(object):
                             html.P("02 股價範圍",
                                 style={'width': self.style['query_statment_width'], 'display': 'inline-block'}), 
                             dcc.Input(
-                                placeholder=self.dcc_elements['input_placeholder'],
+                                id='price-left',
+                                type='number',
+                                min=0,
+                                max=999999,
+                                placeholder='最小值',
                                 style={'width': self.style['unit_input_width'], 'display': 'inline-block', 'height':self.style['input_height']}), 
                             html.P(" 元   ~",
                                 style={'width': '15%', 'display': 'inline-block'}), 
                             dcc.Input(
-                                placeholder=self.dcc_elements['input_placeholder'],
+                                id='price-right',
+                                type='number',
+                                min=0,
+                                max=999999,
+                                placeholder='最大值',
                                 style={'width': self.style['unit_input_width'], 'display': 'inline-block', 'height':self.style['input_height']}), 
                             html.P(" 元",
                                 style={'width': '10%', 'display': 'inline-block'})
@@ -123,12 +212,20 @@ class DashBuilder(object):
                             html.P(" ", id='',
                                 style={'width': '80px', 'display': 'inline-block'}), 
                             dcc.Input(
-                                placeholder=self.dcc_elements['input_placeholder'],
+                                id='amplitude-left',
+                                type='number',
+                                min=0,
+                                max=100,
+                                placeholder='最小值',
                                 style={'width': self.style['unit_input_width'], 'display': 'inline-block', 'height':self.style['input_height']}), 
                             html.P(" %   ~ ",
                                 style={'width': '10%', 'display': 'inline-block'}),
                             dcc.Input(
-                                placeholder=self.dcc_elements['input_placeholder'],
+                                id='amplitude-right',
+                                type='number',
+                                min=0,
+                                max=100,
+                                placeholder='最大值',
                                 style={'width': self.style['unit_input_width'], 'display': 'inline-block', 'height':self.style['input_height']}), 
                             html.P(" % ",
                                 style={'width': '10%', 'display': 'inline-block'})
@@ -378,11 +475,16 @@ class DashBuilder(object):
                                 "display": "inline-block",
                     }),
                                             
-                    ], style={ 'verticalAlign': "middle", 'height': '500px', 'width': '49%', 'display': 'inline-block', 'border': 'solid'}
+                    ], style={ 'verticalAlign': "middle", 'height': '700px', 'width': '49%', 'display': 'inline-block', 'border': 'solid'}
                 ),# FILTER CONDITION DIV
 
                 html.Div( # CONDITION DISPLAY DIV
-                    style={ 'verticalAlign': "middle", 'height': '500px', 'width': '49%', 'display': 'inline-block', 'border': 'solid'}
+                    children=[    
+                        dcc.Markdown(
+                            "您所增加的篩選條件"
+                        ),
+                    ],
+                    style={ 'verticalAlign': "middle", 'height': '700px', 'width': '49%', 'display': 'inline-block', 'border': 'solid'}
                 )# CONDITION DISPLAY DIV
             ]
         )#TOP DIV
