@@ -2,7 +2,9 @@ import dash
 import dash_core_components as dcc
 import dash_html_components as html
 import plotly.express as px
-import pandas as pd
+import pandas as pd6352
+
+from py_module.utils import Header, make_dash_table
 
 class DashBuilder(object):
     
@@ -20,105 +22,25 @@ class DashBuilder(object):
 
         self.external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
         self.app = dash.Dash(__name__, external_stylesheets=self.external_stylesheets)
+        self.app.title = 'Stock Target Selection'
         self.colors = {
             'background': '#ffffff',
             'text': '#111111'
         }
+        self.style = {
+            'query_statment_width': '150px',
+            'input_height': '25px',
+            'dropdown_width': '50px',
+            'n_day_input_with': '50px',
+            'unit_input_width': '120px',
+        }
 
-        # @self.app.callback(
-        # dash.dependencies.Output(component_id='output-container-range-slider', component_property='children'),
-        # [dash.dependencies.Input(component_id='my-range-slider', component_property='value')])
-        # def update_output(value):
-        #     return '您的篩選條件包含 "{}"'.format(value)
+        self.dcc_elements = {
+            'dropdown_placeholder': '日',
+            'input_placeholder': '10',
+        }
 
-        # @self.app.callback(
-        # dash.dependencies.Output(component_id='output-container-range-slider', component_property='children'),
-        # [dash.dependencies.Input(component_id='my-range-slider', component_property='value')])
-        # def update_output(value):
-        #     return '您的篩選條件包含 "{}"'.format(value)       
-        
-
-        '''
-        ---Callback test1---
-        Output id is the corresponding Graph; Output property is the FIGURE? <- 從未定義過figure，但其實是Graph的一個property
-        Input id is the slider and the property is slider value <- make sense.
-        '''
-        # @self.app.callback(
-        #     dash.dependencies.Output(component_id='graph-controlled-by-slider', component_property='figure'),
-        #     dash.dependencies.Input(component_id='the-slider-no1', component_property='value')
-        # )
-        # def update_figure(value):
-        #     # filtered_df = data['股價'].between(lower_bound, upper_bound, inclusive=True)
-        #     filtered_df = data[data['industry_category'] == value]
-        #     fig = px.scatter(filtered_df, x="營業額", y="每股淨值",
-        #                         color='industry_category', hover_name='stock_name', size='股價')
-        #     fig.update_layout(transition_duration=500)
-
-        #     return fig
-
-
-        '''
-        ---Callback test2---
-        測試Input和RangeSlider連動 --> 失敗! Sync的功能還沒有很齊全 Slider可以，但是Rangeslider不確定。
-        '''
-        # @self.app.callback(
-        #     [dash.dependencies.Output(component_id='price-range-slider', component_property='value')],
-        #     dash.dependencies.Output(component_id='price-range-input-left', component_property='value'),
-        #     [dash.dependencies.Input(component_id='price-range-slider', component_property='value')]
-        #     dash.dependencies.Input(component_id='price-range-input-left', component_property='value'),
-        # )
-        # def update_output(slide_value, left_value, right_value):
-        #     ctx = dash.callback_context
-        #     trigger_id = ctx.triggered[0]["prop_id"].split(".")[0]
-        #     if trigger_id == 'price-range-slider':
-        #         low_slide, high_slide = slide_value
-        #         return slide_value, low_slide, high_slide
-        #     elif trigger_id == 'price-range-input-left:
-
-        #         return [left_value, right_value]
-        '''
-        ---callback---
-        測試Input和Input之間的最大最小值互相限制
-        '''    
-        @self.app.callback(
-            dash.dependencies.Output(component_id='price-range-input-right', component_property='min'),
-            dash.dependencies.Input(component_id='price-range-input-left', component_property='value'),
-            # dash.dependencies.Output(component_id='price-range-input-right', component_property='value'),
-        )
-        def update_right_range_min(left_value):
-            # ctx = dash.callback_context
-            # trigger_id = ctx.triggered[0]["prop_id"].split(".")[0]
-            return left_value
-        
-        @self.app.callback(
-            dash.dependencies.Output(component_id='price-range-input-left', component_property='max'),
-            dash.dependencies.Input(component_id='price-range-input-right', component_property='value'),
-        )
-        def update_left_range_max(right_value):
-            return right_value        
-
-        '''
-        ---callback---
-        測試Input price與scatter plot連動
-        '''  
-        @self.app.callback(
-            dash.dependencies.Output(component_id='price-volume-fig', component_property='figure'),
-            dash.dependencies.Input(component_id='price-range-input-right', component_property='value'),
-            dash.dependencies.Input(component_id='price-range-input-left', component_property='value'),
-        )
-        def update_figure(high_price,low_price, ):
-            data_filter = (data['股價'] > low_price) & (data['股價'] < high_price)
-            filtered_data = data[data_filter]
-            print(filtered_data)
-            fig = px.scatter(
-                filtered_data, x='股價', y='每股淨值',
-                color='industry_category', hover_name='stock_name'
-            )
-            fig.update_layout(transition_duration=500)
-            return fig
-
-
-        self.app.layout = html.Div(
+        self.app.layout = html.Div( # TOP DIV
             style={'backgroundColor': self.colors['background']}, 
             children=[
                 html.H1(
@@ -137,121 +59,333 @@ class DashBuilder(object):
                     }
                 ),
 
-
-                # dcc.Dropdown(
-                #     id='demo-dropdown',
-                #     options=[
-                #         {'label': 'New York City', 'value': 'NYC'},
-                #         {'label': 'Montreal', 'value': 'MTL'},
-                #         {'label': 'San Francisco', 'value': 'SF'}
-                #     ],
-                #     value='NYC',
-                #     multi=True
-                # ),
-                # html.Div(id='dd-output-container'),
-
-                # dcc.RangeSlider(
-                #     id='my-range-slider',
-                #     min=data['每股淨值'].min(),
-                #     max=data['每股淨值'].max(),
-                #     step=0.5,
-                #     value=[5, 10]
-                # ),
-                # html.Div(id='output-container-range-slider'),
-
-                # dcc.Graph(
-                #     id='scatter plot',
-                #     figure = px.scatter(data, x="營業額", y="每股淨值",
-                #                         color='industry_category', hover_name='stock_name', size='股價',
-                #                         log_x=True, size_max=60)
-                # )
-
-                # """
-                #     ---Callback test1---
-                #     利用Callback方式，建立一個互動的slider去控制一個scatter plot。
-                #     1. 首先建立Graph
-                #     2. 再來建立Slider
-                #     3. 到layout前建立callback
-                # """
-                html.Div([
+                html.Div( # FILTER CONDITION DIV
+                    children=[    
                     dcc.Markdown(
-                        children=
-                            """
-                                請根據您想查詢的產業，進行篩選\n
-                            """
+                        "請新增篩選條件，新增完畢後按下送出"
                     ),
-                    dcc.Dropdown(
-                        id='industry-category-select',
-                        options=[{'label': i, 'value': i} for i in data['industry_category'].unique()],
-                        value='食品工業'
-                    ),
-                ],
-                style={'width': '48%', 'display': 'inline-block'}),
-
-                html.Div([
-                        dcc.Markdown(
-                            children=
-                                """
-                                    請根據您想查詢的公司名稱，進行篩選\n
-                                """
-                        ),
-                    dcc.Dropdown(
-                        id='stock-name-select',
-                        options=[{'label': i, 'value': i} for i in data['stock_name'].unique()],
-                        value='台積電'
-                    ),
-                ],
-                style={'width': '48%', 'float': 'right', 'display': 'inline-block'}),
-                
-                html.Div(html.Br()),
-                html.Div(html.Br()),
-
-                ### Select Price Range
-                html.Div([
-                    dcc.Markdown(
-                        children=
-                            """
-                                請輸入股價查詢範圍\n
-                            """
-                    ),
-                    dcc.Input(
-                        id='price-range-input-left',
-                        type='number',
-                        min=0,
-                        max=1000,
-                        value=0,
-                        placeholder='最小值'
-                    ),
-
-                    dcc.Input(
-                        id='price-range-input-right',
-                        type='number',
-                        min=0,
-                        max=1000,
-                        value=1000,
-                        placeholder='最大值'
-                    ),
-                ],
-                style={'width': '48%' ,'display': 'inline-block'}),
-
-                html.Div([
+                    # 1.
+                    html.Div([
+                            html.P("01 股本範圍",
+                                style={'width': self.style['query_statment_width'], 'display': 'inline-block'}), 
+                            dcc.Input(
+                                placeholder=self.dcc_elements['input_placeholder'],
+                                style={'width': self.style['unit_input_width'], 'display': 'inline-block', 'height':self.style['input_height']}), 
+                            html.P(" 億   ~",
+                                style={'width': '15%', 'display': 'inline-block'}), 
+                            dcc.Input(
+                                placeholder=self.dcc_elements['input_placeholder'],
+                                style={'width': self.style['unit_input_width'], 'display': 'inline-block', 'height':self.style['input_height']}), 
+                            html.P(" 億",
+                                style={'width': '10%', 'display': 'inline-block'})
+                    ], style={
+                                "white-space": "pre",
+                                "display": "inline-block"
+                    }),
                     html.Br(),
-                    dcc.Graph(id='price-volume-fig'),
-                    # dcc.RangeSlider(
-                    #     id='price-range-slider',
-                    #     min=0,
-                    #     max=1000,
-                    #     value=[50, 500],
-                    #     allowCross=False,
-                    #     # vertical=True,
-                    #     marks={0:'0',  100:'100', 200:'200',300:'300',400:'400',500:'500',600:'600',700:'700',800:'800',900:'900',1000:'1000',}
-                    # ),
-                    generate_table(data.tail())
-                ],
-                # style={'float': 'right'}
-                )
+                    # 2.
+                    html.Div([
+                            html.P("02 股價範圍",
+                                style={'width': self.style['query_statment_width'], 'display': 'inline-block'}), 
+                            dcc.Input(
+                                placeholder=self.dcc_elements['input_placeholder'],
+                                style={'width': self.style['unit_input_width'], 'display': 'inline-block', 'height':self.style['input_height']}), 
+                            html.P(" 元   ~",
+                                style={'width': '15%', 'display': 'inline-block'}), 
+                            dcc.Input(
+                                placeholder=self.dcc_elements['input_placeholder'],
+                                style={'width': self.style['unit_input_width'], 'display': 'inline-block', 'height':self.style['input_height']}), 
+                            html.P(" 元",
+                                style={'width': '10%', 'display': 'inline-block'})
+                    ], style={
+                                "white-space": "pre",
+                                "display": "inline-block"
+                    }),
+                    html.Br(),
+                    # 3.
+                    html.Div([
+                            html.P("03 平均振幅",
+                                style={'width': self.style['query_statment_width'], 'display': 'inline-block'}), 
+                            dcc.Input(
+                                placeholder=self.dcc_elements['input_placeholder'],
+                                style={'verticalAlign': "middle",'width': self.style['n_day_input_with'], 'display': 'inline-block', 'height':self.style['input_height']}), 
+                            dcc.Dropdown(
+                                options=[
+                                    {'label': '日', 'value': 'd'},
+                                    {'label': '週', 'value': 'w'},
+                                    {'label': '月', 'value': 'm'},
+                                    {'label': '季', 'value': 's'},
+                                    {'label': '年', 'value': 'y'}
+                                ],
+                                value='日',
+                                placeholder=self.dcc_elements['dropdown_placeholder'],
+                                style={'verticalAlign': "middle", 'width': self.style['dropdown_width'], 'display': 'inline-block', 'height':self.style['input_height']}), 
+                            html.P(" ", id='',
+                                style={'width': '80px', 'display': 'inline-block'}), 
+                            dcc.Input(
+                                placeholder=self.dcc_elements['input_placeholder'],
+                                style={'width': self.style['unit_input_width'], 'display': 'inline-block', 'height':self.style['input_height']}), 
+                            html.P(" %   ~ ",
+                                style={'width': '10%', 'display': 'inline-block'}),
+                            dcc.Input(
+                                placeholder=self.dcc_elements['input_placeholder'],
+                                style={'width': self.style['unit_input_width'], 'display': 'inline-block', 'height':self.style['input_height']}), 
+                            html.P(" % ",
+                                style={'width': '10%', 'display': 'inline-block'})
+                    ], style={
+                                "white-space": "pre",
+                                "display": "inline-block",
+                    }),
+                    html.Br(),
+                    # 4.1
+                    html.Div([
+                            html.P("04 漲跌幅百分比",
+                                style={'width': self.style['query_statment_width'], 'display': 'inline-block'}), 
+                            dcc.Input(
+                                placeholder=self.dcc_elements['input_placeholder'],
+                                style={'verticalAlign': "middle", 'width': self.style['n_day_input_with'], 'display': 'inline-block', 'height':self.style['input_height']}),
+                            dcc.Dropdown(
+                                options=[
+                                    {'label': '日', 'value': 'd'},
+                                    {'label': '週', 'value': 'w'},
+                                    {'label': '月', 'value': 'm'},
+                                    {'label': '季', 'value': 's'},
+                                    {'label': '年', 'value': 'y'}
+                                ],
+                                value='日',
+                                placeholder=self.dcc_elements['dropdown_placeholder'],
+                                style={'verticalAlign': "middle", 'width': self.style['dropdown_width'], 'display': 'inline-block', 'height':self.style['input_height']}),  
+                            html.P(" ", id='',
+                                style={'width': '80px', 'display': 'inline-block'}), 
+                            dcc.Input(
+                                placeholder=self.dcc_elements['input_placeholder'],
+                                style={'width': self.style['unit_input_width'], 'display': 'inline-block', 'height':self.style['input_height']}), 
+                            html.P(" %   ~ ",
+                                style={'width': '10%', 'display': 'inline-block'}),
+                            dcc.Input(
+                                placeholder=self.dcc_elements['input_placeholder'],
+                                style={'width': self.style['unit_input_width'], 'display': 'inline-block', 'height':self.style['input_height']}), 
+                            html.P(" % ",
+                                style={'width': '10%', 'display': 'inline-block'})
+                    ], style={
+                                "white-space": "pre",
+                                "display": "inline-block",
+                    }),
+                    html.Br(),
+                    # 4.2
+                    html.Div([
+                            html.P("05 漲跌幅價格",
+                                style={'width': self.style['query_statment_width'], 'display': 'inline-block'}), 
+                            dcc.Input(
+                                placeholder=self.dcc_elements['input_placeholder'],
+                                style={'verticalAlign': "middle", 'width': self.style['n_day_input_with'], 'display': 'inline-block', 'height':self.style['input_height']}),
+                            dcc.Dropdown(
+                                options=[
+                                    {'label': '日', 'value': 'd'},
+                                    {'label': '週', 'value': 'w'},
+                                    {'label': '月', 'value': 'm'},
+                                    {'label': '季', 'value': 's'},
+                                    {'label': '年', 'value': 'y'}
+                                ],
+                                value='日',
+                                placeholder=self.dcc_elements['dropdown_placeholder'],
+                                style={'verticalAlign': "middle", 'width': self.style['dropdown_width'], 'display': 'inline-block', 'height':self.style['input_height']}), 
+                            html.P(" ", id='',
+                                style={'width': '80px', 'display': 'inline-block'}), 
+                            dcc.Input(
+                                placeholder=self.dcc_elements['input_placeholder'],
+                                style={'width': self.style['unit_input_width'], 'display': 'inline-block', 'height':self.style['input_height']}), 
+                            html.P(" 元   ~ ",
+                                style={'width': '10%', 'display': 'inline-block'}),
+                            dcc.Input(
+                                placeholder=self.dcc_elements['input_placeholder'],
+                                style={'width': self.style['unit_input_width'], 'display': 'inline-block', 'height':self.style['input_height']}), 
+                            html.P(" 元 ",
+                                style={'width': '10%', 'display': 'inline-block'})
+                    ], style={
+                                "white-space": "pre",
+                                "display": "inline-block",
+                    }),
+                    html.Br(),
+                    # 7.1
+                    html.Div([
+                            html.P("06 成交張數",
+                                style={'width': self.style['query_statment_width'], 'display': 'inline-block'}), 
+                            dcc.Input(
+                                placeholder=self.dcc_elements['input_placeholder'],
+                                style={'verticalAlign': "middle", 'width': self.style['n_day_input_with'], 'display': 'inline-block', 'height':self.style['input_height']}), 
+                            dcc.Dropdown(
+                                options=[
+                                    {'label': '日', 'value': 'd'},
+                                    {'label': '週', 'value': 'w'},
+                                    {'label': '月', 'value': 'm'},
+                                    {'label': '季', 'value': 's'},
+                                    {'label': '年', 'value': 'y'}
+                                ],
+                                value='日',
+                                placeholder=self.dcc_elements['dropdown_placeholder'],
+                                style={'verticalAlign': "middle", 'width': self.style['dropdown_width'], 'display': 'inline-block', 'height':self.style['input_height']}),
+                            html.P(" 平均 ", id='',
+                                style={'width': '80px', 'display': 'inline-block'}), 
+                            dcc.Input(
+                                placeholder=self.dcc_elements['input_placeholder'],
+                                style={'width': self.style['unit_input_width'], 'display': 'inline-block', 'height':self.style['input_height']}), 
+                            html.P(" 張   ~ ",
+                                style={'width': '10%', 'display': 'inline-block'}),
+                            dcc.Input(
+                                placeholder=self.dcc_elements['input_placeholder'],
+                                style={'width': self.style['unit_input_width'], 'display': 'inline-block', 'height':self.style['input_height']}), 
+                            html.P(" 張 ",
+                                style={'width': '10%', 'display': 'inline-block'})
+                    ], style={
+                                "white-space": "pre",
+                                "display": "inline-block",
+                    }),
+                    html.Br(),
+                    html.Br(),
+                    # 8.1
+                    html.Div([
+                            html.P("07 成交量增減張數",
+                                style={'width': self.style['query_statment_width'], 'display': 'inline-block'}), 
+                            dcc.Dropdown(
+                                options=[
+                                    {'label': '日', 'value': 'd'},
+                                    {'label': '週', 'value': 'w'},
+                                    {'label': '月', 'value': 'm'},
+                                    {'label': '季', 'value': 's'},
+                                    {'label': '年', 'value': 'y'}
+                                ],
+                                value='日',
+                                placeholder=self.dcc_elements['dropdown_placeholder'],
+                                style={'verticalAlign': "middle",'width': self.style['dropdown_width'], 'display': 'inline-block', 'height':self.style['input_height']}), 
+                            dcc.Checklist(
+                                options=[
+                                    {'label': '增', 'value': 'increase'},
+                                    {'label': '減', 'value': 'decrease'},
+                                ],
+                                style={'verticalAlign': "middle",'width': '20%', 'display': 'inline-block'}), 
+                            dcc.Input(
+                                placeholder=self.dcc_elements['input_placeholder'],
+                                style={'width': self.style['unit_input_width'], 'display': 'inline-block', 'height':self.style['input_height']}), 
+                            html.P(" 張   ~ ",
+                                style={'width': '10%', 'display': 'inline-block'}),
+                            dcc.Input(
+                                placeholder=self.dcc_elements['input_placeholder'],
+                                style={'width': self.style['unit_input_width'], 'display': 'inline-block', 'height':self.style['input_height']}), 
+                            html.P(" 張 ",
+                                style={'width': '10%', 'display': 'inline-block'})
+                    ], style={
+                                "white-space": "pre",
+                                "display": "inline-block",
+                    }),
+                    html.Br(),
+                    html.Br(),
+                    # 8.2
+                    html.Div([
+                            html.P("08 成交量增減百分比",
+                                style={'width': self.style['query_statment_width'], 'display': 'inline-block'}), 
+                            dcc.Dropdown(
+                                options=[
+                                    {'label': '日', 'value': 'd'},
+                                    {'label': '週', 'value': 'w'},
+                                    {'label': '月', 'value': 'm'},
+                                    {'label': '季', 'value': 's'},
+                                    {'label': '年', 'value': 'y'}
+                                ],
+                                value='日',
+                                placeholder=self.dcc_elements['dropdown_placeholder'],
+                                style={'verticalAlign': "middle",'width': self.style['dropdown_width'], 'display': 'inline-block', 'height':self.style['input_height']}), 
+                            dcc.Checklist(
+                                options=[
+                                    {'label': '增', 'value': 'increase'},
+                                    {'label': '減', 'value': 'decrease'},
+                                ],
+                                style={'verticalAlign': "middle",'width': '20%', 'display': 'inline-block'}), 
+                            dcc.Input(
+                                placeholder=self.dcc_elements['input_placeholder'],
+                                style={'width': self.style['unit_input_width'], 'display': 'inline-block', 'height':self.style['input_height']}), 
+                            html.P(" %   ~ ",
+                                style={'width': '10%', 'display': 'inline-block'}),
+                            dcc.Input(
+                                placeholder=self.dcc_elements['input_placeholder'],
+                                style={'width': self.style['unit_input_width'], 'display': 'inline-block', 'height':self.style['input_height']}), 
+                            html.P(" % ",
+                                style={'width': '10%', 'display': 'inline-block'})
+                    ], style={
+                                "white-space": "pre",
+                                "display": "inline-block",
+                    }),
+                    html.Br(),
+                    # 9~12
+                    html.Div([
+                            html.P("09 法人買賣超",
+                                style={'width': self.style['query_statment_width'], 'display': 'inline-block'}), 
+                            dcc.Input(
+                                placeholder=self.dcc_elements['input_placeholder'],
+                                style={'verticalAlign': "middle", 'width': self.style['n_day_input_with'], 'display': 'inline-block', 'height':self.style['input_height']}), 
+                            dcc.Dropdown(
+                                options=[
+                                    {'label': '日', 'value': 'd'},
+                                    {'label': '週', 'value': 'w'},
+                                    {'label': '月', 'value': 'm'},
+                                    {'label': '季', 'value': 's'},
+                                    {'label': '年', 'value': 'y'}
+                                ],
+                                value='日',
+                                placeholder=self.dcc_elements['dropdown_placeholder'],
+                                style={'verticalAlign': "middle", 'width': self.style['dropdown_width'], 'display': 'inline-block', 'height':self.style['input_height']}), 
+                            dcc.Checklist(
+                                options=[
+                                    {'label': '外資', 'value': 'foreign'},
+                                    {'label': '投信', 'value': 'trust'},
+                                    {'label': '自營商', 'value': 'dealer'},
+                                ],
+                                style={'verticalAlign': "middle", 'width': '20%', 'display': 'inline-block'}), 
+                            dcc.Checklist(
+                                options=[
+                                    {'label': '買超', 'value': 'buy'},
+                                    {'label': '賣超', 'value': 'sell'},
+                                ],
+                                style={'verticalAlign': "middle", 'width': '20%', 'display': 'inline-block'}), 
+                            
+                            html.Div([
+                                html.P("張數",
+                                    style={'width': '70px', 'display': 'inline-block'}),
+                                dcc.Input(
+                                    placeholder=self.dcc_elements['input_placeholder'],
+                                    style={'width': self.style['unit_input_width'], 'display': 'inline-block', 'height':self.style['input_height']}),
+                                html.Br(),
+                                html.P("金額",
+                                    style={'width': '70px', 'display': 'inline-block'}),
+                                dcc.Input(
+                                    placeholder=self.dcc_elements['input_placeholder'],
+                                    style={'width': self.style['unit_input_width'], 'display': 'inline-block', 'height':self.style['input_height']}),
+                                html.Br(),
+                                html.P("發行張數",
+                                    style={'width': '70px', 'display': 'inline-block'}),
+                                dcc.Input(
+                                    placeholder=self.dcc_elements['input_placeholder'],
+                                    style={'width': self.style['unit_input_width'], 'display': 'inline-block', 'height':self.style['input_height']}),
+                                html.Br(),
+                                html.P("成交比重",
+                                    style={'width': '70px', 'display': 'inline-block'}),
+                                dcc.Input(
+                                    placeholder=self.dcc_elements['input_placeholder'],
+                                    style={'width': self.style['unit_input_width'], 'display': 'inline-block', 'height':self.style['input_height']}),
+                            ],style={'verticalAlign': "middle", 'display': 'inline-block'})
+                    ], style={
+                                "white-space": "pre",
+                                "display": "inline-block",
+                    }),
+                                            
+                    ], style={ 'verticalAlign': "middle", 'height': '500px', 'width': '49%', 'display': 'inline-block', 'border': 'solid'}
+                ),# FILTER CONDITION DIV
+
+                html.Div( # CONDITION DISPLAY DIV
+                    style={ 'verticalAlign': "middle", 'height': '500px', 'width': '49%', 'display': 'inline-block', 'border': 'solid'}
+                )# CONDITION DISPLAY DIV
             ]
-        )
+        )#TOP DIV
 
         self.app.run_server(debug=True, dev_tools_hot_reload=True)
 
