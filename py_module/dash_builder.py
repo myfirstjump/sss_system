@@ -40,102 +40,33 @@ class DashBuilder(object):
 
         self.dcc_elements = {
             'dropdown_placeholder': '日',
-            'input_placeholder': '10',
+            'input_placeholder': '---',
         }
 
-        # 股本
-        @self.app.callback(
-            Output('equity-right', 'min'),
-            Input('equity-left', 'value'),
-        )        
-        def update_equity_min(left_value):
-            '''
-            dcc.Input股價最小值、最大值應有互相影響
-            當最小值輸入後，最大值的min限制應該會改變。
-            '''
-            return left_value
-        
-        @self.app.callback(
-            Output('equity-left', 'max'),
-            Input('equity-right', 'value'),
-        )
-        def update_equity_max(right_value):
-            '''
-            dcc.Input股價最小值、最大值應有互相影響
-            當最大值輸入後，最小值的max限制應該會改變。
-            '''
-            return right_value
-        
-        # 股價
-        @self.app.callback(
-            Output('price-right', 'min'),
-            Input('price-left', 'value'),
-        )        
-        def update_price_min(left_value):
-            '''
-            dcc.Input股價最小值、最大值應有互相影響
-            當最小值輸入後，最大值的min限制應該會改變。
-            '''
-            return left_value
-        
-        @self.app.callback(
-            Output('price-left', 'max'),
-            Input('price-right', 'value'),
-        )
-        def update_price_max(right_value):
-            '''
-            dcc.Input股價最小值、最大值應有互相影響
-            當最大值輸入後，最小值的max限制應該會改變。
-            '''
-            return right_value
+        # 上下輸入界Callback
+        for _ in ('amplitude-percentage', 'amplitude-price', 'amplitude', 'price', 'equity', 'volume', 'volume-change', 'volume-change-percent', 'credit-volume', 'credit-percent'):
+            @self.app.callback(
+                Output("{}-left".format(_), 'max'),
+                Input("{}-right".format(_), 'value'),
+            )
+            def update_max(right_value):
+                '''
+                dcc.Input股價最小值、最大值應有互相影響
+                當最大值輸入後，最小值的max限制應該會改變。
+                '''
+                return right_value
 
-
-        # 振幅
-        @self.app.callback(
-            Output('amplitude-right', 'min'),
-            Input('amplitude-left', 'value'),
-        )        
-        def update_amplitude_min(left_value):
-            '''
-            dcc.Input股價最小值、最大值應有互相影響
-            當最小值輸入後，最大值的min限制應該會改變。
-            '''
-            return left_value
-        
-        @self.app.callback(
-            Output('amplitude-left', 'max'),
-            Input('amplitude-right', 'value'),
-        )
-        def update_amplitude_max(right_value):
-            '''
-            dcc.Input股價最小值、最大值應有互相影響
-            當最大值輸入後，最小值的max限制應該會改變。
-            '''
-            return right_value      
-
-        # 漲跌幅百分比
-        @self.app.callback(
-            Output('amplitude-percentage-right', 'min'),
-            Input('amplitude-percentage-left', 'value'),
-        )        
-        def update_amplitude_percent_min(left_value):
-            '''
-            dcc.Input股價最小值、最大值應有互相影響
-            當最小值輸入後，最大值的min限制應該會改變。
-            '''
-            return left_value
-        
-        @self.app.callback(
-            Output('amplitude-percentage-left', 'max'),
-            Input('amplitude-percentage-right', 'value'),
-        )
-        def update_amplitude_percent_max(right_value):
-            '''
-            dcc.Input股價最小值、最大值應有互相影響
-            當最大值輸入後，最小值的max限制應該會改變。
-            '''
-            return right_value
-        
+            @self.app.callback(
+                Output("{}-right".format(_), 'min'),
+                Input("{}-left".format(_), 'value'),
+            )        
+            def update_min(left_value):
+                '''
+                dcc.Input股價最小值、最大值應有互相影響
+                當最小值輸入後，最大值的min限制應該會改變。
+                '''
+                return left_value
+            
 
         @self.app.callback(
             Output('01-output-text', 'children'),
@@ -252,8 +183,8 @@ class DashBuilder(object):
                             dcc.Input(
                                 id='amplitude-left',
                                 type='number',
-                                min=-100,
-                                max=100,
+                                min=-99999,
+                                max=99999,
                                 placeholder='最小值',
                                 style={'width': self.style['unit_input_width'], 'display': 'inline-block', 'height':self.style['input_height']}), 
                             html.P(" %   ~ ",
@@ -261,8 +192,8 @@ class DashBuilder(object):
                             dcc.Input(
                                 id='amplitude-right',
                                 type='number',
-                                min=-100,
-                                max=100,
+                                min=-99999,
+                                max=99999,
                                 placeholder='最大值',
                                 style={'width': self.style['unit_input_width'], 'display': 'inline-block', 'height':self.style['input_height']}), 
                             html.P(" % ",
@@ -295,8 +226,8 @@ class DashBuilder(object):
                             dcc.Input(
                                 id='amplitude-percentage-left',
                                 type='number',
-                                min=-100,
-                                max=100,
+                                min=-99999,
+                                max=99999,
                                 placeholder='最小值',
                                 style={'width': self.style['unit_input_width'], 'display': 'inline-block', 'height':self.style['input_height']}), 
                             html.P(" %   ~ ",
@@ -304,8 +235,8 @@ class DashBuilder(object):
                             dcc.Input(
                                 id='amplitude-percentage-right',
                                 type='number',
-                                min=-100,
-                                max=100,
+                                min=-99999,
+                                max=99999,
                                 placeholder='最大值',
                                 style={'width': self.style['unit_input_width'], 'display': 'inline-block', 'height':self.style['input_height']}), 
                             html.P(" % ",
@@ -336,12 +267,20 @@ class DashBuilder(object):
                             html.P(" ", id='',
                                 style={'width': '80px', 'display': 'inline-block'}), 
                             dcc.Input(
-                                placeholder=self.dcc_elements['input_placeholder'],
+                                id='amplitude-price-left',
+                                type='number',
+                                min=-9999,
+                                max=9999,
+                                placeholder='最小值',
                                 style={'width': self.style['unit_input_width'], 'display': 'inline-block', 'height':self.style['input_height']}), 
                             html.P(" 元   ~ ",
                                 style={'width': '10%', 'display': 'inline-block'}),
                             dcc.Input(
-                                placeholder=self.dcc_elements['input_placeholder'],
+                                id='amplitude-price-right',
+                                type='number',
+                                min=-9999,
+                                max=9999,
+                                placeholder='最大值',
                                 style={'width': self.style['unit_input_width'], 'display': 'inline-block', 'height':self.style['input_height']}), 
                             html.P(" 元 ",
                                 style={'width': '10%', 'display': 'inline-block'})
@@ -371,12 +310,20 @@ class DashBuilder(object):
                             html.P(" 平均 ", id='',
                                 style={'width': '80px', 'display': 'inline-block'}), 
                             dcc.Input(
-                                placeholder=self.dcc_elements['input_placeholder'],
+                                id='volume-left',
+                                type='number',
+                                min=0,
+                                max=999999999,
+                                placeholder='最小值',
                                 style={'width': self.style['unit_input_width'], 'display': 'inline-block', 'height':self.style['input_height']}), 
                             html.P(" 張   ~ ",
                                 style={'width': '10%', 'display': 'inline-block'}),
                             dcc.Input(
-                                placeholder=self.dcc_elements['input_placeholder'],
+                                id='volume-right',
+                                type='number',
+                                min=0,
+                                max=999999999,
+                                placeholder='最大值',
                                 style={'width': self.style['unit_input_width'], 'display': 'inline-block', 'height':self.style['input_height']}), 
                             html.P(" 張 ",
                                 style={'width': '10%', 'display': 'inline-block'})
@@ -411,12 +358,20 @@ class DashBuilder(object):
                                 ],
                                 style={'verticalAlign': "middle",'width': self.style['2-words-checklist-width'], 'display': 'inline-block'}), 
                             dcc.Input(
-                                placeholder=self.dcc_elements['input_placeholder'],
+                                id='volume-change-left',
+                                type='number',
+                                min=0,
+                                max=999999999,
+                                placeholder='最小值',
                                 style={'width': self.style['unit_input_width'], 'display': 'inline-block', 'height':self.style['input_height']}), 
                             html.P(" 張   ~ ",
                                 style={'width': '10%', 'display': 'inline-block'}),
                             dcc.Input(
-                                placeholder=self.dcc_elements['input_placeholder'],
+                                id='volume-change-right',
+                                type='number',
+                                min=0,
+                                max=999999999,
+                                placeholder='最大值',
                                 style={'width': self.style['unit_input_width'], 'display': 'inline-block', 'height':self.style['input_height']}), 
                             html.P(" 張 ",
                                 style={'width': '10%', 'display': 'inline-block'})
@@ -451,12 +406,20 @@ class DashBuilder(object):
                                 ],
                                 style={'verticalAlign': "middle",'width': self.style['2-words-checklist-width'], 'display': 'inline-block'}), 
                             dcc.Input(
-                                placeholder=self.dcc_elements['input_placeholder'],
+                                id='volume-change-percent-left',
+                                type='number',
+                                min=0,
+                                max=999999999,
+                                placeholder='最小值',
                                 style={'width': self.style['unit_input_width'], 'display': 'inline-block', 'height':self.style['input_height']}), 
                             html.P(" %   ~ ",
                                 style={'width': '10%', 'display': 'inline-block'}),
                             dcc.Input(
-                                placeholder=self.dcc_elements['input_placeholder'],
+                                id='volume-change-percent-right',
+                                type='number',
+                                min=0,
+                                max=999999999,
+                                placeholder='最小值',
                                 style={'width': self.style['unit_input_width'], 'display': 'inline-block', 'height':self.style['input_height']}), 
                             html.P(" % ",
                                 style={'width': '10%', 'display': 'inline-block'})
@@ -552,12 +515,20 @@ class DashBuilder(object):
                                 ],
                                 style={'verticalAlign': "middle",'width': self.style['2-words-checklist-width'], 'display': 'inline-block'}), 
                             dcc.Input(
-                                placeholder=self.dcc_elements['input_placeholder'],
+                                id='credit-volume-left',
+                                type='number',
+                                min=0,
+                                max=999999999,
+                                placeholder='最小值',
                                 style={'width': self.style['unit_input_width'], 'display': 'inline-block', 'height':self.style['input_height']}), 
                             html.P(" 張   ~ ",
                                 style={'width': '10%', 'display': 'inline-block'}),
                             dcc.Input(
-                                placeholder=self.dcc_elements['input_placeholder'],
+                                id='credit-volume-right',
+                                type='number',
+                                min=0,
+                                max=999999999,
+                                placeholder='最大值',
                                 style={'width': self.style['unit_input_width'], 'display': 'inline-block', 'height':self.style['input_height']}), 
                             html.P(" 張 ",
                                 style={'width': '10%', 'display': 'inline-block'})
@@ -591,12 +562,20 @@ class DashBuilder(object):
                                 ],
                                 style={'verticalAlign': "middle",'width': self.style['2-words-checklist-width'], 'display': 'inline-block'}), 
                             dcc.Input(
-                                placeholder=self.dcc_elements['input_placeholder'],
+                                id='credit-percent-left',
+                                type='number',
+                                min=0,
+                                max=999999999,
+                                placeholder='最小值',
                                 style={'width': self.style['unit_input_width'], 'display': 'inline-block', 'height':self.style['input_height']}), 
                             html.P(" %   ~ ",
                                 style={'width': '10%', 'display': 'inline-block'}),
                             dcc.Input(
-                                placeholder=self.dcc_elements['input_placeholder'],
+                                id='credit-percent-right',
+                                type='number',
+                                min=0,
+                                max=999999999,
+                                placeholder='最大值',
                                 style={'width': self.style['unit_input_width'], 'display': 'inline-block', 'height':self.style['input_height']}), 
                             html.P(" % ",
                                 style={'width': '10%', 'display': 'inline-block'})
