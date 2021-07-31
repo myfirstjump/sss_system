@@ -34,6 +34,8 @@ class DashBuilder(object):
             'dropdown_width': '50px',
             'n_day_input_with': '50px',
             'unit_input_width': '120px',
+            '2-words-checklist-width': '80px',
+            '3-words-checklist-width': '100px'
         }
 
         self.dcc_elements = {
@@ -111,6 +113,42 @@ class DashBuilder(object):
             '''
             return right_value      
 
+        # 漲跌幅百分比
+        @self.app.callback(
+            Output('amplitude-percentage-right', 'min'),
+            Input('amplitude-percentage-left', 'value'),
+        )        
+        def update_amplitude_percent_min(left_value):
+            '''
+            dcc.Input股價最小值、最大值應有互相影響
+            當最小值輸入後，最大值的min限制應該會改變。
+            '''
+            return left_value
+        
+        @self.app.callback(
+            Output('amplitude-percentage-left', 'max'),
+            Input('amplitude-percentage-right', 'value'),
+        )
+        def update_amplitude_percent_max(right_value):
+            '''
+            dcc.Input股價最小值、最大值應有互相影響
+            當最大值輸入後，最小值的max限制應該會改變。
+            '''
+            return right_value
+        
+
+        @self.app.callback(
+            Output('01-output-text', 'children'),
+            Input('submit-button', 'n_clicks'),
+            State('equity-left', 'value'),
+            State('equity-right', 'value')
+        )
+        def update_output(n_clicks, equity_left, equity_right):
+            if (equity_left != None) and (equity_right != None):
+                text = u'''股本範圍介於 {} 億元至 {} 億元之股票'''.format(equity_left, equity_right)
+            else:
+                text = ''
+            return text
 
 
         self.app.layout = html.Div( # TOP DIV
@@ -214,7 +252,7 @@ class DashBuilder(object):
                             dcc.Input(
                                 id='amplitude-left',
                                 type='number',
-                                min=0,
+                                min=-100,
                                 max=100,
                                 placeholder='最小值',
                                 style={'width': self.style['unit_input_width'], 'display': 'inline-block', 'height':self.style['input_height']}), 
@@ -223,7 +261,7 @@ class DashBuilder(object):
                             dcc.Input(
                                 id='amplitude-right',
                                 type='number',
-                                min=0,
+                                min=-100,
                                 max=100,
                                 placeholder='最大值',
                                 style={'width': self.style['unit_input_width'], 'display': 'inline-block', 'height':self.style['input_height']}), 
@@ -255,12 +293,20 @@ class DashBuilder(object):
                             html.P(" ", id='',
                                 style={'width': '80px', 'display': 'inline-block'}), 
                             dcc.Input(
-                                placeholder=self.dcc_elements['input_placeholder'],
+                                id='amplitude-percentage-left',
+                                type='number',
+                                min=-100,
+                                max=100,
+                                placeholder='最小值',
                                 style={'width': self.style['unit_input_width'], 'display': 'inline-block', 'height':self.style['input_height']}), 
                             html.P(" %   ~ ",
                                 style={'width': '10%', 'display': 'inline-block'}),
                             dcc.Input(
-                                placeholder=self.dcc_elements['input_placeholder'],
+                                id='amplitude-percentage-right',
+                                type='number',
+                                min=-100,
+                                max=100,
+                                placeholder='最大值',
                                 style={'width': self.style['unit_input_width'], 'display': 'inline-block', 'height':self.style['input_height']}), 
                             html.P(" % ",
                                 style={'width': '10%', 'display': 'inline-block'})
@@ -344,6 +390,9 @@ class DashBuilder(object):
                     html.Div([
                             html.P("07 成交量增減張數",
                                 style={'width': self.style['query_statment_width'], 'display': 'inline-block'}), 
+                            dcc.Input(
+                                placeholder=self.dcc_elements['input_placeholder'],
+                                style={'verticalAlign': "middle", 'width': self.style['n_day_input_with'], 'display': 'inline-block', 'height':self.style['input_height']}), 
                             dcc.Dropdown(
                                 options=[
                                     {'label': '日', 'value': 'd'},
@@ -357,10 +406,10 @@ class DashBuilder(object):
                                 style={'verticalAlign': "middle",'width': self.style['dropdown_width'], 'display': 'inline-block', 'height':self.style['input_height']}), 
                             dcc.Checklist(
                                 options=[
-                                    {'label': '增', 'value': 'increase'},
-                                    {'label': '減', 'value': 'decrease'},
+                                    {'label': '增加', 'value': 'increase'},
+                                    {'label': '減少', 'value': 'decrease'},
                                 ],
-                                style={'verticalAlign': "middle",'width': '20%', 'display': 'inline-block'}), 
+                                style={'verticalAlign': "middle",'width': self.style['2-words-checklist-width'], 'display': 'inline-block'}), 
                             dcc.Input(
                                 placeholder=self.dcc_elements['input_placeholder'],
                                 style={'width': self.style['unit_input_width'], 'display': 'inline-block', 'height':self.style['input_height']}), 
@@ -379,8 +428,11 @@ class DashBuilder(object):
                     html.Br(),
                     # 8.2
                     html.Div([
-                            html.P("08 成交量增減百分比",
-                                style={'width': self.style['query_statment_width'], 'display': 'inline-block'}), 
+                            html.P("08 成交量增減%",
+                                style={'width': self.style['query_statment_width'], 'display': 'inline-block'}),
+                            dcc.Input(
+                                placeholder=self.dcc_elements['input_placeholder'],
+                                style={'verticalAlign': "middle", 'width': self.style['n_day_input_with'], 'display': 'inline-block', 'height':self.style['input_height']}), 
                             dcc.Dropdown(
                                 options=[
                                     {'label': '日', 'value': 'd'},
@@ -394,10 +446,10 @@ class DashBuilder(object):
                                 style={'verticalAlign': "middle",'width': self.style['dropdown_width'], 'display': 'inline-block', 'height':self.style['input_height']}), 
                             dcc.Checklist(
                                 options=[
-                                    {'label': '增', 'value': 'increase'},
-                                    {'label': '減', 'value': 'decrease'},
+                                    {'label': '增加', 'value': 'increase'},
+                                    {'label': '減少', 'value': 'decrease'},
                                 ],
-                                style={'verticalAlign': "middle",'width': '20%', 'display': 'inline-block'}), 
+                                style={'verticalAlign': "middle",'width': self.style['2-words-checklist-width'], 'display': 'inline-block'}), 
                             dcc.Input(
                                 placeholder=self.dcc_elements['input_placeholder'],
                                 style={'width': self.style['unit_input_width'], 'display': 'inline-block', 'height':self.style['input_height']}), 
@@ -437,13 +489,13 @@ class DashBuilder(object):
                                     {'label': '投信', 'value': 'trust'},
                                     {'label': '自營商', 'value': 'dealer'},
                                 ],
-                                style={'verticalAlign': "middle", 'width': '20%', 'display': 'inline-block'}), 
+                                style={'verticalAlign': "middle", 'width': self.style['3-words-checklist-width'], 'display': 'inline-block'}), 
                             dcc.Checklist(
                                 options=[
                                     {'label': '買超', 'value': 'buy'},
                                     {'label': '賣超', 'value': 'sell'},
                                 ],
-                                style={'verticalAlign': "middle", 'width': '20%', 'display': 'inline-block'}), 
+                                style={'verticalAlign': "middle", 'width': self.style['2-words-checklist-width'], 'display': 'inline-block'}), 
                             
                             html.Div([
                                 html.P("張數",
@@ -474,7 +526,90 @@ class DashBuilder(object):
                                 "white-space": "pre",
                                 "display": "inline-block",
                     }),
-                                            
+                    html.Br(),
+                    # 13~15
+                    html.Div([
+                            html.P("10 融資融券張數",
+                                style={'width': self.style['query_statment_width'], 'display': 'inline-block'}), 
+                            dcc.Input(
+                                placeholder=self.dcc_elements['input_placeholder'],
+                                style={'verticalAlign': "middle", 'width': self.style['n_day_input_with'], 'display': 'inline-block', 'height':self.style['input_height']}), 
+                            dcc.Dropdown(
+                                options=[
+                                    {'label': '日', 'value': 'd'},
+                                    {'label': '週', 'value': 'w'},
+                                    {'label': '月', 'value': 'm'},
+                                    {'label': '季', 'value': 's'},
+                                    {'label': '年', 'value': 'y'}
+                                ],
+                                value='日',
+                                placeholder=self.dcc_elements['dropdown_placeholder'],
+                                style={'verticalAlign': "middle",'width': self.style['dropdown_width'], 'display': 'inline-block', 'height':self.style['input_height']}), 
+                            dcc.Checklist(
+                                options=[
+                                    {'label': '增加', 'value': 'increase'},
+                                    {'label': '減少', 'value': 'decrease'},
+                                ],
+                                style={'verticalAlign': "middle",'width': self.style['2-words-checklist-width'], 'display': 'inline-block'}), 
+                            dcc.Input(
+                                placeholder=self.dcc_elements['input_placeholder'],
+                                style={'width': self.style['unit_input_width'], 'display': 'inline-block', 'height':self.style['input_height']}), 
+                            html.P(" 張   ~ ",
+                                style={'width': '10%', 'display': 'inline-block'}),
+                            dcc.Input(
+                                placeholder=self.dcc_elements['input_placeholder'],
+                                style={'width': self.style['unit_input_width'], 'display': 'inline-block', 'height':self.style['input_height']}), 
+                            html.P(" 張 ",
+                                style={'width': '10%', 'display': 'inline-block'})
+                    ], style={
+                                "white-space": "pre",
+                                "display": "inline-block",
+                    }),
+                    html.Br(),
+                    html.Br(),
+                    html.Div([
+                            html.P("11 融資融券增減%",
+                                style={'width': self.style['query_statment_width'], 'display': 'inline-block'}), 
+                            dcc.Input(
+                                placeholder=self.dcc_elements['input_placeholder'],
+                                style={'verticalAlign': "middle", 'width': self.style['n_day_input_with'], 'display': 'inline-block', 'height':self.style['input_height']}), 
+                            dcc.Dropdown(
+                                options=[
+                                    {'label': '日', 'value': 'd'},
+                                    {'label': '週', 'value': 'w'},
+                                    {'label': '月', 'value': 'm'},
+                                    {'label': '季', 'value': 's'},
+                                    {'label': '年', 'value': 'y'}
+                                ],
+                                value='日',
+                                placeholder=self.dcc_elements['dropdown_placeholder'],
+                                style={'verticalAlign': "middle",'width': self.style['dropdown_width'], 'display': 'inline-block', 'height':self.style['input_height']}), 
+                            dcc.Checklist(
+                                options=[
+                                    {'label': '增加', 'value': 'increase'},
+                                    {'label': '減少', 'value': 'decrease'},
+                                ],
+                                style={'verticalAlign': "middle",'width': self.style['2-words-checklist-width'], 'display': 'inline-block'}), 
+                            dcc.Input(
+                                placeholder=self.dcc_elements['input_placeholder'],
+                                style={'width': self.style['unit_input_width'], 'display': 'inline-block', 'height':self.style['input_height']}), 
+                            html.P(" %   ~ ",
+                                style={'width': '10%', 'display': 'inline-block'}),
+                            dcc.Input(
+                                placeholder=self.dcc_elements['input_placeholder'],
+                                style={'width': self.style['unit_input_width'], 'display': 'inline-block', 'height':self.style['input_height']}), 
+                            html.P(" % ",
+                                style={'width': '10%', 'display': 'inline-block'})
+                    ], style={
+                                "white-space": "pre",
+                                "display": "inline-block",
+                    }),
+                    html.Br(),
+                    html.Br(),
+                    html.Div([
+                        html.Button('送出篩選條件', id='submit-button', n_clicks=0)
+                    ], style={'textAlign': 'center'}
+                    )                       
                     ], style={ 'verticalAlign': "middle", 'height': '700px', 'width': '49%', 'display': 'inline-block', 'border': 'solid'}
                 ),# FILTER CONDITION DIV
 
@@ -483,6 +618,10 @@ class DashBuilder(object):
                         dcc.Markdown(
                             "您所增加的篩選條件"
                         ),
+                        html.Div([
+                            html.Plaintext(id='01-output-text',)
+                        ],
+                        )
                     ],
                     style={ 'verticalAlign': "middle", 'height': '700px', 'width': '49%', 'display': 'inline-block', 'border': 'solid'}
                 )# CONDITION DISPLAY DIV
