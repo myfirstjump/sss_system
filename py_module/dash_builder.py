@@ -66,8 +66,9 @@ class DashBuilder(object):
                 當最小值輸入後，最大值的min限制應該會改變。
                 '''
                 return left_value
-            
+        
 
+        # 01
         @self.app.callback(
             Output('01-output-text', 'children'),
             Input('submit-button', 'n_clicks'),
@@ -78,9 +79,86 @@ class DashBuilder(object):
             if (equity_left != None) and (equity_right != None):
                 text = u'''股本範圍介於 {} 億元至 {} 億元之股票'''.format(equity_left, equity_right)
             else:
-                text = ''
+                text = ""
             return text
 
+        # 02
+        @self.app.callback(
+            Output('02-output-text', 'children'),
+            Input('submit-button', 'n_clicks'),
+            State('price-left', 'value'),
+            State('price-right', 'value')
+        )
+        def update_output(n_clicks, price_left, price_right):
+            if (price_left != None) and (price_right != None):
+                text = u'''股價範圍介於 {} 元至 {} 元之股票'''.format(price_left, price_right)
+            else:
+                text = ""
+            return text
+        
+        # 03
+        @self.app.callback(
+            Output('03-output-text', 'children'),
+            Input('submit-button', 'n_clicks'),
+            State('amplitude-days', 'value'),
+            State('amplitude-unit', 'value'),
+            State('amplitude-left', 'value'),
+            State('amplitude-right', 'value')
+        )
+        def update_output(n_clicks, days, unit, left, right):
+            if (days != None) and (unit != None) and (left != None) and (right != None):
+                text = u'''{}{}內，平均振幅介於 {}% 至 {}% 之股票'''.format(days, unit, left, right)
+            else:
+                text = ""
+            return text
+
+        # 04
+        @self.app.callback(
+            Output('04-output-text', 'children'),
+            Input('submit-button', 'n_clicks'),
+            State('amplitude-percentage-days', 'value'),
+            State('amplitude-percentage-unit', 'value'),
+            State('amplitude-percentage-left', 'value'),
+            State('amplitude-percentage-right', 'value')
+        )
+        def update_output(n_clicks, days, unit, left, right):
+            if (days != None) and (unit != None) and (left != None) and (right != None):
+                text = u'''{}{}內，漲跌幅百分比介於 {}% 至 {}% 之股票'''.format(days, unit, left, right)
+            else:
+                text = ""
+            return text
+
+        # 05
+        @self.app.callback(
+            Output('05-output-text', 'children'),
+            Input('submit-button', 'n_clicks'),
+            State('amplitude-price-days', 'value'),
+            State('amplitude-price-unit', 'value'),
+            State('amplitude-price-left', 'value'),
+            State('amplitude-price-right', 'value')
+        )
+        def update_output(n_clicks, days, unit, left, right):
+            if (days != None) and (unit != None) and (left != None) and (right != None):
+                text = u'''{}{}內，漲跌幅價格介於 {}元 至 {}元 之股票'''.format(days, unit, left, right)
+            else:
+                text = ""
+            return text
+
+        # 06
+        @self.app.callback(
+            Output('06-output-text', 'children'),
+            Input('submit-button', 'n_clicks'),
+            State('volume-days', 'value'),
+            State('volume-unit', 'value'),
+            State('volume-left', 'value'),
+            State('volume-right', 'value')
+        )
+        def update_output(n_clicks, days, unit, left, right):
+            if (days != None) and (unit != None) and (left != None) and (right != None):
+                text = u'''{}{}內，成交張數介於 {}% 至 {}% 之股票'''.format(days, unit, left, right)
+            else:
+                text = ""
+            return text
 
         self.app.layout = html.Div( # TOP DIV
             style={'backgroundColor': self.colors['background']}, 
@@ -165,15 +243,17 @@ class DashBuilder(object):
                             html.P("03 平均振幅",
                                 style={'width': self.style['query_statment_width'], 'display': 'inline-block'}), 
                             dcc.Input(
+                                id='amplitude-days',
                                 placeholder=self.dcc_elements['input_placeholder'],
                                 style={'verticalAlign': "middle",'width': self.style['n_day_input_with'], 'display': 'inline-block', 'height':self.style['input_height']}), 
                             dcc.Dropdown(
+                                id='amplitude-unit',
                                 options=[
-                                    {'label': '日', 'value': 'd'},
-                                    {'label': '週', 'value': 'w'},
-                                    {'label': '月', 'value': 'm'},
-                                    {'label': '季', 'value': 's'},
-                                    {'label': '年', 'value': 'y'}
+                                    {'label': '日', 'value': '日'},
+                                    {'label': '週', 'value': '週'},
+                                    {'label': '月', 'value': '月'},
+                                    {'label': '季', 'value': '季'},
+                                    {'label': '年', 'value': '年'}
                                 ],
                                 value='日',
                                 placeholder=self.dcc_elements['dropdown_placeholder'],
@@ -183,7 +263,7 @@ class DashBuilder(object):
                             dcc.Input(
                                 id='amplitude-left',
                                 type='number',
-                                min=-99999,
+                                min=0,
                                 max=99999,
                                 placeholder='最小值',
                                 style={'width': self.style['unit_input_width'], 'display': 'inline-block', 'height':self.style['input_height']}), 
@@ -192,7 +272,7 @@ class DashBuilder(object):
                             dcc.Input(
                                 id='amplitude-right',
                                 type='number',
-                                min=-99999,
+                                min=0,
                                 max=99999,
                                 placeholder='最大值',
                                 style={'width': self.style['unit_input_width'], 'display': 'inline-block', 'height':self.style['input_height']}), 
@@ -208,15 +288,17 @@ class DashBuilder(object):
                             html.P("04 漲跌幅百分比",
                                 style={'width': self.style['query_statment_width'], 'display': 'inline-block'}), 
                             dcc.Input(
+                                id='amplitude-percentage-days',
                                 placeholder=self.dcc_elements['input_placeholder'],
                                 style={'verticalAlign': "middle", 'width': self.style['n_day_input_with'], 'display': 'inline-block', 'height':self.style['input_height']}),
                             dcc.Dropdown(
+                                id='amplitude-percentage-unit',
                                 options=[
-                                    {'label': '日', 'value': 'd'},
-                                    {'label': '週', 'value': 'w'},
-                                    {'label': '月', 'value': 'm'},
-                                    {'label': '季', 'value': 's'},
-                                    {'label': '年', 'value': 'y'}
+                                    {'label': '日', 'value': '日'},
+                                    {'label': '週', 'value': '週'},
+                                    {'label': '月', 'value': '月'},
+                                    {'label': '季', 'value': '季'},
+                                    {'label': '年', 'value': '年'}
                                 ],
                                 value='日',
                                 placeholder=self.dcc_elements['dropdown_placeholder'],
@@ -251,15 +333,17 @@ class DashBuilder(object):
                             html.P("05 漲跌幅價格",
                                 style={'width': self.style['query_statment_width'], 'display': 'inline-block'}), 
                             dcc.Input(
+                                id='amplitude-price-days',
                                 placeholder=self.dcc_elements['input_placeholder'],
                                 style={'verticalAlign': "middle", 'width': self.style['n_day_input_with'], 'display': 'inline-block', 'height':self.style['input_height']}),
                             dcc.Dropdown(
+                                id='amplitude-price-unit',
                                 options=[
-                                    {'label': '日', 'value': 'd'},
-                                    {'label': '週', 'value': 'w'},
-                                    {'label': '月', 'value': 'm'},
-                                    {'label': '季', 'value': 's'},
-                                    {'label': '年', 'value': 'y'}
+                                    {'label': '日', 'value': '日'},
+                                    {'label': '週', 'value': '週'},
+                                    {'label': '月', 'value': '月'},
+                                    {'label': '季', 'value': '季'},
+                                    {'label': '年', 'value': '年'}
                                 ],
                                 value='日',
                                 placeholder=self.dcc_elements['dropdown_placeholder'],
@@ -294,15 +378,17 @@ class DashBuilder(object):
                             html.P("06 成交張數",
                                 style={'width': self.style['query_statment_width'], 'display': 'inline-block'}), 
                             dcc.Input(
+                                id='volume-days',
                                 placeholder=self.dcc_elements['input_placeholder'],
                                 style={'verticalAlign': "middle", 'width': self.style['n_day_input_with'], 'display': 'inline-block', 'height':self.style['input_height']}), 
                             dcc.Dropdown(
+                                id='volume-unit',
                                 options=[
-                                    {'label': '日', 'value': 'd'},
-                                    {'label': '週', 'value': 'w'},
-                                    {'label': '月', 'value': 'm'},
-                                    {'label': '季', 'value': 's'},
-                                    {'label': '年', 'value': 'y'}
+                                    {'label': '日', 'value': '日'},
+                                    {'label': '週', 'value': '週'},
+                                    {'label': '月', 'value': '月'},
+                                    {'label': '季', 'value': '季'},
+                                    {'label': '年', 'value': '年'}
                                 ],
                                 value='日',
                                 placeholder=self.dcc_elements['dropdown_placeholder'],
@@ -342,11 +428,11 @@ class DashBuilder(object):
                                 style={'verticalAlign': "middle", 'width': self.style['n_day_input_with'], 'display': 'inline-block', 'height':self.style['input_height']}), 
                             dcc.Dropdown(
                                 options=[
-                                    {'label': '日', 'value': 'd'},
-                                    {'label': '週', 'value': 'w'},
-                                    {'label': '月', 'value': 'm'},
-                                    {'label': '季', 'value': 's'},
-                                    {'label': '年', 'value': 'y'}
+                                    {'label': '日', 'value': '日'},
+                                    {'label': '週', 'value': '週'},
+                                    {'label': '月', 'value': '月'},
+                                    {'label': '季', 'value': '季'},
+                                    {'label': '年', 'value': '年'}
                                 ],
                                 value='日',
                                 placeholder=self.dcc_elements['dropdown_placeholder'],
@@ -390,11 +476,11 @@ class DashBuilder(object):
                                 style={'verticalAlign': "middle", 'width': self.style['n_day_input_with'], 'display': 'inline-block', 'height':self.style['input_height']}), 
                             dcc.Dropdown(
                                 options=[
-                                    {'label': '日', 'value': 'd'},
-                                    {'label': '週', 'value': 'w'},
-                                    {'label': '月', 'value': 'm'},
-                                    {'label': '季', 'value': 's'},
-                                    {'label': '年', 'value': 'y'}
+                                    {'label': '日', 'value': '日'},
+                                    {'label': '週', 'value': '週'},
+                                    {'label': '月', 'value': '月'},
+                                    {'label': '季', 'value': '季'},
+                                    {'label': '年', 'value': '年'}
                                 ],
                                 value='日',
                                 placeholder=self.dcc_elements['dropdown_placeholder'],
@@ -437,11 +523,11 @@ class DashBuilder(object):
                                 style={'verticalAlign': "middle", 'width': self.style['n_day_input_with'], 'display': 'inline-block', 'height':self.style['input_height']}), 
                             dcc.Dropdown(
                                 options=[
-                                    {'label': '日', 'value': 'd'},
-                                    {'label': '週', 'value': 'w'},
-                                    {'label': '月', 'value': 'm'},
-                                    {'label': '季', 'value': 's'},
-                                    {'label': '年', 'value': 'y'}
+                                    {'label': '日', 'value': '日'},
+                                    {'label': '週', 'value': '週'},
+                                    {'label': '月', 'value': '月'},
+                                    {'label': '季', 'value': '季'},
+                                    {'label': '年', 'value': '年'}
                                 ],
                                 value='日',
                                 placeholder=self.dcc_elements['dropdown_placeholder'],
@@ -499,11 +585,11 @@ class DashBuilder(object):
                                 style={'verticalAlign': "middle", 'width': self.style['n_day_input_with'], 'display': 'inline-block', 'height':self.style['input_height']}), 
                             dcc.Dropdown(
                                 options=[
-                                    {'label': '日', 'value': 'd'},
-                                    {'label': '週', 'value': 'w'},
-                                    {'label': '月', 'value': 'm'},
-                                    {'label': '季', 'value': 's'},
-                                    {'label': '年', 'value': 'y'}
+                                    {'label': '日', 'value': '日'},
+                                    {'label': '週', 'value': '週'},
+                                    {'label': '月', 'value': '月'},
+                                    {'label': '季', 'value': '季'},
+                                    {'label': '年', 'value': '年'}
                                 ],
                                 value='日',
                                 placeholder=self.dcc_elements['dropdown_placeholder'],
@@ -546,11 +632,11 @@ class DashBuilder(object):
                                 style={'verticalAlign': "middle", 'width': self.style['n_day_input_with'], 'display': 'inline-block', 'height':self.style['input_height']}), 
                             dcc.Dropdown(
                                 options=[
-                                    {'label': '日', 'value': 'd'},
-                                    {'label': '週', 'value': 'w'},
-                                    {'label': '月', 'value': 'm'},
-                                    {'label': '季', 'value': 's'},
-                                    {'label': '年', 'value': 'y'}
+                                    {'label': '日', 'value': '日'},
+                                    {'label': '週', 'value': '週'},
+                                    {'label': '月', 'value': '月'},
+                                    {'label': '季', 'value': '季'},
+                                    {'label': '年', 'value': '年'}
                                 ],
                                 value='日',
                                 placeholder=self.dcc_elements['dropdown_placeholder'],
@@ -598,7 +684,17 @@ class DashBuilder(object):
                             "您所增加的篩選條件"
                         ),
                         html.Div([
-                            html.Plaintext(id='01-output-text',)
+                            html.Plaintext(id='01-output-text',),
+                            html.Plaintext(id='02-output-text',),
+                            html.Plaintext(id='03-output-text',),
+                            html.Plaintext(id='04-output-text',),
+                            html.Plaintext(id='05-output-text',),
+                            html.Plaintext(id='06-output-text',),
+                            html.Plaintext(id='07-output-text',),
+                            html.Plaintext(id='08-output-text',),
+                            html.Plaintext(id='09-output-text',),
+                            html.Plaintext(id='10-output-text',),
+                            html.Plaintext(id='11-output-text',),
                         ],
                         )
                     ],
