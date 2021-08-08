@@ -22,7 +22,7 @@ class DashBuilder(object):
         # self.df = pd.read_csv('https://gist.githubusercontent.com/chriddyp/5d1ea79569ed194d432e56108a04d188/raw/a9f9e8076b837d541398e999dcbac2b2826a81f8/gdp-life-exp-2007.csv')
 
         self.external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
-        self.app = dash.Dash(__name__, external_stylesheets=self.external_stylesheets)
+        self.app = dash.Dash(__name__)#, external_stylesheets=self.external_stylesheets)
         self.app.title = 'Stock Target Selection'
         self.colors = {
             'background': '#ffffff',
@@ -43,26 +43,40 @@ class DashBuilder(object):
             'input_placeholder': '---',
         }
 
-        self.app.layout = html.Div( # TOP DIV
-            children=[
+        self.app.layout = html.Div([ # TOP DIV
+
+                # HEADER
                 html.Div([
+                        html.H1('台股選股系統', style={'margin':'10px 15px 10px 30px', 'padding':'10px'})
+                ]),# HEADER
+
+                html.Div([ # FILTER & DISPLAY
+
+                    # FILTER
                     html.Div([
-                        html.Div(
-                            html.B('負債比率近一年數據小於30%'),
-                            className='pure-text'
-                        ),
-                        html.Div(
-                            html.B('>')
-                            , className='submit-button'
-                        )
-                    ]
-                )
+                        'FILTER',
+                        html.Div([
+                            html.P('選項一', style={'display': 'inline-block'}),
+                            html.Button('>>', style={'display': 'inline-block','position':'absolute', 'right':'0'})
+                        ], style={'position': 'relative', 'margin':'10px 30px 10px 30px', 'padding':'10px'}),
+                        html.Div([
+                            html.P('選項二', style={'display': 'inline-block'}),
+                            html.Button('>>', style={'display': 'inline-block','position':'absolute', 'right':'0'})
+                        ], style={'position': 'relative', 'margin':'10px 30px 10px 30px', 'padding':'10px'}),
+                    ], style={'display': 'inline-block', 'width': '45%', 'height': '500px', 'border':'solid', 'verticalAlign': "middle", 'margin':'10px 15px 10px 30px', 'padding':'10px'}),# FILTER
 
+                    # DISPLAY
+                    html.Div([
+                        "DISPLAY"
+                    ], style={'display': 'inline-block', 'width': '45%', 'height': '500px', 'border':'solid', 'verticalAlign': "middle", 'margin':'10px 30px 10px 15px', 'padding':'10px'}),  # DISPLAY
 
-                ], className='frame',
-                style={'position':'relative', 'border': 'solid', 'height': '700px', 'width': '49%'})
-            ]
-        )#TOP DIV
+                ]), # FILTER & DISPLAY
+
+                # SELECTION RESULT
+                html.Div([
+                    'SELECTION RESULT'
+                ], style={'display': 'inline-block', 'width': '100%', 'height': '100%', 'border':'solid', 'margin':'10px 30px 10px 30px', 'padding':'10px'}),  # SELECTION RESULT                            
+        ])#TOP DIV
 
         self.app.run_server(debug=True, dev_tools_hot_reload=True)
 

@@ -13,10 +13,10 @@ def get_header(app):
                 [
                     html.A(
                         html.Img(
-                            src=app.get_asset_url("sss-logo-main.png"),
+                            src=app.get_asset_url("dash-financial-logo.png"),
                             className="logo",
                         ),
-                        href="https://google.com",
+                        href="https://plotly.com/dash",
                     ),
                     html.A(
                         html.Button(
