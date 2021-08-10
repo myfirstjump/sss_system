@@ -1,24 +1,43 @@
 import dash_html_components as html
+import dash_core_components as dcc
 import pandas as pd
 import pathlib
-
 
 
 def create_layout(item_style, button_style):
     return html.Div(
         [
             html.Div([
-                html.P('公司營收篩選條件一', style={'display': 'inline-block'}),
-                html.Button('>', style=button_style, id='revenue-01')
-            ], style=item_style),
-            html.Div([
-                html.P('公司營收篩選條件二', style={'display': 'inline-block'}),
-                html.Button('>', style=button_style, id='revenue-02')
-            ], style=item_style),
-            html.Div([
-                html.P('公司營收篩選條件三', style={'display': 'inline-block'}),
-                html.Button('>', style=button_style, id='revenue-03')
+                html.P('營收', style={'display': 'inline-block'}),
+                html.P('大於', style={'display': 'inline-block', 'color':'red', 'padding':'0px 5px 0px 5px'}),
+                html.P('5', style={'display': 'inline-block', 'color':'red', 'padding':'0px 5px 0px 5px'}),
+                html.P('億元', style={'display': 'inline-block'}),
+                html.Button('>', n_clicks=0, style=button_style, id='revenue-0601-button')
             ], style=item_style),
         ],
         className="page",
     )
+
+def create_output(item_style, button_style, dropdown_style, input_style):
+    return html.Div([
+                html.P('營收', style={'display': 'inline-block'}),
+                dcc.Dropdown(
+                    id='revenue-0601-dd',
+                    options=[
+                        {'label': '大於', 'value': 1},
+                        {'label': '小於', 'value': -1},
+                    ],
+                    value='1',
+                    placeholder='大於',
+                    style=dropdown_style),
+                dcc.Input(
+                    id='revenue-0601-ip',
+                    type='number',
+                    min=0,
+                    max=99999,
+                    value=5,
+                    placeholder='5',
+                    style=input_style),
+                html.P('億元', style={'display': 'inline-block'}),
+                html.Button('x', n_clicks=0, style=button_style, id='revenue-0601-x')
+            ], style=item_style)

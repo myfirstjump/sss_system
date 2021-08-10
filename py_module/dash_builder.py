@@ -30,8 +30,8 @@ class DashBuilder(object):
         # self.df = pd.read_csv('https://gist.githubusercontent.com/chriddyp/5d1ea79569ed194d432e56108a04d188/raw/a9f9e8076b837d541398e999dcbac2b2826a81f8/gdp-life-exp-2007.csv')
 
         self.external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
-        # self.app = dash.Dash(__name__,suppress_callback_exceptions=True)#, external_stylesheets=self.external_stylesheets)
-        self.app = dash.Dash(__name__)
+        self.app = dash.Dash(__name__, suppress_callback_exceptions=True)#, external_stylesheets=self.external_stylesheets)
+        # self.app = dash.Dash(__name__)
         self.app.title = 'Stock Target Selection'
         self.colors = {
             'background': '#ffffff',
@@ -87,6 +87,23 @@ class DashBuilder(object):
             'padding':'1%',            
         }
 
+        self.link_div_style = {
+            'margin':'5%',
+            'padding':'5%'
+        }
+
+        self.dropdown_style = {
+            'display':'inline-block',
+            'verticalAlign': 'middle',
+            'padding':'0% 1% 0% 1%',
+            'width': '65px',
+        }
+        self.input_style = {
+            'display':'inline-block',
+            'verticalAlign': 'middle',
+            'width': '20%',
+        }
+
         @self.app.callback(Output("filter-content", "children"), [Input("url", "pathname")])
         def display_page(pathname):
             if pathname == "/sss_system/py_module/pages/basic_01":
@@ -102,16 +119,97 @@ class DashBuilder(object):
             elif pathname == "/sss_system/py_module/pages/revenue_06":
                 return revenue_06.create_layout(self.item_style, self.button_style)
             else:
-                return basic_01.create_layout(self.item_style)
+                return basic_01.create_layout(self.item_style, self.button_style)
 
 
         @self.app.callback(
-            Output('01-output-text', 'children'),
-            Input('basic_01', 'n_clicks'),
-            State('basic_01P', 'children')
+            Output('0101-output-text', 'children'),
+            Input('basic-0101-button', 'n_clicks'),
         )
-        def update_output(n_clicks, text):
-            return text
+        def update_output(n_clicks):
+            # ctx = dash.callback_context
+            # button_id = ctx.triggered[0]['prop_id'].split('.')[0]
+            if n_clicks > 0:
+                return basic_01.create_output(self.item_style, self.button_style, self.dropdown_style, self.input_style)
+            else:
+                return ''
+
+        @self.app.callback(
+            Output('basic-0101-button', 'n_clicks'),
+            Input('basic-0101-x', 'n_clicks'),
+        )
+        def update_output(n_clicks):
+            return 0
+
+
+
+        # @self.app.callback(
+        #     Output('0201-output-text', 'children'),
+        #     Input('price-0201-button', 'n_clicks'),
+        # )
+        # def update_output(n_clicks):
+        #     if n_clicks > 0:
+        #         return price_02.create_output(self.item_style, self.button_style, self.dropdown_style, self.input_style)
+        #     else:
+        #         return ""
+        # @self.app.callback(
+        #     Output('price-0201-button', 'n_clicks'),
+        #     Input('price-0201-x', 'n_clicks'),
+        # )
+        # def update_output(n_clicks):
+        #     return 0  
+
+
+
+
+        # for _ in ('basic-0101', 'price-0201', 'volume-0301', 'legal-0401', 'credit-0501', 'revenue-0601'):
+
+        #     page, num = _.split('-')
+        #     @self.app.callback(
+        #         Output('{}-output-text'.format(num), 'children'),
+        #         Input('{}-button'.format(_), 'n_clicks'),
+        #     )
+        #     def update_output(n_clicks):
+        #         if page == 'basic':
+        #             if n_clicks > 0:
+        #                 return basic_01.create_output(self.item_style, self.button_style, self.dropdown_style, self.input_style)
+        #             else:
+        #                 return ""
+        #         elif page == 'price':
+        #             if n_clicks > 0:
+        #                 return price_02.create_output(self.item_style, self.button_style, self.dropdown_style, self.input_style)
+        #             else:
+        #                 return ""
+        #         elif page == 'volume':
+        #             if n_clicks > 0:
+        #                 return volume_03.create_output(self.item_style, self.button_style, self.dropdown_style, self.input_style)
+        #             else:
+        #                 return ""
+        #         elif page == 'legal':
+        #             if n_clicks > 0:
+        #                 return legal_04.create_output(self.item_style, self.button_style, self.dropdown_style, self.input_style)
+        #             else:
+        #                 return ""
+        #         elif page == 'credit':
+        #             if n_clicks > 0:
+        #                 return credit_05.create_output(self.item_style, self.button_style, self.dropdown_style, self.input_style)
+        #             else:
+        #                 return ""
+        #         elif page == 'revenue':
+        #             if n_clicks > 0:
+        #                 return revenue_06.create_output(self.item_style, self.button_style, self.dropdown_style, self.input_style)
+        #             else:
+        #                 return ""
+        #         else:
+        #             return ""
+
+        #     @self.app.callback(
+        #         Output('{}-button'.format(_), 'n_clicks'),
+        #         Input('{}-x'.format(_), 'n_clicks'),
+        #     )
+        #     def update_output(n_clicks):
+        #         return 0
+
 
 
         self.app.layout = html.Div([ # TOP DIV
@@ -125,71 +223,102 @@ class DashBuilder(object):
 
                     # FILTER
                     html.Div([
-                        'FILTER',
-                        html.Div([
-                            dcc.Link(
-                                "公司基本資訊",
-                                href="/sss_system/py_module/pages/basic_01",
-                                className="tab first",
-                                style={'margin':'5%'}
-                            ),
-                            dcc.Link(
-                                "公司股價",
-                                href="/sss_system/py_module/pages/price_02",
-                                className="tab",
-                                style={'margin':'5%'}
-                            ),
-                            dcc.Link(
-                                "股票成交量",
-                                href="/sss_system/py_module/pages/volume_03",
-                                className="tab",
-                                style={'margin':'5%'}
-                            ),
-                            dcc.Link(
-                                "法人籌碼", 
-                                href="/sss_system/py_module/pages/legal_04", 
-                                className="tab",
-                                style={'margin':'5%'}
-                            ),
-                            dcc.Link(
-                                "信用交易",
-                                href="/sss_system/py_module/pages/credit_05",
-                                className="tab",
-                                style={'margin':'5%'}
-                            ),
-                            dcc.Link(
-                                "公司營收",
-                                href="/sss_system/py_module/pages/revenue_06",
-                                className="tab",
-                                style={'margin':'5%'}
-                            ),
+                        html.Div('FILTER'),
+                        html.Div([ # MENU
+                            html.Div(
+                                dcc.Link(
+                                    "基本資訊",
+                                    href="/sss_system/py_module/pages/basic_01",
+                                    className="tab first",
+                                    style={'margin':'5%'}
+                                ),
+                            style=self.link_div_style),
+                            html.Div(
+                                dcc.Link(
+                                    "股價條件",
+                                    href="/sss_system/py_module/pages/price_02",
+                                    className="tab",
+                                    style={'margin':'5%'}
+                                ),
+                            style=self.link_div_style),
+                            html.Div(
+                                dcc.Link(
+                                    "成交量值",
+                                    href="/sss_system/py_module/pages/volume_03",
+                                    className="tab",
+                                    style={'margin':'5%'}
+                                ),
+                            style=self.link_div_style),
+                            html.Div(
+                                dcc.Link(
+                                    "法人籌碼", 
+                                    href="/sss_system/py_module/pages/legal_04", 
+                                    className="tab",
+                                    style={'margin':'5%'}
+                                ),
+                            style=self.link_div_style),
+                            html.Div(
+                                dcc.Link(
+                                    "信用交易",
+                                    href="/sss_system/py_module/pages/credit_05",
+                                    className="tab",
+                                    style={'margin':'5%'}
+                                ),
+                            style=self.link_div_style),
+                            html.Div(
+                                dcc.Link(
+                                    "公司營收",
+                                    href="/sss_system/py_module/pages/revenue_06",
+                                    className="tab",
+                                    style={'margin':'5%'}
+                                ),
+                            style=self.link_div_style),
                         ], style={
-                                    'width': '90%', 
-                                    'height': '10%', 
+                                    'width': '20%', 
+                                    'height': '85%', 
                                     'border':'solid 1px', 
-                                    'margin':'auto', 
+                                    'margin':'left', 
                                     'padding':'1%',
-                        }),
+                                    'display':'inline-block',
+                                    'verticalAlign':'middle'
+                        }), # MENU
                         dcc.Location(id="url", refresh=False),
-                        html.Div(id="filter-content"),
+                        html.Div(id="filter-content", 
+                            style={
+                                    'width': '75%', 
+                                    'height': '85%', 
+                                    'border':'solid 1px', 
+                                    'margin':'left', 
+                                    'padding':'1%',
+                                    'display':'inline-block',
+                                    'verticalAlign':'middle'
+                                }),
                     ], style=self.filter_style),# FILTER
 
                     # DISPLAY
                     html.Div([
                         "DISPLAY",
                         html.Div([
-                            html.Div(id='01-output-text',),
-                            html.Div(id='02-output-text',),
-                            html.Div(id='03-output-text',),
-                            html.Div(id='04-output-text',),
-                            html.Div(id='05-output-text',),
-                            html.Div(id='06-output-text',),
-                            html.Div(id='07-output-text',),
-                            html.Div(id='08-output-text',),
-                            html.Div(id='09-output-text',),
-                            html.Div(id='10-output-text',),
-                            html.Div(id='11-output-text',),
-                        ],),
+                            html.Div(id='0101-output-text',),
+                            html.Div(id='0201-output-text',),
+                            html.Div(id='0301-output-text',),
+                            html.Div(id='0401-output-text',),
+                            html.Div(id='0501-output-text',),
+                            html.Div(id='0601-output-text',),
+                            html.Div(id='0701-output-text',),
+                            html.Div(id='0801-output-text',),
+                            html.Div(id='0901-output-text',),
+                            html.Div(id='1001-output-text',),
+                            html.Div(id='1101-output-text',),
+                        ],style={
+                                    'width': '95%', 
+                                    'height': '85%', 
+                                    'border':'solid 1px', 
+                                    'margin':'left', 
+                                    'padding':'1%',
+                                    'display':'inline-block',
+                                    'verticalAlign':'middle'
+                        }),
                     ], style=self.filter_style),  # DISPLAY
 
                 ], style=self.frame_style), # FILTER & DISPLAY
@@ -203,7 +332,7 @@ class DashBuilder(object):
                 ], style=self.frame_style),  # SELECTION RESULT                            
         ])#TOP DIV
 
-        self.app.run_server(debug=True, dev_tools_hot_reload=True)
+        self.app.run_server(debug=True, dev_tools_hot_reload=True)#, dev_tools_ui=False, dev_tools_props_check=False)
 
 
 
