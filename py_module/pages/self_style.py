@@ -6,7 +6,7 @@ style = {
 filter_style = {
     'display': 'inline-block', 
     'width': '45%', 
-    'height': '500px', 
+    'height': '900px', 
     'border':'solid 1px', 
     'verticalAlign': "middle",
     'border-radius':'30px',

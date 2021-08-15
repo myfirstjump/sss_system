@@ -153,32 +153,39 @@ class DashBuilder(object):
                                 id='0101-output-container'),
                             html.Div([
                                 html.Div([html.Div([], id='0201-output-inside')],
-                                id='0201-output-container', style=self.output_container_style), 
-                                html.Button('x', n_clicks=0, style={'display':'None', 'height':'0px'}, id='0201-x')]),
+                                style=self.output_container_style), 
+                                html.Button('x', n_clicks=0, style={'display':'None', 'height':'0px'}, id='0201-x')],
+                                id='0201-output-container'),
                             html.Div([
                                 html.Div([html.Div([], id='0301-output-inside')],
-                                id='0301-output-container', style=self.output_container_style), 
-                                html.Button('x', n_clicks=0, style={'display':'None', 'height':'0%'}, id='0301-x')]),
+                                style=self.output_container_style), 
+                                html.Button('x', n_clicks=0, style={'display':'None', 'height':'0px'}, id='0301-x')],
+                                id='0301-output-container', ),
                             html.Div([
                                 html.Div([html.Div([], id='0401-output-inside')],
-                                id='0401-output-container', style=self.output_container_style), 
-                                html.Button('x', n_clicks=0, style={'display':'None', 'height':'0%'}, id='0401-x')]),
+                                style=self.output_container_style), 
+                                html.Button('x', n_clicks=0, style={'display':'None', 'height':'0px'}, id='0401-x')],
+                                id='0401-output-container', ),
                             html.Div([
                                 html.Div([html.Div([], id='0501-output-inside')],
-                                id='0501-output-container', style=self.output_container_style), 
-                                html.Button('x', n_clicks=0, style={'display':'None', 'height':'0%'}, id='0501-x')]),
+                                style=self.output_container_style), 
+                                html.Button('x', n_clicks=0, style={'display':'None', 'height':'0px'}, id='0501-x')],
+                                id='0501-output-container', ),
                             html.Div([
                                 html.Div([html.Div([], id='0601-output-inside')],
-                                id='0601-output-container', style=self.output_container_style), 
-                                html.Button('x', n_clicks=0, style={'display':'None', 'height':'0%'}, id='0601-x')]),
+                                style=self.output_container_style), 
+                                html.Button('x', n_clicks=0, style={'display':'None', 'height':'0px'}, id='0601-x')],
+                                id='0601-output-container', ),
                             html.Div([
                                 html.Div([html.Div([], id='0701-output-inside')],
-                                id='0701-output-container', style=self.output_container_style), 
-                                html.Button('x', n_clicks=0, style={'display':'None', 'height':'0%'}, id='0701-x')]),
+                                style=self.output_container_style), 
+                                html.Button('x', n_clicks=0, style={'display':'None', 'height':'0px'}, id='0701-x')],
+                                id='0701-output-container', ),
                             html.Div([
                                 html.Div([html.Div([], id='0801-output-inside')],
-                                id='0801-output-container', style=self.output_container_style), 
-                                html.Button('x', n_clicks=0, style={'display':'None', 'height':'0%'}, id='0801-x')]),
+                                style=self.output_container_style), 
+                                html.Button('x', n_clicks=0, style={'display':'None', 'height':'0px'}, id='0801-x')],
+                                id='0801-output-container', ),
                             # html.Div(id='dynamic-output-container', children=[])
                         ],style={
                                     'width': '95%', 
@@ -330,9 +337,6 @@ class DashBuilder(object):
                                 id='0301-output-container')
             return blank_container
 
-        self.app.run_server(debug=True, dev_tools_hot_reload=True)#, dev_tools_ui=False, dev_tools_props_check=False)
-
-
         ## 4
         @self.app.callback(
             Output('0401-output-inside', 'children'),
@@ -439,6 +443,8 @@ class DashBuilder(object):
                                 id='0601-output-container')
             return blank_container
 
+
+        self.app.run_server(debug=True, dev_tools_hot_reload=True)#, dev_tools_ui=False, dev_tools_props_check=False)
 
 def generate_table(dataframe, max_rows=10):
     return html.Table([
