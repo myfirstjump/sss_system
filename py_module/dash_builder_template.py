@@ -58,50 +58,55 @@ class DashBuilder(object):
                         html.Div('FILTER'),
                         html.Div([ # MENU
                             html.Div(
-                                html.Button(
+                                dcc.Link(
                                     "基本資訊",
-                                    id='01-btn',
-                                    n_clicks=0,
+                                    href="/sss_system/py_module/pages/basic_01",
+                                    className="tab first",
                                     title='展開基本資訊選項',
                                     style={'margin':'5%'}
                                 ),
                             style=self.link_div_style),
                             html.Div(
-                                html.Button(
+                                dcc.Link(
                                     "股價條件",
-                                    id='02-btn',
+                                    href="/sss_system/py_module/pages/price_02",
+                                    className="tab",
                                     title='展開股價條件選項',
                                     style={'margin':'5%'}
                                 ),
                             style=self.link_div_style),
                             html.Div(
-                                html.Button(
+                                dcc.Link(
                                     "成交量值",
-                                    id='03-btn',
+                                    href="/sss_system/py_module/pages/volume_03",
+                                    className="tab",
                                     title='展開成交量值選項',
                                     style={'margin':'5%'}
                                 ),
                             style=self.link_div_style),
                             html.Div(
-                                html.Button(
+                                dcc.Link(
                                     "法人籌碼", 
-                                    id='04-btn',
+                                    href="/sss_system/py_module/pages/legal_04", 
+                                    className="tab",
                                     title='展開法人籌碼選項',
                                     style={'margin':'5%'}
                                 ),
                             style=self.link_div_style),
                             html.Div(
-                                html.Button(
+                                dcc.Link(
                                     "信用交易",
-                                    id='05-btn',
+                                    href="/sss_system/py_module/pages/credit_05",
+                                    className="tab",
                                     title='展開信用交易選項',
                                     style={'margin':'5%'}
                                 ),
                             style=self.link_div_style),
                             html.Div(
-                                html.Button(
+                                dcc.Link(
                                     "公司營收",
-                                    id='06-btn',
+                                    href="/sss_system/py_module/pages/revenue_06",
+                                    className="tab",
                                     title='展開公司營收選項',
                                     style={'margin':'5%'}
                                 ),
@@ -115,6 +120,7 @@ class DashBuilder(object):
                                     'display':'inline-block',
                                     'verticalAlign':'middle'
                         }), # MENU
+                        dcc.Location(id="url", refresh=False),
                         html.Div(id="filter-content", 
                             style={
                                     'width': '70%', 
@@ -157,19 +163,7 @@ class DashBuilder(object):
         ])#TOP DIV
 
         # callbacks
-        @self.app.callback(
-            Output('filter-content', 'children'),
-            Input('01-btn', 'n_clicks'),
-            Input('02-btn', 'n_clicks'),
-            Input('03-btn', 'n_clicks'),
-            Input('04-btn', 'n_clicks'),
-            Input('05-btn', 'n_clicks'),
-            Input('06-btn', 'n_clicks'),
-        )
-        def output_update(btn_1, btn_2, btn_3, btn_4, btn_5, btn_6, ):
-            ctx = dash.callback_context
-            button_id = ctx.triggered[0]['prop_id'].split('.')[0]
-            return button_id
+
 
         self.app.run_server(debug=True, dev_tools_hot_reload=True)#, dev_tools_ui=False, dev_tools_props_check=False)
 

@@ -16,7 +16,7 @@ filter_style = {
 
 item_style = {
 
-    'margin':'5%',
+    'margin':'1%',
     'padding':'2%',
     'border':'solid 1% #bfd5f5',
     'border-radius':'3px',
@@ -32,7 +32,7 @@ output_container_style = {
 
 output_item_style = {
 
-    'margin':'5%',
+    'margin':'1%',
     'padding':'3%',
     'border':'solid 1% #bfd5f5',
     'border-radius':'3px',
