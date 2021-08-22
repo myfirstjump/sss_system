@@ -49,7 +49,7 @@ class DashBuilder(object):
                 dcc.Store('memory'),
                 # HEADER
                 html.Div([
-                        html.H1('台股選股系統', style={'margin':self.style['margin'], 'padding':self.style['padding']})
+                        html.H1('', style={'margin':self.style['margin'], 'padding':self.style['padding']})
                 ]),# HEADER
 
                 html.Div([ # FILTER & DISPLAY
@@ -157,7 +157,8 @@ class DashBuilder(object):
                 ], style=self.frame_style),  # SELECTION RESULT                            
         ])#TOP DIV
 
-        # callbacks
+        ### callbacks
+        # 1. Links -> filter-content
         @self.app.callback(
             Output('filter-content', 'children'),
             Input('01-btn', 'n_clicks'),
@@ -167,7 +168,7 @@ class DashBuilder(object):
             Input('05-btn', 'n_clicks'),
             Input('06-btn', 'n_clicks'),
         )
-        def output_update(btn_1, btn_2, btn_3, btn_4, btn_5, btn_6, ):
+        def filter_update(btn_1, btn_2, btn_3, btn_4, btn_5, btn_6, ):
             ctx = dash.callback_context
             button_id = ctx.triggered[0]['prop_id'].split('.')[0]
             if button_id == '01-btn':
@@ -270,26 +271,51 @@ class DashBuilder(object):
             else:
                 content = ""
             return content
-        
+
+        # 2. filter-content -> dynamic-output-container
+        self.output_count = 0
+        self.output_record = []
+        self.all_btn = (
+            '{"index":"01-btn-add","type":"filter-btn"}.n_clicks',
+            '{"index":"02-btn-add","type":"filter-btn"}.n_clicks',
+            '{"index":"03-btn-add","type":"filter-btn"}.n_clicks',
+            '{"index":"04-btn-add","type":"filter-btn"}.n_clicks',
+            '{"index":"05-btn-add","type":"filter-btn"}.n_clicks',
+            '{"index":"06-btn-add","type":"filter-btn"}.n_clicks',
+        )
         @self.app.callback(
             Output('dynamic-output-container', 'children'),
             Input({'type':'filter-btn', 'index': ALL}, 'n_clicks'),
+            Input({'type':'output-btn', 'index': ALL}, 'n_clicks'),
             State('dynamic-output-container', 'children'),
         )
-        def output_update(n_clicks, children):
-            if n_clicks == None:
+        def output_update(f_btn, x_btn, children):
+            if (len(f_btn) == 0):
                 raise PreventUpdate
-            ctx = dash.callback_context
-            button_id = ctx.triggered[0]['prop_id'].split('.')[0]
-            print(n_clicks, type(n_clicks))
-            button_id = button_id.split('"')[3]
-            print(button_id, type(button_id))
-            if (button_id == '01-btn-add') and (n_clicks > 0):
-                print('yes')
-                new_children = html.Div([
-                                            html.P('股本', style={'display': 'inline-block'}),
+
+            triggered = [t["prop_id"] for t in dash.callback_context.triggered]
+            print(triggered)
+            # adding = len([1 for i in triggered if i in ('{"index":"01-btn-add","type":"filter-btn"}.n_clicks')])
+            adding = len([1 for i in triggered if i in self.all_btn])
+            clearing = len([1 for i in triggered[0].split('"')[7] if i in ('output-btn')])
+
+            if adding:
+                ctx = dash.callback_context
+                button_id = ctx.triggered[0]['prop_id'].split('.')[0]
+                print('filter clicked! And button id is:', button_id)
+                f_btn = f_btn[0]
+
+                if (button_id == '{"index":"01-btn-add","type":"filter-btn"}') and (f_btn > 0):
+                    print('filter 01 clicked!')
+                    # record
+                    self.output_count += 1
+                    self.output_record.append(self.output_count)
+                    print('Record:', self.output_record)
+                    # button_id = button_id.split('"')[3] 
+                    new_children = html.Div([
+                                        html.P('股本', style={'display': 'inline-block'}),
                                             dcc.Dropdown(
-                                                id='0101-dd',
+                                                # id='0101-dd',
                                                 options=[
                                                     {'label': '大於', 'value': 1},
                                                     {'label': '小於', 'value': -1},
@@ -298,7 +324,7 @@ class DashBuilder(object):
                                                 placeholder='大於',
                                                 style=self_style.dropdown_style),
                                             dcc.Input(
-                                                id='0101-ip',
+                                                # id='0101-ip',
                                                 type='number',
                                                 min=0,
                                                 max=99999,
@@ -308,13 +334,276 @@ class DashBuilder(object):
                                             html.P('億元', style={'display': 'inline-block'}),
                                             html.Button('x', n_clicks=0, style=self_style.button_style,
                                                 id={'type':'output-btn',
-                                                    'index':button_id + '-output'})
-                                        ], style=self_style.output_item_style)
+                                                    'index': str(self.output_count)})
+                                    ], style=self_style.output_item_style)
+                    children.append(new_children)
+                    return children
+                elif (button_id == '{"index":"02-btn-add","type":"filter-btn"}') and (f_btn > 0):
+                    print('filter 02 clicked!')
+                    # record
+                    self.output_count += 1
+                    self.output_record.append(self.output_count)
+                    print('Record:', self.output_record)
+                    # button_id = button_id.split('"')[3] 
+                    new_children = html.Div([
+                                        html.P('股價', style={'display': 'inline-block'}),
+                                        dcc.Dropdown(
+                                            # id='0201-dd',
+                                            options=[
+                                                {'label': '大於', 'value': 1},
+                                                {'label': '小於', 'value': -1},
+                                            ],
+                                            value='1',
+                                            placeholder='大於',
+                                            style=self_style.dropdown_style),
+                                        dcc.Input(
+                                            # id='0201-ip',
+                                            type='number',
+                                            min=0,
+                                            max=99999,
+                                            value=120,
+                                            placeholder='120',
+                                            style=self_style.input_style),
+                                        html.P('元', style={'display': 'inline-block'}),
+                                        html.Button('x', n_clicks=0, style=self_style.button_style,
+                                                id={'type':'output-btn',
+                                                    'index': str(self.output_count)})
+                                    ], style=self_style.output_item_style)
+                    children.append(new_children)
+                    return children
+                elif (button_id == '{"index":"03-btn-add","type":"filter-btn"}') and (f_btn > 0):
+                    print('filter 03 clicked!')
+                    # record
+                    self.output_count += 1
+                    self.output_record.append(self.output_count)
+                    print('Record:', self.output_record)
+                    # button_id = button_id.split('"')[3] 
+                    new_children = html.Div([
+                                        html.P('成交張數', style={'display': 'inline-block'}),
+                                        dcc.Dropdown(
+                                            id='0301-dd',
+                                            options=[
+                                                {'label': '大於', 'value': 1},
+                                                {'label': '小於', 'value': -1},
+                                            ],
+                                            value='1',
+                                            placeholder='大於',
+                                            style=self_style.dropdown_style),
+                                        dcc.Input(
+                                            id='0301-ip',
+                                            type='number',
+                                            min=0,
+                                            max=9999999999,
+                                            value=500000,
+                                            placeholder='500000',
+                                            style=self_style.input_style),
+                                        html.P('張', style={'display': 'inline-block'}),
+                                        html.Button('x', n_clicks=0, style=self_style.button_style,
+                                                id={'type':'output-btn',
+                                                    'index': str(self.output_count)})
+                                    ], style=self_style.output_item_style)
+                    children.append(new_children)
+                    return children
+                elif (button_id == '{"index":"04-btn-add","type":"filter-btn"}') and (f_btn > 0):
+                    print('filter 04 clicked!')
+                    # record
+                    self.output_count += 1
+                    self.output_record.append(self.output_count)
+                    print('Record:', self.output_record)
+                    # button_id = button_id.split('"')[3] 
+                    new_children = html.Div([
+                                        html.P('法人', style={'display': 'inline-block'}),
+                                        dcc.Dropdown(
+                                            id='0401-dd',
+                                            options=[
+                                                {'label': '買超', 'value': 1},
+                                                {'label': '賣超', 'value': -1},
+                                            ],
+                                            value='1',
+                                            placeholder='買超',
+                                            style=self_style.dropdown_style),
+                                        dcc.Dropdown(
+                                            id='0401-dd2',
+                                            options=[
+                                                {'label': '大於', 'value': 1},
+                                                {'label': '小於', 'value': -1},
+                                            ],
+                                            value='1',
+                                            placeholder='大於',
+                                            style=self_style.dropdown_style),
+                                        dcc.Input(
+                                            id='0401-ip',
+                                            type='number',
+                                            min=0,
+                                            max=999999,
+                                            value=5000,
+                                            placeholder='5000',
+                                            style=self_style.input_style),
+                                        html.P('億元', style={'display': 'inline-block'}),
+                                        html.Button('x', n_clicks=0, style=self_style.button_style,
+                                                id={'type':'output-btn',
+                                                    'index': str(self.output_count)})
+                                    ], style=self_style.output_item_style)
+                    children.append(new_children)
+                    return children
+                elif (button_id == '{"index":"05-btn-add","type":"filter-btn"}') and (f_btn > 0):
+                    print('filter 05 clicked!')
+                    # record
+                    self.output_count += 1
+                    self.output_record.append(self.output_count)
+                    print('Record:', self.output_record)
+                    # button_id = button_id.split('"')[3] 
+                    new_children = html.Div([
+                                        html.P('融資張數', style={'display': 'inline-block'}),
+                                        dcc.Dropdown(
+                                            id='0501-dd',
+                                            options=[
+                                                {'label': '大於', 'value': 1},
+                                                {'label': '小於', 'value': -1},
+                                            ],
+                                            value='1',
+                                            placeholder='大於',
+                                            style=self_style.dropdown_style),
+                                        dcc.Input(
+                                            id='0501-ip',
+                                            type='number',
+                                            min=0,
+                                            max=99999999,
+                                            value=50000,
+                                            placeholder='50000',
+                                            style=self_style.input_style),
+                                        html.P('張', style={'display': 'inline-block'}),
+                                        html.Button('x', n_clicks=0, style=self_style.button_style,
+                                                id={'type':'output-btn',
+                                                    'index': str(self.output_count)})
+                                    ], style=self_style.output_item_style)
+                    children.append(new_children)
+                    return children
+                elif (button_id == '{"index":"06-btn-add","type":"filter-btn"}') and (f_btn > 0):
+                    print('filter 06 clicked!')
+                    # record
+                    self.output_count += 1
+                    self.output_record.append(self.output_count)
+                    print('Record:', self.output_record)
+                    # button_id = button_id.split('"')[3] 
+                    new_children = html.Div([
+                                        html.P('營收', style={'display': 'inline-block'}),
+                                        dcc.Dropdown(
+                                            id='0601-dd',
+                                            options=[
+                                                {'label': '大於', 'value': 1},
+                                                {'label': '小於', 'value': -1},
+                                            ],
+                                            value='1',
+                                            placeholder='大於',
+                                            style=self_style.dropdown_style),
+                                        dcc.Input(
+                                            id='0601-ip',
+                                            type='number',
+                                            min=0,
+                                            max=99999,
+                                            value=5,
+                                            placeholder='5',
+                                            style=self_style.input_style),
+                                        html.P('億元', style={'display': 'inline-block'}),
+                                        html.Button('x', n_clicks=0, style=self_style.button_style,
+                                                id={'type':'output-btn',
+                                                    'index': str(self.output_count)})
+                                    ], style=self_style.output_item_style)
+                    children.append(new_children)
+                    return children
+                else:
+                    return children
+            elif clearing:
+                ctx = dash.callback_context 
+                button_id = ctx.triggered[0]['prop_id'].split('.')[0]
+                print('output clicked! And button id is:', button_id)
+
+                remove_number = int(button_id.split('"')[3])
+                remove_idx = self.output_record.index(remove_number)
+                print('remove_number:', remove_number, 'remove_idx:', remove_idx)
+                self.output_record.remove(remove_number)
+                del children[remove_idx]
+                print('Record:', self.output_record)
+                
+                    # new_spec = new_children if not clearing
+            # elif (button_id == '01-btn-add-output') and (x_btn == [1]):
+                
+            #     new_children = ''
+            # else:
+
             else:
-                new_children = ''
-            
-            children.append(new_children)
+                print('Dont know which filter clicked!')
+
             return children
+
+
+
+
+
+
+
+        # @app.callback(
+        #     [
+        #         Output('dynamic-output-container', "children"),
+        #         Output("new-item", "value")
+        #     ],
+        #     [
+        #         Input("add", "n_clicks"),
+        #         Input("new-item", "n_submit"),
+        #         Input("clear-done", "n_clicks")
+        #     ],
+        #     [
+        #         State("new-item", "value"),
+        #         State({"index": ALL}, "children"),
+        #         State({"index": ALL, "type": "done"}, "value")
+        #     ]
+        # )
+        # def edit_list(add, add2, clear, new_item, items, items_done):
+        #     triggered = [t["prop_id"] for t in dash.callback_context.triggered]
+        #     adding = len([1 for i in triggered if i in ("add.n_clicks", "new-item.n_submit")])
+        #     clearing = len([1 for i in triggered if i == "clear-done.n_clicks"])
+        #     new_spec = [
+        #         (text, done) for text, done in zip(items, items_done)
+        #         if not (clearing and done)
+        #     ]
+        #     if adding:
+        #         new_spec.append((new_item, []))
+        #     new_list = [
+        #         html.Div([
+        #             dcc.Checklist(
+        #                 id={"index": i, "type": "done"},
+        #                 options=[{"label": "", "value": "done"}],
+        #                 value=done,
+        #                 style={"display": "inline"},
+        #                 labelStyle={"display": "inline"}
+        #             ),
+        #             html.Div(text, id={"index": i}, style=style_done if done else style_todo)
+        #         ], style={"clear": "both"})
+        #         for i, (text, done) in enumerate(new_spec)
+        #     ]
+        #     return [new_list, "" if adding else new_item]
+
+
+        # @app.callback(
+        #     Output({"index": MATCH}, "style"),
+        #     Input({"index": MATCH, "type": "done"}, "value")
+        # )
+        # def mark_done(done):
+        #     return style_done if done else style_todo
+
+
+        # @app.callback(
+        #     Output("totals", "children"),
+        #     Input({"index": ALL, "type": "done"}, "value")
+        # )
+        # def show_totals(done):
+        #     count_all = len(done)
+        #     count_done = len([d for d in done if d])
+        #     result = "{} of {} items completed".format(count_done, count_all)
+        #     if count_all:
+        #         result += " - {}%".format(int(100 * count_done / count_all))
+        #     return result
 
 
         self.app.run_server(debug=True, dev_tools_hot_reload=True)#, dev_tools_ui=False, dev_tools_props_check=False)
