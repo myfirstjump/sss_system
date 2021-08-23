@@ -34,10 +34,16 @@ class DashBuilder(object):
             'text': '#111111'
         }
 
+        self.top_div_style = self_style.top_div_style
         self.style = self_style.style
+        self.category_btn_style = self_style.category_btn_style
+        self.menu_style = self_style.menu_style
         self.item_style = self_style.item_style
         self.output_container_style = self_style.output_container_style
+        self.filter_content_style = self_style.filter_content_style
+        self.add_text_style = self_style.add_text_style
         self.filter_style = self_style.filter_style
+        self.display_style = self_style.display_style
         self.button_style = self_style.button_style
         self.selection_style = self_style.selection_style
         self.frame_style = self_style.frame_style
@@ -49,14 +55,14 @@ class DashBuilder(object):
                 dcc.Store('memory'),
                 # HEADER
                 html.Div([
-                        html.H1('', style={'margin':self.style['margin'], 'padding':self.style['padding']})
+                        html.H1('台股選股系統', style={'margin':self.style['margin'], 'padding':self.style['padding']})
                 ]),# HEADER
 
                 html.Div([ # FILTER & DISPLAY
 
                     # FILTER
                     html.Div([
-                        html.Div('FILTER'),
+                        # html.Div('FILTER'),
                         html.Div([ # MENU
                             html.Div(
                                 html.Button(
@@ -64,7 +70,7 @@ class DashBuilder(object):
                                     id='01-btn',
                                     n_clicks=0,
                                     title='展開基本資訊選項',
-                                    style={'margin':'5%'}
+                                    style=self.category_btn_style
                                 ),
                             style=self.link_div_style),
                             html.Div(
@@ -72,7 +78,7 @@ class DashBuilder(object):
                                     "股價條件",
                                     id='02-btn',
                                     title='展開股價條件選項',
-                                    style={'margin':'5%'}
+                                    style=self.category_btn_style
                                 ),
                             style=self.link_div_style),
                             html.Div(
@@ -80,7 +86,7 @@ class DashBuilder(object):
                                     "成交量值",
                                     id='03-btn',
                                     title='展開成交量值選項',
-                                    style={'margin':'5%'}
+                                    style=self.category_btn_style
                                 ),
                             style=self.link_div_style),
                             html.Div(
@@ -88,7 +94,7 @@ class DashBuilder(object):
                                     "法人籌碼", 
                                     id='04-btn',
                                     title='展開法人籌碼選項',
-                                    style={'margin':'5%'}
+                                    style=self.category_btn_style
                                 ),
                             style=self.link_div_style),
                             html.Div(
@@ -96,7 +102,7 @@ class DashBuilder(object):
                                     "信用交易",
                                     id='05-btn',
                                     title='展開信用交易選項',
-                                    style={'margin':'5%'}
+                                    style=self.category_btn_style
                                 ),
                             style=self.link_div_style),
                             html.Div(
@@ -104,58 +110,42 @@ class DashBuilder(object):
                                     "公司營收",
                                     id='06-btn',
                                     title='展開公司營收選項',
-                                    style={'margin':'5%'}
+                                    style=self.category_btn_style
                                 ),
                             style=self.link_div_style),
-                        ], style={
-                                    'width': '20%', 
-                                    'height': '85%', 
-                                    'border':'solid 1px', 
-                                    'margin':'left', 
-                                    'padding':'1%',
-                                    'display':'inline-block',
-                                    'verticalAlign':'middle'
-                        }), # MENU
-                        html.Div(id="filter-content", 
-                            style={
-                                    'width': '70%', 
-                                    'height': '85%', 
-                                    'border':'solid 1px', 
-                                    'margin':'left', 
-                                    'padding':'1%',
-                                    'display':'inline-block',
-                                    'verticalAlign':'middle'
-                                }),
+                        ], style=self.menu_style), # MENU
+                        html.Div([html.Div('請由左方加入篩選類別', style=self.add_text_style)], id="filter-content", 
+                            style=self.filter_content_style),
                     ], style=self.filter_style),# FILTER
 
                     # DISPLAY
                     html.Div([
-                        "DISPLAY",
+                        # "DISPLAY",
+                        html.Div('您的選股條件', style=self.add_text_style),
                         html.Div([
                         ],
                         id='dynamic-output-container',
                         style={
                                     'width': '95%', 
                                     'height': '85%', 
-                                    'border':'solid 1px', 
                                     'margin':'left', 
                                     'padding':'1%',
                                     'display':'inline-block',
                                     'verticalAlign':'middle'
                         }),
-                    ], style=self.filter_style),  # DISPLAY
+                    ], style=self.display_style),  # DISPLAY
 
                 ], style=self.frame_style), # FILTER & DISPLAY
 
                 # SELECTION RESULT
                 html.Div([
-                    'SELECTION RESULT',
                     html.Div([
+                        html.Div(['查詢結果'], style=self.add_text_style),
+                        html.Div([],id='dynamic-selection-result')
                     ], 
-                    id='dynamic-selection-result',
                     style=self.selection_style)
                 ], style=self.frame_style),  # SELECTION RESULT                            
-        ])#TOP DIV
+        ], style=self.top_div_style)#TOP DIV
 
         ### callbacks
         # 1. Links -> filter-content
@@ -269,7 +259,7 @@ class DashBuilder(object):
                                 })
                             ])          
             else:
-                content = ""
+                content = html.Div("請由左方加入篩選類別", style=self.add_text_style)
             return content
 
         # 2. filter-content -> dynamic-output-container
