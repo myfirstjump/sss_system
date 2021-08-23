@@ -1,13 +1,13 @@
 style = {
     'margin':'10px 15px 10px 30px', 
     'padding':'10px',
-    'border':'solid 1px',  
+    #'border':'solid 1px',  
 }
 
 
 top_div_style = {
     'background-color': '#F7E9E9',
-    'border':'solid 1px',  
+    #'border':'solid 1px',  
 }
 
 frame_style = {
@@ -15,38 +15,35 @@ frame_style = {
     'height': '100%', 
     'margin':'auto', 
     'padding':'1%',     
-    'border':'solid 1px',        
+    #'border':'solid 1px',        
 }
 
-category_btn_style = {
-    'background-color': '#F7E9E9', 
-    'border':'solid 1px #F7E9E9',
-    'margin':'2%',
-    'font-size': '20px',
-    'border':'solid 1px',  
-}
 
 menu_style = {
+    # 'background-color': '#E9D9D9', 
+    # 'border':'solid 1px #C2B5B5',
+    # 'border-radius':'15px',
     'width': '20%', 
-    'height': '40%', 
+    'height': '50%', 
     'margin':'left', 
     'padding':'1%',
     'display':'inline-block',
     'verticalAlign':'middle',
-    # 'border': 'solid 1px'
+    #'border':'solid 1px',
 }
 
 filter_content_style = {
     'background-color': '#E9D9D9', 
     'width': '70%', 
-    'height': '40%', 
+    'height': '50%', 
+    'overflow': 'auto',
     'border-radius':'15px',
     'border':'solid 1px #C2B5B5', #A7A4A8
     'margin':'left', 
     'padding':'1%',
     'display':'inline-block',
     'verticalAlign':'top',
-    'border':'solid 1px',  
+    #'border':'solid 1px',  
 }
 
 add_text_style = {
@@ -55,7 +52,7 @@ add_text_style = {
     'verticalAlign':'middle',
     'border': 'dashed 5px #C2B5B5',
     'border-radius':'20px',
-    'border':'solid 1px',  
+    #'border':'solid 1px',  
 }
 
 filter_style = {
@@ -65,7 +62,7 @@ filter_style = {
     'verticalAlign': "middle",
     'margin':'1%', 
     'padding':'1%',
-    'border':'solid 1px',  
+    #'border':'solid 1px',  
 }
 
 display_style = {
@@ -78,7 +75,8 @@ display_style = {
     'verticalAlign': "middle",
     'margin':'1%', 
     'padding':'1%',
-    'border':'solid 1px',   
+    'overflow': 'auto',
+    #'border':'solid 1px',
 }
 
 item_style = {
@@ -90,13 +88,13 @@ item_style = {
     'background-color': '#F9E3E3',
     'display':'inline-block',
     'width': '55%',
-    'border':'solid 1px',  
+    #'border':'solid 1px',  
 }
 
 output_container_style = {
     'display':'inline-block',
     'width':'75%',
-    'border':'solid 1px',  
+    #'border':'solid 1px',  
 }
 
 output_item_style = {
@@ -107,7 +105,7 @@ output_item_style = {
     'border-radius':'3px',
     'display':'inline-block',
     'width': '85%',
-    'border':'solid 1px',  
+    #'border':'solid 1px',  
 }
 
 button_style = {
@@ -115,19 +113,18 @@ button_style = {
     'padding':'2%',
     'display':'inline-block',
     'width': '8%',
-    'border':'solid 1px',  
+    #'border':'solid 1px',  
 }
 
 selection_style = { 
     'background-color': '#E9D9D9', 
     'border':'solid 1px #C2B5B5', #A7A4A8
-    'width': '90%', 
-    'height': '500px', 
-    'verticalAlign': "middle",
-    'border-radius':'30px',
-    'margin':'auto', 
+    'width': '100%', 
+    'height': '45%', 
+    'border-radius':'30px', 
     'padding':'1%',
-    'border':'solid 1px',  
+    #'border':'solid 1px',  
+    'display':'inline-block'
 }
 
 
@@ -135,7 +132,7 @@ selection_style = {
 link_div_style = {
     'margin':'5%',
     'padding':'5%',
-    'border':'solid 1px',  
+    #'border':'solid 1px',  
 }
 
 dropdown_style = {
@@ -143,11 +140,11 @@ dropdown_style = {
     'verticalAlign': 'middle',
     'padding':'0% 1% 0% 1%',
     'width': '65px',
-    'border':'solid 1px',  
+    #'border':'solid 1px',  
 }
 input_style = {
     'display':'inline-block',
     'verticalAlign': 'middle',
     'width': '20%',
-    'border':'solid 1px',  
+    #'border':'solid 1px',  
 }

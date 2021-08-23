@@ -1,0 +1,11 @@
+.menu-btn{
+    background-color: #F7E9E9;
+    border: hidden;
+    border-left: 4px solid #C2B5B5;
+    margin: 2px auto;
+    font-size: 16px;
+}
+
+.menu-btn:hover{
+    background-color: #E9D9D9;
+}

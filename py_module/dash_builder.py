@@ -36,7 +36,7 @@ class DashBuilder(object):
 
         self.top_div_style = self_style.top_div_style
         self.style = self_style.style
-        self.category_btn_style = self_style.category_btn_style
+        # self.category_btn_style = self_style.category_btn_style
         self.menu_style = self_style.menu_style
         self.item_style = self_style.item_style
         self.output_container_style = self_style.output_container_style
@@ -70,7 +70,7 @@ class DashBuilder(object):
                                     id='01-btn',
                                     n_clicks=0,
                                     title='展開基本資訊選項',
-                                    style=self.category_btn_style
+                                    className='menu-btn'
                                 ),
                             style=self.link_div_style),
                             html.Div(
@@ -78,7 +78,7 @@ class DashBuilder(object):
                                     "股價條件",
                                     id='02-btn',
                                     title='展開股價條件選項',
-                                    style=self.category_btn_style
+                                    className='menu-btn'
                                 ),
                             style=self.link_div_style),
                             html.Div(
@@ -86,7 +86,7 @@ class DashBuilder(object):
                                     "成交量值",
                                     id='03-btn',
                                     title='展開成交量值選項',
-                                    style=self.category_btn_style
+                                    className='menu-btn'
                                 ),
                             style=self.link_div_style),
                             html.Div(
@@ -94,7 +94,7 @@ class DashBuilder(object):
                                     "法人籌碼", 
                                     id='04-btn',
                                     title='展開法人籌碼選項',
-                                    style=self.category_btn_style
+                                    className='menu-btn'
                                 ),
                             style=self.link_div_style),
                             html.Div(
@@ -102,7 +102,7 @@ class DashBuilder(object):
                                     "信用交易",
                                     id='05-btn',
                                     title='展開信用交易選項',
-                                    style=self.category_btn_style
+                                    className='menu-btn'
                                 ),
                             style=self.link_div_style),
                             html.Div(
@@ -110,12 +110,19 @@ class DashBuilder(object):
                                     "公司營收",
                                     id='06-btn',
                                     title='展開公司營收選項',
-                                    style=self.category_btn_style
+                                    className='menu-btn'
                                 ),
                             style=self.link_div_style),
                         ], style=self.menu_style), # MENU
                         html.Div([html.Div('請由左方加入篩選類別', style=self.add_text_style)], id="filter-content", 
                             style=self.filter_content_style),
+                        html.Br(style={'border':'solid 1px'}),
+                        html.Br(style={'border':'solid 1px'}),
+                        html.Div([
+                            html.Div(['查詢結果'], style=self.add_text_style),
+                            html.Div([],id='dynamic-selection-result')
+                        ], 
+                        style=self.selection_style)
                     ], style=self.filter_style),# FILTER
 
                     # DISPLAY
@@ -138,13 +145,13 @@ class DashBuilder(object):
                 ], style=self.frame_style), # FILTER & DISPLAY
 
                 # SELECTION RESULT
-                html.Div([
-                    html.Div([
-                        html.Div(['查詢結果'], style=self.add_text_style),
-                        html.Div([],id='dynamic-selection-result')
-                    ], 
-                    style=self.selection_style)
-                ], style=self.frame_style),  # SELECTION RESULT                            
+                # html.Div([
+                #     html.Div([
+                #         html.Div(['查詢結果'], style=self.add_text_style),
+                #         html.Div([],id='dynamic-selection-result')
+                #     ], 
+                #     style=self.selection_style)
+                # ], style=self.frame_style),  # SELECTION RESULT                            
         ], style=self.top_div_style)#TOP DIV
 
         ### callbacks
