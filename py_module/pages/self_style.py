@@ -11,7 +11,7 @@ top_div_style = {
 }
 
 frame_style = {
-    'width': '90%', 
+    'width': '95%', 
     'height': '100%', 
     'margin':'auto', 
     'padding':'1%',     
@@ -24,7 +24,7 @@ menu_style = {
     # 'border':'solid 1px #C2B5B5',
     # 'border-radius':'15px',
     'width': '20%', 
-    'height': '50%', 
+    'height': '45%', 
     'margin':'left', 
     'padding':'1%',
     'display':'inline-block',
@@ -32,96 +32,122 @@ menu_style = {
     #'border':'solid 1px',
 }
 
+
+
+add_text_style = {
+    'text-align': 'center',
+    'font-size': '20px',
+    'verticalAlign':'middle',
+    'border': 'dashed 5px #E9ABA0',
+    'border-radius':'20px',
+    #'border':'solid 1px',  
+}
+
+output_text_style = {
+    'text-align': 'center',
+    'font-size': '20px',
+    'width': '70%',
+    # 'verticalAlign':'middle',
+    'border': 'dashed 5px #E9ABA0',
+    'border-radius':'20px',
+    'display':'inline-block',
+    #'border':'solid 1px',  
+}
+
+left_frame_style = {
+    'display': 'inline-block', 
+    'width': '53%', 
+    'height': '700px', 
+    'verticalAlign': "middle",
+    'margin':'0', 
+    'padding':'1%',
+    #'border':'solid 1px',  
+}
+
 filter_content_style = {
-    'background-color': '#E9D9D9', 
-    'width': '70%', 
-    'height': '50%', 
+    'background-color': '#EFC3BB', 
+    'width': '75%', 
+    'height': '45%', 
     'overflow': 'auto',
     'border-radius':'15px',
     'border':'solid 1px #C2B5B5', #A7A4A8
-    'margin':'left', 
     'padding':'1%',
     'display':'inline-block',
     'verticalAlign':'top',
     #'border':'solid 1px',  
 }
 
-add_text_style = {
-    'text-align': 'center',
-    'font-size': '20px',
-    'verticalAlign':'middle',
-    'border': 'dashed 5px #C2B5B5',
-    'border-radius':'20px',
-    #'border':'solid 1px',  
-}
-
-filter_style = {
+right_frame_style = {
     'display': 'inline-block', 
-    'width': '45%', 
-    'height': '900px', 
+    'width': '42%', 
+    'height': '700px', 
     'verticalAlign': "middle",
-    'margin':'1%', 
+    'margin':'0', 
     'padding':'1%',
-    #'border':'solid 1px',  
+    #'border':'solid 1px',
 }
 
-display_style = {
-    'background-color': '#E9D9D9', 
+display_content_style = {
+    'background-color': '#EFC3BB', #E9D9D9
     'border':'solid 1px #C2B5B5', #A7A4A8
     'border-radius':'15px',
     'display': 'inline-block', 
-    'width': '45%', 
-    'height': '900px', 
+    'width': '90%', 
+    'height': '96%',
     'verticalAlign': "middle",
-    'margin':'1%', 
+    'margin':'0', 
     'padding':'1%',
     'overflow': 'auto',
     #'border':'solid 1px',
 }
 
 item_style = {
-    'font': '5px',
     'margin':'1% 2%',
-    'padding':'1% 2%',
-    'border':'solid 1px #D7C3C3',#bfd5f5',
-    'border-radius':'3px',
-    'background-color': '#F9E3E3',
+    'padding':'0% 2%',
+    'border':'solid 1px #D5998E',#bfd5f5',
+    'border-radius':'15px',
+    'background-color': '#E9ABA0',
     'display':'inline-block',
-    'width': '55%',
-    #'border':'solid 1px',  
-}
-
-output_container_style = {
-    'display':'inline-block',
-    'width':'75%',
+    'width': '70%',
     #'border':'solid 1px',  
 }
 
 output_item_style = {
-    'background-color': '#B2AEB4',
-    'margin':'3px',
-    'padding':'3px 5px',
-    'border':'solid 2px #98959A',
-    'border-radius':'3px',
+    'margin':'1% 1%',
+    'padding':'0% 1%',
+    'border':'solid 1px #D5998E',#bfd5f5',
+    'border-radius':'15px',
+    'background-color': '#E9ABA0',
     'display':'inline-block',
-    'width': '85%',
+    'width': '70%',
     #'border':'solid 1px',  
 }
 
 button_style = {
-    'margin': '5%',
+    'background-color': '#F7E9E9',
+    'margin': '1% 5%',
     'padding':'2%',
     'display':'inline-block',
     'width': '8%',
+    'border-radius':'50%',
     #'border':'solid 1px',  
 }
 
+selection_btn = {
+    'background-color': '#675959',
+    'color': 'white',
+    'display':'inline-block',
+    'border-radius': '5px',
+    'font-size': '20px',
+    'margin': '1% 5%',  
+}
+
 selection_style = { 
-    'background-color': '#E9D9D9', 
+    'background-color': '#EFC3BB', 
     'border':'solid 1px #C2B5B5', #A7A4A8
-    'width': '100%', 
+    'width': '97%', 
     'height': '45%', 
-    'border-radius':'30px', 
+    'border-radius':'25px', 
     'padding':'1%',
     #'border':'solid 1px',  
     'display':'inline-block'
