@@ -44,6 +44,7 @@ class DashBuilder(object):
         self.left_frame_style = self_style.left_frame_style
         self.filter_content_style = self_style.filter_content_style
         self.right_frame_style = self_style.right_frame_style
+        self.dynamic_output_container_style = self_style.dynamic_output_container_style
         self.display_content_style = self_style.display_content_style
         self.button_style = self_style.button_style
         self.selection_btn = self_style.selection_btn
@@ -137,22 +138,21 @@ class DashBuilder(object):
                             # "DISPLAY",
                             html.Div([
                                 html.Div('您的選股條件', style=self.output_text_style),
-                                html.Button('開始選股',
-                                    id='selection-btn',
-                                    style=self.selection_btn),
+                                html.Div([
+                                    html.Button('開始選股',
+                                        id='selection-btn',
+                                        style=self.selection_btn),
+                                    html.Button('全部清除',
+                                        id='clear-all-btn',
+                                        style=self.selection_btn)
+                                ]),
                             ]),
                             html.Div([
                             ],
                             id='dynamic-output-container',
-                            style={
-                                        'width': '95%', 
-                                        'height': '85%', 
-                                        'margin':'left', 
-                                        'padding':'1%',
-                                        'display':'inline-block',
-                                        'verticalAlign':'middle'
-                            }),
-                        ], style=self.display_content_style)
+                            style=self.dynamic_output_container_style),
+                        ], id='display-content', 
+                        style=self.display_content_style)
 
                     ], style=self.right_frame_style),  # DISPLAY
 
@@ -298,17 +298,20 @@ class DashBuilder(object):
             Output('dynamic-output-container', 'children'),
             Input({'type':'filter-btn', 'index': ALL}, 'n_clicks'),
             Input({'type':'output-btn', 'index': ALL}, 'n_clicks'),
+            Input('clear-all-btn', 'n_clicks'),
             State('dynamic-output-container', 'children'),
         )
-        def output_update(f_btn, x_btn, children):
-            if (len(f_btn) == 0):
-                raise PreventUpdate
+        def output_update(f_btn, x_btn, clear_btn, children):
+            # if (len(f_btn) == 0):
+            #     raise PreventUpdate
 
             triggered = [t["prop_id"] for t in dash.callback_context.triggered]
             print(triggered)
             # adding = len([1 for i in triggered if i in ('{"index":"01-btn-add","type":"filter-btn"}.n_clicks')])
             adding = len([1 for i in triggered if i in self.all_btn])
-            clearing = len([1 for i in triggered[0].split('"')[7] if i in ('output-btn')])
+            # clearing = len([1 for i in triggered[0].split('"')[7] if i in ('output-btn')]) 
+            clearing = len([1 for i in triggered if 'output-btn' in i]) # {"index":"100","type":"output-btn"}
+            clear_all = len([1 for i in triggered if i in ('clear-all-btn.n_clicks')])
 
             if adding:
                 ctx = dash.callback_context
@@ -549,11 +552,9 @@ class DashBuilder(object):
                 del children[remove_idx]
                 print('Record:', self.output_record)
                 
-                    # new_spec = new_children if not clearing
-            # elif (button_id == '01-btn-add-output') and (x_btn == [1]):
-                
-            #     new_children = ''
-            # else:
+            elif clear_all:
+                self.output_record = []
+                return []
 
             else:
                 print('Dont know which filter clicked!')
@@ -576,7 +577,32 @@ class DashBuilder(object):
             else:
                 return ''
 
-
+        # 4. clear-all btn -> clear all dynamic-selection-results
+        # @self.app.callback(
+        #     Output('display-content', 'children'),
+        #     Input('clear-all-btn', 'n_clicks')
+        # )
+        # def clear_all_results(btn):
+        #     self.output_record = []
+        #     pure_content = [
+        #                     # "DISPLAY",
+        #                     html.Div([
+        #                         html.Div('您的選股條件', style=self.output_text_style),
+        #                         html.Div([
+        #                             html.Button('開始選股',
+        #                                 id='selection-btn',
+        #                                 style=self.selection_btn),
+        #                             html.Button('全部清除',
+        #                                 id='clear-all-btn',
+        #                                 style=self.selection_btn)
+        #                         ]),
+        #                     ]),
+        #                     html.Div([
+        #                     ],
+        #                     id='dynamic-output-container',
+        #                     style=self.dynamic_output_container_style),
+        #                 ]
+        #     return pure_content
 
         self.app.run_server(debug=True, dev_tools_hot_reload=True)#, dev_tools_ui=False, dev_tools_props_check=False)
 

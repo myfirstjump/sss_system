@@ -46,11 +46,9 @@ add_text_style = {
 output_text_style = {
     'text-align': 'center',
     'font-size': '20px',
-    'width': '70%',
     # 'verticalAlign':'middle',
     'border': 'dashed 5px #E9ABA0',
     'border-radius':'20px',
-    'display':'inline-block',
     #'border':'solid 1px',  
 }
 
@@ -89,7 +87,7 @@ right_frame_style = {
 
 display_content_style = {
     'background-color': '#EFC3BB', #E9D9D9
-    'border':'solid 1px #C2B5B5', #A7A4A8
+    # 'border':'solid 1px #C2B5B5', #A7A4A8
     'border-radius':'15px',
     'display': 'inline-block', 
     'width': '90%', 
@@ -99,6 +97,15 @@ display_content_style = {
     'padding':'1%',
     'overflow': 'auto',
     #'border':'solid 1px',
+}
+
+dynamic_output_container_style = {
+    'width': '95%', 
+    'height': '85%', 
+    'margin':'left', 
+    'padding':'1%',
+    'display':'inline-block',
+    'verticalAlign':'middle'
 }
 
 item_style = {
@@ -136,10 +143,10 @@ button_style = {
 selection_btn = {
     'background-color': '#675959',
     'color': 'white',
-    'display':'inline-block',
     'border-radius': '5px',
     'font-size': '20px',
-    'margin': '1% 5%',  
+    'width':'45%',
+    'margin': '1% 2%',  
 }
 
 selection_style = { 
