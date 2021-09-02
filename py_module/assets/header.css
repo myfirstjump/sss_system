@@ -1,5 +1,5 @@
 .menu-btn{
-    background-color: #F7E9E9;
+    background-color: #E1EBF9;
     border: hidden;
     border-left: 4px solid #C2B5B5;
     margin: 2px auto;
@@ -7,5 +7,19 @@
 }
 
 .menu-btn:hover{
-    background-color: #E9D9D9;
+    background-color: #B2CCF2;
+}
+
+.selection-btn{
+    background-color: #1EABF4;
+    color: white;
+    /* border-radius: 5px; */
+    border: hidden;
+    font-size: 20px;
+    width:45%;
+    margin: 1% 2%;  
+}
+
+.selection-btn:hover{
+    background-color: #5FC2F5;
 }

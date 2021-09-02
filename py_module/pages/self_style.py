@@ -1,3 +1,8 @@
+bg_code = '#EEF3F9'
+dark_code = '#C1DEF4' #B2CCF2
+light_code = '#E1EBF9' #
+border_code = '#A8D3F4'
+
 style = {
     'margin':'10px 15px 10px 30px', 
     'padding':'10px',
@@ -6,7 +11,7 @@ style = {
 
 
 top_div_style = {
-    'background-color': '#F7E9E9',
+    'background-color': bg_code,
     #'border':'solid 1px',  
 }
 
@@ -38,8 +43,8 @@ add_text_style = {
     'text-align': 'center',
     'font-size': '20px',
     'verticalAlign':'middle',
-    'border': 'dashed 5px #E9ABA0',
-    'border-radius':'20px',
+    'border-bottom': 'dashed 5px #B2CCF2',
+    # 'border-radius':'20px',
     #'border':'solid 1px',  
 }
 
@@ -47,15 +52,15 @@ output_text_style = {
     'text-align': 'center',
     'font-size': '20px',
     # 'verticalAlign':'middle',
-    'border': 'dashed 5px #E9ABA0',
-    'border-radius':'20px',
+    'border-bottom': 'dashed 5px #B2CCF2',
+    # 'border-radius':'20px',
     #'border':'solid 1px',  
 }
 
 left_frame_style = {
     'display': 'inline-block', 
     'width': '53%', 
-    'height': '700px', 
+    'height': '900px', 
     'verticalAlign': "middle",
     'margin':'0', 
     'padding':'1%',
@@ -63,7 +68,7 @@ left_frame_style = {
 }
 
 filter_content_style = {
-    'background-color': '#EFC3BB', 
+    'background-color': light_code, 
     'width': '75%', 
     'height': '45%', 
     'overflow': 'auto',
@@ -72,13 +77,14 @@ filter_content_style = {
     'padding':'1%',
     'display':'inline-block',
     'verticalAlign':'top',
-    #'border':'solid 1px',  
+    'overflow': 'auto',
+    # 'border':'solid 1px',  
 }
 
 right_frame_style = {
     'display': 'inline-block', 
     'width': '42%', 
-    'height': '700px', 
+    'height': '900px', 
     'verticalAlign': "middle",
     'margin':'0', 
     'padding':'1%',
@@ -86,12 +92,12 @@ right_frame_style = {
 }
 
 display_content_style = {
-    'background-color': '#EFC3BB', #E9D9D9
-    # 'border':'solid 1px #C2B5B5', #A7A4A8
+    'background-color': light_code, #E9D9D9
+    'border':'solid 1px #C2B5B5', #A7A4A8
     'border-radius':'15px',
     'display': 'inline-block', 
-    'width': '90%', 
-    'height': '96%',
+    'width': '97%', 
+    'height': '45%', 
     'verticalAlign': "middle",
     'margin':'0', 
     'padding':'1%',
@@ -105,33 +111,36 @@ dynamic_output_container_style = {
     'margin':'left', 
     'padding':'1%',
     'display':'inline-block',
-    'verticalAlign':'middle'
+    'verticalAlign':'middle',
+
 }
 
 item_style = {
     'margin':'1% 2%',
     'padding':'0% 2%',
-    'border':'solid 1px #D5998E',#bfd5f5',
+    'border':'solid 1px',#bfd5f5',
+    'border-color': border_code,
     'border-radius':'15px',
-    'background-color': '#E9ABA0',
+    'background-color': dark_code,
     'display':'inline-block',
     'width': '70%',
-    #'border':'solid 1px',  
+    'border':'solid 1px black',  
 }
 
 output_item_style = {
     'margin':'1% 1%',
     'padding':'0% 1%',
-    'border':'solid 1px #D5998E',#bfd5f5',
+    'border':'solid 1px',#bfd5f5',
+    'border-color': border_code,
     'border-radius':'15px',
-    'background-color': '#E9ABA0',
+    'background-color': dark_code,
     'display':'inline-block',
     'width': '70%',
-    #'border':'solid 1px',  
+    'border':'solid 1px black',  
 }
 
 button_style = {
-    'background-color': '#F7E9E9',
+    'background-color': bg_code,
     'margin': '1% 5%',
     'padding':'2%',
     'display':'inline-block',
@@ -141,7 +150,7 @@ button_style = {
 }
 
 selection_btn = {
-    'background-color': '#675959',
+    'background-color': '#1EABF4',
     'color': 'white',
     'border-radius': '5px',
     'font-size': '20px',
@@ -150,10 +159,10 @@ selection_btn = {
 }
 
 selection_style = { 
-    'background-color': '#EFC3BB', 
+    'background-color': light_code, 
     'border':'solid 1px #C2B5B5', #A7A4A8
-    'width': '97%', 
-    'height': '45%', 
+    'width': '90%', 
+    'height': '96%',
     'border-radius':'25px', 
     'padding':'1%',
     #'border':'solid 1px',  
@@ -172,12 +181,35 @@ dropdown_style = {
     'display':'inline-block',
     'verticalAlign': 'middle',
     'padding':'0% 1% 0% 1%',
-    'width': '65px',
-    #'border':'solid 1px',  
+    'width': '100px',
+    'height':'25px',
+    # 'border':'solid 1px',
+    'font-size':'15px',
+    'background-color':dark_code,
 }
 input_style = {
     'display':'inline-block',
     'verticalAlign': 'middle',
-    'width': '20%',
-    #'border':'solid 1px',  
+    'width': '10%',
+    'height':'25px',
+    #'border':'solid 1px',
+    'font-size':'15px',
+    'background-color':dark_code,
+    'border':'hidden',
+}
+
+text_normal = {
+    'display': 'inline-block',
+    'height':'25px',
+    #'border':'solid 1px',
+    'font-size':'15px',
+}
+
+text_bold = {
+    'display': 'inline-block',
+    'font-weight':'bold',
+    'padding':'0px 5px 0px 5px',
+    'height':'25px',
+    #'border':'solid 1px',
+    'font-size':'15px',
 }
