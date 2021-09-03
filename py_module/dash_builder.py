@@ -547,7 +547,8 @@ class DashBuilder(object):
                     # button_id = button_id.split('"')[3] 
                     new_children = html.Div([
                                         html.Span([
-                                            html.P('股本', style=self.text_normal),
+                                            html.P('公司股本', style=self.text_normal),
+                                            html.Div([
                                                 dcc.Dropdown(
                                                     # id='0101-dd',
                                                     options=[
@@ -556,16 +557,19 @@ class DashBuilder(object):
                                                     ],
                                                     value='1',
                                                     placeholder='大於',
-                                                    style=self.dropdown_style),
-                                                dcc.Input(
-                                                    # id='0101-ip',
-                                                    type='number',
-                                                    min=0,
-                                                    max=99999,
-                                                    value=5,
-                                                    placeholder='5',
-                                                    style=self.input_style),
-                                                html.P('億元', style=self.text_normal),
+                                                    style=self.dropdown_style,
+                                                    clearable=False,),
+                                            ], style={'verticalAlign': 'middle', 'display':'inline-block'}),
+
+                                            dcc.Input(
+                                                # id='0101-ip',
+                                                type='number',
+                                                min=0,
+                                                max=99999,
+                                                value=5,
+                                                placeholder='5',
+                                                style=self.input_style),
+                                            html.P('億元', style=self.text_normal),
                                         ], style=self.output_item_style),
                                         html.Button('x', n_clicks=0, style=self.button_style,
                                             id={'type':'output-btn',
@@ -582,25 +586,25 @@ class DashBuilder(object):
                     # button_id = button_id.split('"')[3] 
                     new_children = html.Div([
                                         html.Span([
-                                            html.P('股本', style=self.text_normal),
-                                                dcc.Dropdown(
-                                                    # id='0101-dd',
-                                                    options=[
-                                                        {'label': '大於', 'value': 1},
-                                                        {'label': '小於', 'value': -1},
-                                                    ],
-                                                    value='-1',
-                                                    placeholder='小於',
-                                                    style=self.dropdown_style),
-                                                dcc.Input(
-                                                    # id='0101-ip',
-                                                    type='number',
-                                                    min=0,
-                                                    max=99999,
-                                                    value=5,
-                                                    placeholder='5',
-                                                    style=self.input_style),
-                                                html.P('億元', style=self.text_normal),
+                                            html.P('公司股本', style=self.text_normal),
+                                            dcc.Dropdown(
+                                                # id='0101-dd',
+                                                options=[
+                                                    {'label': '大於', 'value': 1},
+                                                    {'label': '小於', 'value': -1},
+                                                ],
+                                                value='-1',
+                                                placeholder='小於',
+                                                style=self.dropdown_style),
+                                            dcc.Input(
+                                                # id='0101-ip',
+                                                type='number',
+                                                min=0,
+                                                max=99999,
+                                                value=5,
+                                                placeholder='5',
+                                                style=self.input_style),
+                                            html.P('億元', style=self.text_normal),
                                         ], style=self.output_item_style),
                                         html.Button('x', n_clicks=0, style=self.button_style,
                                             id={'type':'output-btn',

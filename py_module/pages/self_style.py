@@ -2,6 +2,7 @@ bg_code = '#EEF3F9'
 dark_code = '#C1DEF4' #B2CCF2
 light_code = '#E1EBF9' #
 border_code = '#A8D3F4'
+emphsis_code = '#1EABF4'
 
 style = {
     'margin':'10px 15px 10px 30px', 
@@ -178,29 +179,26 @@ link_div_style = {
 }
 
 dropdown_style = {
-    'display':'inline-block',
     'verticalAlign': 'middle',
     'padding':'0% 1% 0% 1%',
     'width': '100px',
-    'height':'25px',
-    # 'border':'solid 1px',
     'font-size':'15px',
-    'background-color':dark_code,
+    'background-color': dark_code,
 }
 input_style = {
     'display':'inline-block',
     'verticalAlign': 'middle',
     'width': '10%',
-    'height':'25px',
+    #'height':'25px',
     #'border':'solid 1px',
     'font-size':'15px',
-    'background-color':dark_code,
-    'border':'hidden',
+    'background-color':light_code,
+    # 'border':'hidden',
 }
 
 text_normal = {
     'display': 'inline-block',
-    'height':'25px',
+    #'height':'25px',
     #'border':'solid 1px',
     'font-size':'15px',
 }
@@ -209,7 +207,7 @@ text_bold = {
     'display': 'inline-block',
     'font-weight':'bold',
     'padding':'0px 5px 0px 5px',
-    'height':'25px',
+    #'height':'25px',
     #'border':'solid 1px',
     'font-size':'15px',
 }
