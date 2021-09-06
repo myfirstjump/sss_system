@@ -136,7 +136,7 @@ output_item_style = {
     'border-radius':'15px',
     'background-color': dark_code,
     'display':'inline-block',
-    'width': '70%',
+    'width': '77%',
     'border':'solid 1px black',  
 }
 
@@ -180,20 +180,73 @@ link_div_style = {
 
 dropdown_style = {
     'verticalAlign': 'middle',
-    'padding':'0% 1% 0% 1%',
-    'width': '100px',
+    # 'padding':'0% 1% 0% 1%',
+    'width': '80px',
     'font-size':'15px',
     'background-color': dark_code,
+    'border-radius': '8px',
 }
+short_dropdown_style = {
+    'verticalAlign': 'middle',
+    # 'padding':'0% 1% 0% 1%',
+    'width': '60px',
+    'font-size':'15px',
+    'background-color': dark_code,
+    'border-radius': '8px',
+}
+
+dp_div_style = {
+    'verticalAlign': 'middle', 
+    'display':'inline-block',
+    'border':'solid 1px',
+    'border-color': emphsis_code,
+    'border-radius': '7px',
+    'margin': '1%',
+}
+
 input_style = {
     'display':'inline-block',
     'verticalAlign': 'middle',
-    'width': '10%',
-    #'height':'25px',
+    'width':'60px',
+    'height': '27px',
     #'border':'solid 1px',
     'font-size':'15px',
-    'background-color':light_code,
-    # 'border':'hidden',
+    'background-color':dark_code,
+    'border':'hidden',
+    'margin': '3%'
+}
+
+short_input_style = {
+    'display':'inline-block',
+    'verticalAlign': 'middle',
+    'width':'40px',
+    'height': '27px',
+    #'border':'solid 1px',
+    'font-size':'15px',
+    'background-color':dark_code,
+    'border':'hidden',
+    'margin': '3%'
+}
+
+ipt_div_style = {
+    'verticalAlign': 'middle', 
+    'display':'inline-block',
+    'width':'75px',
+    'border':'solid 1px',
+    'border-color': emphsis_code,
+    'border-radius': '7px',
+    'margin': '1%'
+}
+
+short_ipt_div_style = {
+    'verticalAlign': 'middle', 
+    'display':'inline-block',
+    'width':'55px',
+    
+    'border':'solid 1px',
+    'border-color': emphsis_code,
+    'border-radius': '7px',
+    'margin': '1%'
 }
 
 text_normal = {
