@@ -205,7 +205,7 @@ class DashBuilder(object):
                                     html.Span([
                                         html.P('公司隸屬產業別為', style=self.text_normal),
                                     ], style=self_style.item_style),
-                                    html.Button('>', n_clicks=0, style=self_style.button_style, 
+                                    html.Button('+', n_clicks=0, style=self_style.button_style, 
                                     id={
                                         'type': 'filter-btn',
                                         'index': button_id + '-add-0101'
@@ -219,7 +219,7 @@ class DashBuilder(object):
                                         html.P('億元', style=self.text_normal),
                                         
                                     ], style=self_style.item_style),
-                                    html.Button('>', n_clicks=0, style=self_style.button_style, 
+                                    html.Button('+', n_clicks=0, style=self_style.button_style, 
                                     id={
                                         'type': 'filter-btn',
                                         'index': button_id + '-add-0102'
@@ -233,7 +233,7 @@ class DashBuilder(object):
                                         html.P('億元', style=self.text_normal),
                                         
                                     ], style=self_style.item_style),
-                                    html.Button('>', n_clicks=0, style=self_style.button_style, 
+                                    html.Button('+', n_clicks=0, style=self_style.button_style, 
                                     id={
                                         'type': 'filter-btn',
                                         'index': button_id + '-add-0103'
@@ -251,7 +251,7 @@ class DashBuilder(object):
                                         html.P('元', style=self.text_normal),
                                         
                                     ], style=self_style.item_style),
-                                    html.Button('>', n_clicks=0, style=self_style.button_style,
+                                    html.Button('+', n_clicks=0, style=self_style.button_style,
                                     id={
                                         'type': 'filter-btn',
                                         'index': button_id + '-add-0201'
@@ -265,7 +265,7 @@ class DashBuilder(object):
                                         html.P('元', style=self.text_normal),
                                         
                                     ], style=self_style.item_style),
-                                    html.Button('>', n_clicks=0, style=self_style.button_style,
+                                    html.Button('+', n_clicks=0, style=self_style.button_style,
                                     id={
                                         'type': 'filter-btn',
                                         'index': button_id + '-add-0202'
@@ -278,7 +278,7 @@ class DashBuilder(object):
                                         html.P('3', style=self.text_bold),
                                         html.P('日以上', style=self.text_normal),
                                     ], style=self_style.item_style),
-                                    html.Button('>', n_clicks=0, style=self_style.button_style,
+                                    html.Button('+', n_clicks=0, style=self_style.button_style,
                                     id={
                                         'type': 'filter-btn',
                                         'index': button_id + '-add-0203'
@@ -294,7 +294,7 @@ class DashBuilder(object):
                                         html.P('10%', style=self.text_bold),
                                         html.P('之股票', style=self.text_normal),
                                     ], style=self_style.item_style),
-                                    html.Button('>', n_clicks=0, style=self_style.button_style,
+                                    html.Button('+', n_clicks=0, style=self_style.button_style,
                                     id={
                                         'type': 'filter-btn',
                                         'index': button_id + '-add-0204'
@@ -310,7 +310,7 @@ class DashBuilder(object):
                                         html.P('20元', style=self.text_bold),
                                         html.P('之股票', style=self.text_normal),
                                     ], style=self_style.item_style),
-                                    html.Button('>', n_clicks=0, style=self_style.button_style,
+                                    html.Button('+', n_clicks=0, style=self_style.button_style,
                                     id={
                                         'type': 'filter-btn',
                                         'index': button_id + '-add-0205'
@@ -329,7 +329,7 @@ class DashBuilder(object):
                                         html.P('50000', style=self.text_normal),
                                         html.P('張之股票', style=self.text_normal),
                                     ], style=self_style.item_style),
-                                    html.Button('>', n_clicks=0, style=self_style.button_style, 
+                                    html.Button('+', n_clicks=0, style=self_style.button_style, 
                                     id={
                                         'type': 'filter-btn',
                                         'index': button_id + '-add-0301'
@@ -344,7 +344,7 @@ class DashBuilder(object):
                                         html.P('1000', style=self.text_normal),
                                         html.P('張之股票', style=self.text_normal),
                                     ], style=self_style.item_style),
-                                    html.Button('>', n_clicks=0, style=self_style.button_style, 
+                                    html.Button('+', n_clicks=0, style=self_style.button_style, 
                                     id={
                                         'type': 'filter-btn',
                                         'index': button_id + '-add-0302'
@@ -359,7 +359,7 @@ class DashBuilder(object):
                                         html.P('1000', style=self.text_normal),
                                         html.P('張之股票', style=self.text_normal),
                                     ], style=self_style.item_style),
-                                    html.Button('>', n_clicks=0, style=self_style.button_style, 
+                                    html.Button('+', n_clicks=0, style=self_style.button_style, 
                                     id={
                                         'type': 'filter-btn',
                                         'index': button_id + '-add-0303'
@@ -374,7 +374,7 @@ class DashBuilder(object):
                                         html.P('1000', style=self.text_normal),
                                         html.P('張之股票', style=self.text_normal),
                                     ], style=self_style.item_style),
-                                    html.Button('>', n_clicks=0, style=self_style.button_style, 
+                                    html.Button('+', n_clicks=0, style=self_style.button_style, 
                                     id={
                                         'type': 'filter-btn',
                                         'index': button_id + '-add-0304'
@@ -389,7 +389,7 @@ class DashBuilder(object):
                                         html.P('20', style=self.text_normal),
                                         html.P('% 之股票', style=self.text_normal),
                                     ], style=self_style.item_style),
-                                    html.Button('>', n_clicks=0, style=self_style.button_style, 
+                                    html.Button('+', n_clicks=0, style=self_style.button_style, 
                                     id={
                                         'type': 'filter-btn',
                                         'index': button_id + '-add-0305'
@@ -404,7 +404,7 @@ class DashBuilder(object):
                                         html.P('20', style=self.text_normal),
                                         html.P('% 之股票', style=self.text_normal),
                                     ], style=self_style.item_style),
-                                    html.Button('>', n_clicks=0, style=self_style.button_style, 
+                                    html.Button('+', n_clicks=0, style=self_style.button_style, 
                                     id={
                                         'type': 'filter-btn',
                                         'index': button_id + '-add-0306'
@@ -425,7 +425,7 @@ class DashBuilder(object):
                                         html.P('張', style=self.text_normal),
                                         
                                     ], style=self_style.item_style),
-                                    html.Button('>', n_clicks=0, style=self_style.button_style, 
+                                    html.Button('+', n_clicks=0, style=self_style.button_style, 
                                     id={
                                         'type': 'filter-btn',
                                         'index': button_id + '-add-0401'
@@ -442,7 +442,7 @@ class DashBuilder(object):
                                         html.P('張', style=self.text_normal),
                                         
                                     ], style=self_style.item_style),
-                                    html.Button('>', n_clicks=0, style=self_style.button_style, 
+                                    html.Button('+', n_clicks=0, style=self_style.button_style, 
                                     id={
                                         'type': 'filter-btn',
                                         'index': button_id + '-add-0402'
@@ -459,7 +459,7 @@ class DashBuilder(object):
                                         html.P('張', style=self.text_normal),
                                         
                                     ], style=self_style.item_style),
-                                    html.Button('>', n_clicks=0, style=self_style.button_style, 
+                                    html.Button('+', n_clicks=0, style=self_style.button_style, 
                                     id={
                                         'type': 'filter-btn',
                                         'index': button_id + '-add-0403'
@@ -476,7 +476,7 @@ class DashBuilder(object):
                                         html.P('張', style=self.text_normal),
                                         
                                     ], style=self_style.item_style),
-                                    html.Button('>', n_clicks=0, style=self_style.button_style, 
+                                    html.Button('+', n_clicks=0, style=self_style.button_style, 
                                     id={
                                         'type': 'filter-btn',
                                         'index': button_id + '-add-0404'
@@ -493,7 +493,7 @@ class DashBuilder(object):
                                         html.P('張', style=self.text_normal),
                                         
                                     ], style=self_style.item_style),
-                                    html.Button('>', n_clicks=0, style=self_style.button_style, 
+                                    html.Button('+', n_clicks=0, style=self_style.button_style, 
                                     id={
                                         'type': 'filter-btn',
                                         'index': button_id + '-add-0405'
@@ -510,7 +510,7 @@ class DashBuilder(object):
                                         html.P('張', style=self.text_normal),
                                         
                                     ], style=self_style.item_style),
-                                    html.Button('>', n_clicks=0, style=self_style.button_style, 
+                                    html.Button('+', n_clicks=0, style=self_style.button_style, 
                                     id={
                                         'type': 'filter-btn',
                                         'index': button_id + '-add-0406'
@@ -529,7 +529,7 @@ class DashBuilder(object):
                                         html.P('100', style=self.text_normal),
                                         html.P(' 張之股票', style=self.text_normal),
                                     ], style=self_style.item_style),
-                                    html.Button('>', n_clicks=0, style=self_style.button_style,
+                                    html.Button('+', n_clicks=0, style=self_style.button_style,
                                     id={
                                         'type': 'filter-btn',
                                         'index': button_id + '-add-0501'
@@ -544,7 +544,7 @@ class DashBuilder(object):
                                         html.P('100', style=self.text_normal),
                                         html.P(' %之股票', style=self.text_normal),
                                     ], style=self_style.item_style),
-                                    html.Button('>', n_clicks=0, style=self_style.button_style,
+                                    html.Button('+', n_clicks=0, style=self_style.button_style,
                                     id={
                                         'type': 'filter-btn',
                                         'index': button_id + '-add-0502'
@@ -559,7 +559,7 @@ class DashBuilder(object):
                                         html.P('100', style=self.text_normal),
                                         html.P(' 張之股票', style=self.text_normal),
                                     ], style=self_style.item_style),
-                                    html.Button('>', n_clicks=0, style=self_style.button_style,
+                                    html.Button('+', n_clicks=0, style=self_style.button_style,
                                     id={
                                         'type': 'filter-btn',
                                         'index': button_id + '-add-0503'
@@ -574,7 +574,7 @@ class DashBuilder(object):
                                         html.P('100', style=self.text_normal),
                                         html.P(' %之股票', style=self.text_normal),
                                     ], style=self_style.item_style),
-                                    html.Button('>', n_clicks=0, style=self_style.button_style,
+                                    html.Button('+', n_clicks=0, style=self_style.button_style,
                                     id={
                                         'type': 'filter-btn',
                                         'index': button_id + '-add-0504'
@@ -589,7 +589,7 @@ class DashBuilder(object):
                                         html.P('100', style=self.text_normal),
                                         html.P(' 張之股票', style=self.text_normal),
                                     ], style=self_style.item_style),
-                                    html.Button('>', n_clicks=0, style=self_style.button_style,
+                                    html.Button('+', n_clicks=0, style=self_style.button_style,
                                     id={
                                         'type': 'filter-btn',
                                         'index': button_id + '-add-0505'
@@ -604,7 +604,7 @@ class DashBuilder(object):
                                         html.P('100', style=self.text_normal),
                                         html.P(' %之股票', style=self.text_normal),
                                     ], style=self_style.item_style),
-                                    html.Button('>', n_clicks=0, style=self_style.button_style,
+                                    html.Button('+', n_clicks=0, style=self_style.button_style,
                                     id={
                                         'type': 'filter-btn',
                                         'index': button_id + '-add-0506'
@@ -622,7 +622,7 @@ class DashBuilder(object):
                                         html.P('億元', style=self.text_normal),
                                         
                                     ], style=self_style.item_style),
-                                    html.Button('>', n_clicks=0, style=self_style.button_style,
+                                    html.Button('+', n_clicks=0, style=self_style.button_style,
                                     id={
                                         'type': 'filter-btn',
                                         'index': button_id + '-add-0601'
