@@ -10,13 +10,14 @@ import ast
 import time
 
 from py_module.pages import (
-    # basic_01,
-    # price_02,
-    # volume_03,
-    # legal_04,
-    # credit_05,
-    # revenue_06,
+    basic_01,
+    price_02,
+    volume_03,
+    legal_04,
+    credit_05,
+    revenue_06,
     self_style
+    
 )
 
 class DashBuilder(object):
@@ -35,40 +36,11 @@ class DashBuilder(object):
             'text': '#111111'
         }
 
-        self.top_div_style = self_style.top_div_style
-        self.style = self_style.style
-        # self.category_btn_style = self_style.category_btn_style
-        self.menu_style = self_style.menu_style
-        self.item_style = self_style.item_style
-        self.add_text_style = self_style.add_text_style
-        self.output_text_style = self_style.output_text_style
-        self.left_frame_style = self_style.left_frame_style
-        self.filter_content_style = self_style.filter_content_style
-        self.right_frame_style = self_style.right_frame_style
-        self.dynamic_output_container_style = self_style.dynamic_output_container_style
-        self.display_content_style = self_style.display_content_style
-        self.output_item_style = self_style.output_item_style
-        self.button_style = self_style.button_style
-        self.selection_btn = self_style.selection_btn
-        self.selection_style = self_style.selection_style
-        self.frame_style = self_style.frame_style
-        self.link_div_style = self_style.link_div_style
-        self.dropdown_style = self_style.dropdown_style
-        self.short_dropdown_style = self_style.short_dropdown_style
-        self.dp_div_style = self_style.dp_div_style
-        self.input_style = self_style.input_style
-        self.short_input_style = self_style.short_input_style
-        self.ipt_div_style = self_style.ipt_div_style
-        self.short_ipt_div_style = self_style.short_ipt_div_style
-
-        self.text_normal = self_style.text_normal
-        self.text_bold = self_style.text_bold
-
         self.app.layout = html.Div([ # TOP DIV
                 dcc.Store('memory'),
                 # HEADER
                 html.Div([
-                        html.H1('台股選股系統', style={'margin':self.style['margin'], 'padding':self.style['padding']})
+                        html.H1('台股選股系統', style={'margin':self_style.style['margin'], 'padding':self_style.style['padding']})
                 ]),# HEADER
 
                 html.Div([ # FILTER & DISPLAY
@@ -85,7 +57,7 @@ class DashBuilder(object):
                                     title='展開基本資訊選項',
                                     className='menu-btn'
                                 ),
-                            style=self.link_div_style),
+                            style=self_style.link_div_style),
                             html.Div(
                                 html.Button(
                                     "股價條件",
@@ -93,7 +65,7 @@ class DashBuilder(object):
                                     title='展開股價條件選項',
                                     className='menu-btn'
                                 ),
-                            style=self.link_div_style),
+                            style=self_style.link_div_style),
                             html.Div(
                                 html.Button(
                                     "成交量值",
@@ -101,7 +73,7 @@ class DashBuilder(object):
                                     title='展開成交量值選項',
                                     className='menu-btn'
                                 ),
-                            style=self.link_div_style),
+                            style=self_style.link_div_style),
                             html.Div(
                                 html.Button(
                                     "法人籌碼", 
@@ -109,7 +81,7 @@ class DashBuilder(object):
                                     title='展開法人籌碼選項',
                                     className='menu-btn'
                                 ),
-                            style=self.link_div_style),
+                            style=self_style.link_div_style),
                             html.Div(
                                 html.Button(
                                     "信用交易",
@@ -117,7 +89,7 @@ class DashBuilder(object):
                                     title='展開信用交易選項',
                                     className='menu-btn'
                                 ),
-                            style=self.link_div_style),
+                            style=self_style.link_div_style),
                             html.Div(
                                 html.Button(
                                     "公司營收",
@@ -125,20 +97,20 @@ class DashBuilder(object):
                                     title='展開公司營收選項',
                                     className='menu-btn'
                                 ),
-                            style=self.link_div_style),
-                        ], style=self.menu_style), # MENU
+                            style=self_style.link_div_style),
+                        ], style=self_style.menu_style), # MENU
                         
                         html.Div([
-                            html.Div('請由左方加入篩選類別', style=self.add_text_style),
+                            html.Div('請由左方加入篩選類別', style=self_style.add_text_style),
                             html.Div([], id="filter-content"),
-                        ],style=self.filter_content_style),
+                        ],style=self_style.filter_content_style),
                         
                         html.Br(style={'border':'solid 1px'}),
                         html.Br(style={'border':'solid 1px'}),
                         html.Div([
                             # "DISPLAY",
                             html.Div([
-                                html.Div('您的選股條件', style=self.output_text_style),
+                                html.Div('您的選股條件', style=self_style.output_text_style),
                                 html.Div([
                                     html.Button('開始選股',
                                         id='selection-btn',
@@ -151,15 +123,15 @@ class DashBuilder(object):
                             html.Div([
                             ],
                             id='dynamic-output-container',
-                            style=self.dynamic_output_container_style),
+                            style=self_style.dynamic_output_container_style),
                         ], id='display-content', 
-                        style=self.display_content_style)
-                    ], style=self.left_frame_style),# FILTER
+                        style=self_style.display_content_style)
+                    ], style=self_style.left_frame_style),# FILTER
 
                     # DISPLAY
                     html.Div([
                         html.Div([
-                            html.Div(['查詢結果'], style=self.add_text_style),
+                            html.Div(['查詢結果'], style=self_style.add_text_style),
                             html.Div([
                                 dcc.Loading(
                                     id='result-loading',
@@ -169,20 +141,20 @@ class DashBuilder(object):
                                 )
                             ])
                         ], 
-                        style=self.selection_style)
-                    ], style=self.right_frame_style),  # DISPLAY
+                        style=self_style.selection_style)
+                    ], style=self_style.right_frame_style),  # DISPLAY
 
-                ], style=self.frame_style), # FILTER & DISPLAY
+                ], style=self_style.frame_style), # FILTER & DISPLAY
 
                 # SELECTION RESULT
                 # html.Div([
                 #     html.Div([
-                #         html.Div(['查詢結果'], style=self.add_text_style),
+                #         html.Div(['查詢結果'], style=self_style.add_text_style),
                 #         html.Div([],id='dynamic-selection-result')
                 #     ], 
-                #     style=self.selection_style)
-                # ], style=self.frame_style),  # SELECTION RESULT                            
-        ], style=self.top_div_style)#TOP DIV
+                #     style=self_style.selection_style)
+                # ], style=self_style.frame_style),  # SELECTION RESULT                            
+        ], style=self_style.top_div_style)#TOP DIV
 
         ### callbacks
         # 1. Links -> filter-content
@@ -199,437 +171,17 @@ class DashBuilder(object):
             ctx = dash.callback_context
             button_id = ctx.triggered[0]['prop_id'].split('.')[0]
             if button_id == '01-btn':
-                content = html.Div(
-                            [
-                                html.Div([
-                                    html.Span([
-                                        html.P('公司隸屬產業別為', style=self.text_normal),
-                                    ], style=self_style.item_style),
-                                    html.Button('+', n_clicks=0, style=self_style.button_style, 
-                                    id={
-                                        'type': 'filter-btn',
-                                        'index': button_id + '-add-0101'
-                                    })
-                                ]),
-                                html.Div([
-                                    html.Span([
-                                        html.P('公司股本', style=self.text_normal), # normal text
-                                        html.P('大於', style=self.text_bold), # bold text
-                                        html.P('5', style=self.text_bold),
-                                        html.P('億元', style=self.text_normal),
-                                        
-                                    ], style=self_style.item_style),
-                                    html.Button('+', n_clicks=0, style=self_style.button_style, 
-                                    id={
-                                        'type': 'filter-btn',
-                                        'index': button_id + '-add-0102'
-                                    })
-                                ]),
-                                html.Div([
-                                    html.Span([
-                                        html.P('公司股本', style=self.text_normal), # normal text
-                                        html.P('小於', style=self.text_bold), # bold text
-                                        html.P('5', style=self.text_bold),
-                                        html.P('億元', style=self.text_normal),
-                                        
-                                    ], style=self_style.item_style),
-                                    html.Button('+', n_clicks=0, style=self_style.button_style, 
-                                    id={
-                                        'type': 'filter-btn',
-                                        'index': button_id + '-add-0103'
-                                    })                                    
-                                ]),
-                            ])   
+                content = basic_01.create_filters(button_id)
             elif button_id == '02-btn':
-                content = html.Div(
-                            [
-                                html.Div([
-                                    html.Span([
-                                        html.P('公司股價', style=self.text_normal),
-                                        html.P('大於', style=self.text_bold),
-                                        html.P('120', style=self.text_bold),
-                                        html.P('元', style=self.text_normal),
-                                        
-                                    ], style=self_style.item_style),
-                                    html.Button('+', n_clicks=0, style=self_style.button_style,
-                                    id={
-                                        'type': 'filter-btn',
-                                        'index': button_id + '-add-0201'
-                                    })
-                                ]),
-                                html.Div([
-                                    html.Span([
-                                        html.P('公司股價', style=self.text_normal),
-                                        html.P('小於', style=self.text_bold),
-                                        html.P('120', style=self.text_bold),
-                                        html.P('元', style=self.text_normal),
-                                        
-                                    ], style=self_style.item_style),
-                                    html.Button('+', n_clicks=0, style=self_style.button_style,
-                                    id={
-                                        'type': 'filter-btn',
-                                        'index': button_id + '-add-0202'
-                                    })
-                                ]),
-                                html.Div([
-                                    html.Span([
-                                        html.P('公司股價連續', style=self.text_normal),
-                                        html.P('漲/跌停', style=self.text_bold),
-                                        html.P('3', style=self.text_bold),
-                                        html.P('日以上', style=self.text_normal),
-                                    ], style=self_style.item_style),
-                                    html.Button('+', n_clicks=0, style=self_style.button_style,
-                                    id={
-                                        'type': 'filter-btn',
-                                        'index': button_id + '-add-0203'
-                                    })
-                                ]),
-                                html.Div([
-                                    html.Span([
-                                        html.P('於', style=self.text_normal),
-                                        html.P('3', style=self.text_bold),
-                                        html.P('日內', style=self.text_normal),
-                                        html.P('漲/跌幅', style=self.text_bold),
-                                        html.P('超過', style=self.text_normal),
-                                        html.P('10%', style=self.text_bold),
-                                        html.P('之股票', style=self.text_normal),
-                                    ], style=self_style.item_style),
-                                    html.Button('+', n_clicks=0, style=self_style.button_style,
-                                    id={
-                                        'type': 'filter-btn',
-                                        'index': button_id + '-add-0204'
-                                    })
-                                ]),
-                                html.Div([
-                                    html.Span([
-                                        html.P('於', style=self.text_normal),
-                                        html.P('3', style=self.text_bold),
-                                        html.P('日內', style=self.text_normal),
-                                        html.P('上漲/下跌', style=self.text_bold),
-                                        html.P('超過', style=self.text_normal),
-                                        html.P('20元', style=self.text_bold),
-                                        html.P('之股票', style=self.text_normal),
-                                    ], style=self_style.item_style),
-                                    html.Button('+', n_clicks=0, style=self_style.button_style,
-                                    id={
-                                        'type': 'filter-btn',
-                                        'index': button_id + '-add-0205'
-                                    })
-                                ]),
-                            ])
+                content = price_02.create_filters(button_id)
             elif button_id == '03-btn':
-                content = html.Div(
-                            [
-                                html.Div([
-                                    html.Span([
-                                        html.P('於', style=self.text_normal),
-                                        html.P('3', style=self.text_bold),
-                                        html.P('日內，成交量平均', style=self.text_normal),
-                                        html.P('大於', style=self.text_bold),
-                                        html.P('50000', style=self.text_normal),
-                                        html.P('張之股票', style=self.text_normal),
-                                    ], style=self_style.item_style),
-                                    html.Button('+', n_clicks=0, style=self_style.button_style, 
-                                    id={
-                                        'type': 'filter-btn',
-                                        'index': button_id + '-add-0301'
-                                    })
-                                ]),
-                                html.Div([
-                                    html.Span([
-                                        html.P('於', style=self.text_normal),
-                                        html.P('3', style=self.text_bold),
-                                        html.P('日內，成交量平均', style=self.text_normal),
-                                        html.P('小於', style=self.text_bold),
-                                        html.P('1000', style=self.text_normal),
-                                        html.P('張之股票', style=self.text_normal),
-                                    ], style=self_style.item_style),
-                                    html.Button('+', n_clicks=0, style=self_style.button_style, 
-                                    id={
-                                        'type': 'filter-btn',
-                                        'index': button_id + '-add-0302'
-                                    })
-                                ]),
-                                html.Div([
-                                    html.Span([
-                                        html.P('於', style=self.text_normal),
-                                        html.P('3', style=self.text_bold),
-                                        html.P('日內，成交量', style=self.text_normal),
-                                        html.P('增加', style=self.text_bold),
-                                        html.P('1000', style=self.text_normal),
-                                        html.P('張之股票', style=self.text_normal),
-                                    ], style=self_style.item_style),
-                                    html.Button('+', n_clicks=0, style=self_style.button_style, 
-                                    id={
-                                        'type': 'filter-btn',
-                                        'index': button_id + '-add-0303'
-                                    })
-                                ]),   
-                                html.Div([
-                                    html.Span([
-                                        html.P('於', style=self.text_normal),
-                                        html.P('3', style=self.text_bold),
-                                        html.P('日內，成交量', style=self.text_normal),
-                                        html.P('減少', style=self.text_bold),
-                                        html.P('1000', style=self.text_normal),
-                                        html.P('張之股票', style=self.text_normal),
-                                    ], style=self_style.item_style),
-                                    html.Button('+', n_clicks=0, style=self_style.button_style, 
-                                    id={
-                                        'type': 'filter-btn',
-                                        'index': button_id + '-add-0304'
-                                    })
-                                ]),
-                                html.Div([
-                                    html.Span([
-                                        html.P('於', style=self.text_normal),
-                                        html.P('3', style=self.text_bold),
-                                        html.P('日內，成交量', style=self.text_normal),
-                                        html.P('增加', style=self.text_bold),
-                                        html.P('20', style=self.text_normal),
-                                        html.P('% 之股票', style=self.text_normal),
-                                    ], style=self_style.item_style),
-                                    html.Button('+', n_clicks=0, style=self_style.button_style, 
-                                    id={
-                                        'type': 'filter-btn',
-                                        'index': button_id + '-add-0305'
-                                    })
-                                ]),
-                                html.Div([
-                                    html.Span([
-                                        html.P('於', style=self.text_normal),
-                                        html.P('3', style=self.text_bold),
-                                        html.P('日內，成交量', style=self.text_normal),
-                                        html.P('減少', style=self.text_bold),
-                                        html.P('20', style=self.text_normal),
-                                        html.P('% 之股票', style=self.text_normal),
-                                    ], style=self_style.item_style),
-                                    html.Button('+', n_clicks=0, style=self_style.button_style, 
-                                    id={
-                                        'type': 'filter-btn',
-                                        'index': button_id + '-add-0306'
-                                    })
-                                ]),                             
-                            ])
+                content = volume_03.create_filters(button_id)
             elif button_id == '04-btn':
-                content = html.Div(
-                            [                              
-                                html.Div([
-                                    html.Span([
-                                        html.P('外資', style=self.text_normal),
-                                        html.P('3', style=self.text_bold),
-                                        html.P('日內', style=self.text_normal),
-                                        html.P('買超/賣超', style=self.text_bold),
-                                        html.P('大於', style=self.text_bold),
-                                        html.P('5000', style=self.text_bold),
-                                        html.P('張', style=self.text_normal),
-                                        
-                                    ], style=self_style.item_style),
-                                    html.Button('+', n_clicks=0, style=self_style.button_style, 
-                                    id={
-                                        'type': 'filter-btn',
-                                        'index': button_id + '-add-0401'
-                                    })
-                                ]),
-                                html.Div([
-                                    html.Span([
-                                        html.P('外資', style=self.text_normal),
-                                        html.P('3', style=self.text_bold),
-                                        html.P('日內', style=self.text_normal),
-                                        html.P('買超/賣超', style=self.text_bold),
-                                        html.P('小於', style=self.text_bold),
-                                        html.P('5000', style=self.text_bold),
-                                        html.P('張', style=self.text_normal),
-                                        
-                                    ], style=self_style.item_style),
-                                    html.Button('+', n_clicks=0, style=self_style.button_style, 
-                                    id={
-                                        'type': 'filter-btn',
-                                        'index': button_id + '-add-0402'
-                                    })
-                                ]),                  
-                                html.Div([
-                                    html.Span([
-                                        html.P('投信', style=self.text_normal),
-                                        html.P('3', style=self.text_bold),
-                                        html.P('日內', style=self.text_normal),
-                                        html.P('買超/賣超', style=self.text_bold),
-                                        html.P('大於', style=self.text_bold),
-                                        html.P('5000', style=self.text_bold),
-                                        html.P('張', style=self.text_normal),
-                                        
-                                    ], style=self_style.item_style),
-                                    html.Button('+', n_clicks=0, style=self_style.button_style, 
-                                    id={
-                                        'type': 'filter-btn',
-                                        'index': button_id + '-add-0403'
-                                    })
-                                ]),
-                                html.Div([
-                                    html.Span([
-                                        html.P('投信', style=self.text_normal),
-                                        html.P('3', style=self.text_bold),
-                                        html.P('日內', style=self.text_normal),
-                                        html.P('買超/賣超', style=self.text_bold),
-                                        html.P('小於', style=self.text_bold),
-                                        html.P('5000', style=self.text_bold),
-                                        html.P('張', style=self.text_normal),
-                                        
-                                    ], style=self_style.item_style),
-                                    html.Button('+', n_clicks=0, style=self_style.button_style, 
-                                    id={
-                                        'type': 'filter-btn',
-                                        'index': button_id + '-add-0404'
-                                    })
-                                ]),         
-                                html.Div([
-                                    html.Span([
-                                        html.P('自營商', style=self.text_normal),
-                                        html.P('3', style=self.text_bold),
-                                        html.P('日內', style=self.text_normal),
-                                        html.P('買超/賣超', style=self.text_bold),
-                                        html.P('大於', style=self.text_bold),
-                                        html.P('5000', style=self.text_bold),
-                                        html.P('張', style=self.text_normal),
-                                        
-                                    ], style=self_style.item_style),
-                                    html.Button('+', n_clicks=0, style=self_style.button_style, 
-                                    id={
-                                        'type': 'filter-btn',
-                                        'index': button_id + '-add-0405'
-                                    })
-                                ]),
-                                html.Div([
-                                    html.Span([
-                                        html.P('自營商', style=self.text_normal),
-                                        html.P('3', style=self.text_bold),
-                                        html.P('日內', style=self.text_normal),
-                                        html.P('買超/賣超', style=self.text_bold),
-                                        html.P('小於', style=self.text_bold),
-                                        html.P('5000', style=self.text_bold),
-                                        html.P('張', style=self.text_normal),
-                                        
-                                    ], style=self_style.item_style),
-                                    html.Button('+', n_clicks=0, style=self_style.button_style, 
-                                    id={
-                                        'type': 'filter-btn',
-                                        'index': button_id + '-add-0406'
-                                    })
-                                ]),                                                                
-                            ])        
+                content = legal_04.create_filters(button_id)
             elif button_id == '05-btn':
-                content = html.Div(
-                            [
-                                html.Div([
-                                    html.Span([
-                                        html.P('融資於', style=self.text_normal),
-                                        html.P('3', style=self.text_bold),
-                                        html.P('日內，', style=self.text_normal),
-                                        html.P('增加/減少', style=self.text_bold),
-                                        html.P('100', style=self.text_normal),
-                                        html.P(' 張之股票', style=self.text_normal),
-                                    ], style=self_style.item_style),
-                                    html.Button('+', n_clicks=0, style=self_style.button_style,
-                                    id={
-                                        'type': 'filter-btn',
-                                        'index': button_id + '-add-0501'
-                                    })
-                                ]),
-                                html.Div([
-                                    html.Span([
-                                        html.P('融資於', style=self.text_normal),
-                                        html.P('3', style=self.text_bold),
-                                        html.P('日內，', style=self.text_normal),
-                                        html.P('增加/減少', style=self.text_bold),
-                                        html.P('100', style=self.text_normal),
-                                        html.P(' %之股票', style=self.text_normal),
-                                    ], style=self_style.item_style),
-                                    html.Button('+', n_clicks=0, style=self_style.button_style,
-                                    id={
-                                        'type': 'filter-btn',
-                                        'index': button_id + '-add-0502'
-                                    })
-                                ]),
-                                html.Div([
-                                    html.Span([
-                                        html.P('融券於', style=self.text_normal),
-                                        html.P('3', style=self.text_bold),
-                                        html.P('日內，', style=self.text_normal),
-                                        html.P('增加/減少', style=self.text_bold),
-                                        html.P('100', style=self.text_normal),
-                                        html.P(' 張之股票', style=self.text_normal),
-                                    ], style=self_style.item_style),
-                                    html.Button('+', n_clicks=0, style=self_style.button_style,
-                                    id={
-                                        'type': 'filter-btn',
-                                        'index': button_id + '-add-0503'
-                                    })
-                                ]),
-                                html.Div([
-                                    html.Span([
-                                        html.P('融券於', style=self.text_normal),
-                                        html.P('3', style=self.text_bold),
-                                        html.P('日內，', style=self.text_normal),
-                                        html.P('增加/減少', style=self.text_bold),
-                                        html.P('100', style=self.text_normal),
-                                        html.P(' %之股票', style=self.text_normal),
-                                    ], style=self_style.item_style),
-                                    html.Button('+', n_clicks=0, style=self_style.button_style,
-                                    id={
-                                        'type': 'filter-btn',
-                                        'index': button_id + '-add-0504'
-                                    })
-                                ]),
-                                html.Div([
-                                    html.Span([
-                                        html.P('借券於', style=self.text_normal),
-                                        html.P('3', style=self.text_bold),
-                                        html.P('日內，', style=self.text_normal),
-                                        html.P('增加/減少', style=self.text_bold),
-                                        html.P('100', style=self.text_normal),
-                                        html.P(' 張之股票', style=self.text_normal),
-                                    ], style=self_style.item_style),
-                                    html.Button('+', n_clicks=0, style=self_style.button_style,
-                                    id={
-                                        'type': 'filter-btn',
-                                        'index': button_id + '-add-0505'
-                                    })
-                                ]),
-                                html.Div([
-                                    html.Span([
-                                        html.P('借券於', style=self.text_normal),
-                                        html.P('3', style=self.text_bold),
-                                        html.P('日內，', style=self.text_normal),
-                                        html.P('增加/減少', style=self.text_bold),
-                                        html.P('100', style=self.text_normal),
-                                        html.P(' %之股票', style=self.text_normal),
-                                    ], style=self_style.item_style),
-                                    html.Button('+', n_clicks=0, style=self_style.button_style,
-                                    id={
-                                        'type': 'filter-btn',
-                                        'index': button_id + '-add-0506'
-                                    })
-                                ]),
-                            ])
+                content = credit_05.create_filters(button_id)
             elif button_id == '06-btn':
-                content = html.Div(
-                            [
-                                html.Div([
-                                    html.Span([
-                                        html.P('營收', style=self.text_normal),
-                                        html.P('大於', style=self.text_bold),
-                                        html.P('5', style=self.text_bold),
-                                        html.P('億元', style=self.text_normal),
-                                        
-                                    ], style=self_style.item_style),
-                                    html.Button('+', n_clicks=0, style=self_style.button_style,
-                                    id={
-                                        'type': 'filter-btn',
-                                        'index': button_id + '-add-0601'
-                                    })
-                                ]),
-
-                            ])          
+                content = revenue_06.create_filters(button_id)     
             else:
                 content = html.Div([])
             return content
@@ -637,6 +189,7 @@ class DashBuilder(object):
         # 2. filter-content -> dynamic-output-container
         self.output_count = 0
         self.output_record = []
+        self.selection_record = []
         self.all_btn = (
             # 1
             '{"index":"01-btn-add-0101","type":"filter-btn"}.n_clicks',
@@ -704,15 +257,10 @@ class DashBuilder(object):
                     self.output_count += 1
                     self.output_record.append(self.output_count)
                     print('Record:', self.output_record)
-                    # button_id = button_id.split('"')[3] 
-                    new_children = html.Div([
-                                        html.Span([
-                                            html.P('公司隸屬產業別為', style=self.text_normal),
-                                        ], style=self.output_item_style),
-                                        html.Button('x', n_clicks=0, style=self.button_style,
-                                            id={'type':'output-btn',
-                                                'index': str(self.output_count)})
-                                    ])
+                    self.selection_record.append('0101')
+                    print('Record:', self.selection_record)    
+
+                    new_children = basic_01.create_0101(self.output_count)
                     children.append(new_children)
                     return children
                 elif (button_id == '{"index":"01-btn-add-0102","type":"filter-btn"}'):
@@ -721,38 +269,9 @@ class DashBuilder(object):
                     self.output_count += 1
                     self.output_record.append(self.output_count)
                     print('Record:', self.output_record)
-                    # button_id = button_id.split('"')[3] 
-                    new_children = html.Div([
-                                        html.Span([
-                                            html.P('公司股本', style=self.text_normal),
-                                            html.Div([
-                                                dcc.Dropdown(
-                                                    # id='0101-dd',
-                                                    options=[
-                                                        {'label': '大於', 'value': 1},
-                                                        {'label': '小於', 'value': -1},
-                                                    ],
-                                                    value='1',
-                                                    placeholder='大於',
-                                                    style=self.dropdown_style,
-                                                    clearable=False),
-                                            ], style=self.dp_div_style),
-                                            html.Div([
-                                                dcc.Input(
-                                                    # id='0101-ip',
-                                                    type='number',
-                                                    min=0,
-                                                    max=99999,
-                                                    value=5,
-                                                    placeholder='5',
-                                                    style=self.input_style),
-                                            ], style=self.ipt_div_style),
-                                            html.P('億元', style=self.text_normal),
-                                        ], style=self.output_item_style),
-                                        html.Button('x', n_clicks=0, style=self.button_style,
-                                            id={'type':'output-btn',
-                                                'index': str(self.output_count)})
-                                    ])
+                    self.selection_record.append('0102')
+                    print('Record:', self.selection_record)
+                    new_children = basic_01.create_0102(self.output_count)
                     children.append(new_children)
                     return children
                 elif (button_id == '{"index":"01-btn-add-0103","type":"filter-btn"}'):
@@ -761,38 +280,9 @@ class DashBuilder(object):
                     self.output_count += 1
                     self.output_record.append(self.output_count)
                     print('Record:', self.output_record)
-                    # button_id = button_id.split('"')[3] 
-                    new_children = html.Div([
-                                        html.Span([
-                                            html.P('公司股本', style=self.text_normal),
-                                            html.Div([
-                                                dcc.Dropdown(
-                                                    # id='0101-dd',
-                                                    options=[
-                                                        {'label': '大於', 'value': 1},
-                                                        {'label': '小於', 'value': -1},
-                                                    ],
-                                                    value='-1',
-                                                    placeholder='小於',
-                                                    clearable=False,
-                                                    style=self.dropdown_style),
-                                            ], style=self.dp_div_style),
-                                            html.Div([
-                                                dcc.Input(
-                                                    # id='0101-ip',
-                                                    type='number',
-                                                    min=0,
-                                                    max=99999,
-                                                    value=5,
-                                                    placeholder='5',
-                                                    style=self.input_style),
-                                            ], style=self.ipt_div_style),
-                                            html.P('億元', style=self.text_normal),
-                                        ], style=self.output_item_style),
-                                        html.Button('x', n_clicks=0, style=self.button_style,
-                                            id={'type':'output-btn',
-                                                'index': str(self.output_count)})
-                                    ])
+                    self.selection_record.append('0103')
+                    print('Record:', self.selection_record)
+                    new_children = basic_01.create_0103(self.output_count)
                     children.append(new_children)
                     return children
                 elif (button_id == '{"index":"02-btn-add-0201","type":"filter-btn"}') and (f_btn > 0):
@@ -801,39 +291,9 @@ class DashBuilder(object):
                     self.output_count += 1
                     self.output_record.append(self.output_count)
                     print('Record:', self.output_record)
-                    # button_id = button_id.split('"')[3] 
-                    new_children = html.Div([
-                                        html.Span([
-                                            html.P('公司股價', style=self.text_normal),
-                                            html.Div([
-                                                dcc.Dropdown(
-                                                # id='0201-dd',
-                                                options=[
-                                                    {'label': '大於', 'value': 1},
-                                                    {'label': '小於', 'value': -1},
-                                                ],
-                                                value='1',
-                                                placeholder='大於',
-                                                clearable=False,
-                                                style=self.dropdown_style),
-                                            ],style=self.dp_div_style),
-                                            html.Div([
-                                                dcc.Input(
-                                                # id='0201-ip',
-                                                type='number',
-                                                min=0,
-                                                max=9999,
-                                                value=120,
-                                                placeholder='120',
-                                                style=self.input_style),
-                                            ], style=self.ipt_div_style),
-                                            
-                                            html.P('元', style=self.text_normal),
-                                        ], style=self.output_item_style),
-                                        html.Button('x', n_clicks=0, style=self.button_style,
-                                                id={'type':'output-btn',
-                                                    'index': str(self.output_count)})
-                                    ])
+                    self.selection_record.append('0201')
+                    print('Record:', self.selection_record)
+                    new_children = price_02.create_0201(self.output_count)
                     children.append(new_children)
                     return children
                 elif (button_id == '{"index":"02-btn-add-0202","type":"filter-btn"}'):
@@ -842,39 +302,9 @@ class DashBuilder(object):
                     self.output_count += 1
                     self.output_record.append(self.output_count)
                     print('Record:', self.output_record)
-                    # button_id = button_id.split('"')[3] 
-                    new_children = html.Div([
-                                        html.Span([
-                                            html.P('公司股價', style=self.text_normal),
-                                            html.Div([
-                                                dcc.Dropdown(
-                                                # id='0201-dd',
-                                                options=[
-                                                    {'label': '大於', 'value': 1},
-                                                    {'label': '小於', 'value': -1},
-                                                ],
-                                                value='-1',
-                                                placeholder='小於',
-                                                clearable=False,
-                                                style=self.dropdown_style),
-                                            ],style=self.dp_div_style),
-                                            html.Div([
-                                                dcc.Input(
-                                                # id='0201-ip',
-                                                type='number',
-                                                min=0,
-                                                max=9999,
-                                                value=120,
-                                                placeholder='120',
-                                                style=self.input_style),
-                                            ], style=self.ipt_div_style),
-                                            
-                                            html.P('元', style=self.text_normal),
-                                        ], style=self.output_item_style),
-                                        html.Button('x', n_clicks=0, style=self.button_style,
-                                                id={'type':'output-btn',
-                                                    'index': str(self.output_count)})
-                                    ])
+                    self.selection_record.append('0202')
+                    print('Record:', self.selection_record) 
+                    new_children = price_02.create_0202(self.output_count)
                     children.append(new_children)
                     return children
                 elif (button_id == '{"index":"02-btn-add-0203","type":"filter-btn"}'):
@@ -883,39 +313,9 @@ class DashBuilder(object):
                     self.output_count += 1
                     self.output_record.append(self.output_count)
                     print('Record:', self.output_record)
-                    # button_id = button_id.split('"')[3] 
-                    new_children = html.Div([
-                                        html.Span([
-                                            html.P('公司股價連續', style=self.text_normal),
-                                            html.Div([
-                                                dcc.Dropdown(
-                                                # id='0201-dd',
-                                                options=[
-                                                    {'label': '漲停', 'value': 1},
-                                                    {'label': '跌停', 'value': -1},
-                                                ],
-                                                value='1',
-                                                placeholder='漲停',
-                                                clearable=False,
-                                                style=self.dropdown_style),
-                                            ],style=self.dp_div_style),
-                                            html.Div([
-                                                dcc.Input(
-                                                # id='0201-ip',
-                                                type='number',
-                                                min=0,
-                                                max=100,
-                                                value=3,
-                                                placeholder='3',
-                                                style=self.short_input_style),
-                                            ], style=self.short_ipt_div_style),
-                                            
-                                            html.P('日以上', style=self.text_normal),
-                                        ], style=self.output_item_style),
-                                        html.Button('x', n_clicks=0, style=self.button_style,
-                                                id={'type':'output-btn',
-                                                    'index': str(self.output_count)})
-                                    ])
+                    self.selection_record.append('0203')
+                    print('Record:', self.selection_record)
+                    new_children = price_02.create_0203(self.output_count)
                     children.append(new_children)
                     return children
                 elif (button_id == '{"index":"02-btn-add-0204","type":"filter-btn"}'):
@@ -924,68 +324,9 @@ class DashBuilder(object):
                     self.output_count += 1
                     self.output_record.append(self.output_count)
                     print('Record:', self.output_record)
-                    # button_id = button_id.split('"')[3] 
-                    new_children = html.Div([
-                                        html.Span([
-                                            html.P('於', style=self.text_normal),
-
-                                            html.Div([
-                                                dcc.Input(
-                                                # id='0201-ip',
-                                                type='number',
-                                                min=0,
-                                                max=999,
-                                                value=3,
-                                                placeholder='3',
-                                                style=self.short_input_style),  
-                                            ], style=self.short_ipt_div_style),
-                                            html.Div([
-                                                dcc.Dropdown(
-                                                    # id='0201-dd',
-                                                    options=[
-                                                        {'label': '日', 'value': 'd'},
-                                                        {'label': '周', 'value': 'w'},
-                                                        {'label': '月', 'value': 'm'},
-                                                        {'label': '季', 'value': 's'},    
-                                                        {'label': '年', 'value': 'y'},                                                  
-                                                    ],
-                                                    value='d',
-                                                    placeholder='日',
-                                                    clearable=False,
-                                                    style=self.short_dropdown_style),
-                                            ],style=self.dp_div_style),                                           
-
-                                            html.P('內', style=self.text_normal),
-                                            html.Div([
-                                                dcc.Dropdown(
-                                                # id='0201-dd',
-                                                options=[
-                                                    {'label': '漲幅', 'value': 1},
-                                                    {'label': '跌幅', 'value': -1},
-                                                ],
-                                                value='1',
-                                                placeholder='漲幅',
-                                                clearable=False,
-                                                style=self.dropdown_style),
-                                            ],style=self.dp_div_style),
-                                            html.P('超過', style=self.text_normal),
-                                            html.Div([
-                                                dcc.Input(
-                                                # id='0201-ip',
-                                                type='number',
-                                                min=0,
-                                                max=9999,
-                                                value=10,
-                                                placeholder='10',
-                                                style=self.input_style),
-                                            ], style=self.ipt_div_style),
-                                            
-                                            html.P('% 之股票', style=self.text_normal),
-                                        ], style=self.output_item_style),
-                                        html.Button('x', n_clicks=0, style=self.button_style,
-                                                id={'type':'output-btn',
-                                                    'index': str(self.output_count)})
-                                    ])
+                    self.selection_record.append('0204')
+                    print('Record:', self.selection_record)
+                    new_children = price_02.create_0204(self.output_count)
                     children.append(new_children)
                     return children
                 elif (button_id == '{"index":"02-btn-add-0205","type":"filter-btn"}'):
@@ -994,70 +335,9 @@ class DashBuilder(object):
                     self.output_count += 1
                     self.output_record.append(self.output_count)
                     print('Record:', self.output_record)
-                    # button_id = button_id.split('"')[3] 
-                    new_children = html.Div([
-                                        html.Span([
-                                            html.P('於', style=self.text_normal),
-
-                                            html.Div([
-                                                dcc.Input(
-                                                # id='0201-ip',
-                                                type='number',
-                                                min=0,
-                                                max=999,
-                                                value=3,
-                                                placeholder='3',
-                                                style=self.short_input_style),  
-                                            ], style=self.short_ipt_div_style),
-                                            html.Div([
-                                                dcc.Dropdown(
-                                                    # id='0201-dd',
-                                                    options=[
-                                                        {'label': '日', 'value': 'd'},
-                                                        {'label': '周', 'value': 'w'},
-                                                        {'label': '月', 'value': 'm'},
-                                                        {'label': '季', 'value': 's'},    
-                                                        {'label': '年', 'value': 'y'},                                                  
-                                                    ],
-                                                    value='d',
-                                                    placeholder='日',
-                                                    clearable=False,
-                                                    style=self.short_dropdown_style),
-                                            ],style=self.dp_div_style),                                          
-                                            
-                                            html.P('內', style=self.text_normal),
-                                            html.Div([
-                                                dcc.Dropdown(
-                                                    # id='0201-dd',
-                                                    options=[
-                                                        {'label': '上漲', 'value': 1},
-                                                        {'label': '下跌', 'value': -1},
-                                                    ],
-                                                    value='1',
-                                                    placeholder='上漲',
-                                                    clearable=False,
-                                                    style=self.dropdown_style),
-                                            ],style=self.dp_div_style),
-                                            
-                                            html.P('超過', style=self.text_normal),
-
-                                            html.Div([
-                                                dcc.Input(
-                                                # id='0201-ip',
-                                                type='number',
-                                                min=0,
-                                                max=9999,
-                                                value=10,
-                                                placeholder='20',
-                                                style=self.input_style),
-                                            ], style=self.ipt_div_style),
-                                            
-                                            html.P('元之股票', style=self.text_normal),
-                                        ], style=self.output_item_style),
-                                        html.Button('x', n_clicks=0, style=self.button_style,
-                                                id={'type':'output-btn',
-                                                    'index': str(self.output_count)})
-                                    ])
+                    self.selection_record.append('0205')
+                    print('Record:', self.selection_record)
+                    new_children = price_02.create_0205(self.output_count)
                     children.append(new_children)
                     return children
                 elif (button_id == '{"index":"03-btn-add-0301","type":"filter-btn"}') and (f_btn > 0):
@@ -1066,63 +346,9 @@ class DashBuilder(object):
                     self.output_count += 1
                     self.output_record.append(self.output_count)
                     print('Record:', self.output_record)
-                    # button_id = button_id.split('"')[3] 
-                    new_children = html.Div([
-                                        html.Span([
-                                            html.P('於', style=self.text_normal),
-                                            html.Div([
-                                                dcc.Input(
-                                                # id='0201-ip',
-                                                type='number',
-                                                min=0,
-                                                max=999,
-                                                value=3,
-                                                placeholder='3',
-                                                style=self.short_input_style),  
-                                            ], style=self.short_ipt_div_style),
-                                            html.Div([
-                                                dcc.Dropdown(
-                                                    # id='0201-dd',
-                                                    options=[
-                                                        {'label': '日', 'value': 'd'},
-                                                        {'label': '周', 'value': 'w'},
-                                                        {'label': '月', 'value': 'm'},
-                                                        {'label': '季', 'value': 's'},    
-                                                        {'label': '年', 'value': 'y'},                                                  
-                                                    ],
-                                                    value='d',
-                                                    placeholder='日',
-                                                    clearable=False,
-                                                    style=self.short_dropdown_style),
-                                            ],style=self.dp_div_style),                                           
-                                            html.P('內，成交量平均', style=self.text_normal),
-                                            html.Div([
-                                                dcc.Dropdown(
-                                                # id='0201-dd',
-                                                options=[
-                                                    {'label': '大於', 'value': 1},
-                                                    {'label': '小於', 'value': -1},
-                                                ],
-                                                value='1',
-                                                placeholder='大於',
-                                                clearable=False,
-                                                style=self.dropdown_style),
-                                            ],style=self.dp_div_style),
-                                            html.Div([
-                                                dcc.Input(
-                                                # id='0201-ip',
-                                                type='number',
-                                                min=0,
-                                                max=9999999,
-                                                value=50000,
-                                                style=self.input_style),
-                                            ], style=self.ipt_div_style),
-                                            html.P('張之股票', style=self.text_normal),
-                                        ], style=self.output_item_style),
-                                        html.Button('x', n_clicks=0, style=self.button_style,
-                                                id={'type':'output-btn',
-                                                    'index': str(self.output_count)})
-                                    ])
+                    self.selection_record.append('0301')
+                    print('Record:', self.selection_record)
+                    new_children = volume_03.create_0301(self.output_count)
                     children.append(new_children)
                     return children
                 elif (button_id == '{"index":"03-btn-add-0302","type":"filter-btn"}'):
@@ -1131,63 +357,9 @@ class DashBuilder(object):
                     self.output_count += 1
                     self.output_record.append(self.output_count)
                     print('Record:', self.output_record)
-                    # button_id = button_id.split('"')[3] 
-                    new_children = html.Div([
-                                        html.Span([
-                                            html.P('於', style=self.text_normal),
-                                            html.Div([
-                                                dcc.Input(
-                                                # id='0201-ip',
-                                                type='number',
-                                                min=0,
-                                                max=999,
-                                                value=3,
-                                                placeholder='3',
-                                                style=self.short_input_style),  
-                                            ], style=self.short_ipt_div_style),
-                                            html.Div([
-                                                dcc.Dropdown(
-                                                    # id='0201-dd',
-                                                    options=[
-                                                        {'label': '日', 'value': 'd'},
-                                                        {'label': '周', 'value': 'w'},
-                                                        {'label': '月', 'value': 'm'},
-                                                        {'label': '季', 'value': 's'},    
-                                                        {'label': '年', 'value': 'y'},                                                  
-                                                    ],
-                                                    value='d',
-                                                    placeholder='日',
-                                                    clearable=False,
-                                                    style=self.short_dropdown_style),
-                                            ],style=self.dp_div_style),                                           
-                                            html.P('內，成交量平均', style=self.text_normal),
-                                            html.Div([
-                                                dcc.Dropdown(
-                                                # id='0201-dd',
-                                                options=[
-                                                    {'label': '大於', 'value': 1},
-                                                    {'label': '小於', 'value': -1},
-                                                ],
-                                                value='-1',
-                                                placeholder='小於',
-                                                clearable=False,
-                                                style=self.dropdown_style),
-                                            ],style=self.dp_div_style),
-                                            html.Div([
-                                                dcc.Input(
-                                                # id='0201-ip',
-                                                type='number',
-                                                min=0,
-                                                max=9999999,
-                                                value=10,
-                                                style=self.input_style),
-                                            ], style=self.ipt_div_style),
-                                            html.P('張之股票', style=self.text_normal),
-                                        ], style=self.output_item_style),
-                                        html.Button('x', n_clicks=0, style=self.button_style,
-                                                id={'type':'output-btn',
-                                                    'index': str(self.output_count)})
-                                    ])
+                    self.selection_record.append('0302')
+                    print('Record:', self.selection_record) 
+                    new_children = volume_03.create_0302(self.output_count)
                     children.append(new_children)
                     return children
                 elif (button_id == '{"index":"03-btn-add-0303","type":"filter-btn"}'):
@@ -1196,63 +368,9 @@ class DashBuilder(object):
                     self.output_count += 1
                     self.output_record.append(self.output_count)
                     print('Record:', self.output_record)
-                    # button_id = button_id.split('"')[3] 
-                    new_children = html.Div([
-                                        html.Span([
-                                            html.P('於', style=self.text_normal),
-                                            html.Div([
-                                                dcc.Input(
-                                                # id='0201-ip',
-                                                type='number',
-                                                min=0,
-                                                max=999,
-                                                value=3,
-                                                placeholder='3',
-                                                style=self.short_input_style),  
-                                            ], style=self.short_ipt_div_style),
-                                            html.Div([
-                                                dcc.Dropdown(
-                                                    # id='0201-dd',
-                                                    options=[
-                                                        {'label': '日', 'value': 'd'},
-                                                        {'label': '周', 'value': 'w'},
-                                                        {'label': '月', 'value': 'm'},
-                                                        {'label': '季', 'value': 's'},    
-                                                        {'label': '年', 'value': 'y'},                                                  
-                                                    ],
-                                                    value='d',
-                                                    placeholder='日',
-                                                    clearable=False,
-                                                    style=self.short_dropdown_style),
-                                            ],style=self.dp_div_style),                                           
-                                            html.P('內，成交量', style=self.text_normal),
-                                            html.Div([
-                                                dcc.Dropdown(
-                                                # id='0201-dd',
-                                                options=[
-                                                    {'label': '增加', 'value': 1},
-                                                    {'label': '減少', 'value': -1},
-                                                ],
-                                                value='1',
-                                                placeholder='增加',
-                                                clearable=False,
-                                                style=self.dropdown_style),
-                                            ],style=self.dp_div_style),
-                                            html.Div([
-                                                dcc.Input(
-                                                # id='0201-ip',
-                                                type='number',
-                                                min=0,
-                                                max=9999999,
-                                                value=1000,
-                                                style=self.input_style),
-                                            ], style=self.ipt_div_style),
-                                            html.P('張之股票', style=self.text_normal),
-                                        ], style=self.output_item_style),
-                                        html.Button('x', n_clicks=0, style=self.button_style,
-                                                id={'type':'output-btn',
-                                                    'index': str(self.output_count)})
-                                    ])
+                    self.selection_record.append('0303')
+                    print('Record:', self.selection_record)
+                    new_children = volume_03.create_0303(self.output_count)
                     children.append(new_children)
                     return children
                 elif (button_id == '{"index":"03-btn-add-0304","type":"filter-btn"}'):
@@ -1261,63 +379,9 @@ class DashBuilder(object):
                     self.output_count += 1
                     self.output_record.append(self.output_count)
                     print('Record:', self.output_record)
-                    # button_id = button_id.split('"')[3] 
-                    new_children = html.Div([
-                                        html.Span([
-                                            html.P('於', style=self.text_normal),
-                                            html.Div([
-                                                dcc.Input(
-                                                # id='0201-ip',
-                                                type='number',
-                                                min=0,
-                                                max=999,
-                                                value=3,
-                                                placeholder='3',
-                                                style=self.short_input_style),  
-                                            ], style=self.short_ipt_div_style),
-                                            html.Div([
-                                                dcc.Dropdown(
-                                                    # id='0201-dd',
-                                                    options=[
-                                                        {'label': '日', 'value': 'd'},
-                                                        {'label': '周', 'value': 'w'},
-                                                        {'label': '月', 'value': 'm'},
-                                                        {'label': '季', 'value': 's'},    
-                                                        {'label': '年', 'value': 'y'},                                                  
-                                                    ],
-                                                    value='d',
-                                                    placeholder='日',
-                                                    clearable=False,
-                                                    style=self.short_dropdown_style),
-                                            ],style=self.dp_div_style),                                           
-                                            html.P('內，成交量', style=self.text_normal),
-                                            html.Div([
-                                                dcc.Dropdown(
-                                                # id='0201-dd',
-                                                options=[
-                                                    {'label': '增加', 'value': 1},
-                                                    {'label': '減少', 'value': -1},
-                                                ],
-                                                value='-1',
-                                                placeholder='減少',
-                                                clearable=False,
-                                                style=self.dropdown_style),
-                                            ],style=self.dp_div_style),
-                                            html.Div([
-                                                dcc.Input(
-                                                # id='0201-ip',
-                                                type='number',
-                                                min=0,
-                                                max=9999999,
-                                                value=1000,
-                                                style=self.input_style),
-                                            ], style=self.ipt_div_style),
-                                            html.P('張之股票', style=self.text_normal),
-                                        ], style=self.output_item_style),
-                                        html.Button('x', n_clicks=0, style=self.button_style,
-                                                id={'type':'output-btn',
-                                                    'index': str(self.output_count)})
-                                    ])
+                    self.selection_record.append('0304')
+                    print('Record:', self.selection_record)
+                    new_children = volume_03.create_0304(self.output_count)
                     children.append(new_children)
                     return children
                 elif (button_id == '{"index":"03-btn-add-0305","type":"filter-btn"}'):
@@ -1326,63 +390,9 @@ class DashBuilder(object):
                     self.output_count += 1
                     self.output_record.append(self.output_count)
                     print('Record:', self.output_record)
-                    # button_id = button_id.split('"')[3] 
-                    new_children = html.Div([
-                                        html.Span([
-                                            html.P('於', style=self.text_normal),
-                                            html.Div([
-                                                dcc.Input(
-                                                # id='0201-ip',
-                                                type='number',
-                                                min=0,
-                                                max=999,
-                                                value=3,
-                                                placeholder='3',
-                                                style=self.short_input_style),  
-                                            ], style=self.short_ipt_div_style),
-                                            html.Div([
-                                                dcc.Dropdown(
-                                                    # id='0201-dd',
-                                                    options=[
-                                                        {'label': '日', 'value': 'd'},
-                                                        {'label': '周', 'value': 'w'},
-                                                        {'label': '月', 'value': 'm'},
-                                                        {'label': '季', 'value': 's'},    
-                                                        {'label': '年', 'value': 'y'},                                                  
-                                                    ],
-                                                    value='d',
-                                                    placeholder='日',
-                                                    clearable=False,
-                                                    style=self.short_dropdown_style),
-                                            ],style=self.dp_div_style),                                           
-                                            html.P('內，成交量', style=self.text_normal),
-                                            html.Div([
-                                                dcc.Dropdown(
-                                                # id='0201-dd',
-                                                options=[
-                                                    {'label': '增加', 'value': 1},
-                                                    {'label': '減少', 'value': -1},
-                                                ],
-                                                value='1',
-                                                placeholder='增加',
-                                                clearable=False,
-                                                style=self.dropdown_style),
-                                            ],style=self.dp_div_style),
-                                            html.Div([
-                                                dcc.Input(
-                                                # id='0201-ip',
-                                                type='number',
-                                                min=0,
-                                                max=9999999,
-                                                value=20,
-                                                style=self.input_style),
-                                            ], style=self.ipt_div_style),
-                                            html.P('% 之股票', style=self.text_normal),
-                                        ], style=self.output_item_style),
-                                        html.Button('x', n_clicks=0, style=self.button_style,
-                                                id={'type':'output-btn',
-                                                    'index': str(self.output_count)})
-                                    ])
+                    self.selection_record.append('0305')
+                    print('Record:', self.selection_record)
+                    new_children = volume_03.create_0305(self.output_count)
                     children.append(new_children)
                     return children
                 elif (button_id == '{"index":"03-btn-add-0306","type":"filter-btn"}'):
@@ -1391,63 +401,9 @@ class DashBuilder(object):
                     self.output_count += 1
                     self.output_record.append(self.output_count)
                     print('Record:', self.output_record)
-                    # button_id = button_id.split('"')[3] 
-                    new_children = html.Div([
-                                        html.Span([
-                                            html.P('於', style=self.text_normal),
-                                            html.Div([
-                                                dcc.Input(
-                                                # id='0201-ip',
-                                                type='number',
-                                                min=0,
-                                                max=999,
-                                                value=3,
-                                                placeholder='3',
-                                                style=self.short_input_style),  
-                                            ], style=self.short_ipt_div_style),
-                                            html.Div([
-                                                dcc.Dropdown(
-                                                    # id='0201-dd',
-                                                    options=[
-                                                        {'label': '日', 'value': 'd'},
-                                                        {'label': '周', 'value': 'w'},
-                                                        {'label': '月', 'value': 'm'},
-                                                        {'label': '季', 'value': 's'},    
-                                                        {'label': '年', 'value': 'y'},                                                  
-                                                    ],
-                                                    value='d',
-                                                    placeholder='日',
-                                                    clearable=False,
-                                                    style=self.short_dropdown_style),
-                                            ],style=self.dp_div_style),                                           
-                                            html.P('內，成交量', style=self.text_normal),
-                                            html.Div([
-                                                dcc.Dropdown(
-                                                # id='0201-dd',
-                                                options=[
-                                                    {'label': '增加', 'value': 1},
-                                                    {'label': '減少', 'value': -1},
-                                                ],
-                                                value='-1',
-                                                placeholder='減少',
-                                                clearable=False,
-                                                style=self.dropdown_style),
-                                            ],style=self.dp_div_style),
-                                            html.Div([
-                                                dcc.Input(
-                                                # id='0201-ip',
-                                                type='number',
-                                                min=0,
-                                                max=9999999,
-                                                value=20,
-                                                style=self.input_style),
-                                            ], style=self.ipt_div_style),
-                                            html.P('% 之股票', style=self.text_normal),
-                                        ], style=self.output_item_style),
-                                        html.Button('x', n_clicks=0, style=self.button_style,
-                                                id={'type':'output-btn',
-                                                    'index': str(self.output_count)})
-                                    ])
+                    self.selection_record.append('0306')
+                    print('Record:', self.selection_record) 
+                    new_children = volume_03.create_0306(self.output_count)
                     children.append(new_children)
                     return children               
                 elif (button_id == '{"index":"04-btn-add-0401","type":"filter-btn"}') and (f_btn > 0):
@@ -1456,78 +412,9 @@ class DashBuilder(object):
                     self.output_count += 1
                     self.output_record.append(self.output_count)
                     print('Record:', self.output_record)
-                    # button_id = button_id.split('"')[3] 
-                    new_children = html.Div([
-                                        html.Span([
-                                            html.P('外資', style=self.text_normal),
-                                            html.Div([
-                                                dcc.Input(
-                                                # id='0201-ip',
-                                                type='number',
-                                                min=0,
-                                                max=999,
-                                                value=3,
-                                                placeholder='3',
-                                                style=self.short_input_style),  
-                                            ], style=self.short_ipt_div_style),
-                                            html.Div([
-                                                dcc.Dropdown(
-                                                    # id='0201-dd',
-                                                    options=[
-                                                        {'label': '日', 'value': 'd'},
-                                                        {'label': '周', 'value': 'w'},
-                                                        {'label': '月', 'value': 'm'},
-                                                        {'label': '季', 'value': 's'},    
-                                                        {'label': '年', 'value': 'y'},                                                  
-                                                    ],
-                                                    value='d',
-                                                    placeholder='日',
-                                                    clearable=False,
-                                                    style=self.short_dropdown_style),
-                                            ],style=self.dp_div_style),                                           
-                                            html.P('內', style=self.text_normal),
-                                            html.Div([
-                                                dcc.Dropdown(
-                                                    # id='0401-dd',
-                                                    options=[
-                                                        {'label': '買超', 'value': 1},
-                                                        {'label': '賣超', 'value': -1},
-                                                    ],
-                                                    value='1',
-                                                    placeholder='買超',
-                                                    clearable=False,
-                                                    style=self.dropdown_style),
-                                            ],style=self.dp_div_style),
-                                            
-                                            html.Div([
-                                                dcc.Dropdown(
-                                                # id='0401-dd2',
-                                                options=[
-                                                    {'label': '大於', 'value': 1},
-                                                    {'label': '小於', 'value': -1},
-                                                ],
-                                                value='1',
-                                                placeholder='大於',
-                                                clearable=False,
-                                                style=self.dropdown_style),
-                                            ],style=self.dp_div_style),    
-                                            html.Div([
-                                                dcc.Input(
-                                                # id='0401-ip',
-                                                type='number',
-                                                min=0,
-                                                max=999999,
-                                                value=5000,
-                                                placeholder='5000',
-                                                style=self.input_style),
-                                            ], style=self.ipt_div_style),
-                                            
-                                            html.P('張', style=self.text_normal),
-                                        ], style=self.output_item_style),
-                                        html.Button('x', n_clicks=0, style=self.button_style,
-                                                id={'type':'output-btn',
-                                                    'index': str(self.output_count)})
-                                    ])
+                    self.selection_record.append('0401')
+                    print('Record:', self.selection_record)
+                    new_children = legal_04.create_0401(self.output_count)
                     children.append(new_children)
                     return children
                 elif (button_id == '{"index":"04-btn-add-0402","type":"filter-btn"}'):
@@ -1536,78 +423,9 @@ class DashBuilder(object):
                     self.output_count += 1
                     self.output_record.append(self.output_count)
                     print('Record:', self.output_record)
-                    # button_id = button_id.split('"')[3] 
-                    new_children = html.Div([
-                                        html.Span([
-                                            html.P('外資', style=self.text_normal),
-                                            html.Div([
-                                                dcc.Input(
-                                                # id='0201-ip',
-                                                type='number',
-                                                min=0,
-                                                max=999,
-                                                value=3,
-                                                placeholder='3',
-                                                style=self.short_input_style),  
-                                            ], style=self.short_ipt_div_style),
-                                            html.Div([
-                                                dcc.Dropdown(
-                                                    # id='0201-dd',
-                                                    options=[
-                                                        {'label': '日', 'value': 'd'},
-                                                        {'label': '周', 'value': 'w'},
-                                                        {'label': '月', 'value': 'm'},
-                                                        {'label': '季', 'value': 's'},    
-                                                        {'label': '年', 'value': 'y'},                                                  
-                                                    ],
-                                                    value='d',
-                                                    placeholder='日',
-                                                    clearable=False,
-                                                    style=self.short_dropdown_style),
-                                            ],style=self.dp_div_style),                                           
-                                            html.P('內', style=self.text_normal),
-                                            html.Div([
-                                                dcc.Dropdown(
-                                                # id='0401-dd',
-                                                options=[
-                                                    {'label': '買超', 'value': 1},
-                                                    {'label': '賣超', 'value': -1},
-                                                ],
-                                                value='1',
-                                                placeholder='買超',
-                                                clearable=False,
-                                                style=self.dropdown_style),
-                                            ],style=self.dp_div_style),
-                                            
-                                            html.Div([
-                                                dcc.Dropdown(
-                                                # id='0401-dd2',
-                                                options=[
-                                                    {'label': '大於', 'value': 1},
-                                                    {'label': '小於', 'value': -1},
-                                                ],
-                                                value='-1',
-                                                placeholder='小於',
-                                                clearable=False,
-                                                style=self.dropdown_style),
-                                            ],style=self.dp_div_style),
-                                            html.Div([
-                                                dcc.Input(
-                                                # id='0401-ip',
-                                                type='number',
-                                                min=0,
-                                                max=999999,
-                                                value=5000,
-                                                placeholder='5000',
-                                                style=self.input_style),
-                                            ], style=self.ipt_div_style),
-                                            
-                                            html.P('張', style=self.text_normal),
-                                        ], style=self.output_item_style),
-                                        html.Button('x', n_clicks=0, style=self.button_style,
-                                                id={'type':'output-btn',
-                                                    'index': str(self.output_count)})
-                                    ])
+                    self.selection_record.append('0402')
+                    print('Record:', self.selection_record)
+                    new_children = legal_04.create_0402(self.output_count)
                     children.append(new_children)
                     return children
                 elif (button_id == '{"index":"04-btn-add-0403","type":"filter-btn"}'):
@@ -1616,78 +434,9 @@ class DashBuilder(object):
                     self.output_count += 1
                     self.output_record.append(self.output_count)
                     print('Record:', self.output_record)
-                    # button_id = button_id.split('"')[3] 
-                    new_children = html.Div([
-                                        html.Span([
-                                            html.P('投信', style=self.text_normal),
-                                            html.Div([
-                                                dcc.Input(
-                                                # id='0201-ip',
-                                                type='number',
-                                                min=0,
-                                                max=999,
-                                                value=3,
-                                                placeholder='3',
-                                                style=self.short_input_style),  
-                                            ], style=self.short_ipt_div_style),
-                                            html.Div([
-                                                dcc.Dropdown(
-                                                    # id='0201-dd',
-                                                    options=[
-                                                        {'label': '日', 'value': 'd'},
-                                                        {'label': '周', 'value': 'w'},
-                                                        {'label': '月', 'value': 'm'},
-                                                        {'label': '季', 'value': 's'},    
-                                                        {'label': '年', 'value': 'y'},                                                  
-                                                    ],
-                                                    value='d',
-                                                    placeholder='日',
-                                                    clearable=False,
-                                                    style=self.short_dropdown_style),
-                                            ],style=self.dp_div_style),                                           
-                                            html.P('內', style=self.text_normal),
-                                            html.Div([
-                                                dcc.Dropdown(
-                                                # id='0401-dd',
-                                                options=[
-                                                    {'label': '買超', 'value': 1},
-                                                    {'label': '賣超', 'value': -1},
-                                                ],
-                                                value='1',
-                                                placeholder='買超',
-                                                clearable=False,
-                                                style=self.dropdown_style),
-                                            ],style=self.dp_div_style),
-                                            
-                                            html.Div([
-                                                dcc.Dropdown(
-                                                # id='0401-dd2',
-                                                options=[
-                                                    {'label': '大於', 'value': 1},
-                                                    {'label': '小於', 'value': -1},
-                                                ],
-                                                value='1',
-                                                placeholder='大於',
-                                                clearable=False,
-                                                style=self.dropdown_style),
-                                            ],style=self.dp_div_style),                                          
-                                            html.Div([
-                                                dcc.Input(
-                                                # id='0401-ip',
-                                                type='number',
-                                                min=0,
-                                                max=999999,
-                                                value=5000,
-                                                placeholder='5000',
-                                                style=self.input_style),
-                                            ], style=self.ipt_div_style),
-                                            
-                                            html.P('張', style=self.text_normal),
-                                        ], style=self.output_item_style),
-                                        html.Button('x', n_clicks=0, style=self.button_style,
-                                                id={'type':'output-btn',
-                                                    'index': str(self.output_count)})
-                                    ])
+                    self.selection_record.append('0403')
+                    print('Record:', self.selection_record)
+                    new_children = legal_04.create_0403(self.output_count)
                     children.append(new_children)
                     return children
                 elif (button_id == '{"index":"04-btn-add-0404","type":"filter-btn"}'):
@@ -1696,80 +445,9 @@ class DashBuilder(object):
                     self.output_count += 1
                     self.output_record.append(self.output_count)
                     print('Record:', self.output_record)
-                    # button_id = button_id.split('"')[3] 
-                    new_children = html.Div([
-                                        html.Span([
-                                            html.P('投信', style=self.text_normal),
-                                            html.Div([
-                                                dcc.Input(
-                                                # id='0201-ip',
-                                                type='number',
-                                                min=0,
-                                                max=999,
-                                                value=3,
-                                                placeholder='3',
-                                                style=self.short_input_style),  
-                                            ], style=self.short_ipt_div_style),
-                                            html.Div([
-                                                dcc.Dropdown(
-                                                    # id='0201-dd',
-                                                    options=[
-                                                        {'label': '日', 'value': 'd'},
-                                                        {'label': '周', 'value': 'w'},
-                                                        {'label': '月', 'value': 'm'},
-                                                        {'label': '季', 'value': 's'},    
-                                                        {'label': '年', 'value': 'y'},                                                  
-                                                    ],
-                                                    value='d',
-                                                    placeholder='日',
-                                                    clearable=False,
-                                                    style=self.short_dropdown_style),
-                                            ],style=self.dp_div_style),                                           
-                                            html.P('內', style=self.text_normal),
-                                            html.Div([
-                                                dcc.Dropdown(
-                                                # id='0401-dd',
-                                                options=[
-                                                    {'label': '買超', 'value': 1},
-                                                    {'label': '賣超', 'value': -1},
-                                                ],
-                                                value='1',
-                                                placeholder='買超',
-                                                clearable=False,
-                                                style=self.dropdown_style),
-                                            ],style=self.dp_div_style),
-                                            
-                                            html.Div([
-                                                dcc.Dropdown(
-                                                # id='0401-dd2',
-                                                options=[
-                                                    {'label': '大於', 'value': 1},
-                                                    {'label': '小於', 'value': -1},
-                                                ],
-                                                value='-1',
-                                                placeholder='小於',
-                                                clearable=False,
-                                                style=self.dropdown_style),
-                                            ],style=self.dp_div_style),
-                                            
-
-                                            html.Div([
-                                                dcc.Input(
-                                                # id='0401-ip',
-                                                type='number',
-                                                min=0,
-                                                max=999999,
-                                                value=5000,
-                                                placeholder='5000',
-                                                style=self.input_style),
-                                            ], style=self.ipt_div_style),
-                                            
-                                            html.P('張', style=self.text_normal),
-                                        ], style=self.output_item_style),
-                                        html.Button('x', n_clicks=0, style=self.button_style,
-                                                id={'type':'output-btn',
-                                                    'index': str(self.output_count)})
-                                    ])
+                    self.selection_record.append('0404')
+                    print('Record:', self.selection_record) 
+                    new_children = legal_04.create_0404(self.output_count)
                     children.append(new_children)
                     return children
                 elif (button_id == '{"index":"04-btn-add-0405","type":"filter-btn"}'):
@@ -1778,80 +456,9 @@ class DashBuilder(object):
                     self.output_count += 1
                     self.output_record.append(self.output_count)
                     print('Record:', self.output_record)
-                    # button_id = button_id.split('"')[3] 
-                    new_children = html.Div([
-                                        html.Span([
-                                            html.P('自營商', style=self.text_normal),
-                                            html.Div([
-                                                dcc.Input(
-                                                # id='0201-ip',
-                                                type='number',
-                                                min=0,
-                                                max=999,
-                                                value=3,
-                                                placeholder='3',
-                                                style=self.short_input_style),  
-                                            ], style=self.short_ipt_div_style),
-                                            html.Div([
-                                                dcc.Dropdown(
-                                                    # id='0201-dd',
-                                                    options=[
-                                                        {'label': '日', 'value': 'd'},
-                                                        {'label': '周', 'value': 'w'},
-                                                        {'label': '月', 'value': 'm'},
-                                                        {'label': '季', 'value': 's'},    
-                                                        {'label': '年', 'value': 'y'},                                                  
-                                                    ],
-                                                    value='d',
-                                                    placeholder='日',
-                                                    clearable=False,
-                                                    style=self.short_dropdown_style),
-                                            ],style=self.dp_div_style),                                           
-                                            html.P('內', style=self.text_normal),
-                                            html.Div([
-                                                dcc.Dropdown(
-                                                # id='0401-dd',
-                                                options=[
-                                                    {'label': '買超', 'value': 1},
-                                                    {'label': '賣超', 'value': -1},
-                                                ],
-                                                value='1',
-                                                placeholder='買超',
-                                                clearable=False,
-                                                style=self.dropdown_style),
-                                            ],style=self.dp_div_style),
-                                            
-                                            html.Div([
-                                                dcc.Dropdown(
-                                                # id='0401-dd2',
-                                                options=[
-                                                    {'label': '大於', 'value': 1},
-                                                    {'label': '小於', 'value': -1},
-                                                ],
-                                                value='1',
-                                                placeholder='大於',
-                                                clearable=False,
-                                                style=self.dropdown_style),
-                                            ],style=self.dp_div_style),
-                                            
-
-                                            html.Div([
-                                                dcc.Input(
-                                                # id='0401-ip',
-                                                type='number',
-                                                min=0,
-                                                max=999999,
-                                                value=5000,
-                                                placeholder='5000',
-                                                style=self.input_style),
-                                            ], style=self.ipt_div_style),
-                                            
-                                            html.P('張', style=self.text_normal),
-                                        ], style=self.output_item_style),
-                                        html.Button('x', n_clicks=0, style=self.button_style,
-                                                id={'type':'output-btn',
-                                                    'index': str(self.output_count)})
-                                    ])
+                    self.selection_record.append('0405')
+                    print('Record:', self.selection_record)
+                    new_children = legal_04.create_0405(self.output_count)
                     children.append(new_children)
                     return children
                 elif (button_id == '{"index":"04-btn-add-0406","type":"filter-btn"}'):
@@ -1860,80 +467,9 @@ class DashBuilder(object):
                     self.output_count += 1
                     self.output_record.append(self.output_count)
                     print('Record:', self.output_record)
-                    # button_id = button_id.split('"')[3] 
-                    new_children = html.Div([
-                                        html.Span([
-                                            html.P('自營商', style=self.text_normal),
-                                            html.Div([
-                                                dcc.Input(
-                                                # id='0201-ip',
-                                                type='number',
-                                                min=0,
-                                                max=999,
-                                                value=3,
-                                                placeholder='3',
-                                                style=self.short_input_style),  
-                                            ], style=self.short_ipt_div_style),
-                                            html.Div([
-                                                dcc.Dropdown(
-                                                    # id='0201-dd',
-                                                    options=[
-                                                        {'label': '日', 'value': 'd'},
-                                                        {'label': '周', 'value': 'w'},
-                                                        {'label': '月', 'value': 'm'},
-                                                        {'label': '季', 'value': 's'},    
-                                                        {'label': '年', 'value': 'y'},                                                  
-                                                    ],
-                                                    value='d',
-                                                    placeholder='日',
-                                                    clearable=False,
-                                                    style=self.short_dropdown_style),
-                                            ],style=self.dp_div_style),                                           
-                                            html.P('內', style=self.text_normal),
-                                            html.Div([
-                                                dcc.Dropdown(
-                                                # id='0401-dd',
-                                                options=[
-                                                    {'label': '買超', 'value': 1},
-                                                    {'label': '賣超', 'value': -1},
-                                                ],
-                                                value='1',
-                                                placeholder='買超',
-                                                clearable=False,
-                                                style=self.dropdown_style),
-                                            ],style=self.dp_div_style),
-                                            
-                                            html.Div([
-                                                dcc.Dropdown(
-                                                # id='0401-dd2',
-                                                options=[
-                                                    {'label': '大於', 'value': 1},
-                                                    {'label': '小於', 'value': -1},
-                                                ],
-                                                value='-1',
-                                                placeholder='小於',
-                                                clearable=False,
-                                                style=self.dropdown_style),
-                                            ],style=self.dp_div_style),
-                                            
-
-                                            html.Div([
-                                                dcc.Input(
-                                                # id='0401-ip',
-                                                type='number',
-                                                min=0,
-                                                max=999999,
-                                                value=5000,
-                                                placeholder='5000',
-                                                style=self.input_style),
-                                            ], style=self.ipt_div_style),
-                                            
-                                            html.P('張', style=self.text_normal),
-                                        ], style=self.output_item_style),
-                                        html.Button('x', n_clicks=0, style=self.button_style,
-                                                id={'type':'output-btn',
-                                                    'index': str(self.output_count)})
-                                    ])
+                    self.selection_record.append('0406')
+                    print('Record:', self.selection_record)
+                    new_children = legal_04.create_0406(self.output_count)
                     children.append(new_children)
                     return children
                 elif (button_id == '{"index":"05-btn-add-0501","type":"filter-btn"}') and (f_btn > 0):
@@ -1942,63 +478,9 @@ class DashBuilder(object):
                     self.output_count += 1
                     self.output_record.append(self.output_count)
                     print('Record:', self.output_record)
-                    # button_id = button_id.split('"')[3] 
-                    new_children = html.Div([
-                                        html.Span([
-                                            html.P('融資於', style=self.text_normal),
-                                            html.Div([
-                                                dcc.Input(
-                                                # id='0201-ip',
-                                                type='number',
-                                                min=0,
-                                                max=999,
-                                                value=3,
-                                                placeholder='3',
-                                                style=self.short_input_style),  
-                                            ], style=self.short_ipt_div_style),
-                                            html.Div([
-                                                dcc.Dropdown(
-                                                    # id='0201-dd',
-                                                    options=[
-                                                        {'label': '日', 'value': 'd'},
-                                                        {'label': '周', 'value': 'w'},
-                                                        {'label': '月', 'value': 'm'},
-                                                        {'label': '季', 'value': 's'},    
-                                                        {'label': '年', 'value': 'y'},                                                  
-                                                    ],
-                                                    value='d',
-                                                    placeholder='日',
-                                                    clearable=False,
-                                                    style=self.short_dropdown_style),
-                                            ],style=self.dp_div_style),                                           
-                                            html.P('內，', style=self.text_normal),
-                                            html.Div([
-                                                dcc.Dropdown(
-                                                # id='0201-dd',
-                                                options=[
-                                                    {'label': '增加', 'value': 1},
-                                                    {'label': '減少', 'value': -1},
-                                                ],
-                                                value='1',
-                                                placeholder='增加',
-                                                clearable=False,
-                                                style=self.dropdown_style),
-                                            ],style=self.dp_div_style),
-                                            html.Div([
-                                                dcc.Input(
-                                                # id='0201-ip',
-                                                type='number',
-                                                min=0,
-                                                max=9999999,
-                                                value=100,
-                                                style=self.input_style),
-                                            ], style=self.ipt_div_style),
-                                            html.P('張之股票', style=self.text_normal),
-                                        ], style=self.output_item_style),
-                                        html.Button('x', n_clicks=0, style=self.button_style,
-                                                id={'type':'output-btn',
-                                                    'index': str(self.output_count)})
-                                    ])
+                    self.selection_record.append('0501')
+                    print('Record:', self.selection_record)
+                    new_children = credit_05.create_0501(self.output_count)
                     children.append(new_children)
                     return children
                 elif (button_id == '{"index":"05-btn-add-0502","type":"filter-btn"}'):
@@ -2007,63 +489,9 @@ class DashBuilder(object):
                     self.output_count += 1
                     self.output_record.append(self.output_count)
                     print('Record:', self.output_record)
-                    # button_id = button_id.split('"')[3] 
-                    new_children = html.Div([
-                                        html.Span([
-                                            html.P('融資於', style=self.text_normal),
-                                            html.Div([
-                                                dcc.Input(
-                                                # id='0201-ip',
-                                                type='number',
-                                                min=0,
-                                                max=999,
-                                                value=3,
-                                                placeholder='3',
-                                                style=self.short_input_style),  
-                                            ], style=self.short_ipt_div_style),
-                                            html.Div([
-                                                dcc.Dropdown(
-                                                    # id='0201-dd',
-                                                    options=[
-                                                        {'label': '日', 'value': 'd'},
-                                                        {'label': '周', 'value': 'w'},
-                                                        {'label': '月', 'value': 'm'},
-                                                        {'label': '季', 'value': 's'},    
-                                                        {'label': '年', 'value': 'y'},                                                  
-                                                    ],
-                                                    value='d',
-                                                    placeholder='日',
-                                                    clearable=False,
-                                                    style=self.short_dropdown_style),
-                                            ],style=self.dp_div_style),                                           
-                                            html.P('內，', style=self.text_normal),
-                                            html.Div([
-                                                dcc.Dropdown(
-                                                # id='0201-dd',
-                                                options=[
-                                                    {'label': '增加', 'value': 1},
-                                                    {'label': '減少', 'value': -1},
-                                                ],
-                                                value='1',
-                                                placeholder='增加',
-                                                clearable=False,
-                                                style=self.dropdown_style),
-                                            ],style=self.dp_div_style),
-                                            html.Div([
-                                                dcc.Input(
-                                                # id='0201-ip',
-                                                type='number',
-                                                min=0,
-                                                max=9999999,
-                                                value=100,
-                                                style=self.input_style),
-                                            ], style=self.ipt_div_style),
-                                            html.P('%之股票', style=self.text_normal),
-                                        ], style=self.output_item_style),
-                                        html.Button('x', n_clicks=0, style=self.button_style,
-                                                id={'type':'output-btn',
-                                                    'index': str(self.output_count)})
-                                    ])
+                    self.selection_record.append('0502')
+                    print('Record:', self.selection_record)
+                    new_children = credit_05.create_0502(self.output_count)
                     children.append(new_children)
                     return children
                 elif (button_id == '{"index":"05-btn-add-0503","type":"filter-btn"}'):
@@ -2072,63 +500,9 @@ class DashBuilder(object):
                     self.output_count += 1
                     self.output_record.append(self.output_count)
                     print('Record:', self.output_record)
-                    # button_id = button_id.split('"')[3] 
-                    new_children = html.Div([
-                                        html.Span([
-                                            html.P('融券於', style=self.text_normal),
-                                            html.Div([
-                                                dcc.Input(
-                                                # id='0201-ip',
-                                                type='number',
-                                                min=0,
-                                                max=999,
-                                                value=3,
-                                                placeholder='3',
-                                                style=self.short_input_style),  
-                                            ], style=self.short_ipt_div_style),
-                                            html.Div([
-                                                dcc.Dropdown(
-                                                    # id='0201-dd',
-                                                    options=[
-                                                        {'label': '日', 'value': 'd'},
-                                                        {'label': '周', 'value': 'w'},
-                                                        {'label': '月', 'value': 'm'},
-                                                        {'label': '季', 'value': 's'},    
-                                                        {'label': '年', 'value': 'y'},                                                  
-                                                    ],
-                                                    value='d',
-                                                    placeholder='日',
-                                                    clearable=False,
-                                                    style=self.short_dropdown_style),
-                                            ],style=self.dp_div_style),                                           
-                                            html.P('內，', style=self.text_normal),
-                                            html.Div([
-                                                dcc.Dropdown(
-                                                # id='0201-dd',
-                                                options=[
-                                                    {'label': '增加', 'value': 1},
-                                                    {'label': '減少', 'value': -1},
-                                                ],
-                                                value='1',
-                                                placeholder='增加',
-                                                clearable=False,
-                                                style=self.dropdown_style),
-                                            ],style=self.dp_div_style),
-                                            html.Div([
-                                                dcc.Input(
-                                                # id='0201-ip',
-                                                type='number',
-                                                min=0,
-                                                max=9999999,
-                                                value=100,
-                                                style=self.input_style),
-                                            ], style=self.ipt_div_style),
-                                            html.P('張之股票', style=self.text_normal),
-                                        ], style=self.output_item_style),
-                                        html.Button('x', n_clicks=0, style=self.button_style,
-                                                id={'type':'output-btn',
-                                                    'index': str(self.output_count)})
-                                    ])
+                    self.selection_record.append('0503')
+                    print('Record:', self.selection_record)
+                    new_children = credit_05.create_0503(self.output_count)
                     children.append(new_children)
                     return children 
                 elif (button_id == '{"index":"05-btn-add-0504","type":"filter-btn"}'):
@@ -2137,63 +511,9 @@ class DashBuilder(object):
                     self.output_count += 1
                     self.output_record.append(self.output_count)
                     print('Record:', self.output_record)
-                    # button_id = button_id.split('"')[3] 
-                    new_children = html.Div([
-                                        html.Span([
-                                            html.P('融券於', style=self.text_normal),
-                                            html.Div([
-                                                dcc.Input(
-                                                # id='0201-ip',
-                                                type='number',
-                                                min=0,
-                                                max=999,
-                                                value=3,
-                                                placeholder='3',
-                                                style=self.short_input_style),  
-                                            ], style=self.short_ipt_div_style),
-                                            html.Div([
-                                                dcc.Dropdown(
-                                                    # id='0201-dd',
-                                                    options=[
-                                                        {'label': '日', 'value': 'd'},
-                                                        {'label': '周', 'value': 'w'},
-                                                        {'label': '月', 'value': 'm'},
-                                                        {'label': '季', 'value': 's'},    
-                                                        {'label': '年', 'value': 'y'},                                                  
-                                                    ],
-                                                    value='d',
-                                                    placeholder='日',
-                                                    clearable=False,
-                                                    style=self.short_dropdown_style),
-                                            ],style=self.dp_div_style),                                           
-                                            html.P('內，', style=self.text_normal),
-                                            html.Div([
-                                                dcc.Dropdown(
-                                                # id='0201-dd',
-                                                options=[
-                                                    {'label': '增加', 'value': 1},
-                                                    {'label': '減少', 'value': -1},
-                                                ],
-                                                value='1',
-                                                placeholder='增加',
-                                                clearable=False,
-                                                style=self.dropdown_style),
-                                            ],style=self.dp_div_style),
-                                            html.Div([
-                                                dcc.Input(
-                                                # id='0201-ip',
-                                                type='number',
-                                                min=0,
-                                                max=9999999,
-                                                value=100,
-                                                style=self.input_style),
-                                            ], style=self.ipt_div_style),
-                                            html.P('%之股票', style=self.text_normal),
-                                        ], style=self.output_item_style),
-                                        html.Button('x', n_clicks=0, style=self.button_style,
-                                                id={'type':'output-btn',
-                                                    'index': str(self.output_count)})
-                                    ])
+                    self.selection_record.append('0504')
+                    print('Record:', self.selection_record)
+                    new_children = credit_05.create_0504(self.output_count)
                     children.append(new_children)
                     return children 
                 elif (button_id == '{"index":"05-btn-add-0505","type":"filter-btn"}'):
@@ -2202,63 +522,9 @@ class DashBuilder(object):
                     self.output_count += 1
                     self.output_record.append(self.output_count)
                     print('Record:', self.output_record)
-                    # button_id = button_id.split('"')[3] 
-                    new_children = html.Div([
-                                        html.Span([
-                                            html.P('借券於', style=self.text_normal),
-                                            html.Div([
-                                                dcc.Input(
-                                                # id='0201-ip',
-                                                type='number',
-                                                min=0,
-                                                max=999,
-                                                value=3,
-                                                placeholder='3',
-                                                style=self.short_input_style),  
-                                            ], style=self.short_ipt_div_style),
-                                            html.Div([
-                                                dcc.Dropdown(
-                                                    # id='0201-dd',
-                                                    options=[
-                                                        {'label': '日', 'value': 'd'},
-                                                        {'label': '周', 'value': 'w'},
-                                                        {'label': '月', 'value': 'm'},
-                                                        {'label': '季', 'value': 's'},    
-                                                        {'label': '年', 'value': 'y'},                                                  
-                                                    ],
-                                                    value='d',
-                                                    placeholder='日',
-                                                    clearable=False,
-                                                    style=self.short_dropdown_style),
-                                            ],style=self.dp_div_style),                                           
-                                            html.P('內，', style=self.text_normal),
-                                            html.Div([
-                                                dcc.Dropdown(
-                                                # id='0201-dd',
-                                                options=[
-                                                    {'label': '增加', 'value': 1},
-                                                    {'label': '減少', 'value': -1},
-                                                ],
-                                                value='1',
-                                                placeholder='增加',
-                                                clearable=False,
-                                                style=self.dropdown_style),
-                                            ],style=self.dp_div_style),
-                                            html.Div([
-                                                dcc.Input(
-                                                # id='0201-ip',
-                                                type='number',
-                                                min=0,
-                                                max=9999999,
-                                                value=100,
-                                                style=self.input_style),
-                                            ], style=self.ipt_div_style),
-                                            html.P('張之股票', style=self.text_normal),
-                                        ], style=self.output_item_style),
-                                        html.Button('x', n_clicks=0, style=self.button_style,
-                                                id={'type':'output-btn',
-                                                    'index': str(self.output_count)})
-                                    ])
+                    self.selection_record.append('0505')
+                    print('Record:', self.selection_record) 
+                    new_children = credit_05.create_0505(self.output_count)
                     children.append(new_children)
                     return children 
                 elif (button_id == '{"index":"05-btn-add-0506","type":"filter-btn"}'):
@@ -2267,63 +533,9 @@ class DashBuilder(object):
                     self.output_count += 1
                     self.output_record.append(self.output_count)
                     print('Record:', self.output_record)
-                    # button_id = button_id.split('"')[3] 
-                    new_children = html.Div([
-                                        html.Span([
-                                            html.P('借券於', style=self.text_normal),
-                                            html.Div([
-                                                dcc.Input(
-                                                # id='0201-ip',
-                                                type='number',
-                                                min=0,
-                                                max=999,
-                                                value=3,
-                                                placeholder='3',
-                                                style=self.short_input_style),  
-                                            ], style=self.short_ipt_div_style),
-                                            html.Div([
-                                                dcc.Dropdown(
-                                                    # id='0201-dd',
-                                                    options=[
-                                                        {'label': '日', 'value': 'd'},
-                                                        {'label': '周', 'value': 'w'},
-                                                        {'label': '月', 'value': 'm'},
-                                                        {'label': '季', 'value': 's'},    
-                                                        {'label': '年', 'value': 'y'},                                                  
-                                                    ],
-                                                    value='d',
-                                                    placeholder='日',
-                                                    clearable=False,
-                                                    style=self.short_dropdown_style),
-                                            ],style=self.dp_div_style),                                           
-                                            html.P('內，', style=self.text_normal),
-                                            html.Div([
-                                                dcc.Dropdown(
-                                                # id='0201-dd',
-                                                options=[
-                                                    {'label': '增加', 'value': 1},
-                                                    {'label': '減少', 'value': -1},
-                                                ],
-                                                value='1',
-                                                placeholder='增加',
-                                                clearable=False,
-                                                style=self.dropdown_style),
-                                            ],style=self.dp_div_style),
-                                            html.Div([
-                                                dcc.Input(
-                                                # id='0201-ip',
-                                                type='number',
-                                                min=0,
-                                                max=9999999,
-                                                value=100,
-                                                style=self.input_style),
-                                            ], style=self.ipt_div_style),
-                                            html.P('%之股票', style=self.text_normal),
-                                        ], style=self.output_item_style),
-                                        html.Button('x', n_clicks=0, style=self.button_style,
-                                                id={'type':'output-btn',
-                                                    'index': str(self.output_count)})
-                                    ])
+                    self.selection_record.append('0506')
+                    print('Record:', self.selection_record)
+                    new_children = credit_05.create_0506(self.output_count)
                     children.append(new_children)
                     return children 
                 elif (button_id == '{"index":"06-btn-add-0601","type":"filter-btn"}') and (f_btn > 0):
@@ -2332,39 +544,9 @@ class DashBuilder(object):
                     self.output_count += 1
                     self.output_record.append(self.output_count)
                     print('Record:', self.output_record)
-                    # button_id = button_id.split('"')[3] 
-                    new_children = html.Div([
-                                        html.Span([
-                                            html.P('營收', style=self.text_normal),
-                                            html.Div([
-                                                dcc.Dropdown(
-                                                id='0601-dd',
-                                                options=[
-                                                    {'label': '大於', 'value': 1},
-                                                    {'label': '小於', 'value': -1},
-                                                ],
-                                                value='1',
-                                                placeholder='大於',
-                                                clearable=False,
-                                                style=self.dropdown_style),
-                                            ],style=self.dp_div_style),
-                                            html.Div([
-                                                dcc.Input(
-                                                id='0601-ip',
-                                                type='number',
-                                                min=0,
-                                                max=99999,
-                                                value=5,
-                                                placeholder='5',
-                                                style=self.input_style),
-                                            ], style=self.ipt_div_style),
-                                            
-                                            html.P('億元', style=self.text_normal),
-                                        ], style=self.output_item_style),
-                                        html.Button('x', n_clicks=0, style=self.button_style,
-                                                id={'type':'output-btn',
-                                                    'index': str(self.output_count)})
-                                    ])
+                    self.selection_record.append('0601')
+                    print('Record:', self.selection_record) 
+                    new_children = revenue_06.create_0601(self.output_count)
                     children.append(new_children)
                     return children
                 else:
@@ -2374,19 +556,22 @@ class DashBuilder(object):
                 button_id = ctx.triggered[0]['prop_id'].split('.')[0]
                 print('output clicked! And button id is:', button_id)
 
-                remove_number = int(button_id.split('"')[3])
+                remove_number = int(button_id.split('"')[3]) # 流水號
                 remove_idx = self.output_record.index(remove_number)
                 print('remove_number:', remove_number, 'remove_idx:', remove_idx)
                 self.output_record.remove(remove_number)
+                del self.selection_record[remove_idx]
                 del children[remove_idx]
                 print('Record:', self.output_record)
+                print('Record:', self.selection_record)
                 
             elif clear_all:
                 self.output_record = []
+                self.selection_record = []
                 return []
 
             else:
-                print('Dont know which filter clicked!')
+                print('Dont know which filter was clicked!')
 
             return children
 
@@ -2396,43 +581,32 @@ class DashBuilder(object):
         @self.app.callback(
             Output('dynamic-selection-result', 'children'),
             Input('selection-btn', 'n_clicks'),
-            State('dynamic-output-container', 'children'),
+            # State('dynamic-output-container', 'children'),
+            State({'type': ALL, 'index': '0102'}, 'value'),
+            State({'type': ALL, 'index': '0103'}, 'value'),
+            State({'type': ALL, 'index': '0201'}, 'value'),
+            State({'type': ALL, 'index': '0202'}, 'value'),
+            State({'type': ALL, 'index': '0203'}, 'value'),
         )
-        def output_result(btn, children):
-            # time.sleep(1)
+        def output_result(btn, value0102, value0103, value0201, value0202, value0203,):
+            
+            value_list = [value0102, value0103, value0201, value0202, value0203]
             if btn == None:
                 raise PreventUpdate
             if btn > 0:
-                return 'Query from Database.'
+                condition_number = len(self.output_record)
+                
+                sentence = ''
+                for idx in range(condition_number):
+                    # if self.selection_record[idx] == '0101':
+                        
+                    sentence = sentence + '第{}個條件為{}，value為{}'.format(idx+1, self.selection_record[idx], value_list[idx])
+
+                return '總共有{}筆條件，分別為 \\n{}'.format(condition_number, sentence)
+                
             else:
                 return ''
 
-        # 4. clear-all btn -> clear all dynamic-selection-results
-        # @self.app.callback(
-        #     Output('display-content', 'children'),
-        #     Input('clear-all-btn', 'n_clicks')
-        # )
-        # def clear_all_results(btn):
-        #     self.output_record = []
-        #     pure_content = [
-        #                     # "DISPLAY",
-        #                     html.Div([
-        #                         html.Div('您的選股條件', style=self.output_text_style),
-        #                         html.Div([
-        #                             html.Button('開始選股',
-        #                                 id='selection-btn',
-        #                                 style=self.selection_btn),
-        #                             html.Button('全部清除',
-        #                                 id='clear-all-btn',
-        #                                 style=self.selection_btn)
-        #                         ]),
-        #                     ]),
-        #                     html.Div([
-        #                     ],
-        #                     id='dynamic-output-container',
-        #                     style=self.dynamic_output_container_style),
-        #                 ]
-        #     return pure_content
 
         self.app.run_server(debug=True, dev_tools_hot_reload=True)#, dev_tools_ui=False, dev_tools_props_check=False)
 

@@ -5,51 +5,568 @@ import pathlib
 from py_module.pages import self_style
 
 
-def create_layout(item_style, button_style):
-    return html.Div(
-        [
-            html.Div([
-                html.P('法人', style={'display': 'inline-block'}),
-                html.P('買超', style={'display': 'inline-block', 'color':'red', 'padding':'0px 5px 0px 5px'}),
-                html.P('大於', style={'display': 'inline-block', 'color':'red', 'padding':'0px 5px 0px 5px'}),
-                html.P('5000', style={'display': 'inline-block', 'color':'red', 'padding':'0px 5px 0px 5px'}),
-                html.P('張', style={'display': 'inline-block'}),
-                
-            ], style=self_style.item_style),
-            html.Button('>', n_clicks=0, style=self_style.button_style, id='0401-button')
-        ],
-        className="page",
-    )
+def create_filters(button_id):
+    content = html.Div(
+                            [                              
+                                html.Div([
+                                    html.Span([
+                                        html.P('外資', style=self_style.text_normal),
+                                        html.P('3', style=self_style.text_bold),
+                                        html.P('日內', style=self_style.text_normal),
+                                        html.P('買超/賣超', style=self_style.text_bold),
+                                        html.P('大於', style=self_style.text_bold),
+                                        html.P('5000', style=self_style.text_bold),
+                                        html.P('張', style=self_style.text_normal),
+                                        
+                                    ], style=self_style.item_style),
+                                    html.Button('+', n_clicks=0, style=self_style.button_style, 
+                                    id={
+                                        'type': 'filter-btn',
+                                        'index': button_id + '-add-0401'
+                                    })
+                                ]),
+                                html.Div([
+                                    html.Span([
+                                        html.P('外資', style=self_style.text_normal),
+                                        html.P('3', style=self_style.text_bold),
+                                        html.P('日內', style=self_style.text_normal),
+                                        html.P('買超/賣超', style=self_style.text_bold),
+                                        html.P('小於', style=self_style.text_bold),
+                                        html.P('5000', style=self_style.text_bold),
+                                        html.P('張', style=self_style.text_normal),
+                                        
+                                    ], style=self_style.item_style),
+                                    html.Button('+', n_clicks=0, style=self_style.button_style, 
+                                    id={
+                                        'type': 'filter-btn',
+                                        'index': button_id + '-add-0402'
+                                    })
+                                ]),                  
+                                html.Div([
+                                    html.Span([
+                                        html.P('投信', style=self_style.text_normal),
+                                        html.P('3', style=self_style.text_bold),
+                                        html.P('日內', style=self_style.text_normal),
+                                        html.P('買超/賣超', style=self_style.text_bold),
+                                        html.P('大於', style=self_style.text_bold),
+                                        html.P('5000', style=self_style.text_bold),
+                                        html.P('張', style=self_style.text_normal),
+                                        
+                                    ], style=self_style.item_style),
+                                    html.Button('+', n_clicks=0, style=self_style.button_style, 
+                                    id={
+                                        'type': 'filter-btn',
+                                        'index': button_id + '-add-0403'
+                                    })
+                                ]),
+                                html.Div([
+                                    html.Span([
+                                        html.P('投信', style=self_style.text_normal),
+                                        html.P('3', style=self_style.text_bold),
+                                        html.P('日內', style=self_style.text_normal),
+                                        html.P('買超/賣超', style=self_style.text_bold),
+                                        html.P('小於', style=self_style.text_bold),
+                                        html.P('5000', style=self_style.text_bold),
+                                        html.P('張', style=self_style.text_normal),
+                                        
+                                    ], style=self_style.item_style),
+                                    html.Button('+', n_clicks=0, style=self_style.button_style, 
+                                    id={
+                                        'type': 'filter-btn',
+                                        'index': button_id + '-add-0404'
+                                    })
+                                ]),         
+                                html.Div([
+                                    html.Span([
+                                        html.P('自營商', style=self_style.text_normal),
+                                        html.P('3', style=self_style.text_bold),
+                                        html.P('日內', style=self_style.text_normal),
+                                        html.P('買超/賣超', style=self_style.text_bold),
+                                        html.P('大於', style=self_style.text_bold),
+                                        html.P('5000', style=self_style.text_bold),
+                                        html.P('張', style=self_style.text_normal),
+                                        
+                                    ], style=self_style.item_style),
+                                    html.Button('+', n_clicks=0, style=self_style.button_style, 
+                                    id={
+                                        'type': 'filter-btn',
+                                        'index': button_id + '-add-0405'
+                                    })
+                                ]),
+                                html.Div([
+                                    html.Span([
+                                        html.P('自營商', style=self_style.text_normal),
+                                        html.P('3', style=self_style.text_bold),
+                                        html.P('日內', style=self_style.text_normal),
+                                        html.P('買超/賣超', style=self_style.text_bold),
+                                        html.P('小於', style=self_style.text_bold),
+                                        html.P('5000', style=self_style.text_bold),
+                                        html.P('張', style=self_style.text_normal),
+                                        
+                                    ], style=self_style.item_style),
+                                    html.Button('+', n_clicks=0, style=self_style.button_style, 
+                                    id={
+                                        'type': 'filter-btn',
+                                        'index': button_id + '-add-0406'
+                                    })
+                                ]),                                                                
+                            ])  
+    return content
 
-def create_output(item_style, button_style, dropdown_style, input_style):
-    return html.Div([
-                html.P('法人', style={'display': 'inline-block'}),
-                dcc.Dropdown(
-                    id='0401-dd',
-                    options=[
-                        {'label': '買超', 'value': 1},
-                        {'label': '賣超', 'value': -1},
-                    ],
-                    value='1',
-                    placeholder='買超',
-                    style=self_style.dropdown_style),
-                dcc.Dropdown(
-                    id='0401-dd2',
-                    options=[
-                        {'label': '大於', 'value': 1},
-                        {'label': '小於', 'value': -1},
-                    ],
-                    value='1',
-                    placeholder='大於',
-                    style=self_style.dropdown_style),
-                dcc.Input(
-                    id='0401-ip',
-                    type='number',
-                    min=0,
-                    max=999999,
-                    value=5000,
-                    placeholder='5000',
-                    style=self_style.input_style),
-                html.P('億元', style={'display': 'inline-block'}),
-                # html.Button('x', n_clicks=0, style=self_style.button_style, id='0401-x')
-            ], style=self_style.output_item_style)
+
+
+def create_0401(output_count):
+    new_children = html.Div([
+                                        html.Span([
+                                            html.P('外資', style=self_style.text_normal),
+                                            html.Div([
+                                                dcc.Input(
+                                                # id='0201-ip',
+                                                type='number',
+                                                min=0,
+                                                max=999,
+                                                value=3,
+                                                placeholder='3',
+                                                style=self_style.short_input_style),  
+                                            ], style=self_style.short_ipt_div_style),
+                                            html.Div([
+                                                dcc.Dropdown(
+                                                    # id='0201-dd',
+                                                    options=[
+                                                        {'label': '日', 'value': 'd'},
+                                                        {'label': '周', 'value': 'w'},
+                                                        {'label': '月', 'value': 'm'},
+                                                        {'label': '季', 'value': 's'},    
+                                                        {'label': '年', 'value': 'y'},                                                  
+                                                    ],
+                                                    value='d',
+                                                    placeholder='日',
+                                                    clearable=False,
+                                                    style=self_style.short_dropdown_style),
+                                            ],style=self_style.dp_div_style),                                           
+                                            html.P('內', style=self_style.text_normal),
+                                            html.Div([
+                                                dcc.Dropdown(
+                                                    # id='0401-dd',
+                                                    options=[
+                                                        {'label': '買超', 'value': 1},
+                                                        {'label': '賣超', 'value': -1},
+                                                    ],
+                                                    value='1',
+                                                    placeholder='買超',
+                                                    clearable=False,
+                                                    style=self_style.dropdown_style),
+                                            ],style=self_style.dp_div_style),
+                                            
+                                            html.Div([
+                                                dcc.Dropdown(
+                                                # id='0401-dd2',
+                                                options=[
+                                                    {'label': '大於', 'value': 1},
+                                                    {'label': '小於', 'value': -1},
+                                                ],
+                                                value='1',
+                                                placeholder='大於',
+                                                clearable=False,
+                                                style=self_style.dropdown_style),
+                                            ],style=self_style.dp_div_style),    
+                                            html.Div([
+                                                dcc.Input(
+                                                # id='0401-ip',
+                                                type='number',
+                                                min=0,
+                                                max=999999,
+                                                value=5000,
+                                                placeholder='5000',
+                                                style=self_style.input_style),
+                                            ], style=self_style.ipt_div_style),
+                                            
+                                            html.P('張', style=self_style.text_normal),
+                                        ], style=self_style.output_item_style),
+                                        html.Button('x', n_clicks=0, style=self_style.button_style,
+                                                id={'type':'output-btn',
+                                                    'index': str(output_count)})
+                                    ])
+
+    return new_children
+
+def create_0402(output_count):
+    new_children = html.Div([
+                                        html.Span([
+                                            html.P('外資', style=self_style.text_normal),
+                                            html.Div([
+                                                dcc.Input(
+                                                # id='0201-ip',
+                                                type='number',
+                                                min=0,
+                                                max=999,
+                                                value=3,
+                                                placeholder='3',
+                                                style=self_style.short_input_style),  
+                                            ], style=self_style.short_ipt_div_style),
+                                            html.Div([
+                                                dcc.Dropdown(
+                                                    # id='0201-dd',
+                                                    options=[
+                                                        {'label': '日', 'value': 'd'},
+                                                        {'label': '周', 'value': 'w'},
+                                                        {'label': '月', 'value': 'm'},
+                                                        {'label': '季', 'value': 's'},    
+                                                        {'label': '年', 'value': 'y'},                                                  
+                                                    ],
+                                                    value='d',
+                                                    placeholder='日',
+                                                    clearable=False,
+                                                    style=self_style.short_dropdown_style),
+                                            ],style=self_style.dp_div_style),                                           
+                                            html.P('內', style=self_style.text_normal),
+                                            html.Div([
+                                                dcc.Dropdown(
+                                                # id='0401-dd',
+                                                options=[
+                                                    {'label': '買超', 'value': 1},
+                                                    {'label': '賣超', 'value': -1},
+                                                ],
+                                                value='1',
+                                                placeholder='買超',
+                                                clearable=False,
+                                                style=self_style.dropdown_style),
+                                            ],style=self_style.dp_div_style),
+                                            
+                                            html.Div([
+                                                dcc.Dropdown(
+                                                # id='0401-dd2',
+                                                options=[
+                                                    {'label': '大於', 'value': 1},
+                                                    {'label': '小於', 'value': -1},
+                                                ],
+                                                value='-1',
+                                                placeholder='小於',
+                                                clearable=False,
+                                                style=self_style.dropdown_style),
+                                            ],style=self_style.dp_div_style),
+                                            html.Div([
+                                                dcc.Input(
+                                                # id='0401-ip',
+                                                type='number',
+                                                min=0,
+                                                max=999999,
+                                                value=5000,
+                                                placeholder='5000',
+                                                style=self_style.input_style),
+                                            ], style=self_style.ipt_div_style),
+                                            
+                                            html.P('張', style=self_style.text_normal),
+                                        ], style=self_style.output_item_style),
+                                        html.Button('x', n_clicks=0, style=self_style.button_style,
+                                                id={'type':'output-btn',
+                                                    'index': str(output_count)})
+                                    ])
+
+    return new_children
+
+def create_0403(output_count):
+    new_children = html.Div([
+                                        html.Span([
+                                            html.P('投信', style=self_style.text_normal),
+                                            html.Div([
+                                                dcc.Input(
+                                                # id='0201-ip',
+                                                type='number',
+                                                min=0,
+                                                max=999,
+                                                value=3,
+                                                placeholder='3',
+                                                style=self_style.short_input_style),  
+                                            ], style=self_style.short_ipt_div_style),
+                                            html.Div([
+                                                dcc.Dropdown(
+                                                    # id='0201-dd',
+                                                    options=[
+                                                        {'label': '日', 'value': 'd'},
+                                                        {'label': '周', 'value': 'w'},
+                                                        {'label': '月', 'value': 'm'},
+                                                        {'label': '季', 'value': 's'},    
+                                                        {'label': '年', 'value': 'y'},                                                  
+                                                    ],
+                                                    value='d',
+                                                    placeholder='日',
+                                                    clearable=False,
+                                                    style=self_style.short_dropdown_style),
+                                            ],style=self_style.dp_div_style),                                           
+                                            html.P('內', style=self_style.text_normal),
+                                            html.Div([
+                                                dcc.Dropdown(
+                                                # id='0401-dd',
+                                                options=[
+                                                    {'label': '買超', 'value': 1},
+                                                    {'label': '賣超', 'value': -1},
+                                                ],
+                                                value='1',
+                                                placeholder='買超',
+                                                clearable=False,
+                                                style=self_style.dropdown_style),
+                                            ],style=self_style.dp_div_style),
+                                            
+                                            html.Div([
+                                                dcc.Dropdown(
+                                                # id='0401-dd2',
+                                                options=[
+                                                    {'label': '大於', 'value': 1},
+                                                    {'label': '小於', 'value': -1},
+                                                ],
+                                                value='1',
+                                                placeholder='大於',
+                                                clearable=False,
+                                                style=self_style.dropdown_style),
+                                            ],style=self_style.dp_div_style),                                          
+                                            html.Div([
+                                                dcc.Input(
+                                                # id='0401-ip',
+                                                type='number',
+                                                min=0,
+                                                max=999999,
+                                                value=5000,
+                                                placeholder='5000',
+                                                style=self_style.input_style),
+                                            ], style=self_style.ipt_div_style),
+                                            
+                                            html.P('張', style=self_style.text_normal),
+                                        ], style=self_style.output_item_style),
+                                        html.Button('x', n_clicks=0, style=self_style.button_style,
+                                                id={'type':'output-btn',
+                                                    'index': str(output_count)})
+                                    ])
+
+    return new_children
+
+def create_0404(output_count):
+    new_children = html.Div([
+                                        html.Span([
+                                            html.P('投信', style=self_style.text_normal),
+                                            html.Div([
+                                                dcc.Input(
+                                                # id='0201-ip',
+                                                type='number',
+                                                min=0,
+                                                max=999,
+                                                value=3,
+                                                placeholder='3',
+                                                style=self_style.short_input_style),  
+                                            ], style=self_style.short_ipt_div_style),
+                                            html.Div([
+                                                dcc.Dropdown(
+                                                    # id='0201-dd',
+                                                    options=[
+                                                        {'label': '日', 'value': 'd'},
+                                                        {'label': '周', 'value': 'w'},
+                                                        {'label': '月', 'value': 'm'},
+                                                        {'label': '季', 'value': 's'},    
+                                                        {'label': '年', 'value': 'y'},                                                  
+                                                    ],
+                                                    value='d',
+                                                    placeholder='日',
+                                                    clearable=False,
+                                                    style=self_style.short_dropdown_style),
+                                            ],style=self_style.dp_div_style),                                           
+                                            html.P('內', style=self_style.text_normal),
+                                            html.Div([
+                                                dcc.Dropdown(
+                                                # id='0401-dd',
+                                                options=[
+                                                    {'label': '買超', 'value': 1},
+                                                    {'label': '賣超', 'value': -1},
+                                                ],
+                                                value='1',
+                                                placeholder='買超',
+                                                clearable=False,
+                                                style=self_style.dropdown_style),
+                                            ],style=self_style.dp_div_style),
+                                            
+                                            html.Div([
+                                                dcc.Dropdown(
+                                                # id='0401-dd2',
+                                                options=[
+                                                    {'label': '大於', 'value': 1},
+                                                    {'label': '小於', 'value': -1},
+                                                ],
+                                                value='-1',
+                                                placeholder='小於',
+                                                clearable=False,
+                                                style=self_style.dropdown_style),
+                                            ],style=self_style.dp_div_style),
+                                            
+
+                                            html.Div([
+                                                dcc.Input(
+                                                # id='0401-ip',
+                                                type='number',
+                                                min=0,
+                                                max=999999,
+                                                value=5000,
+                                                placeholder='5000',
+                                                style=self_style.input_style),
+                                            ], style=self_style.ipt_div_style),
+                                            
+                                            html.P('張', style=self_style.text_normal),
+                                        ], style=self_style.output_item_style),
+                                        html.Button('x', n_clicks=0, style=self_style.button_style,
+                                                id={'type':'output-btn',
+                                                    'index': str(output_count)})
+                                    ])
+
+    return new_children
+
+def create_0405(output_count):
+    new_children = html.Div([
+                                        html.Span([
+                                            html.P('自營商', style=self_style.text_normal),
+                                            html.Div([
+                                                dcc.Input(
+                                                # id='0201-ip',
+                                                type='number',
+                                                min=0,
+                                                max=999,
+                                                value=3,
+                                                placeholder='3',
+                                                style=self_style.short_input_style),  
+                                            ], style=self_style.short_ipt_div_style),
+                                            html.Div([
+                                                dcc.Dropdown(
+                                                    # id='0201-dd',
+                                                    options=[
+                                                        {'label': '日', 'value': 'd'},
+                                                        {'label': '周', 'value': 'w'},
+                                                        {'label': '月', 'value': 'm'},
+                                                        {'label': '季', 'value': 's'},    
+                                                        {'label': '年', 'value': 'y'},                                                  
+                                                    ],
+                                                    value='d',
+                                                    placeholder='日',
+                                                    clearable=False,
+                                                    style=self_style.short_dropdown_style),
+                                            ],style=self_style.dp_div_style),                                           
+                                            html.P('內', style=self_style.text_normal),
+                                            html.Div([
+                                                dcc.Dropdown(
+                                                # id='0401-dd',
+                                                options=[
+                                                    {'label': '買超', 'value': 1},
+                                                    {'label': '賣超', 'value': -1},
+                                                ],
+                                                value='1',
+                                                placeholder='買超',
+                                                clearable=False,
+                                                style=self_style.dropdown_style),
+                                            ],style=self_style.dp_div_style),
+                                            
+                                            html.Div([
+                                                dcc.Dropdown(
+                                                # id='0401-dd2',
+                                                options=[
+                                                    {'label': '大於', 'value': 1},
+                                                    {'label': '小於', 'value': -1},
+                                                ],
+                                                value='1',
+                                                placeholder='大於',
+                                                clearable=False,
+                                                style=self_style.dropdown_style),
+                                            ],style=self_style.dp_div_style),
+                                            
+
+                                            html.Div([
+                                                dcc.Input(
+                                                # id='0401-ip',
+                                                type='number',
+                                                min=0,
+                                                max=999999,
+                                                value=5000,
+                                                placeholder='5000',
+                                                style=self_style.input_style),
+                                            ], style=self_style.ipt_div_style),
+                                            
+                                            html.P('張', style=self_style.text_normal),
+                                        ], style=self_style.output_item_style),
+                                        html.Button('x', n_clicks=0, style=self_style.button_style,
+                                                id={'type':'output-btn',
+                                                    'index': str(output_count)})
+                                    ])
+
+    return new_children
+
+def create_0406(output_count):
+    new_children = html.Div([
+                                        html.Span([
+                                            html.P('自營商', style=self_style.text_normal),
+                                            html.Div([
+                                                dcc.Input(
+                                                # id='0201-ip',
+                                                type='number',
+                                                min=0,
+                                                max=999,
+                                                value=3,
+                                                placeholder='3',
+                                                style=self_style.short_input_style),  
+                                            ], style=self_style.short_ipt_div_style),
+                                            html.Div([
+                                                dcc.Dropdown(
+                                                    # id='0201-dd',
+                                                    options=[
+                                                        {'label': '日', 'value': 'd'},
+                                                        {'label': '周', 'value': 'w'},
+                                                        {'label': '月', 'value': 'm'},
+                                                        {'label': '季', 'value': 's'},    
+                                                        {'label': '年', 'value': 'y'},                                                  
+                                                    ],
+                                                    value='d',
+                                                    placeholder='日',
+                                                    clearable=False,
+                                                    style=self_style.short_dropdown_style),
+                                            ],style=self_style.dp_div_style),                                           
+                                            html.P('內', style=self_style.text_normal),
+                                            html.Div([
+                                                dcc.Dropdown(
+                                                # id='0401-dd',
+                                                options=[
+                                                    {'label': '買超', 'value': 1},
+                                                    {'label': '賣超', 'value': -1},
+                                                ],
+                                                value='1',
+                                                placeholder='買超',
+                                                clearable=False,
+                                                style=self_style.dropdown_style),
+                                            ],style=self_style.dp_div_style),
+                                            
+                                            html.Div([
+                                                dcc.Dropdown(
+                                                # id='0401-dd2',
+                                                options=[
+                                                    {'label': '大於', 'value': 1},
+                                                    {'label': '小於', 'value': -1},
+                                                ],
+                                                value='-1',
+                                                placeholder='小於',
+                                                clearable=False,
+                                                style=self_style.dropdown_style),
+                                            ],style=self_style.dp_div_style),
+                                            
+
+                                            html.Div([
+                                                dcc.Input(
+                                                # id='0401-ip',
+                                                type='number',
+                                                min=0,
+                                                max=999999,
+                                                value=5000,
+                                                placeholder='5000',
+                                                style=self_style.input_style),
+                                            ], style=self_style.ipt_div_style),
+                                            
+                                            html.P('張', style=self_style.text_normal),
+                                        ], style=self_style.output_item_style),
+                                        html.Button('x', n_clicks=0, style=self_style.button_style,
+                                                id={'type':'output-btn',
+                                                    'index': str(output_count)})
+                                    ])
+
+    return new_children
