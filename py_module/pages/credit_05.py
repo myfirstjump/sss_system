@@ -109,7 +109,8 @@ def create_0501(output_count):
                                             html.P('融資於', style=self_style.text_normal),
                                             html.Div([
                                                 dcc.Input(
-                                                # id='0201-ip',
+                                                id={'type':'ip1',
+                                                    'index': '0501'},
                                                 type='number',
                                                 min=0,
                                                 max=999,
@@ -119,7 +120,8 @@ def create_0501(output_count):
                                             ], style=self_style.short_ipt_div_style),
                                             html.Div([
                                                 dcc.Dropdown(
-                                                    # id='0201-dd',
+                                                    id={'type':'dd1',
+                                                    'index': '0501'},
                                                     options=[
                                                         {'label': '日', 'value': 'd'},
                                                         {'label': '周', 'value': 'w'},
@@ -135,7 +137,8 @@ def create_0501(output_count):
                                             html.P('內，', style=self_style.text_normal),
                                             html.Div([
                                                 dcc.Dropdown(
-                                                # id='0201-dd',
+                                                id={'type':'dd2',
+                                                    'index': '0501'},
                                                 options=[
                                                     {'label': '增加', 'value': 1},
                                                     {'label': '減少', 'value': -1},
@@ -147,7 +150,8 @@ def create_0501(output_count):
                                             ],style=self_style.dp_div_style),
                                             html.Div([
                                                 dcc.Input(
-                                                # id='0201-ip',
+                                                id={'type':'ip2',
+                                                    'index': '0501'},
                                                 type='number',
                                                 min=0,
                                                 max=9999999,
@@ -169,7 +173,8 @@ def create_0502(output_count):
                                             html.P('融資於', style=self_style.text_normal),
                                             html.Div([
                                                 dcc.Input(
-                                                # id='0201-ip',
+                                                id={'type':'ip1',
+                                                    'index': '0502'},
                                                 type='number',
                                                 min=0,
                                                 max=999,
@@ -179,7 +184,8 @@ def create_0502(output_count):
                                             ], style=self_style.short_ipt_div_style),
                                             html.Div([
                                                 dcc.Dropdown(
-                                                    # id='0201-dd',
+                                                    id={'type':'dd1',
+                                                    'index': '0502'},
                                                     options=[
                                                         {'label': '日', 'value': 'd'},
                                                         {'label': '周', 'value': 'w'},
@@ -195,7 +201,8 @@ def create_0502(output_count):
                                             html.P('內，', style=self_style.text_normal),
                                             html.Div([
                                                 dcc.Dropdown(
-                                                # id='0201-dd',
+                                                id={'type':'dd2',
+                                                    'index': '0502'},
                                                 options=[
                                                     {'label': '增加', 'value': 1},
                                                     {'label': '減少', 'value': -1},
@@ -207,7 +214,8 @@ def create_0502(output_count):
                                             ],style=self_style.dp_div_style),
                                             html.Div([
                                                 dcc.Input(
-                                                # id='0201-ip',
+                                                id={'type':'ip2',
+                                                    'index': '0502'},
                                                 type='number',
                                                 min=0,
                                                 max=9999999,
@@ -229,7 +237,8 @@ def create_0503(output_count):
                                             html.P('融券於', style=self_style.text_normal),
                                             html.Div([
                                                 dcc.Input(
-                                                # id='0201-ip',
+                                                id={'type':'ip1',
+                                                    'index': '0503'},
                                                 type='number',
                                                 min=0,
                                                 max=999,
@@ -239,7 +248,8 @@ def create_0503(output_count):
                                             ], style=self_style.short_ipt_div_style),
                                             html.Div([
                                                 dcc.Dropdown(
-                                                    # id='0201-dd',
+                                                    id={'type':'dd1',
+                                                    'index': '0503'},
                                                     options=[
                                                         {'label': '日', 'value': 'd'},
                                                         {'label': '周', 'value': 'w'},
@@ -255,7 +265,8 @@ def create_0503(output_count):
                                             html.P('內，', style=self_style.text_normal),
                                             html.Div([
                                                 dcc.Dropdown(
-                                                # id='0201-dd',
+                                                id={'type':'dd2',
+                                                    'index': '0503'},
                                                 options=[
                                                     {'label': '增加', 'value': 1},
                                                     {'label': '減少', 'value': -1},
@@ -267,7 +278,8 @@ def create_0503(output_count):
                                             ],style=self_style.dp_div_style),
                                             html.Div([
                                                 dcc.Input(
-                                                # id='0201-ip',
+                                                id={'type':'ip2',
+                                                    'index': '0503'},
                                                 type='number',
                                                 min=0,
                                                 max=9999999,
@@ -289,7 +301,8 @@ def create_0504(output_count):
                                             html.P('融券於', style=self_style.text_normal),
                                             html.Div([
                                                 dcc.Input(
-                                                # id='0201-ip',
+                                                id={'type':'ip1',
+                                                    'index': '0504'},
                                                 type='number',
                                                 min=0,
                                                 max=999,
@@ -299,7 +312,8 @@ def create_0504(output_count):
                                             ], style=self_style.short_ipt_div_style),
                                             html.Div([
                                                 dcc.Dropdown(
-                                                    # id='0201-dd',
+                                                    id={'type':'dd1',
+                                                    'index': '0504'},
                                                     options=[
                                                         {'label': '日', 'value': 'd'},
                                                         {'label': '周', 'value': 'w'},
@@ -315,7 +329,8 @@ def create_0504(output_count):
                                             html.P('內，', style=self_style.text_normal),
                                             html.Div([
                                                 dcc.Dropdown(
-                                                # id='0201-dd',
+                                                id={'type':'dd2',
+                                                    'index': '0504'},
                                                 options=[
                                                     {'label': '增加', 'value': 1},
                                                     {'label': '減少', 'value': -1},
@@ -327,7 +342,8 @@ def create_0504(output_count):
                                             ],style=self_style.dp_div_style),
                                             html.Div([
                                                 dcc.Input(
-                                                # id='0201-ip',
+                                                id={'type':'ip2',
+                                                    'index': '0504'},
                                                 type='number',
                                                 min=0,
                                                 max=9999999,
@@ -349,7 +365,8 @@ def create_0505(output_count):
                                             html.P('借券於', style=self_style.text_normal),
                                             html.Div([
                                                 dcc.Input(
-                                                # id='0201-ip',
+                                                id={'type':'ip1',
+                                                    'index': '0505'},
                                                 type='number',
                                                 min=0,
                                                 max=999,
@@ -359,7 +376,8 @@ def create_0505(output_count):
                                             ], style=self_style.short_ipt_div_style),
                                             html.Div([
                                                 dcc.Dropdown(
-                                                    # id='0201-dd',
+                                                    id={'type':'dd1',
+                                                    'index': '0505'},
                                                     options=[
                                                         {'label': '日', 'value': 'd'},
                                                         {'label': '周', 'value': 'w'},
@@ -375,7 +393,8 @@ def create_0505(output_count):
                                             html.P('內，', style=self_style.text_normal),
                                             html.Div([
                                                 dcc.Dropdown(
-                                                # id='0201-dd',
+                                                id={'type':'dd2',
+                                                    'index': '0505'},
                                                 options=[
                                                     {'label': '增加', 'value': 1},
                                                     {'label': '減少', 'value': -1},
@@ -387,7 +406,8 @@ def create_0505(output_count):
                                             ],style=self_style.dp_div_style),
                                             html.Div([
                                                 dcc.Input(
-                                                # id='0201-ip',
+                                                id={'type':'ip2',
+                                                    'index': '0505'},
                                                 type='number',
                                                 min=0,
                                                 max=9999999,
@@ -409,7 +429,8 @@ def create_0506(output_count):
                                             html.P('借券於', style=self_style.text_normal),
                                             html.Div([
                                                 dcc.Input(
-                                                # id='0201-ip',
+                                                id={'type':'ip1',
+                                                    'index': '0506'},
                                                 type='number',
                                                 min=0,
                                                 max=999,
@@ -419,7 +440,8 @@ def create_0506(output_count):
                                             ], style=self_style.short_ipt_div_style),
                                             html.Div([
                                                 dcc.Dropdown(
-                                                    # id='0201-dd',
+                                                    id={'type':'dd1',
+                                                    'index': '0506'},
                                                     options=[
                                                         {'label': '日', 'value': 'd'},
                                                         {'label': '周', 'value': 'w'},
@@ -435,7 +457,8 @@ def create_0506(output_count):
                                             html.P('內，', style=self_style.text_normal),
                                             html.Div([
                                                 dcc.Dropdown(
-                                                # id='0201-dd',
+                                                id={'type':'dd2',
+                                                    'index': '0506'},
                                                 options=[
                                                     {'label': '增加', 'value': 1},
                                                     {'label': '減少', 'value': -1},
@@ -447,7 +470,8 @@ def create_0506(output_count):
                                             ],style=self_style.dp_div_style),
                                             html.Div([
                                                 dcc.Input(
-                                                # id='0201-ip',
+                                                id={'type':'ip2',
+                                                    'index': '0506'},
                                                 type='number',
                                                 min=0,
                                                 max=9999999,

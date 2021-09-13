@@ -582,15 +582,25 @@ class DashBuilder(object):
             Output('dynamic-selection-result', 'children'),
             Input('selection-btn', 'n_clicks'),
             # State('dynamic-output-container', 'children'),
-            State({'type': ALL, 'index': '0102'}, 'value'),
-            State({'type': ALL, 'index': '0103'}, 'value'),
-            State({'type': ALL, 'index': '0201'}, 'value'),
-            State({'type': ALL, 'index': '0202'}, 'value'),
-            State({'type': ALL, 'index': '0203'}, 'value'),
+            State({'type': ALL, 'index': '0102'}, 'value'), State({'type': ALL, 'index': '0103'}, 'value'),
+            State({'type': ALL, 'index': '0201'}, 'value'), State({'type': ALL, 'index': '0202'}, 'value'), State({'type': ALL, 'index': '0203'}, 'value'), State({'type': ALL, 'index': '0204'}, 'value'), State({'type': ALL, 'index': '0205'}, 'value'),
+            State({'type': ALL, 'index': '0301'}, 'value'), State({'type': ALL, 'index': '0302'}, 'value'), State({'type': ALL, 'index': '0303'}, 'value'), State({'type': ALL, 'index': '0304'}, 'value'), State({'type': ALL, 'index': '0305'}, 'value'), State({'type': ALL, 'index': '0306'}, 'value'),
+            State({'type': ALL, 'index': '0401'}, 'value'), State({'type': ALL, 'index': '0402'}, 'value'), State({'type': ALL, 'index': '0403'}, 'value'), State({'type': ALL, 'index': '0404'}, 'value'), State({'type': ALL, 'index': '0405'}, 'value'), State({'type': ALL, 'index': '0406'}, 'value'),
+            State({'type': ALL, 'index': '0501'}, 'value'), State({'type': ALL, 'index': '0502'}, 'value'), State({'type': ALL, 'index': '0503'}, 'value'), State({'type': ALL, 'index': '0504'}, 'value'), State({'type': ALL, 'index': '0505'}, 'value'), State({'type': ALL, 'index': '0506'}, 'value'),
+            State({'type': ALL, 'index': '0601'}, 'value'), 
         )
-        def output_result(btn, value0102, value0103, value0201, value0202, value0203,):
+        def output_result(btn, value0102, value0103, value0201, value0202, value0203, value0204, value0205, value0301, value0302, value0303, value0304, value0305, value0306, value0401, value0402, value0403, value0404, value0405, value0406, value0501, value0502, value0503, value0504, value0505, value0506, value0601):
             
-            value_list = [value0102, value0103, value0201, value0202, value0203]
+            print('selection-btn:', btn)
+            value_dict = {
+                '0102': value0102, '0103': value0103, 
+                '0201': value0201, '0202': value0202, '0203': value0203, '0204': value0204, '0205': value0205, 
+                '0301': value0301, '0302': value0302, '0303': value0303, '0304': value0304, '0305': value0305,  '0306': value0306,
+                '0401': value0401, '0402': value0402, '0403': value0403, '0404': value0404, '0405': value0405,  '0406': value0406,
+                '0501': value0501, '0502': value0502, '0503': value0503, '0504': value0504, '0505': value0505,  '0506': value0506,
+                '0601': value0601, 
+            }
+            print('value_dict:', value_dict) 
             if btn == None:
                 raise PreventUpdate
             if btn > 0:
@@ -599,10 +609,10 @@ class DashBuilder(object):
                 sentence = ''
                 for idx in range(condition_number):
                     # if self.selection_record[idx] == '0101':
-                        
-                    sentence = sentence + '第{}個條件為{}，value為{}'.format(idx+1, self.selection_record[idx], value_list[idx])
+                    selection_code = self.selection_record[idx]
+                    sentence = sentence + "第{}個條件為{}，value為{}".format(idx+1, selection_code, value_dict[selection_code]) + "\n"
 
-                return '總共有{}筆條件，分別為 \\n{}'.format(condition_number, sentence)
+                return "總共有{}筆條件，分別為 {}".format(condition_number, sentence) + "\n"
                 
             else:
                 return ''

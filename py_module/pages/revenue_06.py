@@ -33,7 +33,8 @@ def create_0601(output_count):
                                             html.P('營收', style=self_style.text_normal),
                                             html.Div([
                                                 dcc.Dropdown(
-                                                # id='0601-dd',
+                                                id={'type':'dd',
+                                                    'index': '0601'},
                                                 options=[
                                                     {'label': '大於', 'value': 1},
                                                     {'label': '小於', 'value': -1},
@@ -45,7 +46,8 @@ def create_0601(output_count):
                                             ],style=self_style.dp_div_style),
                                             html.Div([
                                                 dcc.Input(
-                                                # id='0601-ip',
+                                                id={'type':'ip',
+                                                    'index': '0601'},
                                                 type='number',
                                                 min=0,
                                                 max=99999,
