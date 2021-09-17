@@ -4,9 +4,34 @@
 0103 公司股本[小於][5]億元
 
 0201 公司股價[大於][120]元
+SELECT stock_id FROM TW_STOCK_PRICE_Daily WHERE date=[today_date] AND close >= [120]
 0202 公司股價[小於][120]元
+SELECT stock_id FROM TW_STOCK_PRICE_Daily WHERE date=[today_date] AND close < [120]
 0203 公司股價連續[漲/跌停][3]日以上
+SELECT stock_id FROM TW_STOCK_INFO WHERE date=[today_date] AND limitup_limitdown_CNT >= [3]
 0204 於[3][日]內[漲/跌幅][超過][10]%之股票
+1)
+SELECT stock_id 
+FROM 
+(
+    SELECT stock_id, (close - LAG(close)) as diff
+    FROM TW_STOCK_PRICE_[Daily|Weekly|monthly]
+    GROUP BY stock_id
+    WHERE date IN (today_date, previous_date)
+)
+WHERE diff > 20
+
+2)
+SELECT stock_id 
+FROM 
+(
+    SELECT stock_id, sum(spread) as new_spread
+    FROM TW_STOCK_PRICE_[Daily|Weekly|monthly]
+    GROUP BY stock_id
+    WHERE date IN (today_date, previous_date)
+)
+WHERE new_spread > 20
+
 0205 於[3][日]內[上漲/下跌][超過][20]元之股票
 
 0301 於[3][日]內，成交量平均[大於][50000]張之股票

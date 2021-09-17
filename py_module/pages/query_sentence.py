@@ -5,9 +5,16 @@ import pymssql
 
 
 # 各項條件的string
-def create_query(arg1, arg2):
+def create_query_0201(today_date, sign_value, price):
 
-    return 'select {} from {}'.format(arg1, arg2)
+    if sign_value == 1:
+        sign = '>='
+    elif sign_value == -1:
+        sign = '<'
+    else:
+        return None
+    query = "SELECT stock_id FROM TW_STOCK_PRICE_Daily WHERE date=[today_date] AND close >= [120]".format(today_date, sign, price)
+    return 
 
 
 

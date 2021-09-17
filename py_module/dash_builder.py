@@ -610,6 +610,8 @@ class DashBuilder(object):
                 for idx in range(condition_number):
                     # if self.selection_record[idx] == '0101':
                     selection_code = self.selection_record[idx]
+                    # if selection_code == '0201':
+
                     sentence = sentence + "第{}個條件為{}，value為{}".format(idx+1, selection_code, value_dict[selection_code]) + "\n"
 
                 return "總共有{}筆條件，分別為 {}".format(condition_number, sentence) + "\n"
