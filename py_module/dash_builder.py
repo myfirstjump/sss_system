@@ -8,6 +8,8 @@ import pandas as pd
 import json
 import ast
 import time
+import datetime
+from datetime import timedelta
 
 from py_module.pages import (
     basic_01,
@@ -16,8 +18,8 @@ from py_module.pages import (
     legal_04,
     credit_05,
     revenue_06,
-    self_style
-    
+    self_style,
+    query_sentence
 )
 
 class DashBuilder(object):
@@ -600,21 +602,33 @@ class DashBuilder(object):
                 '0501': value0501, '0502': value0502, '0503': value0503, '0504': value0504, '0505': value0505,  '0506': value0506,
                 '0601': value0601, 
             }
-            print('value_dict:', value_dict) 
+            print('value_dict:', value_dict)
             if btn == None:
                 raise PreventUpdate
+
+            now = datetime.datetime.now()
+            today = now.date()
+            yesterday = today - timedelta(days=1)
+            this_week_start = today - timedelta(days=now.weekday())
+            this_month_start = datetime.datetime(today.year, today.month, 1).date()
+            quarter_start_month = (today.month - 1) - (today.month - 1) % 3 + 1
+            this_quarter_start = datetime.datetime(today.year, quarter_start_month, 1).date()
+            this_year_start = datetime.datetime(today.year, 1, 1).date()
+
             if btn > 0:
                 condition_number = len(self.output_record)
                 
-                sentence = ''
+                show_all = ''
                 for idx in range(condition_number):
                     # if self.selection_record[idx] == '0101':
                     selection_code = self.selection_record[idx]
-                    # if selection_code == '0201':
+                    if selection_code == '0201':
+                        query = query_sentence.create_query_0201(today, value_dict[selection_code][0], value_dict[selection_code][1])
+                    else:
+                        query = ''
+                    show_all = show_all + "第{}個條件為{}，sentence為{}".format(idx+1, selection_code, query) + "\n"
 
-                    sentence = sentence + "第{}個條件為{}，value為{}".format(idx+1, selection_code, value_dict[selection_code]) + "\n"
-
-                return "總共有{}筆條件，分別為 {}".format(condition_number, sentence) + "\n"
+                return "總共有{}筆條件，分別為 {}".format(condition_number, show_all) + "\n"
                 
             else:
                 return ''
