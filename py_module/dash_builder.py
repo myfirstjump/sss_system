@@ -608,6 +608,7 @@ class DashBuilder(object):
 
             now = datetime.datetime.now()
             today = now.date()
+            today = today - timedelta(days=30)
             yesterday = today - timedelta(days=1)
             this_week_start = today - timedelta(days=now.weekday())
             this_month_start = datetime.datetime(today.year, today.month, 1).date()
