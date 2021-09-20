@@ -42,7 +42,17 @@ def query_combine(query_dict):
     combined_query = combined_query + "STOCK_SKILL_DB.dbo.TW_STOCK_INFO {} on {}.stock_id = {}.stock_id".format(ascii_lowercase[query_number], ascii_lowercase[query_number-1], ascii_lowercase[query_number])    
         
     return combined_query
-        
+
+# 最後查詢
+def sql_execute(query):
+
+    conn = pymssql.connect(host='localhost', user = 'myfirstjump', password='myfirstjump', database='STOCK_SKILL_DB')
+    cursor = conn.cursor(as_dict=True)
+    cursor.execute(query))
+    conn.commit()
+
+    print(conn.fectchall())
+    conn.close()
 
 # 各項條件的string
 def create_query_0201(today_date, larger, price):
@@ -72,15 +82,3 @@ def create_query_0203(today_date, direct, days):
     query = "(SELECT stock_id FROM TW_STOCK_INFO WHERE date= '{}' AND limitup_limitdown_CNT {} {})".format(str(today_date), sign, str(days))
     return query
 
-# # 最後查詢
-# def final_query(arg):
-#     conn = pymssql.connect(host='localhost', user = 'myfirstjump', password='myfirstjump', database='STOCK_SKILL_DB')
-#     cursor = conn.cursor(as_dict=True)
-
-
-# conn = pymssql.connect(host='localhost', user = 'myfirstjump', password='myfirstjump', database='STOCK_SKILL_DB')
-# cursor = conn.cursor(as_dict=True)
-# cursor.execute('SELECT * FROM TW_STOCK_PRICE_Daily WHERE stock_id = "2330"')
-
-# for row in cursor:
-#     #print(row)
