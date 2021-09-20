@@ -639,8 +639,9 @@ class DashBuilder(object):
                     else:
                         pass
                 total_query = query_sentence.query_combine(query_dict)
+                data = query_sentence.sql_execute(total_query)
 
-                return total_query
+                return data
                 
             else:
                 return ''
