@@ -56,3 +56,13 @@ WHERE new_spread > 20
 0506 借券於[3][日]內[增加/減少][20]%之股票
 
 0601 營收[大於][5]億元
+
+
+合併Query
+select d.stock_id, d.stock_name from
+(select stock_id from TW_STOCK_PRICE_Daily where stock_id = '2330') a
+inner join (
+select stock_id from TW_STOCK_PRICE_Weekly where stock_id = '2330' ) b on a.stock_id = b.stock_id
+inner join (
+select stock_id from TW_STOCK_PRICE_Monthly where stock_id = '2330' ) c on b.stock_id = c.stock_id
+inner join STOCK_SKILL_DB.dbo.TW_STOCK_INFO d on c.stock_id = d.stock_id

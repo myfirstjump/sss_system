@@ -1,6 +1,7 @@
 # import pymssql
 import datetime
 from datetime import timedelta
+from string import ascii_lowercase
 
 # now = datetime.datetime.now()
 # today = now.date()
@@ -28,18 +29,48 @@ from datetime import timedelta
 # this_year_start = datetime.datetime(today.year, 1, 1).date()
 # #print('本年第一天: {}'.format(this_year_start))
 
-
+# Query Combination
+def query_combine(query_dict):
+    query_number = len(query_dict)
+    combined_query = "SELECT {}.stock_id, {}.stock_name FROM ".format(ascii_lowercase[query_number], ascii_lowercase[query_number])
+    for num, query in query_dict.items():
+        align_code = ascii_lowercase[num]
+        if align_code == 'a':
+            combined_query = combined_query + " {} {} inner join ".format(query, align_code)
+        else:
+            combined_query = combined_query + query + " {} on {}.stock_id = {}.stock_id inner join ".format(align_code, ascii_lowercase[num-1], align_code)
+    combined_query = combined_query + "STOCK_SKILL_DB.dbo.TW_STOCK_INFO {} on {}.stock_id = {}.stock_id".format(ascii_lowercase[query_number], ascii_lowercase[query_number-1], ascii_lowercase[query_number])    
+        
+    return combined_query
+        
 
 # 各項條件的string
 def create_query_0201(today_date, larger, price):
-    if larger == 1:
+    if larger == '1':
         sign = '>='
     else:
         sign = '<'
     
-    query = "SELECT stock_id FROM TW_STOCK_PRICE_Daily WHERE date=" + "'" + str(today_date) + "'" + "AND close" + sign + str(price)
+    query = "(SELECT stock_id FROM TW_STOCK_PRICE_Daily WHERE date= '{}' AND [close] {} {})".format(str(today_date), sign, str(price))
     return query
 
+def create_query_0202(today_date, larger, price):
+    if larger == '1':
+        sign = '>='
+    else:
+        sign = '<'
+    
+    query = "(SELECT stock_id FROM TW_STOCK_PRICE_Daily WHERE date= '{}' AND [close] {} {})".format(str(today_date), sign, str(price))
+    return query
+
+def create_query_0203(today_date, direct, days):
+    if direct == '1':
+        sign = '>='
+    else:
+        sign = '<='
+    
+    query = "(SELECT stock_id FROM TW_STOCK_INFO WHERE date= '{}' AND limitup_limitdown_CNT {} {})".format(str(today_date), sign, str(days))
+    return query
 
 # # 最後查詢
 # def final_query(arg):

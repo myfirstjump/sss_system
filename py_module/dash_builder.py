@@ -617,18 +617,30 @@ class DashBuilder(object):
 
             if btn > 0:
                 condition_number = len(self.output_record)
-                
-                show_all = ''
+                query_dict = {}
                 for idx in range(condition_number):
                     # if self.selection_record[idx] == '0101':
                     selection_code = self.selection_record[idx]
                     if selection_code == '0201':
                         query = query_sentence.create_query_0201(today, value_dict[selection_code][0], value_dict[selection_code][1])
+                        query_dict[idx] = query
+                    elif selection_code == '0202':
+                        query = query_sentence.create_query_0202(today, value_dict[selection_code][0], value_dict[selection_code][1])
+                        query_dict[idx] = query
+                    elif selection_code == '0203':
+                        query = query_sentence.create_query_0203(today, value_dict[selection_code][0], value_dict[selection_code][1])
+                        query_dict[idx] = query
+                    # elif selection_code == '0204':
+                    #     query = query_sentence.create_query_0204(today, value_dict[selection_code][0], value_dict[selection_code][1])
+                    #     query_dict[idx] = query
+                    # elif selection_code == '0205':
+                    #     query = query_sentence.create_query_0205(today, value_dict[selection_code][0], value_dict[selection_code][1])
+                    #     query_dict[idx] = query
                     else:
-                        query = ''
-                    show_all = show_all + "第{}個條件為{}，sentence為{}".format(idx+1, selection_code, query) + "\n"
+                        pass
+                total_query = query_sentence.query_combine(query_dict)
 
-                return "總共有{}筆條件，分別為 {}".format(condition_number, show_all) + "\n"
+                return total_query
                 
             else:
                 return ''
