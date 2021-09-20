@@ -52,7 +52,6 @@ def sql_execute(query):
     for row in cursor:
         print(row)
     conn.close()
-    return cursor
 
 # 各項條件的string
 def create_query_0201(today_date, larger, price):
