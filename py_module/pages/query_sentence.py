@@ -49,11 +49,10 @@ def sql_execute(query):
     conn = pymssql.connect(host='localhost', user = 'myfirstjump', password='myfirstjump', database='STOCK_SKILL_DB')
     cursor = conn.cursor(as_dict=True)
     cursor.execute(query)
-    # conn.commit()
-
-    data = cursor.fetchall()
+    for row in cursor:
+        print(row)
     conn.close()
-    return data
+    return cursor
 
 # 各項條件的string
 def create_query_0201(today_date, larger, price):
