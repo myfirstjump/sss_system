@@ -51,8 +51,9 @@ def sql_execute(query):
     cursor.execute(query))
     conn.commit()
 
-    print(conn.fectchall())
+    data = conn.fectchall()
     conn.close()
+    return data
 
 # 各項條件的string
 def create_query_0201(today_date, larger, price):
