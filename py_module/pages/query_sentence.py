@@ -48,7 +48,7 @@ def sql_execute(query):
 
     conn = pymssql.connect(host='localhost', user = 'myfirstjump', password='myfirstjump', database='STOCK_SKILL_DB')
     cursor = conn.cursor(as_dict=True)
-    cursor.execute(query))
+    cursor.execute(query)
     conn.commit()
 
     data = conn.fectchall()
