@@ -51,7 +51,7 @@ def sql_execute(query):
     cursor.execute(query)
     conn.commit()
 
-    data = conn.fectchall()
+    data = conn.fetchall()
     conn.close()
     return data
 
