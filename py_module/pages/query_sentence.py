@@ -49,8 +49,10 @@ def sql_execute(query):
     conn = pymssql.connect(host='localhost', user = 'myfirstjump', password='myfirstjump', database='STOCK_SKILL_DB')
     cursor = conn.cursor(as_dict=True)
     cursor.execute(query)
-    data = [row for row in cursor]
-
+    # data = [row for row in cursor]
+    for row in cursor:
+        print(row)
+        data = row
     cursor.close()
     conn.close()
     return data
@@ -62,7 +64,7 @@ def create_query_0201(today_date, larger, price):
     else:
         sign = '<'
     
-    query = "(SELECT stock_id FROM TW_STOCK_PRICE_Daily WHERE date= '{}' AND [close] {} {})".format(str(today_date), sign, str(price))
+    query = "(SELECT stock_id FROM STOCK_SKILL_DB.dbo.TW_STOCK_PRICE_Daily WHERE date = '{}' AND [close] {} {})".format(str(today_date), sign, str(price))
     return query
 
 def create_query_0202(today_date, larger, price):
@@ -71,7 +73,7 @@ def create_query_0202(today_date, larger, price):
     else:
         sign = '<'
     
-    query = "(SELECT stock_id FROM TW_STOCK_PRICE_Daily WHERE date= '{}' AND [close] {} {})".format(str(today_date), sign, str(price))
+    query = "(SELECT stock_id FROM STOCK_SKILL_DB.dbo.TW_STOCK_PRICE_Daily WHERE date = '{}' AND [close] {} {})".format(str(today_date), sign, str(price))
     return query
 
 def create_query_0203(today_date, direct, days):
@@ -80,6 +82,6 @@ def create_query_0203(today_date, direct, days):
     else:
         sign = '<='
     
-    query = "(SELECT stock_id FROM TW_STOCK_INFO WHERE date= '{}' AND limitup_limitdown_CNT {} {})".format(str(today_date), sign, str(days))
+    query = "(SELECT stock_id FROM STOCK_SKILL_DB.dbo.TW_STOCK_INFO WHERE date = '{}' AND limitup_limitdown_CNT {} {})".format(str(today_date), sign, str(days))
     return query
 
