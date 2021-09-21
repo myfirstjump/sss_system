@@ -166,8 +166,9 @@ selection_style = {
     'height': '96%',
     'border-radius':'25px', 
     'padding':'1%',
+    'overflow': 'auto',
     #'border':'solid 1px',  
-    'display':'inline-block'
+    'display':'inline-block',
 }
 
 

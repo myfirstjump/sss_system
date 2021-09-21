@@ -55,7 +55,7 @@ def sql_execute(query):
         data.append(row)
     cursor.close()
     conn.close()
-    return row
+    return data
 
 # 各項條件的string
 def create_query_0201(today_date, larger, price):

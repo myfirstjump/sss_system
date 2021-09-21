@@ -640,7 +640,7 @@ class DashBuilder(object):
                         pass
                 total_query = query_sentence.query_combine(query_dict)
                 data = query_sentence.sql_execute(total_query)
-                data = pd.DateFrame.from_records(data)
+                data = pd.DataFrame.from_records(data)
                 data = generate_table(data)
                 print('final query:', total_query)
                 return data
