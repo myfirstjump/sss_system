@@ -622,7 +622,7 @@ class DashBuilder(object):
                     # if self.selection_record[idx] == '0101':
                     selection_code = self.selection_record[idx]
                     if selection_code == '0201':
-                        query = query_sentence.create_query_0201(today, value_dict[selection_code][0], value_dict[selection_code][1])
+                        query = query_sentence.create_query_0201(value_dict[selection_code][0], value_dict[selection_code][1])
                         query_dict[idx] = query
                     elif selection_code == '0202':
                         query = query_sentence.create_query_0202(today, value_dict[selection_code][0], value_dict[selection_code][1])

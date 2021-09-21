@@ -58,13 +58,16 @@ def sql_execute(query):
     return data
 
 # 各項條件的string
-def create_query_0201(today_date, larger, price):
+def create_query_0201(larger, price):
     if larger == '1':
         sign = '>='
     else:
         sign = '<'
-    
-    query = "(SELECT stock_id FROM STOCK_SKILL_DB.dbo.TW_STOCK_PRICE_Daily WHERE date = '{}' AND [close] {} {})".format(str(today_date), sign, str(price))
+
+    query = '''SELECT t1.stock_id, each_max_date, [close] FROM STOCK_SKILL_DB.dbo.TW_STOCK_PRICE_Daily t1 
+    inner join (SELECT stock_id, MAX(date) as each_max_date FROM STOCK_SKILL_DB.dbo.TW_STOCK_PRICE_Daily
+     GROUP BY stock_id) t2 on t2.stock_id = t1.stock_id AND t1.each_max_date = date AND [close] {} {}'''.format(sign, str(price))
+
     return query
 
 def create_query_0202(today_date, larger, price):
