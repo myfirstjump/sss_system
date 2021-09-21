@@ -608,7 +608,6 @@ class DashBuilder(object):
 
             now = datetime.datetime.now()
             today = now.date()
-            today = today - timedelta(days=30)
             yesterday = today - timedelta(days=1)
             this_week_start = today - timedelta(days=now.weekday())
             this_month_start = datetime.datetime(today.year, today.month, 1).date()
@@ -641,7 +640,9 @@ class DashBuilder(object):
                         pass
                 total_query = query_sentence.query_combine(query_dict)
                 data = query_sentence.sql_execute(total_query)
-                print(total_query)
+                data = pd.DateFrame.from_records(data)
+                data = generate_table(data)
+                print('final query:', total_query)
                 return data
                 
             else:

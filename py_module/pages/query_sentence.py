@@ -50,12 +50,12 @@ def sql_execute(query):
     cursor = conn.cursor(as_dict=True)
     cursor.execute(query)
     # data = [row for row in cursor]
+    data = []
     for row in cursor:
-        print(row)
-        data = row
+        data.append(row)
     cursor.close()
     conn.close()
-    return data
+    return row
 
 # 各項條件的string
 def create_query_0201(today_date, larger, price):
