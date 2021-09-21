@@ -10,7 +10,11 @@
 0103 公司股本[小於][5]億元
 
 0201 公司股價[大於][120]元
-SELECT stock_id FROM TW_STOCK_PRICE_Daily WHERE date=[today_date] AND close >= [120]
+
+'''(SELECT t1.stock_id, each_max_date, [close] FROM STOCK_SKILL_DB.dbo.TW_STOCK_PRICE_Daily t1 
+    inner join (SELECT stock_id, MAX(date) as each_max_date FROM STOCK_SKILL_DB.dbo.TW_STOCK_PRICE_Daily
+    GROUP BY stock_id) t2 on t2.stock_id = t1.stock_id AND t2.each_max_date = date AND [close] {} {})'''
+
 0202 公司股價[小於][120]元
 SELECT stock_id FROM TW_STOCK_PRICE_Daily WHERE date=[today_date] AND close < [120]
 0203 公司股價連續[漲/跌停][3]日以上

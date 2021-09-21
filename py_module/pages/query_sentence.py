@@ -32,7 +32,7 @@ from string import ascii_lowercase
 # Query Combination
 def query_combine(query_dict):
     query_number = len(query_dict)
-    combined_query = "SELECT {}.stock_id, {}.stock_name FROM ".format(ascii_lowercase[query_number], ascii_lowercase[query_number])
+    combined_query = "SELECT DISTINCT {}.stock_id, {}.stock_name FROM ".format(ascii_lowercase[query_number], ascii_lowercase[query_number])
     for num, query in query_dict.items():
         align_code = ascii_lowercase[num]
         if align_code == 'a':
@@ -64,9 +64,9 @@ def create_query_0201(larger, price):
     else:
         sign = '<'
 
-    query = '''SELECT t1.stock_id, each_max_date, [close] FROM STOCK_SKILL_DB.dbo.TW_STOCK_PRICE_Daily t1 
+    query = '''(SELECT t1.stock_id, each_max_date, [close] FROM STOCK_SKILL_DB.dbo.TW_STOCK_PRICE_Daily t1 
     inner join (SELECT stock_id, MAX(date) as each_max_date FROM STOCK_SKILL_DB.dbo.TW_STOCK_PRICE_Daily
-     GROUP BY stock_id) t2 on t2.stock_id = t1.stock_id AND t1.each_max_date = date AND [close] {} {}'''.format(sign, str(price))
+    GROUP BY stock_id) t2 on t2.stock_id = t1.stock_id AND t2.each_max_date = date AND [close] {} {})'''.format(sign, str(price))
 
     return query
 
