@@ -28,18 +28,20 @@ from string import ascii_lowercase
 
 # this_year_start = datetime.datetime(today.year, 1, 1).date()
 # #print('本年第一天: {}'.format(this_year_start))
+skill_info = 'STOCK_SKILL_DB.dbo.TW_STOCK_INFO'
+skill_price_d = 'STOCK_SKILL_DB.dbo.TW_STOCK_PRICE_Daily'
 
 # Query Combination
 def query_combine(query_dict):
     query_number = len(query_dict)
-    combined_query = "SELECT DISTINCT {}.stock_id, {}.stock_name FROM ".format(ascii_lowercase[query_number], ascii_lowercase[query_number])
+    combined_query = "SELECT DISTINCT {}.stock_id, {}.stock_name, [close] FROM ".format(ascii_lowercase[query_number], ascii_lowercase[query_number])
     for num, query in query_dict.items():
         align_code = ascii_lowercase[num]
         if align_code == 'a':
             combined_query = combined_query + " {} {} inner join ".format(query, align_code)
         else:
             combined_query = combined_query + query + " {} on {}.stock_id = {}.stock_id inner join ".format(align_code, ascii_lowercase[num-1], align_code)
-    combined_query = combined_query + "STOCK_SKILL_DB.dbo.TW_STOCK_INFO {} on {}.stock_id = {}.stock_id".format(ascii_lowercase[query_number], ascii_lowercase[query_number-1], ascii_lowercase[query_number])    
+    combined_query = combined_query + "{} {} on {}.stock_id = {}.stock_id".format(skill_info, ascii_lowercase[query_number], ascii_lowercase[query_number-1], ascii_lowercase[query_number])    
         
     return combined_query
 
@@ -64,19 +66,24 @@ def create_query_0201(larger, price):
     else:
         sign = '<'
 
-    query = '''(SELECT t1.stock_id, each_max_date, [close] FROM STOCK_SKILL_DB.dbo.TW_STOCK_PRICE_Daily t1 
-    inner join (SELECT stock_id, MAX(date) as each_max_date FROM STOCK_SKILL_DB.dbo.TW_STOCK_PRICE_Daily
-    GROUP BY stock_id) t2 on t2.stock_id = t1.stock_id AND t2.each_max_date = date AND [close] {} {})'''.format(sign, str(price))
+    query = '''(SELECT t1.stock_id, t2.each_max_date, [close] FROM {} t1 
+    inner join (SELECT stock_id, MAX(date) as each_max_date FROM {}
+    GROUP BY stock_id) t2 on t2.stock_id = t1.stock_id 
+    AND t2.each_max_date = date AND [close] {} {})'''.format(skill_price_d, skill_price_d, sign, str(price))
 
     return query
 
-def create_query_0202(today_date, larger, price):
+def create_query_0202(larger, price):
     if larger == '1':
         sign = '>='
     else:
         sign = '<'
     
-    query = "(SELECT stock_id FROM STOCK_SKILL_DB.dbo.TW_STOCK_PRICE_Daily WHERE date = '{}' AND [close] {} {})".format(str(today_date), sign, str(price))
+    query = '''(SELECT t1.stock_id, t2.each_max_date, [close] FROM {} t1 
+    inner join (SELECT stock_id, MAX(date) as each_max_date FROM {}
+    GROUP BY stock_id) t2 on t1.stock_id = t2.stock_id 
+    AND t2.each_max_date = date AND [close] {} {})'''.format(skill_price_d, skill_price_d, sign, str(price))
+
     return query
 
 def create_query_0203(today_date, direct, days):
@@ -85,6 +92,11 @@ def create_query_0203(today_date, direct, days):
     else:
         sign = '<='
     
-    query = "(SELECT stock_id FROM STOCK_SKILL_DB.dbo.TW_STOCK_INFO WHERE date = '{}' AND limitup_limitdown_CNT {} {})".format(str(today_date), sign, str(days))
+    query = '''SELECT t1.stock_id t3.[close] FROM {} t1 
+    inner join (SELECT stock_id, MAX(date) as each_max_date FROM {} GROUP BY stock_id) t2
+    on t2.stock_id = t1.stock_id AND t2.each_max_date = date AND limitup_limitdown_CNT {} {} 
+    inner join (SELECT stock_id, MAX(date) as each_max_date_price FROM {} GROUP BY stock_id) t3
+    on t3.stock_id = t2.stock_id'''.format(skill_info, skill_info, sign, str(days), skill_price_d)
+
     return query
 
