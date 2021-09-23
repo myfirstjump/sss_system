@@ -86,17 +86,19 @@ def create_query_0202(larger, price):
 
     return query
 
-def create_query_0203(today_date, direct, days):
+def create_query_0203(direct, days):
     if direct == '1':
         sign = '>='
     else:
         sign = '<='
     
-    query = '''SELECT t1.stock_id t3.[close] FROM {} t1 
+    if days < 0:
+        days = -days
+    
+    query = '''(SELECT t1.stock_id, [close], t1.stock_name FROM {} t1 
     inner join (SELECT stock_id, MAX(date) as each_max_date FROM {} GROUP BY stock_id) t2
-    on t2.stock_id = t1.stock_id AND t2.each_max_date = date AND limitup_limitdown_CNT {} {} 
-    inner join (SELECT stock_id, MAX(date) as each_max_date_price FROM {} GROUP BY stock_id) t3
-    on t3.stock_id = t2.stock_id'''.format(skill_info, skill_info, sign, str(days), skill_price_d)
+    on t2.stock_id = t1.stock_id AND limitup_limitdown_CNT {} {} 
+    inner join {} t3 on t3.stock_id = t2.stock_id AND t2.each_max_date = t3.date)'''.format(skill_info, skill_price_d, sign, str(days), skill_price_d)
 
     return query
 

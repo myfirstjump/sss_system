@@ -625,10 +625,10 @@ class DashBuilder(object):
                         query = query_sentence.create_query_0201(value_dict[selection_code][0], value_dict[selection_code][1])
                         query_dict[idx] = query
                     elif selection_code == '0202':
-                        query = query_sentence.create_query_0202(today, value_dict[selection_code][0], value_dict[selection_code][1])
+                        query = query_sentence.create_query_0202(value_dict[selection_code][0], value_dict[selection_code][1])
                         query_dict[idx] = query
                     elif selection_code == '0203':
-                        query = query_sentence.create_query_0203(today, value_dict[selection_code][0], value_dict[selection_code][1])
+                        query = query_sentence.create_query_0203(value_dict[selection_code][0], value_dict[selection_code][1])
                         query_dict[idx] = query
                     # elif selection_code == '0204':
                     #     query = query_sentence.create_query_0204(today, value_dict[selection_code][0], value_dict[selection_code][1])
@@ -651,7 +651,7 @@ class DashBuilder(object):
 
         self.app.run_server(debug=True, dev_tools_hot_reload=True)#, dev_tools_ui=False, dev_tools_props_check=False)
 
-def generate_table(dataframe, max_rows=10):
+def generate_table(dataframe, max_rows=100):
     return html.Table([
         html.Thead(
             html.Tr([html.Th(col) for col in dataframe.columns])
