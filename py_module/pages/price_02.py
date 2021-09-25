@@ -55,7 +55,7 @@ def create_filters(button_id):
                                         html.P('3', style=self_style.text_bold),
                                         html.P('日內', style=self_style.text_normal),
                                         html.P('漲/跌幅', style=self_style.text_bold),
-                                        html.P('超過', style=self_style.text_normal),
+                                        html.P('均超過', style=self_style.text_normal),
                                         html.P('10%', style=self_style.text_bold),
                                         html.P('之股票', style=self_style.text_normal),
                                     ], style=self_style.item_style),
@@ -71,7 +71,7 @@ def create_filters(button_id):
                                         html.P('3', style=self_style.text_bold),
                                         html.P('日內', style=self_style.text_normal),
                                         html.P('上漲/下跌', style=self_style.text_bold),
-                                        html.P('超過', style=self_style.text_normal),
+                                        html.P('均超過', style=self_style.text_normal),
                                         html.P('20元', style=self_style.text_bold),
                                         html.P('之股票', style=self_style.text_normal),
                                     ], style=self_style.item_style),
@@ -242,7 +242,7 @@ def create_0204(output_count):
                                                 clearable=False,
                                                 style=self_style.dropdown_style),
                                             ],style=self_style.dp_div_style),
-                                            html.P('超過', style=self_style.text_normal),
+                                            html.P('均超過', style=self_style.text_normal),
                                             html.Div([
                                                 dcc.Input(
                                                 id={'type':'ip2',
@@ -311,7 +311,7 @@ def create_0205(output_count):
                                                     style=self_style.dropdown_style),
                                             ],style=self_style.dp_div_style),
                                             
-                                            html.P('超過', style=self_style.text_normal),
+                                            html.P('均超過', style=self_style.text_normal),
 
                                             html.Div([
                                                 dcc.Input(
