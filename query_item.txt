@@ -21,10 +21,27 @@ SELECT stock_id FROM TW_STOCK_PRICE_Daily WHERE date=[today_date] AND close < [1
 SELECT stock_id FROM TW_STOCK_INFO WHERE date=[today_date] AND limitup_limitdown_CNT >= [3]
 0204 於[3][日]內[漲/跌幅]都[超過][10]%之股票
 
-SELECT stock_id, MAX(date) as each_max_date 
+1) date lag
+SELECT stock_id, MAX(date) as each_max_date, [close]
 FROM STOCK_SKILL_DB.dbo.TW_STOCK_PRICE_Daily 
-WHERE date BETWEEN LAG(each_max_date, 3) AND each_max_date 
+WHERE date BETWEEN LAG(each_max_date, 3)
+GROUP BY stock_id 
+
+2) 加上 spread 條件
+SELECT stock_id, [close]
+FROM STOCK_SKILL_DB.dbo.TW_STOCK_PRICE_Daily t1
+inner join 
+(
+    SELECT stock_id, date, [close]
+FROM STOCK_SKILL_DB.dbo.TW_STOCK_PRICE_Daily 
+WHERE date BETWEEN LAG(each_max_date, 3)
 GROUP BY stock_id
+) t2
+on t1.stock_id = t2.stock_id AND t2.date = t1.date
+WHERE spread_ratio > 1%
+GROUP BY stock_id
+HAVING COUNT(1) > 3
+
 
 0205 於[3][日]內[上漲/下跌][超過][20]元之股票
 
