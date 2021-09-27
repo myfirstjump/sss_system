@@ -68,10 +68,12 @@ def create_query_0201(larger, price):
     else:
         sign = '<'
 
-    query = '''(SELECT t1.stock_id, t2.each_max_date, [close] FROM {} t1 
-    inner join (SELECT stock_id, MAX(date) as each_max_date FROM {}
-    GROUP BY stock_id) t2 on t2.stock_id = t1.stock_id 
-    AND t2.each_max_date = t1.date AND t1.[close] {} {})'''.format(skill_price_d, skill_price_d, sign, str(price))
+    query = '''(SELECT stock_id FROM
+    (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY date DESC) row_num
+    FROM TW_STOCK_PRICE_Daily WITH(NOLOCK)
+    WHERE date > (GETDATE()-({}+20))) part_tbl
+    WHERE part_tbl.row_num <= 1
+    GROUP BY stock_id HAVING part_tbl.[close] {} {})'''.format(sign, str(price))
 
     return query
 
@@ -81,9 +83,12 @@ def create_query_0202(larger, price):
     else:
         sign = '<'
     
-    query = '''(SELECT t1.stock_id, t2.each_max_date, [close] FROM {} t1 
-    inner join (SELECT stock_id, MAX(date) as each_max_date FROM {} GROUP BY stock_id) t2
-    on t1.stock_id = t2.stock_id AND t2.each_max_date = date AND [close] {} {})'''.format(skill_price_d, skill_price_d, sign, str(price))
+    query = '''(SELECT stock_id FROM
+    (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY date DESC) row_num
+    FROM TW_STOCK_PRICE_Daily WITH(NOLOCK)
+    WHERE date > (GETDATE()-({}+20))) part_tbl
+    WHERE part_tbl.row_num <= 1
+    GROUP BY stock_id HAVING part_tbl.[close] {} {})'''.format(sign, str(price))
 
     return query
 
