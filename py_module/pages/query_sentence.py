@@ -36,7 +36,7 @@ skill_price_m = 'STOCK_SKILL_DB.dbo.TW_STOCK_PRICE_monthly'
 # Query Combination
 def query_combine(query_dict):
     query_number = len(query_dict)
-    combined_query = "SELECT DISTINCT {}.stock_id, {}.stock_name, {}.[close] FROM ".format(ascii_lowercase[query_number], ascii_lowercase[query_number], ascii_lowercase[0])
+    combined_query = "SELECT DISTINCT {}.stock_id, {}.stock_name FROM ".format(ascii_lowercase[query_number], ascii_lowercase[query_number])
     for num, query in query_dict.items():
         align_code = ascii_lowercase[num]
         if align_code == 'a':
@@ -112,13 +112,150 @@ def create_query_0204(days, period, direct, percent):
         sign = '<='
 
     query = '''
-    SELECT stock_id FROM
+    (SELECT stock_id FROM
     (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY date DESC) row_num
     FROM TW_STOCK_PRICE_Daily WITH(NOLOCK)
     WHERE date > (GETDATE()-({}+20))) part_tbl
     WHERE part_tbl.row_num <= {} AND part_tbl.spread_ratio {} {}
-    GROUP BY stock_id HAVING count(row_num) = {}
+    GROUP BY stock_id HAVING count(row_num) = {})
     '''.format(days, days, sign, percent, days)
 
     return query
 
+def create_query_0205(days, period, direct, percent):
+
+    """0204 於[3][日]內[漲/跌幅]均超過[10]張之股票"""
+    if direct == '1':
+        sign = '>='
+    else:
+        sign = '<='
+
+    query = '''
+    (SELECT stock_id FROM
+    (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY date DESC) row_num
+    FROM TW_STOCK_PRICE_Daily WITH(NOLOCK)
+    WHERE date > (GETDATE()-({}+20))) part_tbl
+    WHERE part_tbl.row_num <= {} AND part_tbl.spread {} {}
+    GROUP BY stock_id HAVING count(row_num) = {})
+    '''.format(days, days, sign, percent, days)
+
+    return query
+
+
+def create_query_0301(days, period, direct, percent):
+
+    """於[3][日]內，成交量平均[大於][50000]張之股票"""
+    if direct == '1':
+        sign = '>='
+    else:
+        sign = '<='
+
+    query = '''
+    (SELECT stock_id FROM
+    (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY date DESC) row_num
+    FROM TW_STOCK_PRICE_Daily WITH(NOLOCK)
+    WHERE date > (GETDATE()-({}+20))) part_tbl
+    WHERE part_tbl.row_num <= {}
+    GROUP BY stock_id HAVING AVG(Trading_Volume) {} {})
+    '''.format(days, days, sign, percent)
+
+    return query
+
+def create_query_0302(days, period, direct, percent):
+
+    """於[3][日]內，成交量平均[小於][1000]張之股票"""
+    if direct == '1':
+        sign = '>='
+    else:
+        sign = '<='
+
+    query = '''
+    (SELECT stock_id FROM
+    (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY date DESC) row_num
+    FROM TW_STOCK_PRICE_Daily WITH(NOLOCK)
+    WHERE date > (GETDATE()-({}+20))) part_tbl
+    WHERE part_tbl.row_num <= {}
+    GROUP BY stock_id HAVING AVG(Trading_Volume) {} {})
+    '''.format(days, days, sign, percent)
+
+    return query
+
+def create_query_0303(days, period, direct, percent):
+
+    """於[3][日]內，成交量[增加][1000]張之股票"""
+    if direct == '1':
+        sign = '>='
+    else:
+        sign = '<='
+
+    query = '''
+    (SELECT stock_id FROM
+    (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY date DESC) row_num
+    FROM TW_STOCK_PRICE_Daily WITH(NOLOCK)
+    WHERE date > (GETDATE()-({}+20))) part_tbl
+    WHERE part_tbl.row_num <= {}
+    GROUP BY stock_id HAVING SUM(part_tbl.Trading_Volume) {} {})
+    '''.format(days, days, sign, percent, days)
+
+    return query
+
+def create_query_0304(days, period, direct, percent):
+
+    """於[3][日]內，成交量[增加][1000]張之股票"""
+    if direct == '1':
+        sign = '>='
+    else:
+        sign = '<='
+
+    query = '''
+    (SELECT stock_id FROM
+    (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY date DESC) row_num
+    FROM TW_STOCK_PRICE_Daily WITH(NOLOCK)
+    WHERE date > (GETDATE()-({}+20))) part_tbl
+    WHERE part_tbl.row_num <= {}
+    GROUP BY stock_id HAVING SUM(part_tbl.Trading_Volume) {} {})
+    '''.format(days, days, sign, percent, days)
+
+    return query
+    
+
+    
+
+def create_query_0305(days, period, direct, percent):
+
+    """0305 於[3][日]內，成交量[增加][20]%之股票"""
+    if direct == '1':
+        sign = '>='
+    else:
+        sign = '<='
+
+    query = '''
+    (SELECT stock_id FROM
+    (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY date DESC) row_num
+    FROM TW_STOCK_PRICE_Daily WITH(NOLOCK)
+    WHERE date > (GETDATE()-({}+20))) part_tbl
+    WHERE part_tbl.row_num <= {}
+    GROUP BY stock_id HAVING SUM(part_tbl.Trading_spread_ratio) {} {})
+    '''.format(days, days, sign, percent, days)
+
+    return query
+
+
+def create_query_0306(days, period, direct, percent):
+
+    """0305 於[3][日]內，成交量[減少][20]%之股票"""
+    if direct == '1':
+        sign = '>='
+    else:
+        sign = '<='
+
+    query = '''
+    (SELECT stock_id FROM
+    (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY date DESC) row_num
+    FROM TW_STOCK_PRICE_Daily WITH(NOLOCK)
+    WHERE date > (GETDATE()-({}+20))) part_tbl
+    WHERE part_tbl.row_num <= {}
+    GROUP BY stock_id HAVING SUM(part_tbl.Trading_spread_ratio) {} {})
+    '''.format(days, days, sign, percent, days)
+
+    return query
