@@ -11,39 +11,40 @@
 
 0201 公司股價[大於][120]元
 
-'''(SELECT t1.stock_id, each_max_date, [close] FROM STOCK_SKILL_DB.dbo.TW_STOCK_PRICE_Daily t1 
-    inner join (SELECT stock_id, MAX(date) as each_max_date FROM STOCK_SKILL_DB.dbo.TW_STOCK_PRICE_Daily
-    GROUP BY stock_id) t2 on t2.stock_id = t1.stock_id AND t2.each_max_date = date AND [close] {} {})'''
+    '''(SELECT t1.stock_id, each_max_date, [close] FROM STOCK_SKILL_DB.dbo.TW_STOCK_PRICE_Daily t1 
+        inner join (SELECT stock_id, MAX(date) as each_max_date FROM STOCK_SKILL_DB.dbo.TW_STOCK_PRICE_Daily
+        GROUP BY stock_id) t2 on t2.stock_id = t1.stock_id AND t2.each_max_date = date AND [close] {} {})'''
 
 0202 公司股價[小於][120]元
-SELECT stock_id FROM TW_STOCK_PRICE_Daily WHERE date=[today_date] AND close < [120]
+    SELECT stock_id FROM TW_STOCK_PRICE_Daily WHERE date=[today_date] AND close < [120]
 0203 公司股價連續[漲/跌停][3]日以上
-SELECT stock_id FROM TW_STOCK_INFO WHERE date=[today_date] AND limitup_limitdown_CNT >= [3]
-0204 於[3][日]內[漲/跌幅]都[超過][10]%之股票
+    SELECT stock_id FROM TW_STOCK_INFO WHERE date=[today_date] AND limitup_limitdown_CNT >= [3]
+0204 於[3][日]內[漲/跌幅]均[超過][10]%之股票
 
-1) date lag
-SELECT stock_id, MAX(date) as each_max_date, [close]
-FROM STOCK_SKILL_DB.dbo.TW_STOCK_PRICE_Daily 
-WHERE date BETWEEN LAG(each_max_date, 3)
-GROUP BY stock_id 
+    1) date lag
+    select * from
+    (select *,  ROW_NUMBER() over(partition by stock_id order by date desc) rowNum
+    from TW_STOCK_PRICE_Daily with(nolock)
+    where date > (GETDATE()-20)) s
+    where s.rowNum <= {}
 
-2) 加上 spread 條件
-SELECT stock_id, [close]
-FROM STOCK_SKILL_DB.dbo.TW_STOCK_PRICE_Daily t1
-inner join 
-(
-    SELECT stock_id, date, [close]
-FROM STOCK_SKILL_DB.dbo.TW_STOCK_PRICE_Daily 
-WHERE date BETWEEN LAG(each_max_date, 3)
-GROUP BY stock_id
-) t2
-on t1.stock_id = t2.stock_id AND t2.date = t1.date
-WHERE spread_ratio > 1%
-GROUP BY stock_id
-HAVING COUNT(1) > 3
+    2) 加上 spread 條件
+    select stock_id from
+    (select *,  ROW_NUMBER() over(partition by stock_id order by date desc) row_num
+    from TW_STOCK_PRICE_Daily with(nolock)
+    where date > (GETDATE()-20)) s
+    where s.row_num <= {3} AND spread_ratio >= 0.1
+    GROUP BY stock_id HAVING count(1) = {3}
 
 
 0205 於[3][日]內[上漲/下跌][超過][20]元之股票
+
+    select stock_id from
+    (select *,  ROW_NUMBER() over(partition by stock_id order by date desc) row_num
+    from TW_STOCK_PRICE_Daily with(nolock)
+    where date > (GETDATE()-({3}+20))) s
+    where s.row_num <= {3} AND spread >= 20
+    GROUP BY stock_id HAVING count(row_num) = {3}
 
 0301 於[3][日]內，成交量平均[大於][50000]張之股票
 0302 於[3][日]內，成交量平均[小於][1000]張之股票

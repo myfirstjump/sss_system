@@ -242,7 +242,7 @@ def create_0204(output_count):
                                                 clearable=False,
                                                 style=self_style.dropdown_style),
                                             ],style=self_style.dp_div_style),
-                                            html.P('均超過', style=self_style.text_normal),
+                                            html.P('均大於', style=self_style.text_normal),
                                             html.Div([
                                                 dcc.Input(
                                                 id={'type':'ip2',
@@ -311,7 +311,7 @@ def create_0205(output_count):
                                                     style=self_style.dropdown_style),
                                             ],style=self_style.dp_div_style),
                                             
-                                            html.P('均超過', style=self_style.text_normal),
+                                            html.P('均大於', style=self_style.text_normal),
 
                                             html.Div([
                                                 dcc.Input(

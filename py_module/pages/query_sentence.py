@@ -103,12 +103,22 @@ def create_query_0203(direct, days):
 
     return query
 
-def create_query_0204():
+def create_query_0204(days, period, direct, percent):
 
-    """0204 於[3][日]內[漲/跌幅][超過][10]%之股票"""
+    """0204 於[3][日]內[漲/跌幅]均超過[10]%之股票"""
+    if direct == '1':
+        sign = '>='
+    else:
+        sign = '<='
 
+    query = '''
+    SELECT stock_id FROM
+    (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY date DESC) row_num
+    FROM TW_STOCK_PRICE_Daily WITH(NOLOCK)
+    WHERE date > (GETDATE()-({}+20))) part_tbl
+    WHERE part_tbl.row_num <= {} AND part_tbl.spread_ratio {} {}
+    GROUP BY stock_id HAVING count(row_num) = {}
+    '''.format(days, days, sign, percent, days)
 
-    query = '''(SELECT stock_id, MAX(date) as each_max_date FROM STOCK_SKILL_DB.dbo.TW_STOCK_PRICE_Daily WHERE date BETWEEN LAG(each_max_date, 3) AND each_max_date GROUP BY stock_id)
-
-    '''
+    return query
 
