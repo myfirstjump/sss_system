@@ -72,8 +72,7 @@ def create_query_0201(larger, price):
     (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY date DESC) row_num
     FROM TW_STOCK_PRICE_Daily WITH(NOLOCK)
     WHERE date > (GETDATE()-(20))) part_tbl
-    WHERE part_tbl.row_num <= 1
-    GROUP BY stock_id HAVING part_tbl.[close] {} {})'''.format(sign, str(price))
+    WHERE part_tbl.row_num <= 1 AND part_tbl.[close] {} {})'''.format(sign, str(price))
 
     return query
 
@@ -87,8 +86,7 @@ def create_query_0202(larger, price):
     (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY date DESC) row_num
     FROM TW_STOCK_PRICE_Daily WITH(NOLOCK)
     WHERE date > (GETDATE()-(20))) part_tbl
-    WHERE part_tbl.row_num <= 1
-    GROUP BY stock_id HAVING part_tbl.[close] {} {})'''.format(sign, str(price))
+    WHERE part_tbl.row_num <= 1 AND part_tbl.[close] {} {})'''.format(sign, str(price))
 
     return query
 
