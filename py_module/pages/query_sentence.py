@@ -301,6 +301,161 @@ def create_query_0401(days, period, buy_sell, direct, lot):
 
     return query
 
+def create_query_0402(days, period, buy_sell, direct, lot):
+
+    """0402 外資[3][日]內[買超/賣超][小於][5000]張"""
+    if buy_sell == '1' and direct == '1':
+        sign = '>='
+        sign_0 = '>=' 
+        lot = lot * 1000
+    elif buy_sell == '1' and direct == '-1':
+        sign = '<='
+        sign_0 = '>='
+        lot = lot * 1000
+    elif buy_sell == '-1' and direct == '1':
+        sign = '<='
+        sign_0 = '<='
+        lot = lot * -1000
+    else:
+        sign = '>='
+        sign_0 = '<='
+        lot = lot * -1000
+
+    query = '''
+    (SELECT stock_id FROM
+    (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY date DESC) row_num
+    FROM {} WITH(NOLOCK)
+    WHERE date > (GETDATE()-({}+10)) AND name = 'Foreign_Investor') part_tbl
+    WHERE part_tbl.row_num <= {}
+    GROUP BY part_tbl.stock_id HAVING SUM(part_tbl.buy) - SUM(part_tbl.sell) {} {} AND SUM(part_tbl.buy) - SUM(part_tbl.sell) {} 0)
+    '''.format(counter_legal_d, days, days, sign, lot, sign_0)
+
+    return query
+
+def create_query_0403(days, period, buy_sell, direct, lot):
+
+    """0403 投信[3][日]內[買超/賣超][大於][5000]張"""
+    if buy_sell == '1' and direct == '1':
+        sign = '>='
+        sign_0 = '>=' 
+        lot = lot * 1000
+    elif buy_sell == '1' and direct == '-1':
+        sign = '<='
+        sign_0 = '>='
+        lot = lot * 1000
+    elif buy_sell == '-1' and direct == '1':
+        sign = '<='
+        sign_0 = '<='
+        lot = lot * -1000
+    else:
+        sign = '>='
+        sign_0 = '<='
+        lot = lot * -1000
+
+    query = '''
+    (SELECT stock_id FROM
+    (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY date DESC) row_num
+    FROM {} WITH(NOLOCK)
+    WHERE date > (GETDATE()-({}+10)) AND name = 'Investment_Trust') part_tbl
+    WHERE part_tbl.row_num <= {}
+    GROUP BY part_tbl.stock_id HAVING SUM(part_tbl.buy) - SUM(part_tbl.sell) {} {} AND SUM(part_tbl.buy) - SUM(part_tbl.sell) {} 0)
+    '''.format(counter_legal_d, days, days, sign, lot, sign_0)
+
+    return query
+
+def create_query_0404(days, period, buy_sell, direct, lot):
+
+    """0404 投信[3][日]內[買超/賣超][小於][5000]張"""
+    if buy_sell == '1' and direct == '1':
+        sign = '>='
+        sign_0 = '>=' 
+        lot = lot * 1000
+    elif buy_sell == '1' and direct == '-1':
+        sign = '<='
+        sign_0 = '>='
+        lot = lot * 1000
+    elif buy_sell == '-1' and direct == '1':
+        sign = '<='
+        sign_0 = '<='
+        lot = lot * -1000
+    else:
+        sign = '>='
+        sign_0 = '<='
+        lot = lot * -1000
+
+    query = '''
+    (SELECT stock_id FROM
+    (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY date DESC) row_num
+    FROM {} WITH(NOLOCK)
+    WHERE date > (GETDATE()-({}+10)) AND name = 'Investment_Trust') part_tbl
+    WHERE part_tbl.row_num <= {}
+    GROUP BY part_tbl.stock_id HAVING SUM(part_tbl.buy) - SUM(part_tbl.sell) {} {} AND SUM(part_tbl.buy) - SUM(part_tbl.sell) {} 0)
+    '''.format(counter_legal_d, days, days, sign, lot, sign_0)
+
+    return query
+
+def create_query_0405(days, period, buy_sell, direct, lot):
+
+    """0405 自營商[3][日]內[買超/賣超][大於][5000]張"""
+    if buy_sell == '1' and direct == '1':
+        sign = '>='
+        sign_0 = '>=' 
+        lot = lot * 1000
+    elif buy_sell == '1' and direct == '-1':
+        sign = '<='
+        sign_0 = '>='
+        lot = lot * 1000
+    elif buy_sell == '-1' and direct == '1':
+        sign = '<='
+        sign_0 = '<='
+        lot = lot * -1000
+    else:
+        sign = '>='
+        sign_0 = '<='
+        lot = lot * -1000
+
+    query = '''
+    (SELECT stock_id FROM
+    (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY date DESC) row_num
+    FROM {} WITH(NOLOCK)
+    WHERE date > (GETDATE()-({}+10)) AND name = 'Dealer_Hedging') part_tbl
+    WHERE part_tbl.row_num <= {}
+    GROUP BY part_tbl.stock_id HAVING SUM(part_tbl.buy) - SUM(part_tbl.sell) {} {} AND SUM(part_tbl.buy) - SUM(part_tbl.sell) {} 0)
+    '''.format(counter_legal_d, days, days, sign, lot, sign_0)
+
+    return query
+
+def create_query_0406(days, period, buy_sell, direct, lot):
+
+    """0406 自營商[3][日]內[買超/賣超][小於][5000]張"""
+    if buy_sell == '1' and direct == '1':
+        sign = '>='
+        sign_0 = '>=' 
+        lot = lot * 1000
+    elif buy_sell == '1' and direct == '-1':
+        sign = '<='
+        sign_0 = '>='
+        lot = lot * 1000
+    elif buy_sell == '-1' and direct == '1':
+        sign = '<='
+        sign_0 = '<='
+        lot = lot * -1000
+    else:
+        sign = '>='
+        sign_0 = '<='
+        lot = lot * -1000
+
+    query = '''
+    (SELECT stock_id FROM
+    (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY date DESC) row_num
+    FROM {} WITH(NOLOCK)
+    WHERE date > (GETDATE()-({}+10)) AND name = 'Dealer_Hedging') part_tbl
+    WHERE part_tbl.row_num <= {}
+    GROUP BY part_tbl.stock_id HAVING SUM(part_tbl.buy) - SUM(part_tbl.sell) {} {} AND SUM(part_tbl.buy) - SUM(part_tbl.sell) {} 0)
+    '''.format(counter_legal_d, days, days, sign, lot, sign_0)
+
+    return query
+
 
 
 
