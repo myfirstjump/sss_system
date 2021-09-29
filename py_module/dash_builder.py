@@ -677,8 +677,11 @@ class DashBuilder(object):
                 total_query = query_sentence.query_combine(query_dict)
                 print('final query:', total_query)
                 data = query_sentence.sql_execute(total_query)
-                data = pd.DataFrame.from_records(data)
-                data = generate_table(data)
+                if len(data) == 0:
+                    return '無符合項目'
+                else:
+                    data = pd.DataFrame.from_records(data)
+                    data = generate_table(data)
                 
                 return data
                 
