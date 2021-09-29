@@ -606,14 +606,14 @@ class DashBuilder(object):
             if btn == None:
                 raise PreventUpdate
 
-            now = datetime.datetime.now()
-            today = now.date()
-            yesterday = today - timedelta(days=1)
-            this_week_start = today - timedelta(days=now.weekday())
-            this_month_start = datetime.datetime(today.year, today.month, 1).date()
-            quarter_start_month = (today.month - 1) - (today.month - 1) % 3 + 1
-            this_quarter_start = datetime.datetime(today.year, quarter_start_month, 1).date()
-            this_year_start = datetime.datetime(today.year, 1, 1).date()
+            # now = datetime.datetime.now()
+            # today = now.date()
+            # yesterday = today - timedelta(days=1)
+            # this_week_start = today - timedelta(days=now.weekday())
+            # this_month_start = datetime.datetime(today.year, today.month, 1).date()
+            # quarter_start_month = (today.month - 1) - (today.month - 1) % 3 + 1
+            # this_quarter_start = datetime.datetime(today.year, quarter_start_month, 1).date()
+            # this_year_start = datetime.datetime(today.year, 1, 1).date()
 
             if btn > 0:
                 condition_number = len(self.output_record)
@@ -653,7 +653,10 @@ class DashBuilder(object):
                         query_dict[idx] = query
                     elif selection_code == '0306':
                         query = query_sentence.create_query_0304(value_dict[selection_code][0], value_dict[selection_code][1], value_dict[selection_code][2], value_dict[selection_code][3])
-                        query_dict[idx] = query    
+                        query_dict[idx] = query
+                    elif selection_code == '0401':
+                        query = query_sentence.create_query_0401(value_dict[selection_code][0], value_dict[selection_code][1], value_dict[selection_code][2], value_dict[selection_code][3], value_dict[selection_code][4])
+                        query_dict[idx] = query
                     else:
                         pass
                 total_query = query_sentence.query_combine(query_dict)
@@ -670,7 +673,7 @@ class DashBuilder(object):
 
         self.app.run_server(debug=True, dev_tools_hot_reload=True)#, dev_tools_ui=False, dev_tools_props_check=False)
 
-def generate_table(dataframe, max_rows=100):
+def generate_table(dataframe, max_rows=999):
     return html.Table([
         html.Thead(
             html.Tr([html.Th(col) for col in dataframe.columns])
