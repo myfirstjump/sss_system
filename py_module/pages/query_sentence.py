@@ -294,7 +294,7 @@ def create_query_0401(days, period, buy_sell, direct, lot):
     (SELECT stock_id FROM
     (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY date DESC) row_num
     FROM {} WITH(NOLOCK)
-    WHERE date > (GETDATE()-({}+10)) AND name = 'Forign_Investor') part_tbl
+    WHERE date > (GETDATE()-({}+10)) AND name = 'Foreign_Investor') part_tbl
     WHERE part_tbl.row_num <= {}
     GROUP BY part_tbl.stock_id HAVING SUM(part_tbl.buy) - SUM(part_tbl.sell) {} {} AND SUM(part_tbl.buy) - SUM(part_tbl.sell) {} 0)
     '''.format(counter_legal_d, days, days, sign, lot, sign_0)
