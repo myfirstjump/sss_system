@@ -289,7 +289,6 @@ def create_query_0401(days, period, buy_sell, direct, lot):
         sign = '>='
         sign_0 = '<='
         lot = lot * -1000
-    return sign, sign_0, lot
 
     query = '''
     (SELECT stock_id FROM
