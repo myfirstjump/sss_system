@@ -32,6 +32,7 @@ skill_info = 'STOCK_SKILL_DB.dbo.TW_STOCK_INFO'
 skill_price_d = 'STOCK_SKILL_DB.dbo.TW_STOCK_PRICE_Daily'
 skill_price_w = 'STOCK_SKILL_DB.dbo.TW_STOCK_PRICE_Weekly'
 skill_price_m = 'STOCK_SKILL_DB.dbo.TW_STOCK_PRICE_monthly'
+counter_legal_d = 'STOCK_COUNTER_DB.dbo.TW_STOCK_LEGALPERSON_Daily'
 
 # Query Combination
 def query_combine(query_dict):
@@ -71,7 +72,7 @@ def create_query_0201(larger, price):
     query = '''(SELECT stock_id FROM
     (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY date DESC) row_num
     FROM TW_STOCK_PRICE_Daily WITH(NOLOCK)
-    WHERE date > (GETDATE()-(20))) part_tbl
+    WHERE date > (GETDATE()-(10))) part_tbl
     WHERE part_tbl.row_num <= 1 AND part_tbl.[close] {} {})'''.format(sign, str(price))
 
     return query
@@ -85,7 +86,7 @@ def create_query_0202(larger, price):
     query = '''(SELECT stock_id FROM
     (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY date DESC) row_num
     FROM TW_STOCK_PRICE_Daily WITH(NOLOCK)
-    WHERE date > (GETDATE()-(20))) part_tbl
+    WHERE date > (GETDATE()-(10))) part_tbl
     WHERE part_tbl.row_num <= 1 AND part_tbl.[close] {} {})'''.format(sign, str(price))
 
     return query
@@ -118,7 +119,7 @@ def create_query_0204(days, period, direct, percent):
     (SELECT stock_id FROM
     (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY date DESC) row_num
     FROM TW_STOCK_PRICE_Daily WITH(NOLOCK)
-    WHERE date > (GETDATE()-({}+20))) part_tbl
+    WHERE date > (GETDATE()-({}+10))) part_tbl
     WHERE part_tbl.row_num <= {} AND part_tbl.spread_ratio {} {}
     GROUP BY stock_id HAVING count(row_num) = {})
     '''.format(days, days, sign, percent, days)
@@ -137,7 +138,7 @@ def create_query_0205(days, period, direct, percent):
     (SELECT stock_id FROM
     (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY date DESC) row_num
     FROM TW_STOCK_PRICE_Daily WITH(NOLOCK)
-    WHERE date > (GETDATE()-({}+20))) part_tbl
+    WHERE date > (GETDATE()-({}+10))) part_tbl
     WHERE part_tbl.row_num <= {} AND part_tbl.spread {} {}
     GROUP BY stock_id HAVING count(row_num) = {})
     '''.format(days, days, sign, percent, days)
@@ -157,7 +158,7 @@ def create_query_0301(days, period, direct, percent):
     (SELECT stock_id FROM
     (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY date DESC) row_num
     FROM TW_STOCK_PRICE_Daily WITH(NOLOCK)
-    WHERE date > (GETDATE()-({}+20))) part_tbl
+    WHERE date > (GETDATE()-({}+10))) part_tbl
     WHERE part_tbl.row_num <= {}
     GROUP BY stock_id HAVING AVG(Trading_Volume) {} {})
     '''.format(days, days, sign, percent)
@@ -176,48 +177,53 @@ def create_query_0302(days, period, direct, percent):
     (SELECT stock_id FROM
     (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY date DESC) row_num
     FROM TW_STOCK_PRICE_Daily WITH(NOLOCK)
-    WHERE date > (GETDATE()-({}+20))) part_tbl
+    WHERE date > (GETDATE()-({}+10))) part_tbl
     WHERE part_tbl.row_num <= {}
     GROUP BY stock_id HAVING AVG(Trading_Volume) {} {})
     '''.format(days, days, sign, percent)
 
     return query
 
-def create_query_0303(days, period, direct, percent):
+def create_query_0303(days, period, direct, lot):
 
     """於[3][日]內，成交量[增加][1000]張之股票"""
     if direct == '1':
         sign = '>='
     else:
         sign = '<='
+    
+    lot = lot * 1000
 
     query = '''
     (SELECT stock_id FROM
     (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY date DESC) row_num
     FROM TW_STOCK_PRICE_Daily WITH(NOLOCK)
-    WHERE date > (GETDATE()-({}+20))) part_tbl
+    WHERE date > (GETDATE()-({}+10))) part_tbl
     WHERE part_tbl.row_num <= {}
     GROUP BY stock_id HAVING SUM(part_tbl.Trading_Volume) {} {})
-    '''.format(days, days, sign, percent, days)
+    '''.format(days, days, sign, lot, days)
+
 
     return query
 
-def create_query_0304(days, period, direct, percent):
+def create_query_0304(days, period, direct, lot):
 
     """於[3][日]內，成交量[增加][1000]張之股票"""
     if direct == '1':
         sign = '>='
     else:
         sign = '<='
+    
+    lot = lot * 1000
 
     query = '''
     (SELECT stock_id FROM
     (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY date DESC) row_num
     FROM TW_STOCK_PRICE_Daily WITH(NOLOCK)
-    WHERE date > (GETDATE()-({}+20))) part_tbl
+    WHERE date > (GETDATE()-({}+10))) part_tbl
     WHERE part_tbl.row_num <= {}
     GROUP BY stock_id HAVING SUM(part_tbl.Trading_Volume) {} {})
-    '''.format(days, days, sign, percent, days)
+    '''.format(days, days, sign, lot, days)
 
     return query
     
@@ -236,7 +242,7 @@ def create_query_0305(days, period, direct, percent):
     (SELECT stock_id FROM
     (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY date DESC) row_num
     FROM TW_STOCK_PRICE_Daily WITH(NOLOCK)
-    WHERE date > (GETDATE()-({}+20))) part_tbl
+    WHERE date > (GETDATE()-({}+10))) part_tbl
     WHERE part_tbl.row_num <= {}
     GROUP BY stock_id HAVING SUM(part_tbl.Trading_spread_ratio) {} {})
     '''.format(days, days, sign, percent, days)
@@ -256,9 +262,45 @@ def create_query_0306(days, period, direct, percent):
     (SELECT stock_id FROM
     (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY date DESC) row_num
     FROM TW_STOCK_PRICE_Daily WITH(NOLOCK)
-    WHERE date > (GETDATE()-({}+20))) part_tbl
+    WHERE date > (GETDATE()-({}+10))) part_tbl
     WHERE part_tbl.row_num <= {}
     GROUP BY stock_id HAVING SUM(part_tbl.Trading_spread_ratio) {} {})
     '''.format(days, days, sign, percent, days)
 
     return query
+
+
+def create_query_0401(days, period, buy_sell, direct, lot):
+
+    """0401 外資[3][日]內[買超/賣超][大於][5000]張"""
+    if buy_sell == '1' and direct == '1':
+        sign = '>='
+        sign_0 = '>=' 
+        lot = lot * 1000
+    elif buy_sell == '1' and direct == '-1':
+        sign = '<='
+        sign_0 = '>='
+        lot = lot * 1000
+    elif buy_sell == '-1' and direct == '1':
+        sign = '<='
+        sign_0 = '<='
+        lot = lot * -1000
+    else:
+        sign = '>='
+        sign_0 = '<='
+        lot = lot * -1000
+
+    query = '''
+    (SELECT stock_id FROM
+    (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY date DESC) row_num
+    FROM {} WITH(NOLOCK)
+    WHERE date > (GETDATE()-({}+10)) AND name = 'Forign_Investor') part_tbl
+    WHERE part_tbl.row_num <= {}
+    GROUP BY part_tbl.stock_id HAVING SUM(part_tbl.buy) - SUM(part_tbl.sell) {} {} AND SUM(part_tbl.buy) - SUM(part_tbl.sell) {} 0)
+    '''.format(counter_legal_d, days, days, sign, lot, sign_0)
+
+    return query
+
+
+
+
