@@ -36,8 +36,8 @@ def create_0601(output_count):
                                                 id={'type':'dd',
                                                     'index': '0601'},
                                                 options=[
-                                                    {'label': '大於', 'value': 1},
-                                                    {'label': '小於', 'value': -1},
+                                                    {'label': '大於', 'value': '1'},
+                                                    {'label': '小於', 'value': '-1'},
                                                 ],
                                                 value='1',
                                                 placeholder='大於',

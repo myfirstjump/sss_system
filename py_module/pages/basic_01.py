@@ -69,8 +69,8 @@ def create_0102(output_count):
                                                     id={'type':'dd',
                                                         'index': '0102'},
                                                     options=[
-                                                        {'label': '大於', 'value': 1},
-                                                        {'label': '小於', 'value': -1},
+                                                        {'label': '大於', 'value': '1'},
+                                                        {'label': '小於', 'value': '-1'},
                                                     ],
                                                     value='1',
                                                     placeholder='大於',
@@ -105,8 +105,8 @@ def create_0103(output_count):
                                                     id={'type':'dd',
                                                         'index': '0103'},
                                                     options=[
-                                                        {'label': '大於', 'value': 1},
-                                                        {'label': '小於', 'value': -1},
+                                                        {'label': '大於', 'value': '1'},
+                                                        {'label': '小於', 'value': '-1'},
                                                     ],
                                                     value='-1',
                                                     placeholder='小於',
