@@ -657,6 +657,21 @@ class DashBuilder(object):
                     elif selection_code == '0401':
                         query = query_sentence.create_query_0401(value_dict[selection_code][0], value_dict[selection_code][1], value_dict[selection_code][2], value_dict[selection_code][3], value_dict[selection_code][4])
                         query_dict[idx] = query
+                    elif selection_code == '0402':
+                        query = query_sentence.create_query_0401(value_dict[selection_code][0], value_dict[selection_code][1], value_dict[selection_code][2], value_dict[selection_code][3], value_dict[selection_code][4])
+                        query_dict[idx] = query
+                    elif selection_code == '0403':
+                        query = query_sentence.create_query_0401(value_dict[selection_code][0], value_dict[selection_code][1], value_dict[selection_code][2], value_dict[selection_code][3], value_dict[selection_code][4])
+                        query_dict[idx] = query
+                    elif selection_code == '0404':
+                        query = query_sentence.create_query_0401(value_dict[selection_code][0], value_dict[selection_code][1], value_dict[selection_code][2], value_dict[selection_code][3], value_dict[selection_code][4])
+                        query_dict[idx] = query
+                    elif selection_code == '0405':
+                        query = query_sentence.create_query_0401(value_dict[selection_code][0], value_dict[selection_code][1], value_dict[selection_code][2], value_dict[selection_code][3], value_dict[selection_code][4])
+                        query_dict[idx] = query
+                    elif selection_code == '0406':
+                        query = query_sentence.create_query_0401(value_dict[selection_code][0], value_dict[selection_code][1], value_dict[selection_code][2], value_dict[selection_code][3], value_dict[selection_code][4])
+                        query_dict[idx] = query
                     else:
                         pass
                 total_query = query_sentence.query_combine(query_dict)
