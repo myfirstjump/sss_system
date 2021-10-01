@@ -37,7 +37,7 @@ counter_legal_d = 'STOCK_COUNTER_DB.dbo.TW_STOCK_LEGALPERSON_Daily'
 # Query Combination
 def query_combine(query_dict):
     query_number = len(query_dict)
-    combined_query = "SELECT DISTINCT {}.stock_id, {}.stock_name FROM ".format(ascii_lowercase[query_number], ascii_lowercase[query_number])
+    combined_query = "SELECT DISTINCT {}.stock_id, {}.stock_name, {}.industry_category FROM ".format(ascii_lowercase[query_number], ascii_lowercase[query_number])
     for num, query in query_dict.items():
         align_code = ascii_lowercase[num]
         if align_code == 'a':
@@ -64,7 +64,10 @@ def sql_execute(query):
 
 # 各項條件的string
 def create_query_0101(cate_str):
-    cate_str = tuple(list(cate_str))
+    if len(cate_str) == 1:
+        cate_str = '(' + cate_str + ')'
+    else:
+        cate_str = tuple(cate_str)
     query = '''(SELECT stock_id FROM {} WITH(NOLOCK) WHERE industry_category IN {})'''.format(skill_info, cate_str)
 
     return query 
