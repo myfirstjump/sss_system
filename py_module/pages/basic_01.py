@@ -55,7 +55,6 @@ def create_0101(output_count, data):
     cate_ops = []
     for idx, types_str  in enumerate(stock_types):
         cate_ops.append({'label': types_str, 'value': types_str})
-    print(cate_ops)
     new_children = html.Div([
                                         html.Span([
                                             html.P('公司隸屬產業別為', style=self_style.text_normal),
