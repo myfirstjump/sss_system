@@ -699,6 +699,7 @@ class DashBuilder(object):
                 total_query = query_sentence.query_combine(query_dict)
                 print('final query:', total_query)
                 data = query_sentence.sql_execute(total_query)
+                
                 if len(data) == 0:
                     return '無符合項目'
                 else:
@@ -725,4 +726,8 @@ def generate_table(dataframe, max_rows=999):
             ]) for i in range(min(len(dataframe), max_rows))
         ])
     ])
+
+def table_columns_rename(dataframe):
+    dataframe = dataframe.rename(columns={'stock_id':'股票代碼', 'stock_name': '公司'})
+    return dataframe
 
