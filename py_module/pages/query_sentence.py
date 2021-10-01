@@ -37,7 +37,7 @@ counter_legal_d = 'STOCK_COUNTER_DB.dbo.TW_STOCK_LEGALPERSON_Daily'
 # Query Combination
 def query_combine(query_dict):
     query_number = len(query_dict)
-    combined_query = "SELECT DISTINCT {}.stock_id, {}.stock_name, {}.industry_category FROM ".format(ascii_lowercase[query_number], ascii_lowercase[query_number])
+    combined_query = "SELECT DISTINCT {}.stock_id, {}.stock_name, {}.industry_category FROM ".format(ascii_lowercase[query_number], ascii_lowercase[query_number], ascii_lowercase[query_number])
     for num, query in query_dict.items():
         align_code = ascii_lowercase[num]
         if align_code == 'a':
