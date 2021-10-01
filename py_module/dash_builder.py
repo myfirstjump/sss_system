@@ -698,15 +698,15 @@ class DashBuilder(object):
                         pass
                 total_query = query_sentence.query_combine(query_dict)
                 print('final query:', total_query)
-                # data = query_sentence.sql_execute(total_query)
-                # if len(data) == 0:
-                #     return '無符合項目'
-                # else:
-                #     data = pd.DataFrame.from_records(data)
-                #     data = generate_table(data)
+                data = query_sentence.sql_execute(total_query)
+                if len(data) == 0:
+                    return '無符合項目'
+                else:
+                    data = pd.DataFrame.from_records(data)
+                    data = generate_table(data)
                 
-                # return data
-                return total_query
+                return data
+                # return total_query
                 
             else:
                 return ''

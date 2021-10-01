@@ -64,8 +64,7 @@ def sql_execute(query):
 
 # 各項條件的string
 def create_query_0101(cate_str):
-    print(cate_str)
-    cate_str = tuple(cate_str)
+    cate_str = tuple(list(cate_str))
     query = '''(SELECT stock_id FROM {} WITH(NOLOCK) WHERE industry_category IN {})'''.format(skill_info, cate_str)
 
     return query 
