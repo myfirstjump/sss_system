@@ -1,4 +1,4 @@
-import pymssql
+# import pymssql
 import datetime
 from datetime import timedelta
 from string import ascii_lowercase
@@ -64,13 +64,19 @@ def sql_execute(query):
 
 # 各項條件的string
 def create_query_0101(cate_str):
-    if type(cate_str) == str:
-        cate_str = "('" + cate_str + "')"
+    # if type(cate_str) == str:
+    #     cate_str = "('" + cate_str + "')"
+    # else:
+    #     cate_str = tuple(cate_str)
+    
+    # query = '''(SELECT stock_id FROM {} WITH(NOLOCK) WHERE industry_category IN {})'''.format(skill_info, cate_str)
+    if len(cate_str) == 1:
+        cate_str = str(cate_str)
+        cate_str = cate_str.replace('[', '(')
+        cate_str = cate_str.replace(']', ')')
     else:
         cate_str = tuple(cate_str)
-    
     query = '''(SELECT stock_id FROM {} WITH(NOLOCK) WHERE industry_category IN {})'''.format(skill_info, cate_str)
-
     return query 
 
 def create_query_0201(larger, price):

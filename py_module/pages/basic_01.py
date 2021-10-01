@@ -63,7 +63,7 @@ def create_0101(output_count, data):
                                                     id={'type':'dd',
                                                         'index': '0101'},
                                                     options=cate_ops,
-                                                    value='電子工業',
+                                                    value=['電子工業'],
                                                     placeholder='電子工業',
                                                     style=self_style.large_dropdown_style,
                                                     multi=True,
