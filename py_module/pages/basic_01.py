@@ -3,13 +3,14 @@ import dash_core_components as dcc
 import pandas as pd
 import pathlib
 from py_module.pages import self_style
+from py_module.data_reader import DataReader
 
 def create_filters(button_id):
     content = html.Div(
                             [
                                 html.Div([
                                     html.Span([
-                                        html.P('公司隸屬產業別為', style=self_style.text_normal),
+                                        html.P('公司隸屬產業別篩選', style=self_style.text_normal),
                                     ], style=self_style.item_style),
                                     html.Button('+', n_clicks=0, style=self_style.button_style, 
                                     id={
@@ -48,10 +49,27 @@ def create_filters(button_id):
                             ])   
     return content
 
-def create_0101(output_count):
+def create_0101(output_count, data):
+
+    stock_types = data['industry_category'].unique()
+    cate_ops = []
+    for idx, types_str  in enumerate(stock_types):
+        cate_ops.append({'label': types_str, 'value': types_str})
+    print(cate_ops)
     new_children = html.Div([
                                         html.Span([
                                             html.P('公司隸屬產業別為', style=self_style.text_normal),
+                                            html.Div([
+                                                dcc.Dropdown(
+                                                    id={'type':'dd',
+                                                        'index': '0101'},
+                                                    options=cate_ops,
+                                                    value='電子工業',
+                                                    placeholder='電子工業',
+                                                    style=self_style.large_dropdown_style,
+                                                    multi=True,
+                                                    clearable=True),
+                                            ], style=self_style.dp_div_style),
                                         ], style=self_style.output_item_style),
                                         html.Button('x', n_clicks=0, style=self_style.button_style,
                                             id={'type':'output-btn',

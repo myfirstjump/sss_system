@@ -187,6 +187,16 @@ dropdown_style = {
     'background-color': dark_code,
     'border-radius': '8px',
 }
+
+large_dropdown_style = {
+    'verticalAlign': 'middle',
+    # 'padding':'0% 1% 0% 1%',
+    'width': '350px',
+    'font-size':'15px',
+    'background-color': dark_code,
+    'border-radius': '8px',
+}
+
 short_dropdown_style = {
     'verticalAlign': 'middle',
     # 'padding':'0% 1% 0% 1%',
@@ -196,7 +206,7 @@ short_dropdown_style = {
     'border-radius': '8px',
 }
 
-dp_div_style = {
+dp_div_style = { #dropdown外層div
     'verticalAlign': 'middle', 
     'display':'inline-block',
     'border':'solid 1px',

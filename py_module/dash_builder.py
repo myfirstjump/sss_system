@@ -24,7 +24,7 @@ from py_module.pages import (
 
 class DashBuilder(object):
 
-    def __init__(self, data):
+    def __init__(self, stock_data):
         
         # self.df = pd.read_csv('https://gist.githubusercontent.com/chriddyp/5d1ea79569ed194d432e56108a04d188/raw/a9f9e8076b837d541398e999dcbac2b2826a81f8/gdp-life-exp-2007.csv')
 
@@ -262,7 +262,7 @@ class DashBuilder(object):
                     self.selection_record.append('0101')
                     print('Record:', self.selection_record)    
 
-                    new_children = basic_01.create_0101(self.output_count)
+                    new_children = basic_01.create_0101(self.output_count, stock_data)
                     children.append(new_children)
                     return children
                 elif (button_id == '{"index":"01-btn-add-0102","type":"filter-btn"}'):
@@ -584,17 +584,18 @@ class DashBuilder(object):
             Output('dynamic-selection-result', 'children'),
             Input('selection-btn', 'n_clicks'),
             # State('dynamic-output-container', 'children'),
-            State({'type': ALL, 'index': '0102'}, 'value'), State({'type': ALL, 'index': '0103'}, 'value'),
+            State({'type': ALL, 'index': '0101'}, 'value'), State({'type': ALL, 'index': '0102'}, 'value'), State({'type': ALL, 'index': '0103'}, 'value'),
             State({'type': ALL, 'index': '0201'}, 'value'), State({'type': ALL, 'index': '0202'}, 'value'), State({'type': ALL, 'index': '0203'}, 'value'), State({'type': ALL, 'index': '0204'}, 'value'), State({'type': ALL, 'index': '0205'}, 'value'),
             State({'type': ALL, 'index': '0301'}, 'value'), State({'type': ALL, 'index': '0302'}, 'value'), State({'type': ALL, 'index': '0303'}, 'value'), State({'type': ALL, 'index': '0304'}, 'value'), State({'type': ALL, 'index': '0305'}, 'value'), State({'type': ALL, 'index': '0306'}, 'value'),
             State({'type': ALL, 'index': '0401'}, 'value'), State({'type': ALL, 'index': '0402'}, 'value'), State({'type': ALL, 'index': '0403'}, 'value'), State({'type': ALL, 'index': '0404'}, 'value'), State({'type': ALL, 'index': '0405'}, 'value'), State({'type': ALL, 'index': '0406'}, 'value'),
             State({'type': ALL, 'index': '0501'}, 'value'), State({'type': ALL, 'index': '0502'}, 'value'), State({'type': ALL, 'index': '0503'}, 'value'), State({'type': ALL, 'index': '0504'}, 'value'), State({'type': ALL, 'index': '0505'}, 'value'), State({'type': ALL, 'index': '0506'}, 'value'),
             State({'type': ALL, 'index': '0601'}, 'value'), 
         )
-        def output_result(btn, value0102, value0103, value0201, value0202, value0203, value0204, value0205, value0301, value0302, value0303, value0304, value0305, value0306, value0401, value0402, value0403, value0404, value0405, value0406, value0501, value0502, value0503, value0504, value0505, value0506, value0601):
+        def output_result(btn, value0101, value0102, value0103, value0201, value0202, value0203, value0204, value0205, value0301, value0302, value0303, value0304, value0305, value0306, value0401, value0402, value0403, value0404, value0405, value0406, value0501, value0502, value0503, value0504, value0505, value0506, value0601):
             
             print('selection-btn:', btn)
             value_dict = {
+                '0101': value0101,
                 '0102': value0102, '0103': value0103, 
                 '0201': value0201, '0202': value0202, '0203': value0203, '0204': value0204, '0205': value0205, 
                 '0301': value0301, '0302': value0302, '0303': value0303, '0304': value0304, '0305': value0305,  '0306': value0306,
@@ -621,7 +622,10 @@ class DashBuilder(object):
                 for idx in range(condition_number):
                     # if self.selection_record[idx] == '0101':
                     selection_code = self.selection_record[idx]
-                    if selection_code == '0201':
+                    if selection_code == '0101':
+                        query = query_sentence.create_query_0101(value_dict[selection_code][0])
+                        query_dict[idx] = query
+                    elif selection_code == '0201':
                         query = query_sentence.create_query_0201(value_dict[selection_code][0], value_dict[selection_code][1])
                         query_dict[idx] = query
                     elif selection_code == '0202':
@@ -672,18 +676,37 @@ class DashBuilder(object):
                     elif selection_code == '0406':
                         query = query_sentence.create_query_0406(value_dict[selection_code][0], value_dict[selection_code][1], value_dict[selection_code][2], value_dict[selection_code][3], value_dict[selection_code][4])
                         query_dict[idx] = query
+                    elif selection_code == '0501':
+                        query = query_sentence.create_query_0501(value_dict[selection_code][0], value_dict[selection_code][1], value_dict[selection_code][2], value_dict[selection_code][3], value_dict[selection_code][4])
+                        query_dict[idx] = query
+                    elif selection_code == '0502':
+                        query = query_sentence.create_query_0502(value_dict[selection_code][0], value_dict[selection_code][1], value_dict[selection_code][2], value_dict[selection_code][3], value_dict[selection_code][4])
+                        query_dict[idx] = query
+                    elif selection_code == '0503':
+                        query = query_sentence.create_query_0503(value_dict[selection_code][0], value_dict[selection_code][1], value_dict[selection_code][2], value_dict[selection_code][3], value_dict[selection_code][4])
+                        query_dict[idx] = query
+                    elif selection_code == '0504':
+                        query = query_sentence.create_query_0504(value_dict[selection_code][0], value_dict[selection_code][1], value_dict[selection_code][2], value_dict[selection_code][3], value_dict[selection_code][4])
+                        query_dict[idx] = query
+                    elif selection_code == '0505':
+                        query = query_sentence.create_query_0505(value_dict[selection_code][0], value_dict[selection_code][1], value_dict[selection_code][2], value_dict[selection_code][3], value_dict[selection_code][4])
+                        query_dict[idx] = query
+                    elif selection_code == '0506':
+                        query = query_sentence.create_query_0506(value_dict[selection_code][0], value_dict[selection_code][1], value_dict[selection_code][2], value_dict[selection_code][3], value_dict[selection_code][4])
+                        query_dict[idx] = query
                     else:
                         pass
                 total_query = query_sentence.query_combine(query_dict)
                 print('final query:', total_query)
-                data = query_sentence.sql_execute(total_query)
-                if len(data) == 0:
-                    return '無符合項目'
-                else:
-                    data = pd.DataFrame.from_records(data)
-                    data = generate_table(data)
+                # data = query_sentence.sql_execute(total_query)
+                # if len(data) == 0:
+                #     return '無符合項目'
+                # else:
+                #     data = pd.DataFrame.from_records(data)
+                #     data = generate_table(data)
                 
-                return data
+                # return data
+                return total_query
                 
             else:
                 return ''

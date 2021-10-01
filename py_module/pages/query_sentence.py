@@ -1,4 +1,4 @@
-import pymssql
+# import pymssql
 import datetime
 from datetime import timedelta
 from string import ascii_lowercase
@@ -63,6 +63,13 @@ def sql_execute(query):
     return data
 
 # 各項條件的string
+def create_query_0101(cate_str):
+    print(cate_str)
+    cate_str = tuple(cate_str)
+    query = '''(SELECT stock_id FROM {} WITH(NOLOCK) WHERE industry_category IN {})'''.format(skill_info, cate_str)
+
+    return query 
+
 def create_query_0201(larger, price):
     if larger == '1':
         sign = '>='
