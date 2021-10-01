@@ -65,7 +65,7 @@ def sql_execute(query):
 # 各項條件的string
 def create_query_0101(cate_str):
     if type(cate_str) == str:
-        cate_str = '(' + cate_str + ')'
+        cate_str = "('" + cate_str + "')"
     else:
         cate_str = tuple(cate_str)
     
