@@ -42,7 +42,7 @@ class DashBuilder(object):
                 dcc.Store('memory'),
                 # HEADER
                 html.Div([
-                        html.H1('台股選股系統', style={'margin':self_style.style['margin'], 'padding':self_style.style['padding']})
+                        html.H1('股票篩選器', style={'margin':self_style.style['margin'], 'padding':self_style.style['padding']})
                 ]),# HEADER
 
                 html.Div([ # FILTER & DISPLAY

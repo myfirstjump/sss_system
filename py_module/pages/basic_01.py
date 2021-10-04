@@ -4,6 +4,10 @@ import pandas as pd
 import pathlib
 from py_module.pages import self_style
 from py_module.data_reader import DataReader
+from py_module.config import Configuration
+
+add_img_path = Configuration().data_folder + '\\增加.png'
+remove_img_path = Configuration().data_folder + '\\刪除.png'
 
 def create_filters(button_id):
     content = html.Div(
@@ -12,7 +16,7 @@ def create_filters(button_id):
                                     html.Span([
                                         html.P('公司隸屬產業別篩選', style=self_style.text_normal),
                                     ], style=self_style.item_style),
-                                    html.Button('+', n_clicks=0, style=self_style.button_style, 
+                                    html.Button(html.Img(add_img_path), n_clicks=0, style=self_style.button_style, 
                                     id={
                                         'type': 'filter-btn',
                                         'index': button_id + '-add-0101'
@@ -70,7 +74,7 @@ def create_0101(output_count, data):
                                                     clearable=True),
                                             ], style=self_style.dp_div_style),
                                         ], style=self_style.output_item_style),
-                                        html.Button('x', n_clicks=0, style=self_style.button_style,
+                                        html.Button(html.Img(remove_img_path), n_clicks=0, style=self_style.button_style,
                                             id={'type':'output-btn',
                                                 'index': str(output_count)})
                                     ])
