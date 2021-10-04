@@ -737,19 +737,26 @@ class DashBuilder(object):
                     data = pd.DataFrame.from_records(data)
                     df_twse, df_tpex, df_etf_twse, df_etf_tpex = stock_classifier(data)
                     
-                    print('df_twse長度:', df_twse.shape)
-                    df_twse = generate_table(df_twse)
+                    if df_twse.shape[0] == 0:
+                        df_twse = '無符合項目'
+                    else:
+                        df_twse = generate_table(df_twse)
                     
-                    print('df_twse長度:', df_tpex.shape)
-                    df_tpex = generate_table(df_tpex)
+                    if df_tpex.shape[0] == 0:
+                        df_tpex = '無符合項目'
+                    else:
+                        df_tpex = generate_table(df_tpex)
                     
-                    print('df_twse長度:', df_etf_twse.shape)
-                    df_etf_twse = generate_table(df_etf_twse)
+                    if df_etf_twse.shape[0] == 0:
+                        df_etf_twse = '無符合項目'
+                    else:
+                        df_etf_twse = generate_table(df_etf_twse)
                     
-                    print('df_twse長度:', df_etf_tpex.shape)
-                    df_etf_tpex = generate_table(df_etf_tpex)
+                    if df_etf_tpex.shape[0] == 0:
+                        df_etf_tpex = '無符合項目'
+                    else:
+                        df_etf_tpex = generate_table(df_etf_tpex)
                     
-                
                 return df_twse, df_tpex, df_etf_twse, df_etf_tpex
                 # return total_query
                 
