@@ -275,3 +275,8 @@ text_bold = {
     #'border':'solid 1px',
     'font-size':'15px',
 }
+
+result_div = {
+    'border': 'dashed 5px #B2CCF2',
+    'height': '200px'
+}

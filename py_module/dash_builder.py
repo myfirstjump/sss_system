@@ -135,35 +135,43 @@ class DashBuilder(object):
                         html.Div([
                             html.Div(['查詢結果'], style=self_style.add_text_style),
                             html.Div([
+                                html.Div('台灣證券交易所 TWSE (上市)'),
                                 dcc.Loading(
                                     id='result-loading-twse',
                                     type='default',
                                     children=html.Div([],id='dynamic-selection-result-twse'),
                                     color='red',
+                                    style=self_style.result_div
                                 )
                             ]),
                             html.Div([
+                                html.Div('櫃買中心 TPEX (上櫃)'),
                                 dcc.Loading(
                                     id='result-loading-tpex',
                                     type='default',
                                     children=html.Div([],id='dynamic-selection-result-tpex'),
                                     color='red',
+                                    style=self_style.result_div
                                 )
                             ]),
                             html.Div([
+                                html.Div('上市 ETF'),
                                 dcc.Loading(
                                     id='result-loading-twse-etf',
                                     type='default',
                                     children=html.Div([],id='dynamic-selection-result-twse-etf'),
                                     color='red',
+                                    style=self_style.result_div
                                 )
                             ]),
                             html.Div([
+                                html.Div('上櫃 ETF'),
                                 dcc.Loading(
                                     id='result-loading-tpex-etf',
                                     type='default',
                                     children=html.Div([],id='dynamic-selection-result-tpex-etf'),
                                     color='red',
+                                    style=self_style.result_div
                                 )
                             ]),
                         ], 
