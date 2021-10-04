@@ -728,18 +728,18 @@ class DashBuilder(object):
                 data = query_sentence.sql_execute(total_query)
                 
                 if len(data) == 0:
-                    return '無符合項目'#, '無符合項目', '無符合項目', '無符合項目'
+                    return '無符合項目', '無符合項目', '無符合項目', '無符合項目'
                 else:
                     data = pd.DataFrame.from_records(data)
 
 
                     data = generate_table(data)
                 
-                return data
+                return data, data, data, data
                 # return total_query
                 
             else:
-                return ''#, '', '', ''
+                return '', '', '', ''
 
 
         self.app.run_server(debug=True, dev_tools_hot_reload=True)#, dev_tools_ui=False, dev_tools_props_check=False)
