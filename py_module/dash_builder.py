@@ -140,10 +140,9 @@ class DashBuilder(object):
                                     id='result-loading-twse',
                                     type='default',
                                     children=html.Div([],id='dynamic-selection-result-twse'),
-                                    color='red',
-                                    style=self_style.result_div
+                                    color='red'
                                 )
-                            ]),
+                            ],style=self_style.result_div),
                             html.Div([
                                 html.Div('櫃買中心 TPEX (上櫃)'),
                                 dcc.Loading(
@@ -151,9 +150,8 @@ class DashBuilder(object):
                                     type='default',
                                     children=html.Div([],id='dynamic-selection-result-tpex'),
                                     color='red',
-                                    style=self_style.result_div
                                 )
-                            ]),
+                            ],style=self_style.result_div),
                             html.Div([
                                 html.Div('上市 ETF'),
                                 dcc.Loading(
@@ -161,9 +159,8 @@ class DashBuilder(object):
                                     type='default',
                                     children=html.Div([],id='dynamic-selection-result-twse-etf'),
                                     color='red',
-                                    style=self_style.result_div
                                 )
-                            ]),
+                            ],style=self_style.result_div),
                             html.Div([
                                 html.Div('上櫃 ETF'),
                                 dcc.Loading(
@@ -171,9 +168,8 @@ class DashBuilder(object):
                                     type='default',
                                     children=html.Div([],id='dynamic-selection-result-tpex-etf'),
                                     color='red',
-                                    style=self_style.result_div
                                 )
-                            ]),
+                            ],style=self_style.result_div),
                         ], 
                         style=self_style.selection_style)
                     ], style=self_style.right_frame_style),  # DISPLAY
