@@ -42,7 +42,7 @@ def create_filters(button_id):
                                     html.Span([
                                         html.P('於', style=self_style.text_normal),
                                         html.P('3', style=self_style.text_bold),
-                                        html.P('日內，成交量', style=self_style.text_normal),
+                                        html.P('日內，成交量均', style=self_style.text_normal),
                                         html.P('增加', style=self_style.text_bold),
                                         html.P('1000', style=self_style.text_normal),
                                         html.P('張之股票', style=self_style.text_normal),
@@ -57,7 +57,7 @@ def create_filters(button_id):
                                     html.Span([
                                         html.P('於', style=self_style.text_normal),
                                         html.P('3', style=self_style.text_bold),
-                                        html.P('日內，成交量', style=self_style.text_normal),
+                                        html.P('日內，成交量均', style=self_style.text_normal),
                                         html.P('減少', style=self_style.text_bold),
                                         html.P('1000', style=self_style.text_normal),
                                         html.P('張之股票', style=self_style.text_normal),
@@ -72,7 +72,7 @@ def create_filters(button_id):
                                     html.Span([
                                         html.P('於', style=self_style.text_normal),
                                         html.P('3', style=self_style.text_bold),
-                                        html.P('日內，成交量', style=self_style.text_normal),
+                                        html.P('日內，成交量均', style=self_style.text_normal),
                                         html.P('增加', style=self_style.text_bold),
                                         html.P('20', style=self_style.text_normal),
                                         html.P('% 之股票', style=self_style.text_normal),
@@ -87,7 +87,7 @@ def create_filters(button_id):
                                     html.Span([
                                         html.P('於', style=self_style.text_normal),
                                         html.P('3', style=self_style.text_bold),
-                                        html.P('日內，成交量', style=self_style.text_normal),
+                                        html.P('日內，成交量均', style=self_style.text_normal),
                                         html.P('減少', style=self_style.text_bold),
                                         html.P('20', style=self_style.text_normal),
                                         html.P('% 之股票', style=self_style.text_normal),
@@ -259,7 +259,7 @@ def create_0303(output_count):
                                                     clearable=False,
                                                     style=self_style.short_dropdown_style),
                                             ],style=self_style.dp_div_style),                                           
-                                            html.P('內，成交量', style=self_style.text_normal),
+                                            html.P('內，成交量均', style=self_style.text_normal),
                                             html.Div([
                                                 dcc.Dropdown(
                                                 id={'type':'dd2',
@@ -323,7 +323,7 @@ def create_0304(output_count):
                                                     clearable=False,
                                                     style=self_style.short_dropdown_style),
                                             ],style=self_style.dp_div_style),                                           
-                                            html.P('內，成交量', style=self_style.text_normal),
+                                            html.P('內，成交量均', style=self_style.text_normal),
                                             html.Div([
                                                 dcc.Dropdown(
                                                 id={'type':'dd2',
@@ -387,7 +387,7 @@ def create_0305(output_count):
                                                     clearable=False,
                                                     style=self_style.short_dropdown_style),
                                             ],style=self_style.dp_div_style),                                           
-                                            html.P('內，成交量', style=self_style.text_normal),
+                                            html.P('內，成交量均', style=self_style.text_normal),
                                             html.Div([
                                                 dcc.Dropdown(
                                                 id={'type':'dd2',
@@ -451,7 +451,7 @@ def create_0306(output_count):
                                                     clearable=False,
                                                     style=self_style.short_dropdown_style),
                                             ],style=self_style.dp_div_style),                                           
-                                            html.P('內，成交量', style=self_style.text_normal),
+                                            html.P('內，成交量均', style=self_style.text_normal),
                                             html.Div([
                                                 dcc.Dropdown(
                                                 id={'type':'dd2',
