@@ -15,7 +15,7 @@ def create_filters(button_id):
                                         html.P('日內，', style=self_style.text_normal),
                                         html.P('增加/減少', style=self_style.text_bold),
                                         html.P('100', style=self_style.text_normal),
-                                        html.P(' 張之股票', style=self_style.text_normal),
+                                        html.P(' 張以上', style=self_style.text_normal),
                                     ], style=self_style.item_style),
                                     html.Button('+', n_clicks=0, style=self_style.button_style,
                                     id={
@@ -30,7 +30,7 @@ def create_filters(button_id):
                                         html.P('日內，', style=self_style.text_normal),
                                         html.P('增加/減少', style=self_style.text_bold),
                                         html.P('100', style=self_style.text_normal),
-                                        html.P(' %之股票', style=self_style.text_normal),
+                                        html.P(' %以上', style=self_style.text_normal),
                                     ], style=self_style.item_style),
                                     html.Button('+', n_clicks=0, style=self_style.button_style,
                                     id={
@@ -45,7 +45,7 @@ def create_filters(button_id):
                                         html.P('日內，', style=self_style.text_normal),
                                         html.P('增加/減少', style=self_style.text_bold),
                                         html.P('100', style=self_style.text_normal),
-                                        html.P(' 張之股票', style=self_style.text_normal),
+                                        html.P(' 張以上', style=self_style.text_normal),
                                     ], style=self_style.item_style),
                                     html.Button('+', n_clicks=0, style=self_style.button_style,
                                     id={
@@ -60,7 +60,7 @@ def create_filters(button_id):
                                         html.P('日內，', style=self_style.text_normal),
                                         html.P('增加/減少', style=self_style.text_bold),
                                         html.P('100', style=self_style.text_normal),
-                                        html.P(' %之股票', style=self_style.text_normal),
+                                        html.P(' %以上', style=self_style.text_normal),
                                     ], style=self_style.item_style),
                                     html.Button('+', n_clicks=0, style=self_style.button_style,
                                     id={
@@ -75,7 +75,7 @@ def create_filters(button_id):
                                         html.P('日內，', style=self_style.text_normal),
                                         html.P('增加/減少', style=self_style.text_bold),
                                         html.P('100', style=self_style.text_normal),
-                                        html.P(' 張之股票', style=self_style.text_normal),
+                                        html.P(' 張以上', style=self_style.text_normal),
                                     ], style=self_style.item_style),
                                     html.Button('+', n_clicks=0, style=self_style.button_style,
                                     id={
@@ -90,7 +90,7 @@ def create_filters(button_id):
                                         html.P('日內，', style=self_style.text_normal),
                                         html.P('增加/減少', style=self_style.text_bold),
                                         html.P('100', style=self_style.text_normal),
-                                        html.P(' %之股票', style=self_style.text_normal),
+                                        html.P(' %以上', style=self_style.text_normal),
                                     ], style=self_style.item_style),
                                     html.Button('+', n_clicks=0, style=self_style.button_style,
                                     id={
