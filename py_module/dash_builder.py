@@ -142,7 +142,7 @@ class DashBuilder(object):
                                     children=html.Div([],id='dynamic-selection-result-twse'),
                                     color='red'
                                 )
-                            ],style=self_style.result_div),
+                            ],style=self_style.result_div_normal),
                             html.Div('櫃買中心 TPEX (上櫃)'),
                             html.Div([
                                 dcc.Loading(
@@ -151,7 +151,7 @@ class DashBuilder(object):
                                     children=html.Div([],id='dynamic-selection-result-tpex'),
                                     color='red',
                                 )
-                            ],style=self_style.result_div),
+                            ],style=self_style.result_div_normal),
                             html.Div('上市 ETF'),                            
                             html.Div([
                                 dcc.Loading(
@@ -160,7 +160,7 @@ class DashBuilder(object):
                                     children=html.Div([],id='dynamic-selection-result-twse-etf'),
                                     color='red',
                                 )
-                            ],style=self_style.result_div),
+                            ],style=self_style.result_div_etf),
                             html.Div('上櫃 ETF'),
                             html.Div([
                                 dcc.Loading(
@@ -169,7 +169,7 @@ class DashBuilder(object):
                                     children=html.Div([],id='dynamic-selection-result-tpex-etf'),
                                     color='red',
                                 )
-                            ],style=self_style.result_div),
+                            ],style=self_style.result_div_etf),
                         ], 
                         style=self_style.selection_style)
                     ], style=self_style.right_frame_style),  # DISPLAY

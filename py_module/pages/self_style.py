@@ -276,7 +276,16 @@ text_bold = {
     'font-size':'15px',
 }
 
-result_div = {
-    'border': 'dashed 5px #B2CCF2',
-    'height': '200px'
+result_div_normal = {
+    'border': 'dashed 2px #B2CCF2',
+    'height': '220px',
+    'border-radius': '10px',
+    'overflow': 'auto'
+}
+
+result_div_etf = {
+    'border': 'dashed 2px #B2CCF2',
+    'height': '135px',
+    'border-radius': '10px',
+    'overflow': 'auto'
 }
