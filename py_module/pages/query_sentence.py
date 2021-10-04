@@ -482,8 +482,7 @@ def create_query_0501(days, period, direct, lot):
         sign = '>='
     else:
         sign = '<='
-    
-    # lot = lot * 1000
+        lot = -lot
 
     query = '''
     (SELECT stock_id FROM
