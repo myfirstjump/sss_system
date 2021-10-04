@@ -735,11 +735,18 @@ class DashBuilder(object):
                     return '無符合項目', '無符合項目', '無符合項目', '無符合項目'
                 else:
                     data = pd.DataFrame.from_records(data)
-
-
-                    data = generate_table(data)
+                    df_twse, df_tpex, df_etf_twse, df_etf_tpex = stock_classifier(data)
+                    
+                    df_twse = generate_table(df_twse)
+                    print('df_twse長度:', len(df_twse))
+                    df_tpex = generate_table(df_tpex)
+                    print('df_twse長度:', len(df_tpex))
+                    df_etf_twse = generate_table(df_etf_twse)
+                    print('df_twse長度:', len(df_etf_twse))
+                    df_etf_tpex = generate_table(df_etf_tpex)
+                    print('df_twse長度:', len(df_etf_tpex))
                 
-                return data, data, data, data
+                return df_twse, df_tpex, df_etf_twse, df_etf_tpex
                 # return total_query
                 
             else:
@@ -748,7 +755,7 @@ class DashBuilder(object):
 
         self.app.run_server(debug=True, dev_tools_hot_reload=True)#, dev_tools_ui=False, dev_tools_props_check=False)
 
-def generate_table(dataframe, max_rows=999):
+def generate_table(dataframe, max_rows=5000):
     return html.Table([
         html.Thead(
             html.Tr([html.Th(col) for col in dataframe.columns])
@@ -761,7 +768,15 @@ def generate_table(dataframe, max_rows=999):
     ])
 
 def stock_classifier(dataframe):
-    dataframe = dataframe.rename(columns={'stock_id':'股票代碼', 'stock_name': '公司'})
+    data = dataframe.rename(columns={'stock_id':'股票代碼', 'stock_name': '公司', 'industry_category':'產業別'})
+    
+    df_etf_all = data[data['產業別'].isin(['ETF', '上櫃指數股票型基金(ETF)', '指數投資證券(ETN)', ])]
+    df_all = data[~data['產業別'].isin(['ETF', '上櫃指數股票型基金(ETF)', '指數投資證券(ETN)', ])]
 
-    return dataframe
+    df_etf_twse = df_etf_all[df_etf_all['type'].isin(['twse'])]
+    df_etf_tpex = df_etf_all[df_etf_all['type'].isin(['tpex'])]
+    df_twse = df_all[df_all['type'].isin(['twse'])]
+    df_tpex = df_all[df_all['type'].isin(['twse'])]
+
+    return df_twse, df_tpex, df_etf_twse, df_etf_tpex
 

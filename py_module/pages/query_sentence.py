@@ -47,6 +47,9 @@ def query_combine(query_dict):
             combined_query = combined_query + query + " {} on {}.stock_id = {}.stock_id inner join ".format(align_code, ascii_lowercase[num-1], align_code)
     combined_query = combined_query + "{} {} on {}.stock_id = {}.stock_id".format(skill_info, ascii_lowercase[query_number], ascii_lowercase[query_number-1], ascii_lowercase[query_number])    
         
+    if query_number == 0: # 例外處理
+        combined_query = "SELECT * FROM {} WHERE type = 'no'".format(skill_info)
+
     return combined_query
 
 # 最後查詢
