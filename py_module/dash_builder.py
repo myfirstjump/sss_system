@@ -737,14 +737,18 @@ class DashBuilder(object):
                     data = pd.DataFrame.from_records(data)
                     df_twse, df_tpex, df_etf_twse, df_etf_tpex = stock_classifier(data)
                     
-                    df_twse = generate_table(df_twse)
                     print('df_twse長度:', df_twse.shape)
-                    df_tpex = generate_table(df_tpex)
+                    df_twse = generate_table(df_twse)
+                    
                     print('df_twse長度:', df_tpex.shape)
-                    df_etf_twse = generate_table(df_etf_twse)
+                    df_tpex = generate_table(df_tpex)
+                    
                     print('df_twse長度:', df_etf_twse.shape)
-                    df_etf_tpex = generate_table(df_etf_tpex)
+                    df_etf_twse = generate_table(df_etf_twse)
+                    
                     print('df_twse長度:', df_etf_tpex.shape)
+                    df_etf_tpex = generate_table(df_etf_tpex)
+                    
                 
                 return df_twse, df_tpex, df_etf_twse, df_etf_tpex
                 # return total_query
