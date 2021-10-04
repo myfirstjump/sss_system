@@ -12,7 +12,7 @@ def create_filters(button_id):
                                     html.Span([
                                         html.P('融資於', style=self_style.text_normal),
                                         html.P('3', style=self_style.text_bold),
-                                        html.P('日內，', style=self_style.text_normal),
+                                        html.P('日內均，', style=self_style.text_normal),
                                         html.P('增加/減少', style=self_style.text_bold),
                                         html.P('100', style=self_style.text_normal),
                                         html.P(' 張以上', style=self_style.text_normal),
@@ -27,7 +27,7 @@ def create_filters(button_id):
                                     html.Span([
                                         html.P('融資於', style=self_style.text_normal),
                                         html.P('3', style=self_style.text_bold),
-                                        html.P('日內，', style=self_style.text_normal),
+                                        html.P('日內均，', style=self_style.text_normal),
                                         html.P('增加/減少', style=self_style.text_bold),
                                         html.P('100', style=self_style.text_normal),
                                         html.P(' %以上', style=self_style.text_normal),
@@ -42,7 +42,7 @@ def create_filters(button_id):
                                     html.Span([
                                         html.P('融券於', style=self_style.text_normal),
                                         html.P('3', style=self_style.text_bold),
-                                        html.P('日內，', style=self_style.text_normal),
+                                        html.P('日內均，', style=self_style.text_normal),
                                         html.P('增加/減少', style=self_style.text_bold),
                                         html.P('100', style=self_style.text_normal),
                                         html.P(' 張以上', style=self_style.text_normal),
@@ -57,7 +57,7 @@ def create_filters(button_id):
                                     html.Span([
                                         html.P('融券於', style=self_style.text_normal),
                                         html.P('3', style=self_style.text_bold),
-                                        html.P('日內，', style=self_style.text_normal),
+                                        html.P('日內均，', style=self_style.text_normal),
                                         html.P('增加/減少', style=self_style.text_bold),
                                         html.P('100', style=self_style.text_normal),
                                         html.P(' %以上', style=self_style.text_normal),
@@ -72,7 +72,7 @@ def create_filters(button_id):
                                     html.Span([
                                         html.P('借券於', style=self_style.text_normal),
                                         html.P('3', style=self_style.text_bold),
-                                        html.P('日內，', style=self_style.text_normal),
+                                        html.P('日內均，', style=self_style.text_normal),
                                         html.P('增加/減少', style=self_style.text_bold),
                                         html.P('100', style=self_style.text_normal),
                                         html.P(' 張以上', style=self_style.text_normal),
@@ -87,7 +87,7 @@ def create_filters(button_id):
                                     html.Span([
                                         html.P('借券於', style=self_style.text_normal),
                                         html.P('3', style=self_style.text_bold),
-                                        html.P('日內，', style=self_style.text_normal),
+                                        html.P('日內均，', style=self_style.text_normal),
                                         html.P('增加/減少', style=self_style.text_bold),
                                         html.P('100', style=self_style.text_normal),
                                         html.P(' %以上', style=self_style.text_normal),
@@ -134,7 +134,7 @@ def create_0501(output_count):
                                                     clearable=False,
                                                     style=self_style.short_dropdown_style),
                                             ],style=self_style.dp_div_style),                                           
-                                            html.P('內，', style=self_style.text_normal),
+                                            html.P('內，均', style=self_style.text_normal),
                                             html.Div([
                                                 dcc.Dropdown(
                                                 id={'type':'dd2',
@@ -198,7 +198,7 @@ def create_0502(output_count):
                                                     clearable=False,
                                                     style=self_style.short_dropdown_style),
                                             ],style=self_style.dp_div_style),                                           
-                                            html.P('內，', style=self_style.text_normal),
+                                            html.P('內，均', style=self_style.text_normal),
                                             html.Div([
                                                 dcc.Dropdown(
                                                 id={'type':'dd2',
@@ -262,7 +262,7 @@ def create_0503(output_count):
                                                     clearable=False,
                                                     style=self_style.short_dropdown_style),
                                             ],style=self_style.dp_div_style),                                           
-                                            html.P('內，', style=self_style.text_normal),
+                                            html.P('內，均', style=self_style.text_normal),
                                             html.Div([
                                                 dcc.Dropdown(
                                                 id={'type':'dd2',
@@ -326,7 +326,7 @@ def create_0504(output_count):
                                                     clearable=False,
                                                     style=self_style.short_dropdown_style),
                                             ],style=self_style.dp_div_style),                                           
-                                            html.P('內，', style=self_style.text_normal),
+                                            html.P('內，均', style=self_style.text_normal),
                                             html.Div([
                                                 dcc.Dropdown(
                                                 id={'type':'dd2',
@@ -390,7 +390,7 @@ def create_0505(output_count):
                                                     clearable=False,
                                                     style=self_style.short_dropdown_style),
                                             ],style=self_style.dp_div_style),                                           
-                                            html.P('內，', style=self_style.text_normal),
+                                            html.P('內，均', style=self_style.text_normal),
                                             html.Div([
                                                 dcc.Dropdown(
                                                 id={'type':'dd2',
@@ -454,7 +454,7 @@ def create_0506(output_count):
                                                     clearable=False,
                                                     style=self_style.short_dropdown_style),
                                             ],style=self_style.dp_div_style),                                           
-                                            html.P('內，', style=self_style.text_normal),
+                                            html.P('內，均', style=self_style.text_normal),
                                             html.Div([
                                                 dcc.Dropdown(
                                                 id={'type':'dd2',
