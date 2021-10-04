@@ -776,7 +776,7 @@ def stock_classifier(dataframe):
     df_etf_twse = df_etf_all[df_etf_all['type'].isin(['twse'])]
     df_etf_tpex = df_etf_all[df_etf_all['type'].isin(['tpex'])]
     df_twse = df_all[df_all['type'].isin(['twse'])]
-    df_tpex = df_all[df_all['type'].isin(['twse'])]
+    df_tpex = df_all[df_all['type'].isin(['tpex'])]
 
     return df_twse, df_tpex, df_etf_twse, df_etf_tpex
 
