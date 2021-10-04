@@ -477,7 +477,7 @@ def create_query_0406(days, period, buy_sell, direct, lot):
 
 def create_query_0501(days, period, direct, lot):
 
-    """0501 融資於[3][日]內[增加/減少][100]張之股票"""
+    """0501 融資於[3][日]內[增加/減少][100]張以上"""
     if direct == '1':
         sign = '>='
     else:
@@ -494,3 +494,103 @@ def create_query_0501(days, period, direct, lot):
     '''.format(counter_margin_d, days, days, sign, lot)
 
     return query
+
+def create_query_0502(days, period, direct, lot):
+
+    """0502 融資於[3][日]內[增加/減少][20]%以上"""
+    if direct == '1':
+        sign = '>='
+    else:
+        sign = '<='
+        lot = -lot
+
+    query = '''
+    (SELECT stock_id FROM
+    (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY date DESC) row_num
+    FROM {} WITH(NOLOCK)
+    WHERE date > (GETDATE()-({}+10))) part_tbl
+    WHERE part_tbl.row_num <= {}
+    GROUP BY part_tbl.stock_id HAVING SUM(part_tbl.MARGIN_ratio) {} {} )
+    '''.format(counter_margin_d, days, days, sign, lot)
+
+    return query
+
+def create_query_0503(days, period, direct, lot):
+
+    """0503 融券於[3][日]內[增加/減少][100]張以上"""
+    if direct == '1':
+        sign = '>='
+    else:
+        sign = '<='
+        lot = -lot
+
+    query = '''
+    (SELECT stock_id FROM
+    (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY date DESC) row_num
+    FROM {} WITH(NOLOCK)
+    WHERE date > (GETDATE()-({}+10))) part_tbl
+    WHERE part_tbl.row_num <= {}
+    GROUP BY part_tbl.stock_id HAVING SUM(part_tbl.SHORTSELL_SPREAD) {} {} )
+    '''.format(counter_margin_d, days, days, sign, lot)
+
+    return query
+
+def create_query_0504(days, period, direct, lot):
+
+    """0504 融券於[3][日]內[增加/減少][20]%以上"""
+    if direct == '1':
+        sign = '>='
+    else:
+        sign = '<='
+        lot = -lot
+
+    query = '''
+    (SELECT stock_id FROM
+    (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY date DESC) row_num
+    FROM {} WITH(NOLOCK)
+    WHERE date > (GETDATE()-({}+10))) part_tbl
+    WHERE part_tbl.row_num <= {}
+    GROUP BY part_tbl.stock_id HAVING SUM(part_tbl.SHORTSELL_ratio) {} {} )
+    '''.format(counter_margin_d, days, days, sign, lot)
+
+    return query
+
+# def create_query_0505(days, period, direct, lot):
+
+#     """0505 借券於[3][日]內[增加/減少][100]張以上"""
+#     if direct == '1':
+#         sign = '>='
+#     else:
+#         sign = '<='
+#         lot = -lot
+
+#     query = '''
+#     (SELECT stock_id FROM
+#     (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY date DESC) row_num
+#     FROM {} WITH(NOLOCK)
+#     WHERE date > (GETDATE()-({}+10))) part_tbl
+#     WHERE part_tbl.row_num <= {}
+#     GROUP BY part_tbl.stock_id HAVING SUM(part_tbl.SHORTSELL_ratio) {} {} )
+#     '''.format(counter_margin_d, days, days, sign, lot)
+
+#     return query
+
+# def create_query_0506(days, period, direct, lot):
+
+#     """0506 借券於[3][日]內[增加/減少][20]%以上"""
+#     if direct == '1':
+#         sign = '>='
+#     else:
+#         sign = '<='
+#         lot = -lot
+
+#     query = '''
+#     (SELECT stock_id FROM
+#     (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY date DESC) row_num
+#     FROM {} WITH(NOLOCK)
+#     WHERE date > (GETDATE()-({}+10))) part_tbl
+#     WHERE part_tbl.row_num <= {}
+#     GROUP BY part_tbl.stock_id HAVING SUM(part_tbl.SHORTSELL_ratio) {} {} )
+#     '''.format(counter_margin_d, days, days, sign, lot)
+
+#     return query
