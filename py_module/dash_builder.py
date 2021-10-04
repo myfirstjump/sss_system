@@ -136,12 +136,36 @@ class DashBuilder(object):
                             html.Div(['查詢結果'], style=self_style.add_text_style),
                             html.Div([
                                 dcc.Loading(
-                                    id='result-loading',
+                                    id='result-loading-twse',
                                     type='default',
-                                    children=html.Div([],id='dynamic-selection-result'),
+                                    children=html.Div([],id='dynamic-selection-result-twse'),
                                     color='red',
                                 )
-                            ])
+                            ]),
+                            html.Div([
+                                dcc.Loading(
+                                    id='result-loading-tpex',
+                                    type='default',
+                                    children=html.Div([],id='dynamic-selection-result-tpex'),
+                                    color='red',
+                                )
+                            ]),
+                            html.Div([
+                                dcc.Loading(
+                                    id='result-loading-twse-etf',
+                                    type='default',
+                                    children=html.Div([],id='dynamic-selection-result-twse-etf'),
+                                    color='red',
+                                )
+                            ]),
+                            html.Div([
+                                dcc.Loading(
+                                    id='result-loading-tpex-etf',
+                                    type='default',
+                                    children=html.Div([],id='dynamic-selection-result-tpex-etf'),
+                                    color='red',
+                                )
+                            ]),
                         ], 
                         style=self_style.selection_style)
                     ], style=self_style.right_frame_style),  # DISPLAY
@@ -581,7 +605,10 @@ class DashBuilder(object):
         # 3. dynamic-output-container -> dynamic-selection-result
  
         @self.app.callback(
-            Output('dynamic-selection-result', 'children'),
+            Output('dynamic-selection-result-twse', 'children'),
+            Output('dynamic-selection-result-tpex', 'children'),
+            Output('dynamic-selection-result-twse-etf', 'children'),
+            Output('dynamic-selection-result-tpex-etf', 'children'),
             Input('selection-btn', 'n_clicks'),
             # State('dynamic-output-container', 'children'),
             State({'type': ALL, 'index': '0101'}, 'value'), State({'type': ALL, 'index': '0102'}, 'value'), State({'type': ALL, 'index': '0103'}, 'value'),
@@ -701,16 +728,18 @@ class DashBuilder(object):
                 data = query_sentence.sql_execute(total_query)
                 
                 if len(data) == 0:
-                    return '無符合項目'
+                    return '無符合項目'#, '無符合項目', '無符合項目', '無符合項目'
                 else:
                     data = pd.DataFrame.from_records(data)
+
+
                     data = generate_table(data)
                 
                 return data
                 # return total_query
                 
             else:
-                return ''
+                return ''#, '', '', ''
 
 
         self.app.run_server(debug=True, dev_tools_hot_reload=True)#, dev_tools_ui=False, dev_tools_props_check=False)
@@ -727,7 +756,8 @@ def generate_table(dataframe, max_rows=999):
         ])
     ])
 
-def table_columns_rename(dataframe):
+def stock_classifier(dataframe):
     dataframe = dataframe.rename(columns={'stock_id':'股票代碼', 'stock_name': '公司'})
+
     return dataframe
 
