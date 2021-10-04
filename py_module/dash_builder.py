@@ -781,8 +781,8 @@ def generate_table(dataframe, max_rows=5000):
 def stock_classifier(dataframe):
     data = dataframe.rename(columns={'stock_id':'股票代碼', 'stock_name': '公司', 'industry_category':'產業別'})
     
-    df_etf_all = data[data['產業別'].isin(['ETF', '上櫃指數股票型基金(ETF)', '指數投資證券(ETN)', ])]
-    df_all = data[~data['產業別'].isin(['ETF', '上櫃指數股票型基金(ETF)', '指數投資證券(ETN)', ])]
+    df_etf_all = data[data['產業別'].isin(['ETF', '上櫃指數股票型基金(ETF)', '指數投資證券(ETN)', '受益證券'])]
+    df_all = data[~data['產業別'].isin(['ETF', '上櫃指數股票型基金(ETF)', '指數投資證券(ETN)', '受益證券'])]
 
     df_etf_twse = df_etf_all[df_etf_all['type'].isin(['twse'])]
     df_etf_tpex = df_etf_all[df_etf_all['type'].isin(['tpex'])]
