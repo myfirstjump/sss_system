@@ -14,6 +14,7 @@ class CLASSPLACEHOLDER(object):
     
     def data_loading(self):
         file_path = os.path.join(self.config_obj.data_folder, self.config_obj.taiwan_stock_info)
+        print('file_path', file_path)
         data = self.reader_obj.read_csv_data(file_path)
         return data
 
