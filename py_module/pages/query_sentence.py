@@ -33,7 +33,7 @@ skill_price_d = 'STOCK_SKILL_DB.dbo.TW_STOCK_PRICE_Daily'
 skill_price_w = 'STOCK_SKILL_DB.dbo.TW_STOCK_PRICE_Weekly'
 skill_price_m = 'STOCK_SKILL_DB.dbo.TW_STOCK_PRICE_monthly'
 counter_legal_d = 'STOCK_COUNTER_DB.dbo.TW_STOCK_LEGALPERSON_Daily'
-counter_margin_d = 'STOCK_SKILL_DB.dbo.TW_STOCK_MARGINTRADE_SHORTSELL_Daily'
+counter_margin_d = 'STOCK_COUNTER_DB.dbo.TW_STOCK_MARGINTRADE_SHORTSELL_Daily'
 
 # Query Combination
 def query_combine(query_dict):
@@ -483,7 +483,7 @@ def create_query_0501(days, period, direct, lot):
     else:
         sign = '<='
     
-    lot = lot * 1000
+    # lot = lot * 1000
 
     query = '''
     (SELECT stock_id FROM
@@ -491,7 +491,7 @@ def create_query_0501(days, period, direct, lot):
     FROM {} WITH(NOLOCK)
     WHERE date > (GETDATE()-({}+10))) part_tbl
     WHERE part_tbl.row_num <= {}
-    GROUP BY part_tbl.stock_id HAVING SUM(part_tbl.MarginPurchaseBuy) {} {} )
+    GROUP BY part_tbl.stock_id HAVING SUM(part_tbl.MARGIN_SPREAD) {} {} )
     '''.format(counter_margin_d, days, days, sign, lot)
 
     return query
