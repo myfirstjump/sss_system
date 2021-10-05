@@ -4,6 +4,8 @@ import pandas as pd
 import pathlib
 from py_module.pages import self_style
 
+add_img_path = 'assets/add_img.png'
+delete_img_path = 'assets/delete_img.png'
 
 def create_filters(button_id):
     content = html.Div(
@@ -16,7 +18,7 @@ def create_filters(button_id):
                                         html.P('元', style=self_style.text_normal),
                                         
                                     ], style=self_style.item_style),
-                                    html.Button('+', n_clicks=0, style=self_style.button_style,
+                                    html.Img(src=add_img_path, n_clicks=0, style=self_style.button_style,
                                     id={
                                         'type': 'filter-btn',
                                         'index': button_id + '-add-0201'
@@ -30,7 +32,7 @@ def create_filters(button_id):
                                         html.P('元', style=self_style.text_normal),
                                         
                                     ], style=self_style.item_style),
-                                    html.Button('+', n_clicks=0, style=self_style.button_style,
+                                    html.Img(src=add_img_path, n_clicks=0, style=self_style.button_style,
                                     id={
                                         'type': 'filter-btn',
                                         'index': button_id + '-add-0202'
@@ -43,7 +45,7 @@ def create_filters(button_id):
                                         html.P('3', style=self_style.text_bold),
                                         html.P('日以上', style=self_style.text_normal),
                                     ], style=self_style.item_style),
-                                    html.Button('+', n_clicks=0, style=self_style.button_style,
+                                    html.Img(src=add_img_path, n_clicks=0, style=self_style.button_style,
                                     id={
                                         'type': 'filter-btn',
                                         'index': button_id + '-add-0203'
@@ -59,7 +61,7 @@ def create_filters(button_id):
                                         html.P('10%', style=self_style.text_bold),
                                         html.P('之股票', style=self_style.text_normal),
                                     ], style=self_style.item_style),
-                                    html.Button('+', n_clicks=0, style=self_style.button_style,
+                                    html.Img(src=add_img_path, n_clicks=0, style=self_style.button_style,
                                     id={
                                         'type': 'filter-btn',
                                         'index': button_id + '-add-0204'
@@ -75,7 +77,7 @@ def create_filters(button_id):
                                         html.P('20元', style=self_style.text_bold),
                                         html.P('之股票', style=self_style.text_normal),
                                     ], style=self_style.item_style),
-                                    html.Button('+', n_clicks=0, style=self_style.button_style,
+                                    html.Img(src=add_img_path, n_clicks=0, style=self_style.button_style,
                                     id={
                                         'type': 'filter-btn',
                                         'index': button_id + '-add-0205'
@@ -115,7 +117,7 @@ def create_0201(output_count):
                                             
                                             html.P('元', style=self_style.text_normal),
                                         ], style=self_style.output_item_style),
-                                        html.Button('x', n_clicks=0, style=self_style.button_style,
+                                        html.Img(src=delete_img_path, n_clicks=0, style=self_style.button_style,
                                                 id={'type':'output-btn',
                                                     'index': str(output_count)})
                                     ])
@@ -152,7 +154,7 @@ def create_0202(output_count):
                                             
                                             html.P('元', style=self_style.text_normal),
                                         ], style=self_style.output_item_style),
-                                        html.Button('x', n_clicks=0, style=self_style.button_style,
+                                        html.Img(src=delete_img_path, n_clicks=0, style=self_style.button_style,
                                                 id={'type':'output-btn',
                                                     'index': str(output_count)})
                                     ])
@@ -189,7 +191,7 @@ def create_0203(output_count):
                                             
                                             html.P('日以上', style=self_style.text_normal),
                                         ], style=self_style.output_item_style),
-                                        html.Button('x', n_clicks=0, style=self_style.button_style,
+                                        html.Img(src=delete_img_path, n_clicks=0, style=self_style.button_style,
                                                 id={'type':'output-btn',
                                                     'index': str(output_count)})
                                     ])
@@ -257,7 +259,7 @@ def create_0204(output_count):
                                             
                                             html.P('% 之股票', style=self_style.text_normal),
                                         ], style=self_style.output_item_style),
-                                        html.Button('x', n_clicks=0, style=self_style.button_style,
+                                        html.Img(src=delete_img_path, n_clicks=0, style=self_style.button_style,
                                                 id={'type':'output-btn',
                                                     'index': str(output_count)})
                                     ])
@@ -327,7 +329,7 @@ def create_0205(output_count):
                                             
                                             html.P('元之股票', style=self_style.text_normal),
                                         ], style=self_style.output_item_style),
-                                        html.Button('x', n_clicks=0, style=self_style.button_style,
+                                        html.Img(src=delete_img_path, n_clicks=0, style=self_style.button_style,
                                                 id={'type':'output-btn',
                                                     'index': str(output_count)})
                                     ])

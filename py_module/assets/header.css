@@ -11,15 +11,15 @@
 }
 
 .selection-btn{
-    background-color: #1EABF4;
-    color: white;
+    /* background-color: #1EABF4; */
+    /* color: white; */
     /* border-radius: 5px; */
-    border: hidden;
-    font-size: 20px;
+    /* border: hidden; */
+    /* font-size: 20px; */
     width:45%;
-    margin: 1% 2%;  
+    /* margin: 1% 2%;   */
 }
 
-.selection-btn:hover{
+/* .selection-btn:hover{
     background-color: #5FC2F5;
-}
+} */

@@ -4,7 +4,7 @@ light_code = '#E1EBF9' #
 border_code = '#A8D3F4'
 emphsis_code = '#1EABF4'
 
-style = {
+header_div_style = {
     'margin':'10px 15px 10px 30px', 
     'padding':'10px',
     #'border':'solid 1px',  
@@ -36,6 +36,12 @@ menu_style = {
     'display':'inline-block',
     'verticalAlign':'middle',
     #'border':'solid 1px',
+}
+
+menu_arrow = {
+    'width': '20%', 
+    'display':'inline-block',
+    'verticalAlign':'middle',
 }
 
 
@@ -145,8 +151,9 @@ button_style = {
     'margin': '1% 5%',
     'padding':'2%',
     'display':'inline-block',
-    'width': '8%',
+    'width': '3%',
     'border-radius':'50%',
+    'verticalAlign': 'middle',
     #'border':'solid 1px',  
 }
 

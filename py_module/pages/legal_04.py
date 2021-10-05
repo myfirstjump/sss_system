@@ -4,6 +4,8 @@ import pandas as pd
 import pathlib
 from py_module.pages import self_style
 
+add_img_path = 'assets/add_img.png'
+delete_img_path = 'assets/delete_img.png'
 
 def create_filters(button_id):
     content = html.Div(
@@ -19,7 +21,7 @@ def create_filters(button_id):
                                         html.P('張', style=self_style.text_normal),
                                         
                                     ], style=self_style.item_style),
-                                    html.Button('+', n_clicks=0, style=self_style.button_style, 
+                                    html.Img(src=add_img_path, n_clicks=0, style=self_style.button_style, 
                                     id={
                                         'type': 'filter-btn',
                                         'index': button_id + '-add-0401'
@@ -36,7 +38,7 @@ def create_filters(button_id):
                                         html.P('張', style=self_style.text_normal),
                                         
                                     ], style=self_style.item_style),
-                                    html.Button('+', n_clicks=0, style=self_style.button_style, 
+                                    html.Img(src=add_img_path, n_clicks=0, style=self_style.button_style, 
                                     id={
                                         'type': 'filter-btn',
                                         'index': button_id + '-add-0402'
@@ -53,7 +55,7 @@ def create_filters(button_id):
                                         html.P('張', style=self_style.text_normal),
                                         
                                     ], style=self_style.item_style),
-                                    html.Button('+', n_clicks=0, style=self_style.button_style, 
+                                    html.Img(src=add_img_path, n_clicks=0, style=self_style.button_style, 
                                     id={
                                         'type': 'filter-btn',
                                         'index': button_id + '-add-0403'
@@ -70,7 +72,7 @@ def create_filters(button_id):
                                         html.P('張', style=self_style.text_normal),
                                         
                                     ], style=self_style.item_style),
-                                    html.Button('+', n_clicks=0, style=self_style.button_style, 
+                                    html.Img(src=add_img_path, n_clicks=0, style=self_style.button_style, 
                                     id={
                                         'type': 'filter-btn',
                                         'index': button_id + '-add-0404'
@@ -87,7 +89,7 @@ def create_filters(button_id):
                                         html.P('張', style=self_style.text_normal),
                                         
                                     ], style=self_style.item_style),
-                                    html.Button('+', n_clicks=0, style=self_style.button_style, 
+                                    html.Img(src=add_img_path, n_clicks=0, style=self_style.button_style, 
                                     id={
                                         'type': 'filter-btn',
                                         'index': button_id + '-add-0405'
@@ -104,7 +106,7 @@ def create_filters(button_id):
                                         html.P('張', style=self_style.text_normal),
                                         
                                     ], style=self_style.item_style),
-                                    html.Button('+', n_clicks=0, style=self_style.button_style, 
+                                    html.Img(src=add_img_path, n_clicks=0, style=self_style.button_style, 
                                     id={
                                         'type': 'filter-btn',
                                         'index': button_id + '-add-0406'
@@ -188,7 +190,7 @@ def create_0401(output_count):
                                             
                                             html.P('張', style=self_style.text_normal),
                                         ], style=self_style.output_item_style),
-                                        html.Button('x', n_clicks=0, style=self_style.button_style,
+                                        html.Img(src=delete_img_path, n_clicks=0, style=self_style.button_style,
                                                 id={'type':'output-btn',
                                                     'index': str(output_count)})
                                     ])
@@ -268,7 +270,7 @@ def create_0402(output_count):
                                             
                                             html.P('張', style=self_style.text_normal),
                                         ], style=self_style.output_item_style),
-                                        html.Button('x', n_clicks=0, style=self_style.button_style,
+                                        html.Img(src=delete_img_path, n_clicks=0, style=self_style.button_style,
                                                 id={'type':'output-btn',
                                                     'index': str(output_count)})
                                     ])
@@ -348,7 +350,7 @@ def create_0403(output_count):
                                             
                                             html.P('張', style=self_style.text_normal),
                                         ], style=self_style.output_item_style),
-                                        html.Button('x', n_clicks=0, style=self_style.button_style,
+                                        html.Img(src=delete_img_path, n_clicks=0, style=self_style.button_style,
                                                 id={'type':'output-btn',
                                                     'index': str(output_count)})
                                     ])
@@ -430,7 +432,7 @@ def create_0404(output_count):
                                             
                                             html.P('張', style=self_style.text_normal),
                                         ], style=self_style.output_item_style),
-                                        html.Button('x', n_clicks=0, style=self_style.button_style,
+                                        html.Img(src=delete_img_path, n_clicks=0, style=self_style.button_style,
                                                 id={'type':'output-btn',
                                                     'index': str(output_count)})
                                     ])
@@ -512,7 +514,7 @@ def create_0405(output_count):
                                             
                                             html.P('張', style=self_style.text_normal),
                                         ], style=self_style.output_item_style),
-                                        html.Button('x', n_clicks=0, style=self_style.button_style,
+                                        html.Img(src=delete_img_path, n_clicks=0, style=self_style.button_style,
                                                 id={'type':'output-btn',
                                                     'index': str(output_count)})
                                     ])
@@ -594,7 +596,7 @@ def create_0406(output_count):
                                             
                                             html.P('張', style=self_style.text_normal),
                                         ], style=self_style.output_item_style),
-                                        html.Button('x', n_clicks=0, style=self_style.button_style,
+                                        html.Img(src=delete_img_path, n_clicks=0, style=self_style.button_style,
                                                 id={'type':'output-btn',
                                                     'index': str(output_count)})
                                     ])
