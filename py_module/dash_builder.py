@@ -28,7 +28,6 @@ class DashBuilder(object):
         
         # self.df = pd.read_csv('https://gist.githubusercontent.com/chriddyp/5d1ea79569ed194d432e56108a04d188/raw/a9f9e8076b837d541398e999dcbac2b2826a81f8/gdp-life-exp-2007.csv')
 
-        self.external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
         self.app = dash.Dash(__name__, suppress_callback_exceptions=True)#, external_stylesheets=self.external_stylesheets)
         self.app.config.suppress_callback_exceptions = True
         # self.app = dash.Dash(__name__)
@@ -43,84 +42,79 @@ class DashBuilder(object):
         self.start_img = 'assets/start_btn.png'
 
         self.app.layout = html.Div([
-            html.Div([ # header-div
+            html.Div([
                         html.H1('股票篩選器', style=self_style.header_div_style)
-                ]),
+                ]), # header-div
             
-            html.Div([ # top-frame
+            html.Div([
 
-                html.Div([ # menu
+                html.Div([
                     html.Div([ # menu-1
                         html.Button(
-                            "基本資訊",
+                            ["基本資訊", html.Img(src=self.arrow_img, style=self_style.menu_arrow)],
                             id='01-btn',
                             n_clicks=0,
                             title='展開基本資訊選項',
-                            className='menu-btn'
-                        ),
-                        html.Img(src=self.arrow_img, style=self_style.menu_arrow)
+                            className='menu-btn',
+                            style=self_style.menu_btn,
+                        ),                        
                     ],  
                     style=self_style.link_div_style),
                     html.Div([ # menu-2
                         html.Button(
-                            "股價條件",
+                            ["股價條件", html.Img(src=self.arrow_img, style=self_style.menu_arrow),],
                             id='02-btn',
                             title='展開股價條件選項',
                             className='menu-btn'
-                        ),
-                        html.Img(src=self.arrow_img, style=self_style.menu_arrow),
+                        ),                        
                     ],
                     style=self_style.link_div_style),
                     html.Div([ # menu-3
                         html.Button(
-                            "成交量值",
+                            ["成交量值", html.Img(src=self.arrow_img, style=self_style.menu_arrow),],
                             id='03-btn',
                             title='展開成交量值選項',
                             className='menu-btn'
-                        ),
-                        html.Img(src=self.arrow_img, style=self_style.menu_arrow),
+                        ),                        
                     ],
                     style=self_style.link_div_style),
                     html.Div([ # menu-4
                         html.Button(
-                            "法人籌碼", 
+                            ["法人籌碼", html.Img(src=self.arrow_img, style=self_style.menu_arrow),],
                             id='04-btn',
                             title='展開法人籌碼選項',
                             className='menu-btn'
-                        ),
-                        html.Img(src=self.arrow_img, style=self_style.menu_arrow),
+                        ),                        
                     ],
                     style=self_style.link_div_style),
                     html.Div([ # menu-5
                         html.Button(
-                            "信用交易",
+                            ["信用交易", html.Img(src=self.arrow_img, style=self_style.menu_arrow),],
                             id='05-btn',
                             title='展開信用交易選項',
                             className='menu-btn'
-                        ),
-                        html.Img(src=self.arrow_img, style=self_style.menu_arrow),
+                        ),                        
                     ],
                     style=self_style.link_div_style),
                     html.Div([ # menu-6
                         html.Button(
-                            "公司營收",
+                            ["公司營收", html.Img(src=self.arrow_img, style=self_style.menu_arrow),],
                             id='06-btn',
                             title='展開公司營收選項',
                             className='menu-btn'
-                        ),
-                        html.Img(src=self.arrow_img, style=self_style.menu_arrow),
+                        ),                        
                     ],                                
                     style=self_style.link_div_style),
-                ], style=self_style.menu_style), # menu end
+                ], style=self_style.menu_style), # menu
 
-                html.Div([ # inner-frame
+                html.Div([
 
                     html.Div([ # filter-frame
-                        html.Div('請由左方加入篩選類別', style=self_style.add_text_style),
+                        html.Div('請由左方加入篩選類別', style=self_style.frame_text_style),
                         html.Div([], id="filter-content"),
-                    ],style=self_style.filter_content_style),
+                    ],style=self_style.filter_frame),
                     html.Div([ # condition-frame
-                        html.Div('您的選股條件', style=self_style.output_text_style),
+                        html.Div('您的選股條件', style=self_style.frame_text_style),
                         html.Div([],
                             id='dynamic-output-container',
                             style=self_style.dynamic_output_container_style),
@@ -132,229 +126,65 @@ class DashBuilder(object):
                                 id='clear-all-btn',
                                 className='selection-btn')
                         ]),
-                    ], style=self_style.display_content_style),
+                    ], style=self_style.condition_frame),
 
-                    html.Div([ # Results
+                    html.Div([
+                        html.Div(['篩選結果'], style=self_style.frame_text_style),
+                        
                         html.Div([
-                            html.Div(['查詢結果'], style=self_style.add_text_style),
-                            html.Div('台灣證券交易所 TWSE (上市)'),
-                            html.Div([
-                                dcc.Loading(
-                                    id='result-loading-twse',
-                                    type='default',
-                                    children=html.Div([],id='dynamic-selection-result-twse'),
-                                    color='red'
-                                )
-                            ],style=self_style.result_div_normal),
-                            html.Div('櫃買中心 TPEX (上櫃)'),
-                            html.Div([
-                                dcc.Loading(
-                                    id='result-loading-tpex',
-                                    type='default',
-                                    children=html.Div([],id='dynamic-selection-result-tpex'),
-                                    color='red',
-                                )
-                            ],style=self_style.result_div_normal),
-                            html.Div('上市 ETF'),                            
-                            html.Div([
-                                dcc.Loading(
-                                    id='result-loading-twse-etf',
-                                    type='default',
-                                    children=html.Div([],id='dynamic-selection-result-twse-etf'),
-                                    color='red',
-                                )
-                            ],style=self_style.result_div_etf),
-                            html.Div('上櫃 ETF'),
-                            html.Div([
-                                dcc.Loading(
-                                    id='result-loading-tpex-etf',
-                                    type='default',
-                                    children=html.Div([],id='dynamic-selection-result-tpex-etf'),
-                                    color='red',
-                                )
-                            ],style=self_style.result_div_etf),
-                        ], 
-                        style=self_style.selection_style)
-                    ], style=self_style.right_frame_style)
-                ]),
-
-            ]),
-        ])
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        #             html.Div([ # TOP DIV
-        #         dcc.Store('memory'),
-        #         # HEADER
-        #         html.Div([
-        #                 html.H1('股票篩選器', style={'margin':self_style.style['margin'], 'padding':self_style.style['padding']})
-        #         ]),# HEADER
-
-        #         html.Div([ # FILTER & DISPLAY
-
-        #             # FILTER
-        #             html.Div([
-        #                 # html.Div('FILTER'),
-        #                 html.Div([ # MENU
-        #                     html.Div([
-        #                         html.Button(
-        #                             "基本資訊",
-        #                             id='01-btn',
-        #                             n_clicks=0,
-        #                             title='展開基本資訊選項',
-        #                             className='menu-btn'
-        #                         ),
-        #                         html.Img(src=self.arrow_img, style=self_style.menu_arrow)
-        #                     ],  
-        #                     style=self_style.link_div_style),
-        #                     html.Div([
-        #                         html.Button(
-        #                             "股價條件",
-        #                             id='02-btn',
-        #                             title='展開股價條件選項',
-        #                             className='menu-btn'
-        #                         ),
-        #                         html.Img(src=self.arrow_img, style=self_style.menu_arrow),
-        #                     ],
-        #                     style=self_style.link_div_style),
-        #                     html.Div([
-        #                         html.Button(
-        #                             "成交量值",
-        #                             id='03-btn',
-        #                             title='展開成交量值選項',
-        #                             className='menu-btn'
-        #                         ),
-        #                         html.Img(src=self.arrow_img, style=self_style.menu_arrow),
-        #                     ],
-        #                     style=self_style.link_div_style),
-        #                     html.Div([
-        #                         html.Button(
-        #                             "法人籌碼", 
-        #                             id='04-btn',
-        #                             title='展開法人籌碼選項',
-        #                             className='menu-btn'
-        #                         ),
-        #                         html.Img(src=self.arrow_img, style=self_style.menu_arrow),
-        #                     ],
-        #                     style=self_style.link_div_style),
-        #                     html.Div([
-        #                         html.Button(
-        #                             "信用交易",
-        #                             id='05-btn',
-        #                             title='展開信用交易選項',
-        #                             className='menu-btn'
-        #                         ),
-        #                         html.Img(src=self.arrow_img, style=self_style.menu_arrow),
-        #                     ],
-        #                     style=self_style.link_div_style),
-        #                     html.Div([
-        #                         html.Button(
-        #                             "公司營收",
-        #                             id='06-btn',
-        #                             title='展開公司營收選項',
-        #                             className='menu-btn'
-        #                         ),
-        #                         html.Img(src=self.arrow_img, style=self_style.menu_arrow),
-        #                     ],                                
-        #                     style=self_style.link_div_style),
-        #                 ], style=self_style.menu_style), # MENU
+                            html.Div('台灣證券交易所 TWSE (上市)', style=self_style.result_words),
+                            dcc.Loading(
+                                id='result-loading-twse',
+                                type='default',
+                                children=html.Div([],id='dynamic-selection-result-twse'),
+                                color='red'
+                            )
+                        ],style=self_style.result_div_normal),
                         
-        #                 html.Div([
-        #                     html.Div('請由左方加入篩選類別', style=self_style.add_text_style),
-        #                     html.Div([], id="filter-content"),
-        #                 ],style=self_style.filter_content_style),
+                        html.Div([
+                            html.Div('櫃買中心 TPEX (上櫃)', style=self_style.result_words),
+                            dcc.Loading(
+                                id='result-loading-tpex',
+                                type='default',
+                                children=html.Div([],id='dynamic-selection-result-tpex'),
+                                color='red',
+                            )
+                        ],style=self_style.result_div_normal),
+                                                    
+                        html.Div([
+                            html.Div('上市 ETF', style=self_style.result_words),
+                            dcc.Loading(
+                                id='result-loading-twse-etf',
+                                type='default',
+                                children=html.Div([],id='dynamic-selection-result-twse-etf'),
+                                color='red',
+                            )
+                        ],style=self_style.result_div_etf),
                         
-        #                 html.Br(style={'border':'solid 1px'}),
-        #                 html.Br(style={'border':'solid 1px'}),
-        #                 html.Div([
-        #                     # "DISPLAY",
-        #                     html.Div([
-        #                         html.Div('您的選股條件', style=self_style.output_text_style),
-        #                         html.Div([
-        #                             html.Img(src=self.start_img,
-        #                                 id='selection-btn',
-        #                                 className='selection-btn'),
-        #                             html.Img(src=self.clear_img,
-        #                                 id='clear-all-btn',
-        #                                 className='selection-btn')
-        #                         ]),
-        #                     ]),
-        #                     html.Div([
-        #                     ],
-        #                     id='dynamic-output-container',
-        #                     style=self_style.dynamic_output_container_style),
-        #                 ], id='display-content', 
-        #                 style=self_style.display_content_style)
-        #             ], style=self_style.left_frame_style),# FILTER
-
-        #             # DISPLAY
-        #             html.Div([
-        #                 html.Div([
-        #                     html.Div(['查詢結果'], style=self_style.add_text_style),
-        #                     html.Div('台灣證券交易所 TWSE (上市)'),
-        #                     html.Div([
-        #                         dcc.Loading(
-        #                             id='result-loading-twse',
-        #                             type='default',
-        #                             children=html.Div([],id='dynamic-selection-result-twse'),
-        #                             color='red'
-        #                         )
-        #                     ],style=self_style.result_div_normal),
-        #                     html.Div('櫃買中心 TPEX (上櫃)'),
-        #                     html.Div([
-        #                         dcc.Loading(
-        #                             id='result-loading-tpex',
-        #                             type='default',
-        #                             children=html.Div([],id='dynamic-selection-result-tpex'),
-        #                             color='red',
-        #                         )
-        #                     ],style=self_style.result_div_normal),
-        #                     html.Div('上市 ETF'),                            
-        #                     html.Div([
-        #                         dcc.Loading(
-        #                             id='result-loading-twse-etf',
-        #                             type='default',
-        #                             children=html.Div([],id='dynamic-selection-result-twse-etf'),
-        #                             color='red',
-        #                         )
-        #                     ],style=self_style.result_div_etf),
-        #                     html.Div('上櫃 ETF'),
-        #                     html.Div([
-        #                         dcc.Loading(
-        #                             id='result-loading-tpex-etf',
-        #                             type='default',
-        #                             children=html.Div([],id='dynamic-selection-result-tpex-etf'),
-        #                             color='red',
-        #                         )
-        #                     ],style=self_style.result_div_etf),
-        #                 ], 
-        #                 style=self_style.selection_style)
-        #             ], style=self_style.right_frame_style),  # DISPLAY
-
-        #         ], style=self_style.frame_style), # FILTER & DISPLAY
-
-        #         # SELECTION RESULT
-        #         # html.Div([
-        #         #     html.Div([
-        #         #         html.Div(['查詢結果'], style=self_style.add_text_style),
-        #         #         html.Div([],id='dynamic-selection-result')
-        #         #     ], 
-        #         #     style=self_style.selection_style)
-        #         # ], style=self_style.frame_style),  # SELECTION RESULT                            
-        # ], style=self_style.top_div_style)#TOP DIV
+                        html.Div([
+                            html.Div('上櫃 ETF', style=self_style.result_words),
+                            dcc.Loading(
+                                id='result-loading-tpex-etf',
+                                type='default',
+                                children=html.Div([],id='dynamic-selection-result-tpex-etf'),
+                                color='red',
+                            )
+                        ],style=self_style.result_div_etf),
+                    ], style=self_style.result_frame) # Results
+                ], style=self_style.inner_frame_style), # inner-frame
+            ], style=self_style.top_frame_style), # top-frame
+        ]) # canvas-div
 
         ### callbacks
         # 1. Links -> filter-content
         @self.app.callback(
             Output('filter-content', 'children'),
+            Output('01-btn', 'style'),
+            Output('02-btn', 'style'),
+            Output('03-btn', 'style'),
+            Output('04-btn', 'style'),
+            Output('05-btn', 'style'),
+            Output('06-btn', 'style'),
             Input('01-btn', 'n_clicks'),
             Input('02-btn', 'n_clicks'),
             Input('03-btn', 'n_clicks'),
@@ -367,19 +197,26 @@ class DashBuilder(object):
             button_id = ctx.triggered[0]['prop_id'].split('.')[0]
             if button_id == '01-btn':
                 content = basic_01.create_filters(button_id)
+                style_1 = self_style.menu_btn_onclick; style_2 = self_style.menu_btn; style_3 = self_style.menu_btn; style_4 = self_style.menu_btn; style_5 = self_style.menu_btn; style_6 = self_style.menu_btn
             elif button_id == '02-btn':
                 content = price_02.create_filters(button_id)
+                style_1 = self_style.menu_btn; style_2 = self_style.menu_btn_onclick; style_3 = self_style.menu_btn; style_4 = self_style.menu_btn; style_5 = self_style.menu_btn; style_6 = self_style.menu_btn
             elif button_id == '03-btn':
                 content = volume_03.create_filters(button_id)
+                style_1 = self_style.menu_btn; style_2 = self_style.menu_btn; style_3 = self_style.menu_btn_onclick; style_4 = self_style.menu_btn; style_5 = self_style.menu_btn; style_6 = self_style.menu_btn
             elif button_id == '04-btn':
                 content = legal_04.create_filters(button_id)
+                style_1 = self_style.menu_btn; style_2 = self_style.menu_btn; style_3 = self_style.menu_btn; style_4 = self_style.menu_btn_onclick; style_5 = self_style.menu_btn; style_6 = self_style.menu_btn
             elif button_id == '05-btn':
                 content = credit_05.create_filters(button_id)
+                style_1 = self_style.menu_btn; style_2 = self_style.menu_btn; style_3 = self_style.menu_btn; style_4 = self_style.menu_btn; style_5 = self_style.menu_btn_onclick; style_6 = self_style.menu_btn
             elif button_id == '06-btn':
                 content = revenue_06.create_filters(button_id)     
+                style_1 = self_style.menu_btn; style_2 = self_style.menu_btn; style_3 = self_style.menu_btn; style_4 = self_style.menu_btn; style_5 = self_style.menu_btn; style_6 = self_style.menu_btn_onclick
             else:
                 content = html.Div([])
-            return content
+                style_1 = self_style.menu_btn; style_2 = self_style.menu_btn; style_3 = self_style.menu_btn; style_4 = self_style.menu_btn; style_5 = self_style.menu_btn; style_6 = self_style.menu_btn
+            return content, style_1, style_2, style_3, style_4, style_5, style_6
 
         # 2. filter-content -> dynamic-output-container
         self.output_count = 0
@@ -893,37 +730,37 @@ class DashBuilder(object):
                     else:
                         pass
                 total_query = query_sentence.query_combine(query_dict)
-                # print('final query:', total_query)
-                # data = query_sentence.sql_execute(total_query)
+                print('final query:', total_query)
+                data = query_sentence.sql_execute(total_query)
                 
-                # if len(data) == 0:
-                #     return '無符合項目', '無符合項目', '無符合項目', '無符合項目'
-                # else:
-                #     data = pd.DataFrame.from_records(data)
-                #     df_twse, df_tpex, df_etf_twse, df_etf_tpex = stock_classifier(data)
+                if len(data) == 0:
+                    return '無符合項目', '無符合項目', '無符合項目', '無符合項目'
+                else:
+                    data = pd.DataFrame.from_records(data)
+                    df_twse, df_tpex, df_etf_twse, df_etf_tpex = stock_classifier(data)
                     
-                #     if df_twse.shape[0] == 0:
-                #         df_twse = '無符合項目'
-                #     else:
-                #         df_twse = generate_table(df_twse)
+                    if df_twse.shape[0] == 0:
+                        df_twse = '無符合項目'
+                    else:
+                        df_twse = generate_table(df_twse)
                     
-                #     if df_tpex.shape[0] == 0:
-                #         df_tpex = '無符合項目'
-                #     else:
-                #         df_tpex = generate_table(df_tpex)
+                    if df_tpex.shape[0] == 0:
+                        df_tpex = '無符合項目'
+                    else:
+                        df_tpex = generate_table(df_tpex)
                     
-                #     if df_etf_twse.shape[0] == 0:
-                #         df_etf_twse = '無符合項目'
-                #     else:
-                #         df_etf_twse = generate_table(df_etf_twse)
+                    if df_etf_twse.shape[0] == 0:
+                        df_etf_twse = '無符合項目'
+                    else:
+                        df_etf_twse = generate_table(df_etf_twse)
                     
-                #     if df_etf_tpex.shape[0] == 0:
-                #         df_etf_tpex = '無符合項目'
-                #     else:
-                #         df_etf_tpex = generate_table(df_etf_tpex)
+                    if df_etf_tpex.shape[0] == 0:
+                        df_etf_tpex = '無符合項目'
+                    else:
+                        df_etf_tpex = generate_table(df_etf_tpex)
                     
-                # return df_twse, df_tpex, df_etf_twse, df_etf_tpex
-                return total_query, total_query, total_query, total_query
+                return df_twse, df_tpex, df_etf_twse, df_etf_tpex
+                # return total_query, total_query, total_query, total_query
                 
             else:
                 return '', '', '', ''

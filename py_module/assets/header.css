@@ -1,14 +1,10 @@
-.menu-btn{
-    background-color: #E1EBF9;
-    border: hidden;
-    border-left: 4px solid #C2B5B5;
-    margin: 2px auto;
-    font-size: 16px;
-}
 
-.menu-btn:hover{
+.menu-btn:hover, onclick{
     background-color: #B2CCF2;
 }
+
+
+
 
 .selection-btn{
     /* background-color: #1EABF4; */

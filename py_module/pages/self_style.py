@@ -4,6 +4,15 @@ light_code = '#E1EBF9' #
 border_code = '#A8D3F4'
 emphsis_code = '#1EABF4'
 
+
+top_div_bg = '#212130' #1
+
+filter_condition_bg = '#212130' #2
+inner_frame_bg = '#17171E' #3
+item_bg = '#83CEFF' #4
+result_bg = '#2E2E40' #5
+result_words = '#F93A0B' #6
+
 header_div_style = {
     'margin':'10px 15px 10px 30px', 
     'padding':'10px',
@@ -12,15 +21,16 @@ header_div_style = {
 
 
 top_div_style = {
-    'background-color': bg_code,
+    'background-color': top_div_bg,
     #'border':'solid 1px',  
 }
 
-frame_style = {
-    'width': '95%', 
-    'height': '100%', 
+top_frame_style = {
+    'width': '99%', 
+    'height': '1000px', 
     'margin':'auto', 
-    'padding':'1%',     
+    'padding':'1%',   
+    'background-color': top_div_bg,  
     #'border':'solid 1px',        
 }
 
@@ -29,97 +39,129 @@ menu_style = {
     # 'background-color': '#E9D9D9', 
     # 'border':'solid 1px #C2B5B5',
     # 'border-radius':'15px',
-    'width': '20%', 
-    'height': '45%', 
-    'margin':'left', 
-    'padding':'1%',
-    'display':'inline-block',
-    'verticalAlign':'middle',
-    #'border':'solid 1px',
-}
-
-menu_arrow = {
-    'width': '20%', 
-    'display':'inline-block',
-    'verticalAlign':'middle',
-}
-
-
-
-add_text_style = {
-    'text-align': 'center',
-    'font-size': '20px',
-    'verticalAlign':'middle',
-    'border-bottom': 'dashed 5px #B2CCF2',
-    # 'border-radius':'20px',
-    #'border':'solid 1px',  
-}
-
-output_text_style = {
-    'text-align': 'center',
-    'font-size': '20px',
-    # 'verticalAlign':'middle',
-    'border-bottom': 'dashed 5px #B2CCF2',
-    # 'border-radius':'20px',
-    #'border':'solid 1px',  
-}
-
-left_frame_style = {
-    'display': 'inline-block', 
-    'width': '53%', 
+    'width': '15%', 
     'height': '900px', 
-    'verticalAlign': "middle",
-    'margin':'0', 
-    'padding':'1%',
-    #'border':'solid 1px',  
+    'margin':'1%', 
+    'display':'inline-block',
+    'verticalAlign':'middle',
+    # 'border':'solid 1px',
 }
 
-filter_content_style = {
-    'background-color': light_code, 
+inner_frame_style = {
+    'background-color': inner_frame_bg,
     'width': '75%', 
-    'height': '45%', 
-    'overflow': 'auto',
-    'border-radius':'15px',
-    'border':'solid 1px #C2B5B5', #A7A4A8
-    'padding':'1%',
+    'height': '900px',
+    'margin': '1%',
     'display':'inline-block',
-    'verticalAlign':'top',
+    'verticalAlign':'middle',
+    # 'border':'solid 1px',
+}
+
+filter_frame = {
+    'background-color': filter_condition_bg, 
+    'width': '47%', 
+    'height': '50%', 
     'overflow': 'auto',
+    'margin': '1%',
+    'verticalAlign':'middle',
+    'display':'inline-block',
+
+    
+    'border-radius':'15px',
+
     # 'border':'solid 1px',  
 }
 
-right_frame_style = {
-    'display': 'inline-block', 
-    'width': '42%', 
-    'height': '900px', 
+condition_frame = {
+    'background-color': filter_condition_bg, #E9D9D9
+    'width': '47%', 
+    'height': '50%',
+    'overflow': 'auto',
+    'margin': '1%',
     'verticalAlign': "middle",
-    'margin':'0', 
-    'padding':'1%',
-    #'border':'solid 1px',
+    'display': 'inline-block',
+
+
+    'border-radius':'15px',
+    
+    # 'border':'solid 1px',
 }
 
-display_content_style = {
-    'background-color': light_code, #E9D9D9
-    'border':'solid 1px #C2B5B5', #A7A4A8
-    'border-radius':'15px',
-    'display': 'inline-block', 
-    'width': '97%', 
-    'height': '45%', 
-    'verticalAlign': "middle",
-    'margin':'0', 
-    'padding':'1%',
+result_frame = { 
+    'background-color': filter_condition_bg, 
+    'width': '96%', 
+    'height': '40%',
+    'border-radius':'25px', 
+    'margin':'1%',
+    'display':'inline-block',
+    #'border':'solid 1px',  
+}
+
+result_div_normal = {
+
+    'height': '77%',
+    'border-radius': '10px',
     'overflow': 'auto',
-    #'border':'solid 1px',
+    'width': '23.5%',
+    'display': 'inline-block',
+    'background-color': result_bg,
+    'margin': '0.5%',
+}
+
+result_div_etf = {
+
+    'height': '77%',
+    'border-radius': '10px',
+    'overflow': 'auto',
+    'width': '23.5%',
+    'display': 'inline-block',
+    'background-color': result_bg,
+    'margin': '0.4%',
+}
+
+menu_btn = {
+    'background-color': top_div_bg,
+    'color': 'white',
+    'border': 'hidden',
+    'margin': '2px auto',
+    'font-size': '26px',
+}
+
+menu_btn_onclick = {
+    'background-color': '#EA5716', # 橘色
+    'color': 'white',
+    'border': 'hidden',
+    'margin': '2px auto',
+    'font-size': '26px',
+}
+
+menu_arrow = {
+    'width': '7%', 
+    'margin': '2%',
+    'display':'inline-block',
+    'verticalAlign':'middle',
+}
+
+
+
+frame_text_style = {
+    'font-size': '20px',
+    'color': 'white',
+    'verticalAlign':'middle',
+    'margin': '1%'
+    # 'border-bottom': 'dashed 5px #B2CCF2',
+    # 'border-radius':'20px',
+    #'border':'solid 1px',  
 }
 
 dynamic_output_container_style = {
     'width': '95%', 
-    'height': '85%', 
+    'height': '70%', 
     'margin':'left', 
     'padding':'1%',
     'display':'inline-block',
     'verticalAlign':'middle',
-
+    'overflow': 'auto',
 }
 
 item_style = {
@@ -128,7 +170,7 @@ item_style = {
     'border':'solid 1px',#bfd5f5',
     'border-color': border_code,
     'border-radius':'15px',
-    'background-color': dark_code,
+    'background-color': item_bg,
     'display':'inline-block',
     'width': '70%',
     'border':'solid 1px black',  
@@ -140,7 +182,7 @@ output_item_style = {
     'border':'solid 1px',#bfd5f5',
     'border-color': border_code,
     'border-radius':'15px',
-    'background-color': dark_code,
+    'background-color': item_bg,
     'display':'inline-block',
     'width': '77%',
     'border':'solid 1px black',  
@@ -165,20 +207,6 @@ selection_btn = {
     'width':'45%',
     'margin': '1% 2%',  
 }
-
-selection_style = { 
-    'background-color': light_code, 
-    'border':'solid 1px #C2B5B5', #A7A4A8
-    'width': '90%', 
-    'height': '96%',
-    'border-radius':'25px', 
-    'padding':'1%',
-    'overflow': 'auto',
-    #'border':'solid 1px',  
-    'display':'inline-block',
-}
-
-
 
 link_div_style = {
     'margin':'5%',
@@ -283,16 +311,6 @@ text_bold = {
     'font-size':'15px',
 }
 
-result_div_normal = {
-    'border': 'dashed 2px #B2CCF2',
-    'height': '220px',
-    'border-radius': '10px',
-    'overflow': 'auto'
-}
-
-result_div_etf = {
-    'border': 'dashed 2px #B2CCF2',
-    'height': '135px',
-    'border-radius': '10px',
-    'overflow': 'auto'
+result_words = {
+    'color': result_words
 }
