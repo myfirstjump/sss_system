@@ -87,6 +87,10 @@ condition_frame = {
     # 'border':'solid 1px',
 }
 
+selection_btn = {
+    'width': '47%',
+}
+
 result_frame = { 
     'background-color': filter_condition_bg, 
     'width': '96%', 
@@ -197,15 +201,6 @@ button_style = {
     'border-radius':'50%',
     'verticalAlign': 'middle',
     #'border':'solid 1px',  
-}
-
-selection_btn = {
-    'background-color': '#1EABF4',
-    'color': 'white',
-    'border-radius': '5px',
-    'font-size': '20px',
-    'width':'45%',
-    'margin': '1% 2%',  
 }
 
 link_div_style = {
