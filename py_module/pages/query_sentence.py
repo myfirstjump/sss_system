@@ -180,7 +180,7 @@ def create_query_0301(days, period, direct, percent):
     FROM {} WITH(NOLOCK)
     WHERE date > (GETDATE()-({}+10))) part_tbl
     WHERE part_tbl.row_num <= {}
-    GROUP BY stock_id HAVING AVG(Trading_Volume) {} {})
+    GROUP BY part_tbl.stock_id HAVING AVG(Trading_Volume) {} {})
     '''.format(skill_price_d, days, days, sign, percent)
 
     return query
@@ -199,7 +199,7 @@ def create_query_0302(days, period, direct, percent):
     FROM {} WITH(NOLOCK)
     WHERE date > (GETDATE()-({}+10))) part_tbl
     WHERE part_tbl.row_num <= {}
-    GROUP BY stock_id HAVING AVG(Trading_Volume) {} {})
+    GROUP BY part_tbl.stock_id HAVING AVG(Trading_Volume) {} {})
     '''.format(skill_price_d, days, days, sign, percent)
 
     return query
@@ -220,7 +220,7 @@ def create_query_0303(days, period, direct, lot):
     FROM {} WITH(NOLOCK)
     WHERE date > (GETDATE()-({}+10))) part_tbl
     WHERE part_tbl.row_num <= {} part_tbl.Trading_Volume {} {}
-    GROUP BY stock_id HAVING COUNT(row_num) = {})
+    GROUP BY part_tbl.stock_id HAVING COUNT(row_num) = {})
     '''.format(skill_price_d, days, days, sign, lot, days)
 
 
@@ -242,7 +242,7 @@ def create_query_0304(days, period, direct, lot):
     FROM {} WITH(NOLOCK)
     WHERE date > (GETDATE()-({}+10))) part_tbl
     WHERE part_tbl.row_num <= {} part_tbl.Trading_Volume {} {}
-    GROUP BY stock_id HAVING COUNT(row_num) = {})
+    GROUP BY part_tbl.stock_id HAVING COUNT(row_num) = {})
     '''.format(skill_price_d, days, days, sign, lot, days)
 
     return query
@@ -263,7 +263,7 @@ def create_query_0305(days, period, direct, percent):
     FROM {} WITH(NOLOCK)
     WHERE date > (GETDATE()-({}+10))) part_tbl
     WHERE part_tbl.row_num <= {} part_tbl.Trading_spread_ratio {} {}
-    GROUP BY stock_id HAVING COUNT(row_num) = {})
+    GROUP BY part_tbl.stock_id HAVING COUNT(row_num) = {})
     '''.format(skill_price_d, days, days, sign, percent, days)
 
     return query
@@ -283,7 +283,7 @@ def create_query_0306(days, period, direct, percent):
     FROM {} WITH(NOLOCK)
     WHERE date > (GETDATE()-({}+10))) part_tbl
     WHERE part_tbl.row_num <= {} part_tbl.Trading_spread_ratio {} {}
-    GROUP BY stock_id HAVING COUNT(row_num) = {})
+    GROUP BY part_tbl.stock_id HAVING COUNT(row_num) = {})
     '''.format(skill_price_d, days, days, sign, percent, days)
 
     return query
