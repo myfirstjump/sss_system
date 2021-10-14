@@ -219,7 +219,7 @@ def create_query_0303(days, period, direct, lot):
     (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY date DESC) row_num
     FROM {} WITH(NOLOCK)
     WHERE date > (GETDATE()-({}+10))) part_tbl
-    WHERE part_tbl.row_num <= {} part_tbl.Trading_Volume {} {}
+    WHERE part_tbl.row_num <= {} AND part_tbl.Trading_Volume {} {}
     GROUP BY part_tbl.stock_id HAVING COUNT(row_num) = {})
     '''.format(skill_price_d, days, days, sign, lot, days)
 
@@ -241,7 +241,7 @@ def create_query_0304(days, period, direct, lot):
     (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY date DESC) row_num
     FROM {} WITH(NOLOCK)
     WHERE date > (GETDATE()-({}+10))) part_tbl
-    WHERE part_tbl.row_num <= {} part_tbl.Trading_Volume {} {}
+    WHERE part_tbl.row_num <= {} AND part_tbl.Trading_Volume {} {}
     GROUP BY part_tbl.stock_id HAVING COUNT(row_num) = {})
     '''.format(skill_price_d, days, days, sign, lot, days)
 
@@ -262,7 +262,7 @@ def create_query_0305(days, period, direct, percent):
     (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY date DESC) row_num
     FROM {} WITH(NOLOCK)
     WHERE date > (GETDATE()-({}+10))) part_tbl
-    WHERE part_tbl.row_num <= {} part_tbl.Trading_spread_ratio {} {}
+    WHERE part_tbl.row_num <= {} AND part_tbl.Trading_spread_ratio {} {}
     GROUP BY part_tbl.stock_id HAVING COUNT(row_num) = {})
     '''.format(skill_price_d, days, days, sign, percent, days)
 
@@ -282,7 +282,7 @@ def create_query_0306(days, period, direct, percent):
     (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY date DESC) row_num
     FROM {} WITH(NOLOCK)
     WHERE date > (GETDATE()-({}+10))) part_tbl
-    WHERE part_tbl.row_num <= {} part_tbl.Trading_spread_ratio {} {}
+    WHERE part_tbl.row_num <= {} AND part_tbl.Trading_spread_ratio {} {}
     GROUP BY part_tbl.stock_id HAVING COUNT(row_num) = {})
     '''.format(skill_price_d, days, days, sign, percent, days)
 
