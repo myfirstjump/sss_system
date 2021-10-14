@@ -131,7 +131,7 @@ result_content = {
     'color': 'white',
     'overflow': 'auto',
     'border': 'solid 1px white',
-    'display': 'inline-block',
+    'height': '90%',
 }
 
 menu_btn = {
