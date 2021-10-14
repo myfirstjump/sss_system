@@ -491,7 +491,7 @@ def create_query_0501(days, period, direct, lot):
     WHERE date > (GETDATE()-({}+10))) part_tbl
     WHERE part_tbl.row_num <= {} AND part_tbl.MARGIN_SPREAD {} {}
     GROUP BY part_tbl.stock_id HAVING  count(row_num) = {})
-    '''.format(counter_margin_d, days, days, sign, lot)
+    '''.format(counter_margin_d, days, days, sign, lot, days)
 
     return query
 
@@ -511,7 +511,7 @@ def create_query_0502(days, period, direct, lot):
     WHERE date > (GETDATE()-({}+10))) part_tbl
     WHERE part_tbl.row_num <= {} AND part_tbl.MARGIN_ratio {} {}
     GROUP BY part_tbl.stock_id HAVING  count(row_num) = {})
-    '''.format(counter_margin_d, days, days, sign, lot)
+    '''.format(counter_margin_d, days, days, sign, lot, days)
 
     return query
 
@@ -531,7 +531,7 @@ def create_query_0503(days, period, direct, lot):
     WHERE date > (GETDATE()-({}+10))) part_tbl
     WHERE part_tbl.row_num <= {} AND part_tbl.SHORTSELL_SPREAD {} {}
     GROUP BY part_tbl.stock_id HAVING  count(row_num) = {})
-    '''.format(counter_margin_d, days, days, sign, lot)
+    '''.format(counter_margin_d, days, days, sign, lot, days)
 
     return query
 
@@ -551,7 +551,7 @@ def create_query_0504(days, period, direct, lot):
     WHERE date > (GETDATE()-({}+10))) part_tbl
     WHERE part_tbl.row_num <= {} AND part_tbl.SHORTSELL_ratio {} {}
     GROUP BY part_tbl.stock_id HAVING  count(row_num) = {})
-    '''.format(counter_margin_d, days, days, sign, lot)
+    '''.format(counter_margin_d, days, days, sign, lot, days)
 
     return query
 
