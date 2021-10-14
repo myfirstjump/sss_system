@@ -145,6 +145,7 @@ class DashBuilder(object):
                             type='default',
                             children=html.Div([],id='result-content', style=self_style.result_content),
                             color='red',
+                            style= {'height': '90%'}
                         ),
                     ], style=self_style.result_frame) # Results
                 ], style=self_style.inner_frame_style), # inner-frame
