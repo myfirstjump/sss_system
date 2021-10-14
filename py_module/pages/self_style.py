@@ -137,7 +137,7 @@ menu_btn = {
     'color': 'white',
     'border': 'hidden',
     'margin': '2px auto',
-    'font-size': '26px',
+    'font-size': '20px',
 }
 
 menu_btn_onclick = {
@@ -145,12 +145,12 @@ menu_btn_onclick = {
     'color': 'white',
     'border': 'hidden',
     'margin': '2px auto',
-    'font-size': '26px',
+    'font-size': '20px',
 }
 
 menu_arrow = {
-    'width': '7%', 
-    'margin': '2%',
+    'width': '10%', 
+    'margin': '1%',
     'display':'inline-block',
     'verticalAlign':'middle',
 }
