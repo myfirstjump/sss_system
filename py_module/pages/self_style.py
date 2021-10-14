@@ -129,6 +129,7 @@ result_content = {
     'margin': '5%',
     'font-size': '28px',
     'color': 'white',
+    'overflow': 'auto',
 }
 
 menu_btn = {

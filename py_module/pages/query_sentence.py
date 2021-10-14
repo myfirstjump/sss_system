@@ -115,9 +115,7 @@ def create_query_0203(direct, days):
     if direct == '1':
         sign = '>='
     else:
-        sign = '<='
-    
-    if days < 0:
+        sign = '<='  
         days = -days
     
     query = '''(SELECT t1.stock_id, [close], t1.stock_name FROM {} t1 
