@@ -21,13 +21,14 @@ header_div_style = {
 
 
 top_div_style = {
-    'background-color': top_div_bg,
+    'background-color': 'white',
+    'height': '1500px', 
     #'border':'solid 1px',  
 }
 
 top_frame_style = {
     'width': '99%', 
-    'height': '1800px', 
+    'height': '1300px', 
     'margin':'auto', 
     'padding':'1%',   
     'background-color': top_div_bg,  
@@ -40,7 +41,7 @@ menu_style = {
     # 'border':'solid 1px #C2B5B5',
     # 'border-radius':'15px',
     'width': '10%', 
-    'height': '1800px', 
+    'height': '1300px', 
     'margin':'1%', 
     'display':'inline-block',
     'verticalAlign':'middle',
@@ -50,7 +51,7 @@ menu_style = {
 inner_frame_style = {
     'background-color': inner_frame_bg,
     'width': '85%', 
-    'height': '1800px',
+    'height': '1300px',
     'margin': '1%',
     'display':'inline-block',
     'verticalAlign':'middle',
@@ -60,7 +61,7 @@ inner_frame_style = {
 filter_frame = {
     'background-color': filter_condition_bg, 
     'width': '47%', 
-    'height': '25%', 
+    'height': '35%', 
     'overflow': 'auto',
     'margin': '1%',
     'verticalAlign':'middle',
@@ -75,7 +76,7 @@ filter_frame = {
 condition_frame = {
     'background-color': filter_condition_bg, #E9D9D9
     'width': '47%', 
-    'height': '25%',
+    'height': '35%',
     'overflow': 'auto',
     'margin': '1%',
     'verticalAlign': "middle",
@@ -129,9 +130,9 @@ result_content = {
     'margin': '5%',
     'font-size': '28px',
     'color': 'white',
+    'height': '500px',
+    # 'border': 'solid 1px white',
     'overflow': 'auto',
-    'border': 'solid 1px white',
-    'height': '90%',
 }
 
 menu_btn = {

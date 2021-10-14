@@ -145,12 +145,11 @@ class DashBuilder(object):
                             type='default',
                             children=html.Div([],id='result-content', style=self_style.result_content),
                             color='red',
-                            style= {'height': '90%'}
                         ),
                     ], style=self_style.result_frame) # Results
                 ], style=self_style.inner_frame_style), # inner-frame
             ], style=self_style.top_frame_style), # top-frame
-        ]) # canvas-div
+        ], style=self_style.top_div_style) # canvas-div
 
         ### callbacks
         # 1. Links -> filter-content
@@ -742,6 +741,7 @@ class DashBuilder(object):
                 else:
                     return df_etf_tpex 
                 # return total_query
+                # return ['{}\n'.format(i) for i in range(9999)]
             else:
                 return ''
 
