@@ -19,7 +19,10 @@ def create_filters(button_id):
                                         html.P('100', style=self_style.text_normal),
                                         html.P(' 張以上', style=self_style.text_normal),
                                     ], style=self_style.item_style),
-                                    html.Img(src=add_img_path, n_clicks=0, style=self_style.button_style,
+                                    html.Button(
+                                        html.Img(src=add_img_path, className='add-img-style'), 
+                                        n_clicks=0, 
+                                        className='btn-style', 
                                     id={
                                         'type': 'filter-btn',
                                         'index': button_id + '-add-0501'
@@ -34,7 +37,10 @@ def create_filters(button_id):
                                         html.P('100', style=self_style.text_normal),
                                         html.P(' %以上', style=self_style.text_normal),
                                     ], style=self_style.item_style),
-                                    html.Img(src=add_img_path, n_clicks=0, style=self_style.button_style,
+                                    html.Button(
+                                        html.Img(src=add_img_path, className='add-img-style'), 
+                                        n_clicks=0, 
+                                        className='btn-style', 
                                     id={
                                         'type': 'filter-btn',
                                         'index': button_id + '-add-0502'
@@ -49,7 +55,10 @@ def create_filters(button_id):
                                         html.P('100', style=self_style.text_normal),
                                         html.P(' 張以上', style=self_style.text_normal),
                                     ], style=self_style.item_style),
-                                    html.Img(src=add_img_path, n_clicks=0, style=self_style.button_style,
+                                    html.Button(
+                                        html.Img(src=add_img_path, className='add-img-style'), 
+                                        n_clicks=0, 
+                                        className='btn-style', 
                                     id={
                                         'type': 'filter-btn',
                                         'index': button_id + '-add-0503'
@@ -64,7 +73,10 @@ def create_filters(button_id):
                                         html.P('100', style=self_style.text_normal),
                                         html.P(' %以上', style=self_style.text_normal),
                                     ], style=self_style.item_style),
-                                    html.Img(src=add_img_path, n_clicks=0, style=self_style.button_style,
+                                    html.Button(
+                                        html.Img(src=add_img_path, className='add-img-style'), 
+                                        n_clicks=0, 
+                                        className='btn-style', 
                                     id={
                                         'type': 'filter-btn',
                                         'index': button_id + '-add-0504'
@@ -79,7 +91,10 @@ def create_filters(button_id):
                                         html.P('100', style=self_style.text_normal),
                                         html.P(' 張以上', style=self_style.text_normal),
                                     ], style=self_style.item_style),
-                                    html.Img(src=add_img_path, n_clicks=0, style=self_style.button_style,
+                                    html.Button(
+                                        html.Img(src=add_img_path, className='add-img-style'), 
+                                        n_clicks=0, 
+                                        className='btn-style', 
                                     id={
                                         'type': 'filter-btn',
                                         'index': button_id + '-add-0505'
@@ -94,7 +109,10 @@ def create_filters(button_id):
                                         html.P('100', style=self_style.text_normal),
                                         html.P(' %以上', style=self_style.text_normal),
                                     ], style=self_style.item_style),
-                                    html.Img(src=add_img_path, n_clicks=0, style=self_style.button_style,
+                                    html.Button(
+                                        html.Img(src=add_img_path, className='add-img-style'), 
+                                        n_clicks=0, 
+                                        className='btn-style', 
                                     id={
                                         'type': 'filter-btn',
                                         'index': button_id + '-add-0506'
@@ -162,7 +180,10 @@ def create_0501(output_count):
                                             ], style=self_style.ipt_div_style),
                                             html.P('張以上', style=self_style.text_normal),
                                         ], style=self_style.output_item_style),
-                                        html.Img(src=delete_img_path, n_clicks=0, style=self_style.button_style,
+                                        html.Button(
+                                            html.Img(src=delete_img_path, className='delete-img-style'), 
+                                            n_clicks=0, 
+                                            className='btn-style', 
                                                 id={'type':'output-btn',
                                                     'index': str(output_count)})
                                     ])
@@ -226,7 +247,10 @@ def create_0502(output_count):
                                             ], style=self_style.ipt_div_style),
                                             html.P('%以上', style=self_style.text_normal),
                                         ], style=self_style.output_item_style),
-                                        html.Img(src=delete_img_path, n_clicks=0, style=self_style.button_style,
+                                        html.Button(
+                                            html.Img(src=delete_img_path, className='delete-img-style'), 
+                                            n_clicks=0, 
+                                            className='btn-style', 
                                                 id={'type':'output-btn',
                                                     'index': str(output_count)})
                                     ])
@@ -290,7 +314,10 @@ def create_0503(output_count):
                                             ], style=self_style.ipt_div_style),
                                             html.P('張以上', style=self_style.text_normal),
                                         ], style=self_style.output_item_style),
-                                        html.Img(src=delete_img_path, n_clicks=0, style=self_style.button_style,
+                                        html.Button(
+                                            html.Img(src=delete_img_path, className='delete-img-style'), 
+                                            n_clicks=0, 
+                                            className='btn-style', 
                                                 id={'type':'output-btn',
                                                     'index': str(output_count)})
                                     ])
@@ -354,7 +381,10 @@ def create_0504(output_count):
                                             ], style=self_style.ipt_div_style),
                                             html.P('%以上', style=self_style.text_normal),
                                         ], style=self_style.output_item_style),
-                                        html.Img(src=delete_img_path, n_clicks=0, style=self_style.button_style,
+                                        html.Button(
+                                            html.Img(src=delete_img_path, className='delete-img-style'), 
+                                            n_clicks=0, 
+                                            className='btn-style', 
                                                 id={'type':'output-btn',
                                                     'index': str(output_count)})
                                     ])
@@ -418,7 +448,10 @@ def create_0505(output_count):
                                             ], style=self_style.ipt_div_style),
                                             html.P('張以上', style=self_style.text_normal),
                                         ], style=self_style.output_item_style),
-                                        html.Img(src=delete_img_path, n_clicks=0, style=self_style.button_style,
+                                        html.Button(
+                                            html.Img(src=delete_img_path, className='delete-img-style'), 
+                                            n_clicks=0, 
+                                            className='btn-style', 
                                                 id={'type':'output-btn',
                                                     'index': str(output_count)})
                                     ])
@@ -482,7 +515,10 @@ def create_0506(output_count):
                                             ], style=self_style.ipt_div_style),
                                             html.P('%以上', style=self_style.text_normal),
                                         ], style=self_style.output_item_style),
-                                        html.Img(src=delete_img_path, n_clicks=0, style=self_style.button_style,
+                                        html.Button(
+                                            html.Img(src=delete_img_path, className='delete-img-style'), 
+                                            n_clicks=0, 
+                                            className='btn-style', 
                                                 id={'type':'output-btn',
                                                     'index': str(output_count)})
                                     ])

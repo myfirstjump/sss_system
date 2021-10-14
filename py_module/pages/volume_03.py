@@ -19,10 +19,13 @@ def create_filters(button_id):
                                         html.P('50000', style=self_style.text_normal),
                                         html.P('張之股票', style=self_style.text_normal),
                                     ], style=self_style.item_style),
-                                    html.Img(src=add_img_path, n_clicks=0, style=self_style.button_style, 
-                                    id={
-                                        'type': 'filter-btn',
-                                        'index': button_id + '-add-0301'
+                                    html.Button(
+                                        html.Img(src=add_img_path, className='add-img-style'), 
+                                        n_clicks=0, 
+                                        className='btn-style', 
+                                        id={
+                                            'type': 'filter-btn',
+                                            'index': button_id + '-add-0301'
                                     })
                                 ]),
                                 html.Div([
@@ -34,10 +37,13 @@ def create_filters(button_id):
                                         html.P('1000', style=self_style.text_normal),
                                         html.P('張之股票', style=self_style.text_normal),
                                     ], style=self_style.item_style),
-                                    html.Img(src=add_img_path, n_clicks=0, style=self_style.button_style, 
-                                    id={
-                                        'type': 'filter-btn',
-                                        'index': button_id + '-add-0302'
+                                    html.Button(
+                                        html.Img(src=add_img_path, className='add-img-style'), 
+                                        n_clicks=0, 
+                                        className='btn-style', 
+                                        id={
+                                            'type': 'filter-btn',
+                                            'index': button_id + '-add-0302'
                                     })
                                 ]),
                                 html.Div([
@@ -49,10 +55,13 @@ def create_filters(button_id):
                                         html.P('1000', style=self_style.text_normal),
                                         html.P('張之股票', style=self_style.text_normal),
                                     ], style=self_style.item_style),
-                                    html.Img(src=add_img_path, n_clicks=0, style=self_style.button_style, 
-                                    id={
-                                        'type': 'filter-btn',
-                                        'index': button_id + '-add-0303'
+                                    html.Button(
+                                        html.Img(src=add_img_path, className='add-img-style'), 
+                                        n_clicks=0, 
+                                        className='btn-style', 
+                                        id={
+                                            'type': 'filter-btn',
+                                            'index': button_id + '-add-0303'
                                     })
                                 ]),   
                                 html.Div([
@@ -64,7 +73,10 @@ def create_filters(button_id):
                                         html.P('1000', style=self_style.text_normal),
                                         html.P('張之股票', style=self_style.text_normal),
                                     ], style=self_style.item_style),
-                                    html.Img(src=add_img_path, n_clicks=0, style=self_style.button_style, 
+                                    html.Button(
+                                        html.Img(src=add_img_path, className='add-img-style'), 
+                                        n_clicks=0, 
+                                        className='btn-style', 
                                     id={
                                         'type': 'filter-btn',
                                         'index': button_id + '-add-0304'
@@ -79,7 +91,10 @@ def create_filters(button_id):
                                         html.P('20', style=self_style.text_normal),
                                         html.P('% 之股票', style=self_style.text_normal),
                                     ], style=self_style.item_style),
-                                    html.Img(src=add_img_path, n_clicks=0, style=self_style.button_style, 
+                                    html.Button(
+                                        html.Img(src=add_img_path, className='add-img-style'), 
+                                        n_clicks=0, 
+                                        className='btn-style', 
                                     id={
                                         'type': 'filter-btn',
                                         'index': button_id + '-add-0305'
@@ -94,7 +109,10 @@ def create_filters(button_id):
                                         html.P('20', style=self_style.text_normal),
                                         html.P('% 之股票', style=self_style.text_normal),
                                     ], style=self_style.item_style),
-                                    html.Img(src=add_img_path, n_clicks=0, style=self_style.button_style, 
+                                    html.Button(
+                                        html.Img(src=add_img_path, className='add-img-style'), 
+                                        n_clicks=0, 
+                                        className='btn-style', 
                                     id={
                                         'type': 'filter-btn',
                                         'index': button_id + '-add-0306'
@@ -160,7 +178,10 @@ def create_0301(output_count):
                                             ], style=self_style.ipt_div_style),
                                             html.P('張之股票', style=self_style.text_normal),
                                         ], style=self_style.output_item_style),
-                                        html.Img(src=delete_img_path, n_clicks=0, style=self_style.button_style,
+                                        html.Button(
+                                            html.Img(src=delete_img_path, className='delete-img-style'), 
+                                            n_clicks=0, 
+                                            className='btn-style', 
                                                 id={'type':'output-btn',
                                                     'index': str(output_count)})
                                     ])
@@ -223,7 +244,10 @@ def create_0302(output_count):
                                             ], style=self_style.ipt_div_style),
                                             html.P('張之股票', style=self_style.text_normal),
                                         ], style=self_style.output_item_style),
-                                        html.Img(src=delete_img_path, n_clicks=0, style=self_style.button_style,
+                                        html.Button(
+                                            html.Img(src=delete_img_path, className='delete-img-style'), 
+                                            n_clicks=0, 
+                                            className='btn-style', 
                                                 id={'type':'output-btn',
                                                     'index': str(output_count)})
                                     ])
@@ -287,7 +311,10 @@ def create_0303(output_count):
                                             ], style=self_style.ipt_div_style),
                                             html.P('張之股票', style=self_style.text_normal),
                                         ], style=self_style.output_item_style),
-                                        html.Img(src=delete_img_path, n_clicks=0, style=self_style.button_style,
+                                        html.Button(
+                                            html.Img(src=delete_img_path, className='delete-img-style'), 
+                                            n_clicks=0, 
+                                            className='btn-style', 
                                                 id={'type':'output-btn',
                                                     'index': str(output_count)})
                                     ])
@@ -351,7 +378,10 @@ def create_0304(output_count):
                                             ], style=self_style.ipt_div_style),
                                             html.P('張之股票', style=self_style.text_normal),
                                         ], style=self_style.output_item_style),
-                                        html.Img(src=delete_img_path, n_clicks=0, style=self_style.button_style,
+                                        html.Button(
+                                            html.Img(src=delete_img_path, className='delete-img-style'), 
+                                            n_clicks=0, 
+                                            className='btn-style', 
                                                 id={'type':'output-btn',
                                                     'index': str(output_count)})
                                     ])
@@ -415,7 +445,10 @@ def create_0305(output_count):
                                             ], style=self_style.ipt_div_style),
                                             html.P('% 之股票', style=self_style.text_normal),
                                         ], style=self_style.output_item_style),
-                                        html.Img(src=delete_img_path, n_clicks=0, style=self_style.button_style,
+                                        html.Button(
+                                            html.Img(src=delete_img_path, className='delete-img-style'), 
+                                            n_clicks=0, 
+                                            className='btn-style', 
                                                 id={'type':'output-btn',
                                                     'index': str(output_count)})
                                     ])
@@ -479,7 +512,10 @@ def create_0306(output_count):
                                             ], style=self_style.ipt_div_style),
                                             html.P('% 之股票', style=self_style.text_normal),
                                         ], style=self_style.output_item_style),
-                                        html.Img(src=delete_img_path, n_clicks=0, style=self_style.button_style,
+                                        html.Button(
+                                            html.Img(src=delete_img_path, className='delete-img-style'), 
+                                            n_clicks=0, 
+                                            className='btn-style', 
                                                 id={'type':'output-btn',
                                                     'index': str(output_count)})
                                     ])

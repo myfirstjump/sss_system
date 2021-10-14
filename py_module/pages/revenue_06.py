@@ -17,7 +17,10 @@ def create_filters(button_id):
                                         html.P('5', style=self_style.text_bold),
                                         html.P('億元', style=self_style.text_normal),
                                     ], style=self_style.item_style),
-                                    html.Img(src=add_img_path, n_clicks=0, style=self_style.button_style,
+                                    html.Button(
+                                        html.Img(src=add_img_path, className='add-img-style'), 
+                                        n_clicks=0, 
+                                        className='btn-style', 
                                     id={
                                         'type': 'filter-btn',
                                         'index': button_id + '-add-0601'
@@ -61,7 +64,10 @@ def create_0601(output_count):
                                             
                                             html.P('億元', style=self_style.text_normal),
                                         ], style=self_style.output_item_style),
-                                        html.Img(src=delete_img_path, n_clicks=0, style=self_style.button_style,
+                                        html.Button(
+                                            html.Img(src=delete_img_path, className='delete-img-style'), 
+                                            n_clicks=0, 
+                                            className='btn-style', 
                                                 id={'type':'output-btn',
                                                     'index': str(output_count)})
                                     ])

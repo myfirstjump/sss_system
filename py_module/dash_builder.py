@@ -38,8 +38,8 @@ class DashBuilder(object):
         }
 
         self.arrow_img = 'assets/arrow_img.png'
-        self.clear_img = 'assets/all_clear.png'
-        self.start_img = 'assets/start_btn.png'
+        self.clear_img = 'assets/全部取消_未.png'
+        self.start_img = 'assets/開始選股_未點擊.png'
 
         self.app.layout = html.Div([
             html.Div([
@@ -121,55 +121,70 @@ class DashBuilder(object):
                         html.Div([
                             html.Img(src=self.start_img,
                                 id='selection-btn',
-                                style=self_style.selection_btn),
+                                style=self_style.selection_btn,
+                                className='selection-btn'),
                             html.Img(src=self.clear_img,
                                 id='clear-all-btn',
-                                style=self_style.selection_btn)
+                                style=self_style.selection_btn,
+                                className='clear-btn')
                         ]),
                     ], style=self_style.condition_frame),
 
                     html.Div([
                         html.Div(['篩選結果'], style=self_style.frame_text_style),
                         
-                        html.Div([
-                            html.Div('台灣證券交易所 TWSE (上市)', style=self_style.result_words),
-                            dcc.Loading(
-                                id='result-loading-twse',
-                                type='default',
-                                children=html.Div([],id='dynamic-selection-result-twse'),
-                                color='red'
-                            )
-                        ],style=self_style.result_div_normal),
+                        dcc.Tabs(id='results-tabs', value='dynamic-selection-result-twse', # value是預設顯示值
+                            children=[
+                                dcc.Tab(label='台灣證券交易所 TWSE (上市)', value='dynamic-selection-result-twse', style=self_style.result_words),
+                                dcc.Tab(label='櫃買中心 TPEX (上櫃)', value='dynamic-selection-result-tpex', style=self_style.result_words),
+                                dcc.Tab(label='上市 ETF', value='dynamic-selection-result-twse-etf', style=self_style.result_words),
+                                dcc.Tab(label='上櫃 ETF', value='dynamic-selection-result-tpex-etf', style=self_style.result_words),
+                        ]),
+                        dcc.Loading(
+                            id='result-content-loading',
+                            type='default',
+                            children=html.Div([],id='result-content'),
+                            color='red',
+                        ),
+                        # html.Div([
+                        #     html.Div('台灣證券交易所 TWSE (上市)', style=self_style.result_words),
+                        #     dcc.Loading(
+                        #         id='result-loading-twse',
+                        #         type='default',
+                        #         children=html.Div([],id='dynamic-selection-result-twse'),
+                        #         color='red'
+                        #     )
+                        # ],style=self_style.result_div_normal),
                         
-                        html.Div([
-                            html.Div('櫃買中心 TPEX (上櫃)', style=self_style.result_words),
-                            dcc.Loading(
-                                id='result-loading-tpex',
-                                type='default',
-                                children=html.Div([],id='dynamic-selection-result-tpex'),
-                                color='red',
-                            )
-                        ],style=self_style.result_div_normal),
+                        # html.Div([
+                        #     html.Div('櫃買中心 TPEX (上櫃)', style=self_style.result_words),
+                        #     dcc.Loading(
+                        #         id='result-loading-tpex',
+                        #         type='default',
+                        #         children=html.Div([],id='dynamic-selection-result-tpex'),
+                        #         color='red',
+                        #     )
+                        # ],style=self_style.result_div_normal),
                                                     
-                        html.Div([
-                            html.Div('上市 ETF', style=self_style.result_words),
-                            dcc.Loading(
-                                id='result-loading-twse-etf',
-                                type='default',
-                                children=html.Div([],id='dynamic-selection-result-twse-etf'),
-                                color='red',
-                            )
-                        ],style=self_style.result_div_etf),
+                        # html.Div([
+                        #     html.Div('上市 ETF', style=self_style.result_words),
+                        #     dcc.Loading(
+                        #         id='result-loading-twse-etf',
+                        #         type='default',
+                        #         children=html.Div([],id='dynamic-selection-result-twse-etf'),
+                        #         color='red',
+                        #     )
+                        # ],style=self_style.result_div_etf),
                         
-                        html.Div([
-                            html.Div('上櫃 ETF', style=self_style.result_words),
-                            dcc.Loading(
-                                id='result-loading-tpex-etf',
-                                type='default',
-                                children=html.Div([],id='dynamic-selection-result-tpex-etf'),
-                                color='red',
-                            )
-                        ],style=self_style.result_div_etf),
+                        # html.Div([
+                        #     html.Div('上櫃 ETF', style=self_style.result_words),
+                        #     dcc.Loading(
+                        #         id='result-loading-tpex-etf',
+                        #         type='default',
+                        #         children=html.Div([],id='dynamic-selection-result-tpex-etf'),
+                        #         color='red',
+                        #     )
+                        # ],style=self_style.result_div_etf),
                     ], style=self_style.result_frame) # Results
                 ], style=self_style.inner_frame_style), # inner-frame
             ], style=self_style.top_frame_style), # top-frame
@@ -611,20 +626,17 @@ class DashBuilder(object):
         # 3. dynamic-output-container -> dynamic-selection-result
  
         @self.app.callback(
-            Output('dynamic-selection-result-twse', 'children'),
-            Output('dynamic-selection-result-tpex', 'children'),
-            Output('dynamic-selection-result-twse-etf', 'children'),
-            Output('dynamic-selection-result-tpex-etf', 'children'),
+            Output('result-content', 'children'),
             Input('selection-btn', 'n_clicks'),
-            # State('dynamic-output-container', 'children'),
+            Input('results-tabs', 'value'),
             State({'type': ALL, 'index': '0101'}, 'value'), State({'type': ALL, 'index': '0102'}, 'value'), State({'type': ALL, 'index': '0103'}, 'value'),
             State({'type': ALL, 'index': '0201'}, 'value'), State({'type': ALL, 'index': '0202'}, 'value'), State({'type': ALL, 'index': '0203'}, 'value'), State({'type': ALL, 'index': '0204'}, 'value'), State({'type': ALL, 'index': '0205'}, 'value'),
             State({'type': ALL, 'index': '0301'}, 'value'), State({'type': ALL, 'index': '0302'}, 'value'), State({'type': ALL, 'index': '0303'}, 'value'), State({'type': ALL, 'index': '0304'}, 'value'), State({'type': ALL, 'index': '0305'}, 'value'), State({'type': ALL, 'index': '0306'}, 'value'),
             State({'type': ALL, 'index': '0401'}, 'value'), State({'type': ALL, 'index': '0402'}, 'value'), State({'type': ALL, 'index': '0403'}, 'value'), State({'type': ALL, 'index': '0404'}, 'value'), State({'type': ALL, 'index': '0405'}, 'value'), State({'type': ALL, 'index': '0406'}, 'value'),
             State({'type': ALL, 'index': '0501'}, 'value'), State({'type': ALL, 'index': '0502'}, 'value'), State({'type': ALL, 'index': '0503'}, 'value'), State({'type': ALL, 'index': '0504'}, 'value'), State({'type': ALL, 'index': '0505'}, 'value'), State({'type': ALL, 'index': '0506'}, 'value'),
-            State({'type': ALL, 'index': '0601'}, 'value'), 
+            State({'type': ALL, 'index': '0601'}, 'value'),   
         )
-        def output_result(btn, value0101, value0102, value0103, value0201, value0202, value0203, value0204, value0205, value0301, value0302, value0303, value0304, value0305, value0306, value0401, value0402, value0403, value0404, value0405, value0406, value0501, value0502, value0503, value0504, value0505, value0506, value0601):
+        def output_result(btn, tab_value, value0101, value0102, value0103, value0201, value0202, value0203, value0204, value0205, value0301, value0302, value0303, value0304, value0305, value0306, value0401, value0402, value0403, value0404, value0405, value0406, value0501, value0502, value0503, value0504, value0505, value0506, value0601):
             
             print('selection-btn:', btn)
             value_dict = {
@@ -731,40 +743,45 @@ class DashBuilder(object):
                         pass
                 total_query = query_sentence.query_combine(query_dict)
                 print('final query:', total_query)
-                # data = query_sentence.sql_execute(total_query)
+                data = query_sentence.sql_execute(total_query)
                 
-                # if len(data) == 0:
-                #     return '無符合項目', '無符合項目', '無符合項目', '無符合項目'
-                # else:
-                #     data = pd.DataFrame.from_records(data)
-                #     df_twse, df_tpex, df_etf_twse, df_etf_tpex = stock_classifier(data)
+                if len(data) == 0:
+                    return '無符合項目'
+                else:
+                    data = pd.DataFrame.from_records(data)
+                    df_twse, df_tpex, df_etf_twse, df_etf_tpex = stock_classifier(data)
                     
-                #     if df_twse.shape[0] == 0:
-                #         df_twse = '無符合項目'
-                #     else:
-                #         df_twse = generate_table(df_twse)
+                    if df_twse.shape[0] == 0:
+                        df_twse = '無符合項目'
+                    else:
+                        df_twse = generate_table(df_twse)
                     
-                #     if df_tpex.shape[0] == 0:
-                #         df_tpex = '無符合項目'
-                #     else:
-                #         df_tpex = generate_table(df_tpex)
+                    if df_tpex.shape[0] == 0:
+                        df_tpex = '無符合項目'
+                    else:
+                        df_tpex = generate_table(df_tpex)
                     
-                #     if df_etf_twse.shape[0] == 0:
-                #         df_etf_twse = '無符合項目'
-                #     else:
-                #         df_etf_twse = generate_table(df_etf_twse)
+                    if df_etf_twse.shape[0] == 0:
+                        df_etf_twse = '無符合項目'
+                    else:
+                        df_etf_twse = generate_table(df_etf_twse)
                     
-                #     if df_etf_tpex.shape[0] == 0:
-                #         df_etf_tpex = '無符合項目'
-                #     else:
-                #         df_etf_tpex = generate_table(df_etf_tpex)
+                    if df_etf_tpex.shape[0] == 0:
+                        df_etf_tpex = '無符合項目'
+                    else:
+                        df_etf_tpex = generate_table(df_etf_tpex)
                     
-                # return df_twse, df_tpex, df_etf_twse, df_etf_tpex
-                return total_query, total_query, total_query, total_query
-                
+                if tab_value == 'dynamic-selection-result-twse':
+                    return df_twse
+                elif tab_value == 'dynamic-selection-result-tpex':
+                    return df_tpex
+                elif tab_value == 'dynamic-selection-result-twse-etf':
+                    return df_etf_twse 
+                else:
+                    return df_etf_tpex 
+                # return total_query
             else:
-                return '', '', '', ''
-
+                return ''
 
         self.app.run_server(debug=True, dev_tools_hot_reload=True)#, dev_tools_ui=False, dev_tools_props_check=False)
 

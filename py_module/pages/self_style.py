@@ -27,7 +27,7 @@ top_div_style = {
 
 top_frame_style = {
     'width': '99%', 
-    'height': '1000px', 
+    'height': '1800px', 
     'margin':'auto', 
     'padding':'1%',   
     'background-color': top_div_bg,  
@@ -39,8 +39,8 @@ menu_style = {
     # 'background-color': '#E9D9D9', 
     # 'border':'solid 1px #C2B5B5',
     # 'border-radius':'15px',
-    'width': '15%', 
-    'height': '900px', 
+    'width': '10%', 
+    'height': '1800px', 
     'margin':'1%', 
     'display':'inline-block',
     'verticalAlign':'middle',
@@ -49,8 +49,8 @@ menu_style = {
 
 inner_frame_style = {
     'background-color': inner_frame_bg,
-    'width': '75%', 
-    'height': '900px',
+    'width': '85%', 
+    'height': '1800px',
     'margin': '1%',
     'display':'inline-block',
     'verticalAlign':'middle',
@@ -60,7 +60,7 @@ inner_frame_style = {
 filter_frame = {
     'background-color': filter_condition_bg, 
     'width': '47%', 
-    'height': '50%', 
+    'height': '25%', 
     'overflow': 'auto',
     'margin': '1%',
     'verticalAlign':'middle',
@@ -75,7 +75,7 @@ filter_frame = {
 condition_frame = {
     'background-color': filter_condition_bg, #E9D9D9
     'width': '47%', 
-    'height': '50%',
+    'height': '25%',
     'overflow': 'auto',
     'margin': '1%',
     'verticalAlign': "middle",
@@ -89,12 +89,14 @@ condition_frame = {
 
 selection_btn = {
     'width': '47%',
+    'border-radius': '10%',
+    'margin': '1%',
 }
 
 result_frame = { 
     'background-color': filter_condition_bg, 
     'width': '96%', 
-    'height': '40%',
+    'height': '60%',
     'border-radius':'25px', 
     'margin':'1%',
     'display':'inline-block',
@@ -103,10 +105,10 @@ result_frame = {
 
 result_div_normal = {
 
-    'height': '77%',
+    'height': '25%',
     'border-radius': '10px',
     'overflow': 'auto',
-    'width': '27%',
+    'width': '95%',
     'display': 'inline-block',
     'background-color': result_bg,
     'margin': '0.5%',
@@ -114,10 +116,10 @@ result_div_normal = {
 
 result_div_etf = {
 
-    'height': '77%',
+    'height': '25%',
     'border-radius': '10px',
     'overflow': 'auto',
-    'width': '20%',
+    'width': '95%',
     'display': 'inline-block',
     'background-color': result_bg,
     'margin': '0.4%',
@@ -176,7 +178,7 @@ item_style = {
     'border-radius':'15px',
     'background-color': item_bg,
     'display':'inline-block',
-    'width': '70%',
+    'width': '75%',
     'border':'solid 1px black',  
 }
 
@@ -188,7 +190,7 @@ output_item_style = {
     'border-radius':'15px',
     'background-color': item_bg,
     'display':'inline-block',
-    'width': '77%',
+    'width': '82%',
     'border':'solid 1px black',  
 }
 

@@ -18,12 +18,14 @@ def create_filters(button_id):
                                     html.Span([
                                         html.P('公司隸屬產業別篩選', style=self_style.text_normal),
                                     ], style=self_style.item_style),
-                                    html.Img(src=add_img_path, n_clicks=0, style=self_style.button_style, 
+                                    html.Button(
+                                        html.Img(src=add_img_path, className='add-img-style'), 
+                                        n_clicks=0, 
+                                        className='btn-style', 
                                     id={ 
                                         'type': 'filter-btn',
                                         'index': button_id + '-add-0101'
-                                    },
-                                    className='img-btn')
+                                    })
                                 ]),
                                 html.Div([
                                     html.Span([
@@ -33,7 +35,10 @@ def create_filters(button_id):
                                         html.P('億元', style=self_style.text_normal),
                                         
                                     ], style=self_style.item_style),
-                                    html.Img(src=add_img_path, n_clicks=0, style=self_style.button_style, 
+                                    html.Button(
+                                        html.Img(src=add_img_path, className='add-img-style'), 
+                                        n_clicks=0, 
+                                        className='btn-style', 
                                     id={
                                         'type': 'filter-btn',
                                         'index': button_id + '-add-0102'
@@ -47,7 +52,10 @@ def create_filters(button_id):
                                         html.P('億元', style=self_style.text_normal),
                                         
                                     ], style=self_style.item_style),
-                                    html.Img(src=add_img_path, n_clicks=0, style=self_style.button_style, 
+                                    html.Button(
+                                        html.Img(src=add_img_path, className='add-img-style'), 
+                                        n_clicks=0, 
+                                        className='btn-style', 
                                     id={
                                         'type': 'filter-btn',
                                         'index': button_id + '-add-0103'
@@ -77,7 +85,10 @@ def create_0101(output_count, data):
                                                     clearable=True),
                                             ], style=self_style.dp_div_style),
                                         ], style=self_style.output_item_style),
-                                        html.Img(src=delete_img_path, n_clicks=0, style=self_style.button_style,
+                                        html.Button(
+                                            html.Img(src=delete_img_path, className='delete-img-style'), 
+                                            n_clicks=0, 
+                                            className='btn-style', 
                                             id={'type':'output-btn',
                                                 'index': str(output_count)})
                                     ])
@@ -114,7 +125,10 @@ def create_0102(output_count):
                                             ], style=self_style.ipt_div_style),
                                             html.P('億元', style=self_style.text_normal),
                                         ], style=self_style.output_item_style),
-                                        html.Img(src=delete_img_path, n_clicks=0, style=self_style.button_style,
+                                        html.Button(
+                                            html.Img(src=delete_img_path, className='delete-img-style'), 
+                                            n_clicks=0, 
+                                            className='btn-style', 
                                             id={'type':'output-btn',
                                                 'index': str(output_count)})
                                     ])
@@ -150,7 +164,10 @@ def create_0103(output_count):
                                             ], style=self_style.ipt_div_style),
                                             html.P('億元', style=self_style.text_normal),
                                         ], style=self_style.output_item_style),
-                                        html.Img(src=delete_img_path, n_clicks=0, style=self_style.button_style,
+                                        html.Button(
+                                            html.Img(src=delete_img_path, className='delete-img-style'), 
+                                            n_clicks=0, 
+                                            className='btn-style', 
                                             id={'type':'output-btn',
                                                 'index': str(output_count)})
                                     ])

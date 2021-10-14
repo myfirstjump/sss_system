@@ -2,3 +2,45 @@
 .menu-btn:hover, onclick{
     background-color: #B2CCF2;
 }
+
+.btn-style {
+    background-color: #212130;
+    display:inlin-block;
+    width: 10%;
+    border-radius: 50%;
+    border: hidden;
+    vertical-align: middle;
+}
+
+/* button */
+.add-img-style {
+    background-color: #212130;
+    width: 80%;
+    border-radius: 50%;
+}
+
+.delete-img-style {
+    background-color: #212130;
+    width: 80%;
+    border-radius: 50%;
+}
+.add-img-style:hover {
+    background-color: #a3dbab;
+} 
+
+
+.delete-img-style:hover {
+    background-color: #c1dfec;
+}
+
+
+
+/* start & clear */
+.selection-btn:hover {
+    background-color: blue;
+}
+
+.clear-btn:hover {
+    background-color: #EA5716;
+}
+
