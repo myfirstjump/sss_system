@@ -130,6 +130,7 @@ result_content = {
     'font-size': '28px',
     'color': 'white',
     'overflow': 'auto',
+    'border': 'solid 1px white',
 }
 
 menu_btn = {
