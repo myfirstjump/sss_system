@@ -125,6 +125,12 @@ result_div_etf = {
     'margin': '0.4%',
 }
 
+result_content = {
+    'margin': '5%',
+    'font-size': '28px',
+    'color': 'white',
+}
+
 menu_btn = {
     'background-color': top_div_bg,
     'color': 'white',

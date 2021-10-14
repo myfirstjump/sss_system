@@ -143,48 +143,9 @@ class DashBuilder(object):
                         dcc.Loading(
                             id='result-content-loading',
                             type='default',
-                            children=html.Div([],id='result-content'),
+                            children=html.Div([],id='result-content', style=self_style.result_content),
                             color='red',
                         ),
-                        # html.Div([
-                        #     html.Div('台灣證券交易所 TWSE (上市)', style=self_style.result_words),
-                        #     dcc.Loading(
-                        #         id='result-loading-twse',
-                        #         type='default',
-                        #         children=html.Div([],id='dynamic-selection-result-twse'),
-                        #         color='red'
-                        #     )
-                        # ],style=self_style.result_div_normal),
-                        
-                        # html.Div([
-                        #     html.Div('櫃買中心 TPEX (上櫃)', style=self_style.result_words),
-                        #     dcc.Loading(
-                        #         id='result-loading-tpex',
-                        #         type='default',
-                        #         children=html.Div([],id='dynamic-selection-result-tpex'),
-                        #         color='red',
-                        #     )
-                        # ],style=self_style.result_div_normal),
-                                                    
-                        # html.Div([
-                        #     html.Div('上市 ETF', style=self_style.result_words),
-                        #     dcc.Loading(
-                        #         id='result-loading-twse-etf',
-                        #         type='default',
-                        #         children=html.Div([],id='dynamic-selection-result-twse-etf'),
-                        #         color='red',
-                        #     )
-                        # ],style=self_style.result_div_etf),
-                        
-                        # html.Div([
-                        #     html.Div('上櫃 ETF', style=self_style.result_words),
-                        #     dcc.Loading(
-                        #         id='result-loading-tpex-etf',
-                        #         type='default',
-                        #         children=html.Div([],id='dynamic-selection-result-tpex-etf'),
-                        #         color='red',
-                        #     )
-                        # ],style=self_style.result_div_etf),
                     ], style=self_style.result_frame) # Results
                 ], style=self_style.inner_frame_style), # inner-frame
             ], style=self_style.top_frame_style), # top-frame
