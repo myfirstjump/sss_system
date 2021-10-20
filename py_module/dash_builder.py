@@ -274,7 +274,7 @@ class DashBuilder(object):
 
                     new_children = basic_01.create_0101(stored_data['output_count'], stock_data)
                     children.append(new_children)
-                    return children stored_data
+                    return children, stored_data
                 elif (button_id == '{"index":"01-btn-add-0102","type":"filter-btn"}'):
                     print('filter 0102 clicked!')
                     # record
@@ -286,7 +286,7 @@ class DashBuilder(object):
                     print('Record:', stored_data['selection_record'])
                     new_children = basic_01.create_0102(stored_data['output_count'])
                     children.append(new_children)
-                    return children stored_data
+                    return children, stored_data
                 elif (button_id == '{"index":"01-btn-add-0103","type":"filter-btn"}'):
                     print('filter 0103 clicked!')
                     # record
@@ -298,7 +298,7 @@ class DashBuilder(object):
                     print('Record:', stored_data['selection_record'])
                     new_children = basic_01.create_0103(stored_data['output_count'])
                     children.append(new_children)
-                    return children stored_data
+                    return children, stored_data
                 elif (button_id == '{"index":"02-btn-add-0201","type":"filter-btn"}') and (f_btn > 0):
                     print('filter 0201 clicked!')
                     # record
@@ -310,7 +310,7 @@ class DashBuilder(object):
                     print('Record:', stored_data['selection_record'])
                     new_children = price_02.create_0201(stored_data['output_count'])
                     children.append(new_children)
-                    return children stored_data
+                    return children, stored_data
                 elif (button_id == '{"index":"02-btn-add-0202","type":"filter-btn"}'):
                     print('filter 0202 clicked!')
                     # record
@@ -322,7 +322,7 @@ class DashBuilder(object):
                     print('Record:', stored_data['selection_record']) 
                     new_children = price_02.create_0202(stored_data['output_count'])
                     children.append(new_children)
-                    return children stored_data
+                    return children, stored_data
                 elif (button_id == '{"index":"02-btn-add-0203","type":"filter-btn"}'):
                     print('filter 0203 clicked!')
                     # record
@@ -334,7 +334,7 @@ class DashBuilder(object):
                     print('Record:', stored_data['selection_record'])
                     new_children = price_02.create_0203(stored_data['output_count'])
                     children.append(new_children)
-                    return children stored_data
+                    return children, stored_data
                 elif (button_id == '{"index":"02-btn-add-0204","type":"filter-btn"}'):
                     print('filter 0204 clicked!')
                     # record
@@ -346,7 +346,7 @@ class DashBuilder(object):
                     print('Record:', stored_data['selection_record'])
                     new_children = price_02.create_0204(stored_data['output_count'])
                     children.append(new_children)
-                    return children stored_data
+                    return children, stored_data
                 elif (button_id == '{"index":"02-btn-add-0205","type":"filter-btn"}'):
                     print('filter 0205 clicked!')
                     # record
@@ -358,7 +358,7 @@ class DashBuilder(object):
                     print('Record:', stored_data['selection_record'])
                     new_children = price_02.create_0205(stored_data['output_count'])
                     children.append(new_children)
-                    return children stored_data
+                    return children, stored_data
                 elif (button_id == '{"index":"03-btn-add-0301","type":"filter-btn"}') and (f_btn > 0):
                     print('filter 0301 clicked!')
                     # record
@@ -370,7 +370,7 @@ class DashBuilder(object):
                     print('Record:', stored_data['selection_record'])
                     new_children = volume_03.create_0301(stored_data['output_count'])
                     children.append(new_children)
-                    return children stored_data
+                    return children, stored_data
                 elif (button_id == '{"index":"03-btn-add-0302","type":"filter-btn"}'):
                     print('filter 0302 clicked!')
                     # record
@@ -382,7 +382,7 @@ class DashBuilder(object):
                     print('Record:', stored_data['selection_record']) 
                     new_children = volume_03.create_0302(stored_data['output_count'])
                     children.append(new_children)
-                    return children stored_data
+                    return children, stored_data
                 elif (button_id == '{"index":"03-btn-add-0303","type":"filter-btn"}'):
                     print('filter 0303 clicked!')
                     # record
@@ -394,7 +394,7 @@ class DashBuilder(object):
                     print('Record:', stored_data['selection_record'])
                     new_children = volume_03.create_0303(stored_data['output_count'])
                     children.append(new_children)
-                    return children stored_data
+                    return children, stored_data
                 elif (button_id == '{"index":"03-btn-add-0304","type":"filter-btn"}'):
                     print('filter 0304 clicked!')
                     # record
@@ -406,7 +406,7 @@ class DashBuilder(object):
                     print('Record:', stored_data['selection_record'])
                     new_children = volume_03.create_0304(stored_data['output_count'])
                     children.append(new_children)
-                    return children stored_data
+                    return children, stored_data
                 elif (button_id == '{"index":"03-btn-add-0305","type":"filter-btn"}'):
                     print('filter 0305 clicked!')
                     # record
@@ -418,7 +418,7 @@ class DashBuilder(object):
                     print('Record:', stored_data['selection_record'])
                     new_children = volume_03.create_0305(stored_data['output_count'])
                     children.append(new_children)
-                    return children stored_data
+                    return children, stored_data
                 elif (button_id == '{"index":"03-btn-add-0306","type":"filter-btn"}'):
                     print('filter 0306 clicked!')
                     # record
@@ -430,7 +430,7 @@ class DashBuilder(object):
                     print('Record:', stored_data['selection_record']) 
                     new_children = volume_03.create_0306(stored_data['output_count'])
                     children.append(new_children)
-                    return children stored_data               
+                    return children, stored_data               
                 elif (button_id == '{"index":"04-btn-add-0401","type":"filter-btn"}') and (f_btn > 0):
                     print('filter 0401 clicked!')
                     # record
@@ -442,7 +442,7 @@ class DashBuilder(object):
                     print('Record:', stored_data['selection_record'])
                     new_children = legal_04.create_0401(stored_data['output_count'])
                     children.append(new_children)
-                    return children stored_data
+                    return children, stored_data
                 elif (button_id == '{"index":"04-btn-add-0402","type":"filter-btn"}'):
                     print('filter 0402 clicked!')
                     # record
@@ -454,7 +454,7 @@ class DashBuilder(object):
                     print('Record:', stored_data['selection_record'])
                     new_children = legal_04.create_0402(stored_data['output_count'])
                     children.append(new_children)
-                    return children stored_data
+                    return children, stored_data
                 elif (button_id == '{"index":"04-btn-add-0403","type":"filter-btn"}'):
                     print('filter 0403 clicked!')
                     # record
@@ -466,7 +466,7 @@ class DashBuilder(object):
                     print('Record:', stored_data['selection_record'])
                     new_children = legal_04.create_0403(stored_data['output_count'])
                     children.append(new_children)
-                    return children stored_data
+                    return children, stored_data
                 elif (button_id == '{"index":"04-btn-add-0404","type":"filter-btn"}'):
                     print('filter 0404 clicked!')
                     # record
@@ -478,7 +478,7 @@ class DashBuilder(object):
                     print('Record:', stored_data['selection_record']) 
                     new_children = legal_04.create_0404(stored_data['output_count'])
                     children.append(new_children)
-                    return children stored_data
+                    return children, stored_data
                 elif (button_id == '{"index":"04-btn-add-0405","type":"filter-btn"}'):
                     print('filter 0405 clicked!')
                     # record
@@ -490,7 +490,7 @@ class DashBuilder(object):
                     print('Record:', stored_data['selection_record'])
                     new_children = legal_04.create_0405(stored_data['output_count'])
                     children.append(new_children)
-                    return children stored_data
+                    return children, stored_data
                 elif (button_id == '{"index":"04-btn-add-0406","type":"filter-btn"}'):
                     print('filter 0406 clicked!')
                     # record
@@ -502,7 +502,7 @@ class DashBuilder(object):
                     print('Record:', stored_data['selection_record'])
                     new_children = legal_04.create_0406(stored_data['output_count'])
                     children.append(new_children)
-                    return children stored_data
+                    return children, stored_data
                 elif (button_id == '{"index":"05-btn-add-0501","type":"filter-btn"}') and (f_btn > 0):
                     print('filter 0501 clicked!')
                     # record
@@ -514,7 +514,7 @@ class DashBuilder(object):
                     print('Record:', stored_data['selection_record'])
                     new_children = credit_05.create_0501(stored_data['output_count'])
                     children.append(new_children)
-                    return children stored_data
+                    return children, stored_data
                 elif (button_id == '{"index":"05-btn-add-0502","type":"filter-btn"}'):
                     print('filter 0502 clicked!')
                     # record
@@ -526,7 +526,7 @@ class DashBuilder(object):
                     print('Record:', stored_data['selection_record'])
                     new_children = credit_05.create_0502(stored_data['output_count'])
                     children.append(new_children)
-                    return children stored_data
+                    return children, stored_data
                 elif (button_id == '{"index":"05-btn-add-0503","type":"filter-btn"}'):
                     print('filter 0503 clicked!')
                     # record
@@ -538,7 +538,7 @@ class DashBuilder(object):
                     print('Record:', stored_data['selection_record'])
                     new_children = credit_05.create_0503(stored_data['output_count'])
                     children.append(new_children)
-                    return children stored_data 
+                    return children, stored_data 
                 elif (button_id == '{"index":"05-btn-add-0504","type":"filter-btn"}'):
                     print('filter 0504 clicked!')
                     # record
@@ -550,7 +550,7 @@ class DashBuilder(object):
                     print('Record:', stored_data['selection_record'])
                     new_children = credit_05.create_0504(stored_data['output_count'])
                     children.append(new_children)
-                    return children stored_data 
+                    return children, stored_data 
                 elif (button_id == '{"index":"05-btn-add-0505","type":"filter-btn"}'):
                     print('filter 0505 clicked!')
                     # record
@@ -562,7 +562,7 @@ class DashBuilder(object):
                     print('Record:', stored_data['selection_record']) 
                     new_children = credit_05.create_0505(stored_data['output_count'])
                     children.append(new_children)
-                    return children stored_data 
+                    return children, stored_data 
                 elif (button_id == '{"index":"05-btn-add-0506","type":"filter-btn"}'):
                     print('filter 0506 clicked!')
                     # record
@@ -574,7 +574,7 @@ class DashBuilder(object):
                     print('Record:', stored_data['selection_record'])
                     new_children = credit_05.create_0506(stored_data['output_count'])
                     children.append(new_children)
-                    return children stored_data 
+                    return children, stored_data 
                 elif (button_id == '{"index":"06-btn-add-0601","type":"filter-btn"}') and (f_btn > 0):
                     print('filter 0601 clicked!')
                     # record
@@ -586,9 +586,9 @@ class DashBuilder(object):
                     print('Record:', stored_data['selection_record']) 
                     new_children = revenue_06.create_0601(stored_data['output_count'])
                     children.append(new_children)
-                    return children stored_data
+                    return children, stored_data
                 else:
-                    return children stored_data
+                    return children, stored_data
             elif clearing:
                 ctx = dash.callback_context 
                 button_id = ctx.triggered[0]['prop_id'].split('.')[0]
@@ -612,7 +612,7 @@ class DashBuilder(object):
             else:
                 print('Dont know which filter was clicked!')
 
-            return children stored_data
+            return children, stored_data
 
 
         # 3. dynamic-output-container -> dynamic-selection-result
