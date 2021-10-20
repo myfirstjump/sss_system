@@ -607,7 +607,7 @@ class DashBuilder(object):
                 stored_data = stored_data or {'output_count': 0, 'output_record': [], 'selection_record': []}
                 stored_data['output_record'] = []
                 stored_data['selection_record'] = []
-                return []
+                return [], stored_data
 
             else:
                 print('Dont know which filter was clicked!')
@@ -736,43 +736,43 @@ class DashBuilder(object):
                         pass
                 total_query = query_sentence.query_combine(query_dict)
                 print('final query:', total_query)
-                data = query_sentence.sql_execute(total_query)
+                # data = query_sentence.sql_execute(total_query)
                 
-                if len(data) == 0:
-                    return '無符合項目'
-                else:
-                    data = pd.DataFrame.from_records(data)
-                    df_twse, df_tpex, df_etf_twse, df_etf_tpex = stock_classifier(data)
+                # if len(data) == 0:
+                #     return '無符合項目'
+                # else:
+                #     data = pd.DataFrame.from_records(data)
+                #     df_twse, df_tpex, df_etf_twse, df_etf_tpex = stock_classifier(data)
                     
-                    if df_twse.shape[0] == 0:
-                        df_twse = '無符合項目'
-                    else:
-                        df_twse = generate_table(df_twse)
+                #     if df_twse.shape[0] == 0:
+                #         df_twse = '無符合項目'
+                #     else:
+                #         df_twse = generate_table(df_twse)
                     
-                    if df_tpex.shape[0] == 0:
-                        df_tpex = '無符合項目'
-                    else:
-                        df_tpex = generate_table(df_tpex)
+                #     if df_tpex.shape[0] == 0:
+                #         df_tpex = '無符合項目'
+                #     else:
+                #         df_tpex = generate_table(df_tpex)
                     
-                    if df_etf_twse.shape[0] == 0:
-                        df_etf_twse = '無符合項目'
-                    else:
-                        df_etf_twse = generate_table(df_etf_twse)
+                #     if df_etf_twse.shape[0] == 0:
+                #         df_etf_twse = '無符合項目'
+                #     else:
+                #         df_etf_twse = generate_table(df_etf_twse)
                     
-                    if df_etf_tpex.shape[0] == 0:
-                        df_etf_tpex = '無符合項目'
-                    else:
-                        df_etf_tpex = generate_table(df_etf_tpex)
+                #     if df_etf_tpex.shape[0] == 0:
+                #         df_etf_tpex = '無符合項目'
+                #     else:
+                #         df_etf_tpex = generate_table(df_etf_tpex)
                     
-                if tab_value == 'dynamic-selection-result-twse':
-                    return df_twse
-                elif tab_value == 'dynamic-selection-result-tpex':
-                    return df_tpex
-                elif tab_value == 'dynamic-selection-result-twse-etf':
-                    return df_etf_twse 
-                else:
-                    return df_etf_tpex 
-                # return total_query
+                # if tab_value == 'dynamic-selection-result-twse':
+                #     return df_twse
+                # elif tab_value == 'dynamic-selection-result-tpex':
+                #     return df_tpex
+                # elif tab_value == 'dynamic-selection-result-twse-etf':
+                #     return df_etf_twse 
+                # else:
+                #     return df_etf_tpex 
+                return total_query
                 # return ['{}\n'.format(i) for i in range(9999)]
             else:
                 return ''
