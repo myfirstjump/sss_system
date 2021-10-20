@@ -1,4 +1,4 @@
-# import pymssql
+import pymssql
 import datetime
 from datetime import timedelta
 from string import ascii_lowercase
