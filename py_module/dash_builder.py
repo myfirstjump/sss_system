@@ -627,7 +627,7 @@ class DashBuilder(object):
             State({'type': ALL, 'index': '0401'}, 'value'), State({'type': ALL, 'index': '0402'}, 'value'), State({'type': ALL, 'index': '0403'}, 'value'), State({'type': ALL, 'index': '0404'}, 'value'), State({'type': ALL, 'index': '0405'}, 'value'), State({'type': ALL, 'index': '0406'}, 'value'),
             State({'type': ALL, 'index': '0501'}, 'value'), State({'type': ALL, 'index': '0502'}, 'value'), State({'type': ALL, 'index': '0503'}, 'value'), State({'type': ALL, 'index': '0504'}, 'value'), State({'type': ALL, 'index': '0505'}, 'value'), State({'type': ALL, 'index': '0506'}, 'value'),
             State({'type': ALL, 'index': '0601'}, 'value'),
-            State('stored_data', 'data'),  
+            State('stored_data', 'data'),
         )
         def output_result(btn, tab_value, value0101, value0102, value0103, value0201, value0202, value0203, value0204, value0205, value0301, value0302, value0303, value0304, value0305, value0306, value0401, value0402, value0403, value0404, value0405, value0406, value0501, value0502, value0503, value0504, value0505, value0506, value0601, stored_data):
             
@@ -736,43 +736,43 @@ class DashBuilder(object):
                         pass
                 total_query = query_sentence.query_combine(query_dict)
                 print('final query:', total_query)
-                data = query_sentence.sql_execute(total_query)
+                # data = query_sentence.sql_execute(total_query)
                 
-                if len(data) == 0:
-                    return '無符合項目'
-                else:
-                    data = pd.DataFrame.from_records(data)
-                    df_twse, df_tpex, df_etf_twse, df_etf_tpex = stock_classifier(data)
+                # if len(data) == 0:
+                #     return '無符合項目'
+                # else:
+                #     data = pd.DataFrame.from_records(data)
+                #     df_twse, df_tpex, df_etf_twse, df_etf_tpex = stock_classifier(data)
                     
-                    if df_twse.shape[0] == 0:
-                        df_twse = '無符合項目'
-                    else:
-                        df_twse = generate_table(df_twse)
+                #     if df_twse.shape[0] == 0:
+                #         df_twse = '無符合項目'
+                #     else:
+                #         df_twse = generate_table(df_twse)
                     
-                    if df_tpex.shape[0] == 0:
-                        df_tpex = '無符合項目'
-                    else:
-                        df_tpex = generate_table(df_tpex)
+                #     if df_tpex.shape[0] == 0:
+                #         df_tpex = '無符合項目'
+                #     else:
+                #         df_tpex = generate_table(df_tpex)
                     
-                    if df_etf_twse.shape[0] == 0:
-                        df_etf_twse = '無符合項目'
-                    else:
-                        df_etf_twse = generate_table(df_etf_twse)
+                #     if df_etf_twse.shape[0] == 0:
+                #         df_etf_twse = '無符合項目'
+                #     else:
+                #         df_etf_twse = generate_table(df_etf_twse)
                     
-                    if df_etf_tpex.shape[0] == 0:
-                        df_etf_tpex = '無符合項目'
-                    else:
-                        df_etf_tpex = generate_table(df_etf_tpex)
+                #     if df_etf_tpex.shape[0] == 0:
+                #         df_etf_tpex = '無符合項目'
+                #     else:
+                #         df_etf_tpex = generate_table(df_etf_tpex)
                     
-                if tab_value == 'dynamic-selection-result-twse':
-                    return df_twse
-                elif tab_value == 'dynamic-selection-result-tpex':
-                    return df_tpex
-                elif tab_value == 'dynamic-selection-result-twse-etf':
-                    return df_etf_twse 
-                else:
-                    return df_etf_tpex 
-                # return total_query
+                # if tab_value == 'dynamic-selection-result-twse':
+                #     return df_twse
+                # elif tab_value == 'dynamic-selection-result-tpex':
+                #     return df_tpex
+                # elif tab_value == 'dynamic-selection-result-twse-etf':
+                #     return df_etf_twse 
+                # else:
+                #     return df_etf_tpex 
+                return total_query
                 # return ['{}\n'.format(i) for i in range(9999)]
             else:
                 return ''
