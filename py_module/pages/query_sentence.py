@@ -83,6 +83,21 @@ def create_query_0101(cate_str):
     query = '''(SELECT stock_id FROM {} WITH(NOLOCK) WHERE industry_category IN {})'''.format(skill_info, cate_str)
     return query 
 
+def create_query_0102(larger, price):
+    '''公司股本(大於/小於)(100)億元'''
+    if larger == '1':
+        sign = '>='
+    else:
+        sign = '<'
+        
+    price = price * 100000
+
+    query = '''(SELECT stock_id FROM STOCK_SKILL_DB.dbo.TW_STOCK_CAPITAL WHERE Capital {} {})'''.format(sign, price)
+    
+    return query
+
+
+
 def create_query_0201(larger, price):
     if larger == '1':
         sign = '>='

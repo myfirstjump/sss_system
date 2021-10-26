@@ -633,8 +633,7 @@ class DashBuilder(object):
             
             print('selection-btn:', btn)
             value_dict = {
-                '0101': value0101,
-                '0102': value0102, '0103': value0103, 
+                '0101': value0101, '0102': value0102, '0103': value0103, 
                 '0201': value0201, '0202': value0202, '0203': value0203, '0204': value0204, '0205': value0205, 
                 '0301': value0301, '0302': value0302, '0303': value0303, '0304': value0304, '0305': value0305,  '0306': value0306,
                 '0401': value0401, '0402': value0402, '0403': value0403, '0404': value0404, '0405': value0405,  '0406': value0406,
@@ -663,6 +662,9 @@ class DashBuilder(object):
                     if selection_code == '0101':
                         query = query_sentence.create_query_0101(value_dict[selection_code][0])
                         query_dict[idx] = query
+                    elif selection_code == '0102':
+                        query = query_sentence.create_query_0102(value_dict[selection_code][0], value_dict[selection_code][1])
+                        query_dict[idx] = query    
                     elif selection_code == '0201':
                         query = query_sentence.create_query_0201(value_dict[selection_code][0], value_dict[selection_code][1])
                         query_dict[idx] = query
