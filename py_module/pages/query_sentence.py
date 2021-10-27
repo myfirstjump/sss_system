@@ -1,4 +1,4 @@
-# import pymssql
+import pymssql
 import datetime
 from datetime import timedelta
 from string import ascii_lowercase
@@ -34,6 +34,7 @@ skill_price_w = 'STOCK_SKILL_DB.dbo.TW_STOCK_PRICE_Weekly'
 skill_price_m = 'STOCK_SKILL_DB.dbo.TW_STOCK_PRICE_monthly'
 counter_legal_d = 'STOCK_COUNTER_DB.dbo.TW_STOCK_LEGALPERSON_Daily'
 counter_margin_d = 'STOCK_COUNTER_DB.dbo.TW_STOCK_MARGINTRADE_SHORTSELL_Daily'
+counter_loanshare_d = 'STOCK_COUNTER_DB.dbo.TW_STOCK_LOANSHARE_Daily'
 
 # Query Combination
 def query_combine(query_dict):
@@ -95,6 +96,8 @@ def create_query_0102(larger, price):
     query = '''(SELECT stock_id FROM STOCK_SKILL_DB.dbo.TW_STOCK_CAPITAL WHERE Capital {} {})'''.format(sign, price)
     
     return query
+
+
 
 
 
@@ -570,42 +573,42 @@ def create_query_0504(days, period, direct, lot):
 
     return query
 
-# def create_query_0505(days, period, direct, lot):
+def create_query_0505(days, period, direct, lot):
 
-#     """0505 借券於[3][日]內均[增加/減少][100]張以上"""
-#     if direct == '1':
-#         sign = '>='
-#     else:
-#         sign = '<='
-#         lot = -lot
+    """0505 借券於[3][日]內均[增加/減少][100]張以上"""
+    if direct == '1':
+        sign = '>='
+    else:
+        sign = '<='
+        lot = -lot
 
-#     query = '''
-#     (SELECT stock_id FROM
-#     (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY date DESC) row_num
-#     FROM {} WITH(NOLOCK)
-#     WHERE date > (GETDATE()-({}+10))) part_tbl
-#     WHERE part_tbl.row_num <= {}
-#     GROUP BY part_tbl.stock_id HAVING SUM(part_tbl.SHORTSELL_ratio) {} {} )
-#     '''.format(counter_margin_d, days, days, sign, lot)
+    query = '''
+    (SELECT stock_id FROM
+    (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY date DESC) row_num
+    FROM {} WITH(NOLOCK)
+    WHERE date > (GETDATE()-({}+10))) part_tbl
+    WHERE part_tbl.row_num <= {}
+    GROUP BY part_tbl.stock_id HAVING SUM(part_tbl.shortsell_spread) {} {} )
+    '''.format(counter_loanshare_d, days, days, sign, lot)
 
-#     return query
+    return query
 
-# def create_query_0506(days, period, direct, lot):
+def create_query_0506(days, period, direct, lot):
 
-#     """0506 借券於[3][日]內均[增加/減少][20]%以上"""
-#     if direct == '1':
-#         sign = '>='
-#     else:
-#         sign = '<='
-#         lot = -lot
+    """0506 借券於[3][日]內均[增加/減少][20]%以上"""
+    if direct == '1':
+        sign = '>='
+    else:
+        sign = '<='
+        lot = -lot
 
-#     query = '''
-#     (SELECT stock_id FROM
-#     (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY date DESC) row_num
-#     FROM {} WITH(NOLOCK)
-#     WHERE date > (GETDATE()-({}+10))) part_tbl
-#     WHERE part_tbl.row_num <= {}
-#     GROUP BY part_tbl.stock_id HAVING SUM(part_tbl.SHORTSELL_ratio) {} {} )
-#     '''.format(counter_margin_d, days, days, sign, lot)
+    query = '''
+    (SELECT stock_id FROM
+    (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY date DESC) row_num
+    FROM {} WITH(NOLOCK)
+    WHERE date > (GETDATE()-({}+10))) part_tbl
+    WHERE part_tbl.row_num <= {}
+    GROUP BY part_tbl.stock_id HAVING SUM(part_tbl.shortsell_ratio) {} {} )
+    '''.format(counter_loanshare_d, days, days, sign, lot)
 
-#     return query
+    return query
