@@ -113,7 +113,12 @@ def create_query_0103(larger, price):
 
 def create_query_0104(larger, ratio):
     '''董監持股比例(大於)(50)%之股票'''
-    query = '''(SELECT stock_id FROM {} GROUP BY stock_id HAVING SUM(share_ratio) {} {})'''.format(basic_info_supervisor, larger, ratio)
+    if larger == '1':
+        sign = '>='
+    else:
+        sign = '<'
+
+    query = '''(SELECT stock_id FROM {} GROUP BY stock_id HAVING SUM(share_ratio) {} {})'''.format(basic_info_supervisor, sign, ratio)
 
     return query
 
