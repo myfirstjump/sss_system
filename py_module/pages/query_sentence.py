@@ -29,6 +29,7 @@ from string import ascii_lowercase
 # this_year_start = datetime.datetime(today.year, 1, 1).date()
 # #print('本年第一天: {}'.format(this_year_start))
 skill_info = 'STOCK_SKILL_DB.dbo.TW_STOCK_INFO'
+basic_info_supervisor = 'STOCK_BASICINTO_DB.dbo.TW_STOCK_Director_Supervisor'
 skill_price_d = 'STOCK_SKILL_DB.dbo.TW_STOCK_PRICE_Daily'
 skill_price_w = 'STOCK_SKILL_DB.dbo.TW_STOCK_PRICE_Weekly'
 skill_price_m = 'STOCK_SKILL_DB.dbo.TW_STOCK_PRICE_monthly'
@@ -97,6 +98,24 @@ def create_query_0102(larger, price):
     
     return query
 
+def create_query_0103(larger, price):
+    '''公司股本(大於/小於)(100)億元'''
+    if larger == '1':
+        sign = '>='
+    else:
+        sign = '<'
+        
+    price = price * 100000
+
+    query = '''(SELECT stock_id FROM STOCK_SKILL_DB.dbo.TW_STOCK_CAPITAL WHERE Capital {} {})'''.format(sign, price)
+    
+    return query
+
+def create_query_0104(larger, ratio):
+    '''董監持股比例(大於)(50)%之股票'''
+    query = '''(SELECT stock_id FROM {} GROUP BY stock_id HAVING SUM(share_ratio) {} {})'''.format(basic_info_supervisor, larger, ratio)
+
+    return query
 
 
 
@@ -588,7 +607,7 @@ def create_query_0505(days, period, direct, lot):
     FROM {} WITH(NOLOCK)
     WHERE date > (GETDATE()-({}+10))) part_tbl
     WHERE part_tbl.row_num <= {}
-    GROUP BY part_tbl.stock_id HAVING SUM(part_tbl.shortsell_spread) {} {} )
+    GROUP BY part_tbl.stock_id HAVING SUM(part_tbl.load_spread) {} {} )
     '''.format(counter_loanshare_d, days, days, sign, lot)
 
     return query
@@ -608,7 +627,7 @@ def create_query_0506(days, period, direct, lot):
     FROM {} WITH(NOLOCK)
     WHERE date > (GETDATE()-({}+10))) part_tbl
     WHERE part_tbl.row_num <= {}
-    GROUP BY part_tbl.stock_id HAVING SUM(part_tbl.shortsell_ratio) {} {} )
+    GROUP BY part_tbl.stock_id HAVING SUM(part_tbl.load_ratio) {} {} )
     '''.format(counter_loanshare_d, days, days, sign, lot)
 
     return query

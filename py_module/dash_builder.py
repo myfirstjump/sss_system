@@ -204,6 +204,7 @@ class DashBuilder(object):
             '{"index":"01-btn-add-0101","type":"filter-btn"}.n_clicks',
             '{"index":"01-btn-add-0102","type":"filter-btn"}.n_clicks',
             '{"index":"01-btn-add-0103","type":"filter-btn"}.n_clicks',
+            '{"index":"01-btn-add-0104","type":"filter-btn"}.n_clicks',
             # 2
             '{"index":"02-btn-add-0201","type":"filter-btn"}.n_clicks',
             '{"index":"02-btn-add-0202","type":"filter-btn"}.n_clicks',
@@ -297,6 +298,18 @@ class DashBuilder(object):
                     stored_data['selection_record'].append('0103')
                     print('Record:', stored_data['selection_record'])
                     new_children = basic_01.create_0103(stored_data['output_count'])
+                    children.append(new_children)
+                    return children, stored_data
+                elif (button_id == '{"index":"01-btn-add-0104","type":"filter-btn"}'):
+                    print('filter 0104 clicked!')
+                    # record
+                    stored_data = stored_data or {'output_count': 0, 'output_record': [], 'selection_record': []}
+                    stored_data['output_count'] += 1
+                    stored_data['output_record'].append(stored_data['output_count'])
+                    print('Record:', stored_data['output_record'])
+                    stored_data['selection_record'].append('0104')
+                    print('Record:', stored_data['selection_record'])
+                    new_children = basic_01.create_0104(stored_data['output_count'])
                     children.append(new_children)
                     return children, stored_data
                 elif (button_id == '{"index":"02-btn-add-0201","type":"filter-btn"}') and (f_btn > 0):
@@ -621,7 +634,7 @@ class DashBuilder(object):
             Output('result-content', 'children'),
             Input('selection-btn', 'n_clicks'),
             Input('results-tabs', 'value'),
-            State({'type': ALL, 'index': '0101'}, 'value'), State({'type': ALL, 'index': '0102'}, 'value'), State({'type': ALL, 'index': '0103'}, 'value'),
+            State({'type': ALL, 'index': '0101'}, 'value'), State({'type': ALL, 'index': '0102'}, 'value'), State({'type': ALL, 'index': '0103'}, 'value'), State({'type': ALL, 'index': '0104'}, 'value'),
             State({'type': ALL, 'index': '0201'}, 'value'), State({'type': ALL, 'index': '0202'}, 'value'), State({'type': ALL, 'index': '0203'}, 'value'), State({'type': ALL, 'index': '0204'}, 'value'), State({'type': ALL, 'index': '0205'}, 'value'),
             State({'type': ALL, 'index': '0301'}, 'value'), State({'type': ALL, 'index': '0302'}, 'value'), State({'type': ALL, 'index': '0303'}, 'value'), State({'type': ALL, 'index': '0304'}, 'value'), State({'type': ALL, 'index': '0305'}, 'value'), State({'type': ALL, 'index': '0306'}, 'value'),
             State({'type': ALL, 'index': '0401'}, 'value'), State({'type': ALL, 'index': '0402'}, 'value'), State({'type': ALL, 'index': '0403'}, 'value'), State({'type': ALL, 'index': '0404'}, 'value'), State({'type': ALL, 'index': '0405'}, 'value'), State({'type': ALL, 'index': '0406'}, 'value'),
@@ -629,11 +642,11 @@ class DashBuilder(object):
             State({'type': ALL, 'index': '0601'}, 'value'),
             State('stored_data', 'data'),
         )
-        def output_result(btn, tab_value, value0101, value0102, value0103, value0201, value0202, value0203, value0204, value0205, value0301, value0302, value0303, value0304, value0305, value0306, value0401, value0402, value0403, value0404, value0405, value0406, value0501, value0502, value0503, value0504, value0505, value0506, value0601, stored_data):
+        def output_result(btn, tab_value, value0101, value0102, value0103, value0104, value0201, value0202, value0203, value0204, value0205, value0301, value0302, value0303, value0304, value0305, value0306, value0401, value0402, value0403, value0404, value0405, value0406, value0501, value0502, value0503, value0504, value0505, value0506, value0601, stored_data):
             
             print('selection-btn:', btn)
             value_dict = {
-                '0101': value0101, '0102': value0102, '0103': value0103, 
+                '0101': value0101, '0102': value0102, '0103': value0103, '0104': value0104,
                 '0201': value0201, '0202': value0202, '0203': value0203, '0204': value0204, '0205': value0205, 
                 '0301': value0301, '0302': value0302, '0303': value0303, '0304': value0304, '0305': value0305,  '0306': value0306,
                 '0401': value0401, '0402': value0402, '0403': value0403, '0404': value0404, '0405': value0405,  '0406': value0406,
@@ -664,7 +677,13 @@ class DashBuilder(object):
                         query_dict[idx] = query
                     elif selection_code == '0102':
                         query = query_sentence.create_query_0102(value_dict[selection_code][0], value_dict[selection_code][1])
-                        query_dict[idx] = query    
+                        query_dict[idx] = query
+                    elif selection_code == '0103':
+                        query = query_sentence.create_query_0103(value_dict[selection_code][0], value_dict[selection_code][1])
+                        query_dict[idx] = query
+                    elif selection_code == '0104':
+                        query = query_sentence.create_query_0104(value_dict[selection_code][0], value_dict[selection_code][1])
+                        query_dict[idx] = query 
                     elif selection_code == '0201':
                         query = query_sentence.create_query_0201(value_dict[selection_code][0], value_dict[selection_code][1])
                         query_dict[idx] = query
