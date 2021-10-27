@@ -118,10 +118,27 @@ def create_query_0104(larger, ratio):
     else:
         sign = '<'
 
-    query = '''(SELECT stock_id FROM {} GROUP BY stock_id HAVING SUM(share_ratio) {} {})'''.format(basic_info_supervisor, sign, ratio)
+    query = '''(SELECT stock_id FROM (SELECT stock_id, AVG(share_ratio) new_share_ratio FROM {} 
+            GROUP BY stock_id, name) t1
+            GROUP BY stock_id HAVING SUM(new_share_ratio) {} {})'''.format(basic_info_supervisor, sign, ratio)
 
     return query
 
+def create_query_0105(larger, ratio):
+    '''董監質押比例(大於)(10)%之股票'''
+    if larger == '1':
+        sign = '>='
+    else:
+        sign = '<'
+
+    query = '''(SELECT stock_id FROM (SELECT stock_id, AVG(pledge_ratio) new_pledge_ratio FROM {} 
+            GROUP BY stock_id, name) t1
+            GROUP BY stock_id HAVING SUM(new_pledge_ratio) {} {})'''.format(basic_info_supervisor, sign, ratio)
+
+    return query
+
+
+ 
 
 
 

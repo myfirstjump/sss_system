@@ -78,6 +78,23 @@ def create_filters(button_id):
                                         'index': button_id + '-add-0104'
                                     })                                    
                                 ]),
+                                html.Div([
+                                    html.Span([
+                                        html.P('董監質押比例', style=self_style.text_normal), # normal text
+                                        html.P('大於', style=self_style.text_bold), # bold text
+                                        html.P('50', style=self_style.text_bold),
+                                        html.P('%之股票', style=self_style.text_normal),
+                                        
+                                    ], style=self_style.item_style),
+                                    html.Button(
+                                        html.Img(src=add_img_path, className='add-img-style'), 
+                                        n_clicks=0, 
+                                        className='btn-style', 
+                                    id={
+                                        'type': 'filter-btn',
+                                        'index': button_id + '-add-0105'
+                                    })                                    
+                                ]),
                             ])   
     return content
 
@@ -216,7 +233,46 @@ def create_0104(output_count):
                                                     min=0,
                                                     max=99999,
                                                     value=50,
-                                                    placeholder='5',
+                                                    placeholder='50',
+                                                    style=self_style.input_style),
+                                            ], style=self_style.ipt_div_style),
+                                            html.P('%之股票', style=self_style.text_normal),
+                                        ], style=self_style.output_item_style),
+                                        html.Button(
+                                            html.Img(src=delete_img_path, className='delete-img-style'), 
+                                            n_clicks=0, 
+                                            className='btn-style', 
+                                            id={'type':'output-btn',
+                                                'index': str(output_count)})
+                                    ])
+    return new_children
+
+def create_0105(output_count):
+    new_children = html.Div([
+                                        html.Span([
+                                            html.P('董監質押比例', style=self_style.text_normal),
+                                            html.Div([
+                                                dcc.Dropdown(
+                                                    id={'type':'dd',
+                                                        'index': '0105'},
+                                                    options=[
+                                                        {'label': '大於', 'value': '1'},
+                                                        {'label': '小於', 'value': '-1'},
+                                                    ],
+                                                    value='1',
+                                                    placeholder='大於',
+                                                    clearable=False,
+                                                    style=self_style.dropdown_style),
+                                            ], style=self_style.dp_div_style),
+                                            html.Div([
+                                                dcc.Input(
+                                                    id={'type':'ip',
+                                                        'index': '0105'},
+                                                    type='number',
+                                                    min=0,
+                                                    max=99999,
+                                                    value=10,
+                                                    placeholder='10',
                                                     style=self_style.input_style),
                                             ], style=self_style.ipt_div_style),
                                             html.P('%之股票', style=self_style.text_normal),
