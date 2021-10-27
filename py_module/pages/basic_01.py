@@ -82,7 +82,7 @@ def create_filters(button_id):
                                     html.Span([
                                         html.P('董監質押比例', style=self_style.text_normal), # normal text
                                         html.P('大於', style=self_style.text_bold), # bold text
-                                        html.P('50', style=self_style.text_bold),
+                                        html.P('10', style=self_style.text_bold),
                                         html.P('%之股票', style=self_style.text_normal),
                                         
                                     ], style=self_style.item_style),
