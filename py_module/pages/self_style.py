@@ -284,7 +284,7 @@ short_input_style = {
 ipt_div_style = {
     'verticalAlign': 'middle', 
     'display':'inline-block',
-    'width':'75px',
+    'width':'95px',# input_style 80px大一些
     'border':'solid 1px',
     'border-color': emphsis_code,
     'border-radius': '7px',
@@ -294,8 +294,7 @@ ipt_div_style = {
 short_ipt_div_style = {
     'verticalAlign': 'middle', 
     'display':'inline-block',
-    'width':'55px',
-    
+    'width':'55px', # 要較short_input_style 40px大一些
     'border':'solid 1px',
     'border-color': emphsis_code,
     'border-radius': '7px',
