@@ -260,7 +260,7 @@ dp_div_style = { #dropdown外層div
 input_style = {
     'display':'inline-block',
     'verticalAlign': 'middle',
-    'width':'60px',
+    'width':'80px',
     'height': '27px',
     #'border':'solid 1px',
     'font-size':'15px',
