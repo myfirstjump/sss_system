@@ -15,6 +15,8 @@ from string import ascii_lowercase
 skill_info = 'STOCK_SKILL_DB.dbo.TW_STOCK_INFO'
 basic_info_supervisor = 'STOCK_BASICINTO_DB.dbo.TW_STOCK_Director_Supervisor'
 basic_info_revenue_m = 'STOCK_BASICINTO_DB.dbo.TW_STOCK_MonthRevenue'
+basic_info_revenue_q = 'STOCK_BASICINTO_DB.dbo.TW_STOCK_MonthRevenue_Quarterly'
+basic_info_revenue_y = 'STOCK_BASICINTO_DB.dbo.TW_STOCK_MonthRevenue_Yearly'
 skill_price_d = 'STOCK_SKILL_DB.dbo.TW_STOCK_PRICE_Daily'
 skill_price_w = 'STOCK_SKILL_DB.dbo.TW_STOCK_PRICE_Weekly'
 skill_price_m = 'STOCK_SKILL_DB.dbo.TW_STOCK_PRICE_monthly'
@@ -650,12 +652,19 @@ def create_query_0601(numbers, period, direct, amount):
         sign = '<='
     amount = amount * 1000000 # 以百萬元為單位
 
+    if period == 'q':
+        ref_table = basic_info_revenue_q
+    elif period == 'y':
+        ref_table = basic_info_revenue_y
+    else:
+        ref_table = basic_info_revenue_m
+
     query = '''
     (SELECT stock_id FROM
     (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY date DESC) row_num
     FROM {} WITH(NOLOCK)) part_tbl
     WHERE part_tbl.row_num <= {} AND part_tbl.revenue {} {}
     GROUP BY part_tbl.stock_id)
-    '''.format(basic_info_revenue_m, numbers, sign, amount)
+    '''.format(, numbers, sign, amount)
 
     return query

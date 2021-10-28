@@ -55,10 +55,10 @@ def create_0601(output_count):
                                                     'index': '0601'},
                                                 options=[
                                                     {'label': '月', 'value': 'm'},
-                                                    {'label': '季', 'value': 's'},
+                                                    {'label': '季', 'value': 'q'},
                                                     {'label': '年', 'value': 'y'},
                                                 ],
-                                                value='s',
+                                                value='q',
                                                 placeholder='季',
                                                 clearable=False,
                                                 style=self_style.dropdown_style),
