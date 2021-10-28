@@ -668,3 +668,57 @@ def create_query_0601(numbers, period, direct, amount):
     '''.format(ref_table, numbers, sign, amount)
 
     return query
+
+def create_query_0602(numbers, period, direct, percent):
+
+    """0602 營收連續(3)(月/季/年)(成長/衰退)(5)%以上"""
+
+    if direct == '1':
+        sign = '>='
+    else:
+        sign = '<='
+
+    if period == 'q':
+        ref_table = basic_info_revenue_q
+    elif period == 'y':
+        ref_table = basic_info_revenue_y
+    else:
+        ref_table = basic_info_revenue_m
+
+    query = '''
+    (SELECT stock_id FROM
+    (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY date DESC) row_num
+    FROM {} WITH(NOLOCK)) part_tbl
+    WHERE part_tbl.row_num <= {} AND part_tbl.last_month_ratio {} {}
+    GROUP BY part_tbl.stock_id)
+    '''.format(ref_table, numbers, sign, percent)
+
+    return query
+
+    
+
+def create_query_0603(direct, percent):
+
+    """0603 營收較去年同期(成長/衰退)(5)%以上"""
+
+    if direct == '1':
+        sign = '>='
+    else:
+        sign = '<='
+
+    if period == 'q':
+        ref_table = basic_info_revenue_q
+    elif period == 'y':
+        ref_table = basic_info_revenue_y
+    else:
+        ref_table = basic_info_revenue_m
+
+    query = '''
+    (SELECT stock_id FROM
+    (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY date DESC) row_num
+    FROM {} WITH(NOLOCK)) part_tbl
+    WHERE part_tbl.row_num <= 1 AND part_tbl.lastyear_month_revenue {} {}
+    GROUP BY part_tbl.stock_id)
+    '''.format(ref_table, sign, percent)
+
+    return query
