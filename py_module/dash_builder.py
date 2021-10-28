@@ -670,15 +670,6 @@ class DashBuilder(object):
             if btn == None:
                 raise PreventUpdate
 
-            # now = datetime.datetime.now()
-            # today = now.date()
-            # yesterday = today - timedelta(days=1)
-            # this_week_start = today - timedelta(days=now.weekday())
-            # this_month_start = datetime.datetime(today.year, today.month, 1).date()
-            # quarter_start_month = (today.month - 1) - (today.month - 1) % 3 + 1
-            # this_quarter_start = datetime.datetime(today.year, quarter_start_month, 1).date()
-            # this_year_start = datetime.datetime(today.year, 1, 1).date()
-
             if btn > 0:
                 condition_number = len(stored_data['output_record'])
                 query_dict = {}
@@ -768,6 +759,9 @@ class DashBuilder(object):
                         query_dict[idx] = query
                     elif selection_code == '0506':
                         query = query_sentence.create_query_0506(value_dict[selection_code][0], value_dict[selection_code][1], value_dict[selection_code][2], value_dict[selection_code][3])
+                        query_dict[idx] = query
+                    elif selection_code == '0601':
+                        query = query_sentence.create_query_0601(value_dict[selection_code][0], value_dict[selection_code][1], value_dict[selection_code][2], value_dict[selection_code][3])
                         query_dict[idx] = query
                     else:
                         pass

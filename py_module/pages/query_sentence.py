@@ -3,33 +3,18 @@ import datetime
 from datetime import timedelta
 from string import ascii_lowercase
 
-# now = datetime.datetime.now()
-# today = now.date()
-# #print('今天 is :{}'.format(today))
+            # now = datetime.datetime.now()
+            # today = now.date()
+            # yesterday = today - timedelta(days=1)
+            # this_week_start = today - timedelta(days=now.weekday())
+            # this_month_start = datetime.datetime(today.year, today.month, 1).date()
+            # quarter_start_month = (today.month - 1) - (today.month - 1) % 3 + 1
+            # this_quarter_start = datetime.datetime(today.year, quarter_start_month, 1).date()
+            # this_year_start = datetime.datetime(today.year, 1, 1).date()
 
-# yesterday = today - timedelta(days=1)
-# #print('yesterday is {}'.format(yesterday))
-
-# #print('Now weekday: {}'.format(now.weekday()))
-# #print('yesterday weekday: {}'.format(yesterday.weekday()))
-
-# this_week_start = today - timedelta(days=now.weekday())
-# #print('本周第一天: {}'.format(this_week_start))
-# #print('this week start weekday: {}'.format(this_week_start.weekday()))
-
-# #print('this month: {}'.format(now.month))
-# this_month_start = datetime.datetime(today.year, today.month, 1).date()
-# #print('本月第一天: {}'.format(this_month_start))
-
-# quarter_start_month = (today.month - 1) - (today.month - 1) % 3 + 1
-# #print('this quarter start month: {}'.format(quarter_start_month))
-# this_quarter_start = datetime.datetime(today.year, quarter_start_month, 1).date()
-# #print('本季第一天: {}'.format(this_quarter_start))
-
-# this_year_start = datetime.datetime(today.year, 1, 1).date()
-# #print('本年第一天: {}'.format(this_year_start))
 skill_info = 'STOCK_SKILL_DB.dbo.TW_STOCK_INFO'
 basic_info_supervisor = 'STOCK_BASICINTO_DB.dbo.TW_STOCK_Director_Supervisor'
+basic_info_revenue_m = 'STOCK_BASICINTO_DB.dbo.TW_STOCK_MonthRevenue'
 skill_price_d = 'STOCK_SKILL_DB.dbo.TW_STOCK_PRICE_Daily'
 skill_price_w = 'STOCK_SKILL_DB.dbo.TW_STOCK_PRICE_Weekly'
 skill_price_m = 'STOCK_SKILL_DB.dbo.TW_STOCK_PRICE_monthly'
@@ -651,5 +636,25 @@ def create_query_0506(days, period, direct, lot):
     WHERE part_tbl.row_num <= {}
     GROUP BY part_tbl.stock_id HAVING SUM(part_tbl.load_ratio) {} {} )
     '''.format(counter_loanshare_d, days, days, sign, lot)
+
+    return query
+
+
+def create_query_0601(numbers, period, direct, amount):
+
+    """0601 近(2)(月/季/年)營收(大於)(5)百萬元"""
+
+    if direct == '1':
+        sign = '>='
+    else:
+        sign = '<='
+
+    query = '''
+    (SELECT stock_id FROM
+    (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY date DESC) row_num
+    FROM {} WITH(NOLOCK)) part_tbl
+    WHERE part_tbl.row_num <= {} AND part_tbl.revenue {} {}
+    GROUP BY part_tbl.stock_id)
+    '''.format(basic_info_revenue_m, numbers, sign, amount)
 
     return query
