@@ -67,7 +67,7 @@ def create_0601(output_count):
                                             html.Div([
                                                 dcc.Dropdown(
                                                 id={'type':'dd2',
-                                                    'index': '0202'},
+                                                    'index': '0601'},
                                                 options=[
                                                     {'label': '大於', 'value': '1'},
                                                     {'label': '小於', 'value': '-1'},
@@ -83,7 +83,7 @@ def create_0601(output_count):
                                                     'index': '0601'},
                                                 type='number',
                                                 min=0,
-                                                max=9999,
+                                                max=999999,
                                                 value=100,
                                                 placeholder='100',
                                                 style=self_style.input_style),
