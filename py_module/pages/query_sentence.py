@@ -648,6 +648,7 @@ def create_query_0601(numbers, period, direct, amount):
         sign = '>='
     else:
         sign = '<='
+    amount = amount * 1000000 # 以百萬元為單位
 
     query = '''
     (SELECT stock_id FROM
