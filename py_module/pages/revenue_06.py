@@ -385,7 +385,6 @@ def create_0603(output_count):
     '''0603 營收較去年同期(成長/衰退)(5)%以上'''
     new_children = html.Div([
                                         html.Span([
-                                            html.Div([
                                             html.P('上', style=self_style.text_normal),
                                             html.Div([
                                                 dcc.Dropdown(
