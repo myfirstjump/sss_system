@@ -64,6 +64,8 @@ def create_filters(button_id):
                                 ]),
                                 html.Div([
                                     html.Span([
+                                        html.P('上', style=self_style.text_normal),
+                                        html.P('季', style=self_style.text_bold),
                                         html.P('營收較去年同期', style=self_style.text_normal),
                                         html.P('成長', style=self_style.text_bold),
                                         html.P('5', style=self_style.text_bold),
@@ -117,6 +119,8 @@ def create_filters(button_id):
                                 ]),
                                 html.Div([
                                     html.Span([
+                                        html.P('上', style=self_style.text_normal),
+                                        html.P('季', style=self_style.text_bold),
                                         html.P('營業毛利率較去年同期', style=self_style.text_normal),
                                         html.P('成長', style=self_style.text_bold),
                                         html.P('5', style=self_style.text_bold),
@@ -170,6 +174,8 @@ def create_filters(button_id):
                                 ]),
                                 html.Div([
                                     html.Span([
+                                        html.P('上', style=self_style.text_normal),
+                                        html.P('季', style=self_style.text_bold),
                                         html.P('營業利益率較去年同期', style=self_style.text_normal),
                                         html.P('成長', style=self_style.text_bold),
                                         html.P('5', style=self_style.text_bold),
@@ -223,6 +229,8 @@ def create_filters(button_id):
                                 ]),
                                 html.Div([
                                     html.Span([
+                                        html.P('上', style=self_style.text_normal),
+                                        html.P('季', style=self_style.text_bold),
                                         html.P('稅後淨利率較去年同期', style=self_style.text_normal),
                                         html.P('成長', style=self_style.text_bold),
                                         html.P('5', style=self_style.text_bold),
@@ -377,6 +385,21 @@ def create_0603(output_count):
     '''0603 營收較去年同期(成長/衰退)(5)%以上'''
     new_children = html.Div([
                                         html.Span([
+                                            html.Div([
+                                            html.P('上', style=self_style.text_normal),
+                                            dcc.Dropdown(
+                                                id={'type':'ddx',
+                                                    'index': '0603'},
+                                                options=[
+                                                    {'label': '月', 'value': 'm'},
+                                                    {'label': '季', 'value': 'q'},
+                                                    {'label': '年', 'value': 'y'},
+                                                ],
+                                                value='q',
+                                                placeholder='季',
+                                                clearable=False,
+                                                style=self_style.dropdown_style),
+                                            ],style=self_style.dp_div_style),
                                             html.P('營收較去年同期', style=self_style.text_normal),
                                             html.Div([
                                                 dcc.Dropdown(
@@ -550,6 +573,20 @@ def create_0606(output_count):
     '''0606 營業毛利率較去年同期(成長/衰退)(5)%以上'''
     new_children = html.Div([
                                         html.Span([
+                                            html.P('上', style=self_style.text_normal),
+                                            dcc.Dropdown(
+                                                id={'type':'ddx',
+                                                    'index': '0603'},
+                                                options=[
+                                                    {'label': '月', 'value': 'm'},
+                                                    {'label': '季', 'value': 'q'},
+                                                    {'label': '年', 'value': 'y'},
+                                                ],
+                                                value='q',
+                                                placeholder='季',
+                                                clearable=False,
+                                                style=self_style.dropdown_style),
+                                            ],style=self_style.dp_div_style),
                                             html.P('營業毛利率較去年同期', style=self_style.text_normal),
                                             html.Div([
                                                 dcc.Dropdown(
@@ -723,6 +760,20 @@ def create_0609(output_count):
     '''0609 營業利益率較去年同期(成長/衰退)(5)%以上'''
     new_children = html.Div([
                                         html.Span([
+                                            html.P('上', style=self_style.text_normal),
+                                            dcc.Dropdown(
+                                                id={'type':'ddx',
+                                                    'index': '0603'},
+                                                options=[
+                                                    {'label': '月', 'value': 'm'},
+                                                    {'label': '季', 'value': 'q'},
+                                                    {'label': '年', 'value': 'y'},
+                                                ],
+                                                value='q',
+                                                placeholder='季',
+                                                clearable=False,
+                                                style=self_style.dropdown_style),
+                                            ],style=self_style.dp_div_style),
                                             html.P('營業利益率較去年同期', style=self_style.text_normal),
                                             html.Div([
                                                 dcc.Dropdown(
@@ -896,6 +947,20 @@ def create_0612(output_count):
     '''0612 稅後淨利率較去年同期(成長/衰退)(5)%以上'''
     new_children = html.Div([
                                         html.Span([
+                                            html.P('上', style=self_style.text_normal),
+                                            dcc.Dropdown(
+                                                id={'type':'ddx',
+                                                    'index': '0603'},
+                                                options=[
+                                                    {'label': '月', 'value': 'm'},
+                                                    {'label': '季', 'value': 'q'},
+                                                    {'label': '年', 'value': 'y'},
+                                                ],
+                                                value='q',
+                                                placeholder='季',
+                                                clearable=False,
+                                                style=self_style.dropdown_style),
+                                            ],style=self_style.dp_div_style),
                                             html.P('稅後淨利率較去年同期', style=self_style.text_normal),
                                             html.Div([
                                                 dcc.Dropdown(

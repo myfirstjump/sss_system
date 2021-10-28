@@ -697,9 +697,9 @@ def create_query_0602(numbers, period, direct, percent):
 
     
 
-def create_query_0603(direct, percent):
+def create_query_0603(period, direct, percent):
 
-    """0603 營收較去年同期(成長/衰退)(5)%以上"""
+    """0603 上(月/季/年)營收較去年同期(成長/衰退)(5)%以上"""
 
     if direct == '1':
         sign = '>='

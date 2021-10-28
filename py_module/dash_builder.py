@@ -910,7 +910,7 @@ class DashBuilder(object):
                         query = query_sentence.create_query_0602(value_dict[selection_code][0], value_dict[selection_code][1], value_dict[selection_code][2], value_dict[selection_code][3])
                         query_dict[idx] = query
                     elif selection_code == '0603':
-                        query = query_sentence.create_query_0603(value_dict[selection_code][0], value_dict[selection_code][1])
+                        query = query_sentence.create_query_0603(value_dict[selection_code][0], value_dict[selection_code][1], value_dict[selection_code][2])
                     elif selection_code == '0604':
                         query = query_sentence.create_query_0604(value_dict[selection_code][0], value_dict[selection_code][1], value_dict[selection_code][2], value_dict[selection_code][3])
                         query_dict[idx] = query
@@ -918,7 +918,7 @@ class DashBuilder(object):
                         query = query_sentence.create_query_0605(value_dict[selection_code][0], value_dict[selection_code][1], value_dict[selection_code][2], value_dict[selection_code][3])
                         query_dict[idx] = query
                     elif selection_code == '0606':
-                        query = query_sentence.create_query_0606(value_dict[selection_code][0], value_dict[selection_code][1])
+                        query = query_sentence.create_query_0606(value_dict[selection_code][0], value_dict[selection_code][1], value_dict[selection_code][2])
                     elif selection_code == '0607':
                         query = query_sentence.create_query_0607(value_dict[selection_code][0], value_dict[selection_code][1], value_dict[selection_code][2], value_dict[selection_code][3])
                         query_dict[idx] = query
@@ -926,7 +926,7 @@ class DashBuilder(object):
                         query = query_sentence.create_query_0608(value_dict[selection_code][0], value_dict[selection_code][1], value_dict[selection_code][2], value_dict[selection_code][3])
                         query_dict[idx] = query
                     elif selection_code == '0609':
-                        query = query_sentence.create_query_0609(value_dict[selection_code][0], value_dict[selection_code][1])
+                        query = query_sentence.create_query_0609(value_dict[selection_code][0], value_dict[selection_code][1], value_dict[selection_code][2])
                     elif selection_code == '0610':
                         query = query_sentence.create_query_0610(value_dict[selection_code][0], value_dict[selection_code][1], value_dict[selection_code][2], value_dict[selection_code][3])
                         query_dict[idx] = query
@@ -934,7 +934,7 @@ class DashBuilder(object):
                         query = query_sentence.create_query_0611(value_dict[selection_code][0], value_dict[selection_code][1], value_dict[selection_code][2], value_dict[selection_code][3])
                         query_dict[idx] = query
                     elif selection_code == '0612':
-                        query = query_sentence.create_query_0612(value_dict[selection_code][0], value_dict[selection_code][1])
+                        query = query_sentence.create_query_0612(value_dict[selection_code][0], value_dict[selection_code][1], value_dict[selection_code][2])
                         query_dict[idx] = query
                     else:
                         pass
