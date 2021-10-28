@@ -387,8 +387,9 @@ def create_0603(output_count):
                                         html.Span([
                                             html.Div([
                                             html.P('上', style=self_style.text_normal),
-                                            dcc.Dropdown(
-                                                id={'type':'ddx',
+                                            html.Div([
+                                                dcc.Dropdown(
+                                                id={'type':'dd1',
                                                     'index': '0603'},
                                                 options=[
                                                     {'label': '月', 'value': 'm'},
@@ -403,7 +404,7 @@ def create_0603(output_count):
                                             html.P('營收較去年同期', style=self_style.text_normal),
                                             html.Div([
                                                 dcc.Dropdown(
-                                                id={'type':'dd',
+                                                id={'type':'dd2',
                                                     'index': '0603'},
                                                 options=[
                                                     {'label': '成長', 'value': '1'},
@@ -574,9 +575,10 @@ def create_0606(output_count):
     new_children = html.Div([
                                         html.Span([
                                             html.P('上', style=self_style.text_normal),
-                                            dcc.Dropdown(
-                                                id={'type':'ddx',
-                                                    'index': '0603'},
+                                            html.Div([
+                                                dcc.Dropdown(
+                                                id={'type':'dd1',
+                                                    'index': '0606'},
                                                 options=[
                                                     {'label': '月', 'value': 'm'},
                                                     {'label': '季', 'value': 'q'},
@@ -590,7 +592,7 @@ def create_0606(output_count):
                                             html.P('營業毛利率較去年同期', style=self_style.text_normal),
                                             html.Div([
                                                 dcc.Dropdown(
-                                                id={'type':'dd',
+                                                id={'type':'dd2',
                                                     'index': '0606'},
                                                 options=[
                                                     {'label': '成長', 'value': '1'},
@@ -761,9 +763,10 @@ def create_0609(output_count):
     new_children = html.Div([
                                         html.Span([
                                             html.P('上', style=self_style.text_normal),
-                                            dcc.Dropdown(
-                                                id={'type':'ddx',
-                                                    'index': '0603'},
+                                            html.Div([
+                                                dcc.Dropdown(
+                                                id={'type':'dd1',
+                                                    'index': '0609'},
                                                 options=[
                                                     {'label': '月', 'value': 'm'},
                                                     {'label': '季', 'value': 'q'},
@@ -777,7 +780,7 @@ def create_0609(output_count):
                                             html.P('營業利益率較去年同期', style=self_style.text_normal),
                                             html.Div([
                                                 dcc.Dropdown(
-                                                id={'type':'dd',
+                                                id={'type':'dd2',
                                                     'index': '0609'},
                                                 options=[
                                                     {'label': '成長', 'value': '1'},
@@ -948,9 +951,10 @@ def create_0612(output_count):
     new_children = html.Div([
                                         html.Span([
                                             html.P('上', style=self_style.text_normal),
-                                            dcc.Dropdown(
-                                                id={'type':'ddx',
-                                                    'index': '0603'},
+                                            html.Div([
+                                                dcc.Dropdown(
+                                                id={'type':'dd1',
+                                                    'index': '0612'},
                                                 options=[
                                                     {'label': '月', 'value': 'm'},
                                                     {'label': '季', 'value': 'q'},
@@ -964,7 +968,7 @@ def create_0612(output_count):
                                             html.P('稅後淨利率較去年同期', style=self_style.text_normal),
                                             html.Div([
                                                 dcc.Dropdown(
-                                                id={'type':'dd',
+                                                id={'type':'dd2',
                                                     'index': '0612'},
                                                 options=[
                                                     {'label': '成長', 'value': '1'},
