@@ -665,6 +665,6 @@ def create_query_0601(numbers, period, direct, amount):
     FROM {} WITH(NOLOCK)) part_tbl
     WHERE part_tbl.row_num <= {} AND part_tbl.revenue {} {}
     GROUP BY part_tbl.stock_id)
-    '''.format(, numbers, sign, amount)
+    '''.format(ref_table, numbers, sign, amount)
 
     return query
