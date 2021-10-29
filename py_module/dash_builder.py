@@ -811,7 +811,7 @@ class DashBuilder(object):
             State({'type': ALL, 'index': '0601'}, 'value'), State({'type': ALL, 'index': '0602'}, 'value'), State({'type': ALL, 'index': '0603'}, 'value'), State({'type': ALL, 'index': '0604'}, 'value'), State({'type': ALL, 'index': '0605'}, 'value'), State({'type': ALL, 'index': '0606'}, 'value'), State({'type': ALL, 'index': '0607'}, 'value'), State({'type': ALL, 'index': '0608'}, 'value'), State({'type': ALL, 'index': '0609'}, 'value'), State({'type': ALL, 'index': '0610'}, 'value'), State({'type': ALL, 'index': '0611'}, 'value'), State({'type': ALL, 'index': '0612'}, 'value'), 
             State('stored_data', 'data'),
         )
-        def output_result(btn, tab_value, value0101, value0102, value0103, value0104, value0105, value0201, value0202, value0203, value0204, value0205, value0301, value0302, value0303, value0304, value0305, value0306, value0401, value0402, value0403, value0404, value0405, value0406, value0501, value0502, value0503, value0504, value0505, value0506, value0601, value0602, value0603, value0604, value0605, value0606, value0607, value0608, value0609, value0610, value0611, value0612, stored_data):
+        def output_result(btn, tab_value, value0101, value0102, value0103, value0104, value0105, value0106, value0201, value0202, value0203, value0204, value0205, value0301, value0302, value0303, value0304, value0305, value0306, value0401, value0402, value0403, value0404, value0405, value0406, value0501, value0502, value0503, value0504, value0505, value0506, value0601, value0602, value0603, value0604, value0605, value0606, value0607, value0608, value0609, value0610, value0611, value0612, stored_data):
             
             print('selection-btn:', btn)
             value_dict = {
