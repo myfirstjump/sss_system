@@ -1128,7 +1128,10 @@ class DashBuilder(object):
             Output('result-content', 'children'),
             Input('selection-btn', 'n_clicks'),
             Input('results-tabs', 'value'),
-            State({'type': ALL, 'index': '0101'}, 'value'), State({'type': ALL, 'index': '0102'}, 'value'), State({'type': ALL, 'index': '0103'}, 'value'), State({'type': ALL, 'index': '0104'}, 'value'), State({'type': ALL, 'index': '0105'}, 'value'), State({'type': ALL, 'index': '0106'}, 'value'), State({'type': ALL, 'index': '0111'}, 'value'), State({'type': ALL, 'index': '0112'}, 'value'),
+            State({'type': ALL, 'index': '0101'}, 'value'), State({'type': ALL, 'index': '0102'}, 'value'), State({'type': ALL, 'index': '0103'}, 'value'), State({'type': ALL, 'index': '0104'}, 'value'), State({'type': ALL, 'index': '0105'}, 'value'), State({'type': ALL, 'index': '0106'}, 'value'), State({'type': ALL, 'index': '0107'}, 'value'), State({'type': ALL, 'index': '0108'}, 'value'), State({'type': ALL, 'index': '0109'}, 'value'), State({'type': ALL, 'index': '0110'}, 'value'), 
+            State({'type': ALL, 'index': '0111'}, 'value'), State({'type': ALL, 'index': '0112'}, 'value'), State({'type': ALL, 'index': '0113'}, 'value'), State({'type': ALL, 'index': '0114'}, 'value'), State({'type': ALL, 'index': '0115'}, 'value'), State({'type': ALL, 'index': '0116'}, 'value'), State({'type': ALL, 'index': '0117'}, 'value'), State({'type': ALL, 'index': '0118'}, 'value'), State({'type': ALL, 'index': '0119'}, 'value'), State({'type': ALL, 'index': '0120'}, 'value'), 
+            State({'type': ALL, 'index': '0121'}, 'value'), State({'type': ALL, 'index': '0122'}, 'value'), State({'type': ALL, 'index': '0123'}, 'value'), State({'type': ALL, 'index': '0124'}, 'value'), State({'type': ALL, 'index': '0125'}, 'value'), State({'type': ALL, 'index': '0126'}, 'value'), State({'type': ALL, 'index': '0127'}, 'value'), State({'type': ALL, 'index': '0128'}, 'value'), State({'type': ALL, 'index': '0129'}, 'value'), State({'type': ALL, 'index': '0130'}, 'value'), 
+            State({'type': ALL, 'index': '0131'}, 'value')
             State({'type': ALL, 'index': '0201'}, 'value'), State({'type': ALL, 'index': '0202'}, 'value'), State({'type': ALL, 'index': '0203'}, 'value'), State({'type': ALL, 'index': '0204'}, 'value'), State({'type': ALL, 'index': '0205'}, 'value'),
             State({'type': ALL, 'index': '0301'}, 'value'), State({'type': ALL, 'index': '0302'}, 'value'), State({'type': ALL, 'index': '0303'}, 'value'), State({'type': ALL, 'index': '0304'}, 'value'), State({'type': ALL, 'index': '0305'}, 'value'), State({'type': ALL, 'index': '0306'}, 'value'),
             State({'type': ALL, 'index': '0401'}, 'value'), State({'type': ALL, 'index': '0402'}, 'value'), State({'type': ALL, 'index': '0403'}, 'value'), State({'type': ALL, 'index': '0404'}, 'value'), State({'type': ALL, 'index': '0405'}, 'value'), State({'type': ALL, 'index': '0406'}, 'value'),
@@ -1136,7 +1139,17 @@ class DashBuilder(object):
             State({'type': ALL, 'index': '0601'}, 'value'), State({'type': ALL, 'index': '0602'}, 'value'), State({'type': ALL, 'index': '0603'}, 'value'), State({'type': ALL, 'index': '0604'}, 'value'), State({'type': ALL, 'index': '0605'}, 'value'), State({'type': ALL, 'index': '0606'}, 'value'), State({'type': ALL, 'index': '0607'}, 'value'), State({'type': ALL, 'index': '0608'}, 'value'), State({'type': ALL, 'index': '0609'}, 'value'), State({'type': ALL, 'index': '0610'}, 'value'), State({'type': ALL, 'index': '0611'}, 'value'), State({'type': ALL, 'index': '0612'}, 'value'), 
             State('stored_data', 'data'),
         )
-        def output_result(btn, tab_value, value0101, value0102, value0103, value0104, value0105, value0106, value0111, value0201, value0202, value0203, value0204, value0205, value0301, value0302, value0303, value0304, value0305, value0306, value0401, value0402, value0403, value0404, value0405, value0406, value0501, value0502, value0503, value0504, value0505, value0506, value0601, value0602, value0603, value0604, value0605, value0606, value0607, value0608, value0609, value0610, value0611, value0612, stored_data):
+        def output_result(btn, tab_value, 
+        value0101, value0102, value0103, value0104, value0105, value0106, value0107, value0108, value0109, value0110, 
+        value0111, value0112, value0113, value0114, value0115, value0116, value0117, value0118, value0119, value0120, 
+        value0121, value0122, value0123, value0124, value0125, value0126, value0127, value0128, value0129, value0130,
+        value0131, 
+        value0201, value0202, value0203, value0204, value0205, 
+        value0301, value0302, value0303, value0304, value0305, value0306, 
+        value0401, value0402, value0403, value0404, value0405, value0406, 
+        value0501, value0502, value0503, value0504, value0505, value0506, 
+        value0601, value0602, value0603, value0604, value0605, value0606, value0607, value0608, value0609, value0610, 
+        value0611, value0612, stored_data):
             
             print('selection-btn:', btn)
             value_dict = {
