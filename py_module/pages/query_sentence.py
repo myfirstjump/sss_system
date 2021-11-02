@@ -163,6 +163,30 @@ def create_query_0111(numbers, period, larger, amount):
     '''.format(ref_table, numbers, sign, amount)
     return query 
 
+def create_query_0112(numbers, period, direct, percent):
+
+    """0112 EPS連續(3)(季/年)(成長/衰退)(5)%以上"""
+
+    if direct == '1':
+        sign = '>='
+    else:
+        sign = '<='
+
+    if period == 'y':
+        ref_table = basic_info_finState_y
+    else:
+        ref_table = basic_info_finState_q
+
+    query = '''
+    (SELECT stock_id FROM
+    (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY date DESC) row_num
+    FROM {} WITH(NOLOCK)) part_tbl
+    WHERE part_tbl.row_num <= {} AND part_tbl.last_period_ratio {} {}
+    GROUP BY part_tbl.stock_id)
+    '''.format(ref_table, numbers, sign, percent)
+
+    return query
+
 
 
 def create_query_0201(larger, price):

@@ -131,6 +131,24 @@ def create_filters(button_id):
                                         'index': button_id + '-add-0111'
                                     })                                    
                                 ]),
+                                html.Div([
+                                    html.Span([
+                                        html.P('EPS連續', style=self_style.text_normal),
+                                        html.P('3', style=self_style.text_bold),
+                                        html.P('季', style=self_style.text_bold),
+                                        html.P('成長', style=self_style.text_bold),
+                                        html.P('5', style=self_style.text_bold),
+                                        html.P('%以上', style=self_style.text_normal),
+                                    ], style=self_style.item_style),
+                                    html.Button(
+                                        html.Img(src=add_img_path, className='add-img-style'), 
+                                        n_clicks=0, 
+                                        className='btn-style', 
+                                    id={
+                                        'type': 'filter-btn',
+                                        'index': button_id + '-add-0612'
+                                    })
+                                ]),
                             ])   
     return content
 
@@ -424,4 +442,69 @@ def create_0111(output_count):
                                                 'index': str(output_count)})
                                     ])
     return new_children
-    
+
+
+def create_0112(output_count):
+    '''0112 EPS連續(3)(季/年)(成長/衰退)(5)%以上'''
+    new_children = html.Div([
+                                        html.Span([
+                                            html.P('EPS連續', style=self_style.text_normal),
+                                            html.Div([
+                                                dcc.Input(
+                                                id={'type':'ip1',
+                                                    'index': '0112'},
+                                                type='number',
+                                                min=0,
+                                                max=10,
+                                                value=3,
+                                                placeholder='3',
+                                                style=self_style.input_style),
+                                            ], style=self_style.ipt_div_style),
+                                            html.Div([
+                                                dcc.Dropdown(
+                                                id={'type':'dd1',
+                                                    'index': '0112'},
+                                                options=[
+                                                    {'label': '季', 'value': 'q'},
+                                                    {'label': '年', 'value': 'y'},
+                                                ],
+                                                value='q',
+                                                placeholder='季',
+                                                clearable=False,
+                                                style=self_style.dropdown_style),
+                                            ],style=self_style.dp_div_style),
+                                            html.Div([
+                                                dcc.Dropdown(
+                                                id={'type':'dd2',
+                                                    'index': '0112'},
+                                                options=[
+                                                    {'label': '成長', 'value': '1'},
+                                                    {'label': '衰退', 'value': '-1'},
+                                                ],
+                                                value='1',
+                                                placeholder='成長',
+                                                clearable=False,
+                                                style=self_style.dropdown_style),
+                                            ],style=self_style.dp_div_style),
+                                            html.Div([
+                                                dcc.Input(
+                                                id={'type':'ip',
+                                                    'index': '0112'},
+                                                type='number',
+                                                min=0,
+                                                max=9999,
+                                                value=5,
+                                                placeholder='5',
+                                                style=self_style.input_style),
+                                            ], style=self_style.ipt_div_style),
+                                            html.P('%以上', style=self_style.text_normal),
+                                        ], style=self_style.output_item_style),
+                                        html.Button(
+                                            html.Img(src=delete_img_path, className='delete-img-style'), 
+                                            n_clicks=0, 
+                                            className='btn-style', 
+                                                id={'type':'output-btn',
+                                                    'index': str(output_count)})
+                                    ])
+
+    return new_children
