@@ -146,7 +146,7 @@ def create_filters(button_id):
                                         className='btn-style', 
                                     id={
                                         'type': 'filter-btn',
-                                        'index': button_id + '-add-0612'
+                                        'index': button_id + '-add-0112'
                                     })
                                 ]),
                             ])   
