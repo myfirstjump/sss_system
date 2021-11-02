@@ -1153,7 +1153,10 @@ class DashBuilder(object):
             
             print('selection-btn:', btn)
             value_dict = {
-                '0101': value0101, '0102': value0102, '0103': value0103, '0104': value0104, '0105': value0105, '0106': value0106, '0111': value0111, '0112': value012,
+                '0101': value0101, '0102': value0102, '0103': value0103, '0104': value0104, '0105': value0105, '0106': value0106, '0107': value0107, '0108': value0108, '0109': value0109, '0110': value0110,
+                '0111': value0111, '0112': value0112, '0113': value0113, '0114': value0114, '0115': value0115, '0116': value0116, '0117': value0117, '0118': value0118, '0119': value0119, '0120': value0120, 
+                '0121': value0121, '0122': value0122, '0123': value0123, '0124': value0124, '0125': value0125, '0126': value0126, '0127': value0127, '0128': value0128, '0129': value0129, '0130': value0130, 
+                '0131': value0131, 
                 '0201': value0201, '0202': value0202, '0203': value0203, '0204': value0204, '0205': value0205, 
                 '0301': value0301, '0302': value0302, '0303': value0303, '0304': value0304, '0305': value0305, '0306': value0306,
                 '0401': value0401, '0402': value0402, '0403': value0403, '0404': value0404, '0405': value0405, '0406': value0406,
