@@ -207,6 +207,31 @@ class DashBuilder(object):
             '{"index":"01-btn-add-0104","type":"filter-btn"}.n_clicks',
             '{"index":"01-btn-add-0105","type":"filter-btn"}.n_clicks',
             '{"index":"01-btn-add-0106","type":"filter-btn"}.n_clicks',
+            '{"index":"01-btn-add-0107","type":"filter-btn"}.n_clicks',
+            '{"index":"01-btn-add-0108","type":"filter-btn"}.n_clicks',
+            '{"index":"01-btn-add-0109","type":"filter-btn"}.n_clicks',
+            '{"index":"01-btn-add-0110","type":"filter-btn"}.n_clicks',
+            '{"index":"01-btn-add-0111","type":"filter-btn"}.n_clicks',
+            '{"index":"01-btn-add-0112","type":"filter-btn"}.n_clicks',
+            '{"index":"01-btn-add-0113","type":"filter-btn"}.n_clicks',
+            '{"index":"01-btn-add-0114","type":"filter-btn"}.n_clicks',
+            '{"index":"01-btn-add-0115","type":"filter-btn"}.n_clicks',
+            '{"index":"01-btn-add-0116","type":"filter-btn"}.n_clicks',
+            '{"index":"01-btn-add-0117","type":"filter-btn"}.n_clicks',
+            '{"index":"01-btn-add-0118","type":"filter-btn"}.n_clicks',
+            '{"index":"01-btn-add-0119","type":"filter-btn"}.n_clicks',
+            '{"index":"01-btn-add-0120","type":"filter-btn"}.n_clicks',
+            '{"index":"01-btn-add-0121","type":"filter-btn"}.n_clicks',
+            '{"index":"01-btn-add-0122","type":"filter-btn"}.n_clicks',
+            '{"index":"01-btn-add-0123","type":"filter-btn"}.n_clicks',
+            '{"index":"01-btn-add-0124","type":"filter-btn"}.n_clicks',
+            '{"index":"01-btn-add-0125","type":"filter-btn"}.n_clicks',
+            '{"index":"01-btn-add-0126","type":"filter-btn"}.n_clicks',
+            '{"index":"01-btn-add-0127","type":"filter-btn"}.n_clicks',
+            '{"index":"01-btn-add-0128","type":"filter-btn"}.n_clicks',
+            '{"index":"01-btn-add-0129","type":"filter-btn"}.n_clicks',
+            '{"index":"01-btn-add-0130","type":"filter-btn"}.n_clicks',
+            '{"index":"01-btn-add-0131","type":"filter-btn"}.n_clicks',
             # 2
             '{"index":"02-btn-add-0201","type":"filter-btn"}.n_clicks',
             '{"index":"02-btn-add-0202","type":"filter-btn"}.n_clicks',
@@ -347,6 +372,306 @@ class DashBuilder(object):
                     stored_data['selection_record'].append('0106')
                     print('Record:', stored_data['selection_record'])
                     new_children = basic_01.create_0106(stored_data['output_count'])
+                    children.append(new_children)
+                    return children, stored_data
+                elif (button_id == '{"index":"01-btn-add-0107","type":"filter-btn"}'):
+                    print('filter 0107 clicked!')
+                    # record
+                    stored_data = stored_data or {'output_count': 0, 'output_record': [], 'selection_record': []}
+                    stored_data['output_count'] += 1
+                    stored_data['output_record'].append(stored_data['output_count'])
+                    print('Record:', stored_data['output_record'])
+                    stored_data['selection_record'].append('0107')
+                    print('Record:', stored_data['selection_record'])
+                    new_children = basic_01.create_0107(stored_data['output_count'])
+                    children.append(new_children)
+                    return children, stored_data
+                elif (button_id == '{"index":"01-btn-add-0108","type":"filter-btn"}'):
+                    print('filter 0108 clicked!')
+                    # record
+                    stored_data = stored_data or {'output_count': 0, 'output_record': [], 'selection_record': []}
+                    stored_data['output_count'] += 1
+                    stored_data['output_record'].append(stored_data['output_count'])
+                    print('Record:', stored_data['output_record'])
+                    stored_data['selection_record'].append('0108')
+                    print('Record:', stored_data['selection_record'])
+                    new_children = basic_01.create_0108(stored_data['output_count'])
+                    children.append(new_children)
+                    return children, stored_data
+                elif (button_id == '{"index":"01-btn-add-0109","type":"filter-btn"}'):
+                    print('filter 0109 clicked!')
+                    # record
+                    stored_data = stored_data or {'output_count': 0, 'output_record': [], 'selection_record': []}
+                    stored_data['output_count'] += 1
+                    stored_data['output_record'].append(stored_data['output_count'])
+                    print('Record:', stored_data['output_record'])
+                    stored_data['selection_record'].append('0109')
+                    print('Record:', stored_data['selection_record'])
+                    new_children = basic_01.create_0109(stored_data['output_count'])
+                    children.append(new_children)
+                    return children, stored_data
+                elif (button_id == '{"index":"01-btn-add-0110","type":"filter-btn"}'):
+                    print('filter 0110 clicked!')
+                    # record
+                    stored_data = stored_data or {'output_count': 0, 'output_record': [], 'selection_record': []}
+                    stored_data['output_count'] += 1
+                    stored_data['output_record'].append(stored_data['output_count'])
+                    print('Record:', stored_data['output_record'])
+                    stored_data['selection_record'].append('0110')
+                    print('Record:', stored_data['selection_record'])
+                    new_children = basic_01.create_0110(stored_data['output_count'])
+                    children.append(new_children)
+                    return children, stored_data
+                elif (button_id == '{"index":"01-btn-add-0111","type":"filter-btn"}'):
+                    print('filter 0111 clicked!')
+                    # record
+                    stored_data = stored_data or {'output_count': 0, 'output_record': [], 'selection_record': []}
+                    stored_data['output_count'] += 1
+                    stored_data['output_record'].append(stored_data['output_count'])
+                    print('Record:', stored_data['output_record'])
+                    stored_data['selection_record'].append('0111')
+                    print('Record:', stored_data['selection_record'])
+                    new_children = basic_01.create_0111(stored_data['output_count'])
+                    children.append(new_children)
+                    return children, stored_data
+                elif (button_id == '{"index":"01-btn-add-0112","type":"filter-btn"}'):
+                    print('filter 0112 clicked!')
+                    # record
+                    stored_data = stored_data or {'output_count': 0, 'output_record': [], 'selection_record': []}
+                    stored_data['output_count'] += 1
+                    stored_data['output_record'].append(stored_data['output_count'])
+                    print('Record:', stored_data['output_record'])
+                    stored_data['selection_record'].append('0112')
+                    print('Record:', stored_data['selection_record'])
+                    new_children = basic_01.create_0112(stored_data['output_count'])
+                    children.append(new_children)
+                    return children, stored_data
+                elif (button_id == '{"index":"01-btn-add-0113","type":"filter-btn"}'):
+                    print('filter 0113 clicked!')
+                    # record
+                    stored_data = stored_data or {'output_count': 0, 'output_record': [], 'selection_record': []}
+                    stored_data['output_count'] += 1
+                    stored_data['output_record'].append(stored_data['output_count'])
+                    print('Record:', stored_data['output_record'])
+                    stored_data['selection_record'].append('0113')
+                    print('Record:', stored_data['selection_record'])
+                    new_children = basic_01.create_0113(stored_data['output_count'])
+                    children.append(new_children)
+                    return children, stored_data
+                elif (button_id == '{"index":"01-btn-add-0114","type":"filter-btn"}'):
+                    print('filter 0114 clicked!')
+                    # record
+                    stored_data = stored_data or {'output_count': 0, 'output_record': [], 'selection_record': []}
+                    stored_data['output_count'] += 1
+                    stored_data['output_record'].append(stored_data['output_count'])
+                    print('Record:', stored_data['output_record'])
+                    stored_data['selection_record'].append('0114')
+                    print('Record:', stored_data['selection_record'])
+                    new_children = basic_01.create_0114(stored_data['output_count'])
+                    children.append(new_children)
+                    return children, stored_data
+                elif (button_id == '{"index":"01-btn-add-0115","type":"filter-btn"}'):
+                    print('filter 0115 clicked!')
+                    # record
+                    stored_data = stored_data or {'output_count': 0, 'output_record': [], 'selection_record': []}
+                    stored_data['output_count'] += 1
+                    stored_data['output_record'].append(stored_data['output_count'])
+                    print('Record:', stored_data['output_record'])
+                    stored_data['selection_record'].append('0115')
+                    print('Record:', stored_data['selection_record'])
+                    new_children = basic_01.create_0115(stored_data['output_count'])
+                    children.append(new_children)
+                    return children, stored_data
+                elif (button_id == '{"index":"01-btn-add-0116","type":"filter-btn"}'):
+                    print('filter 0116 clicked!')
+                    # record
+                    stored_data = stored_data or {'output_count': 0, 'output_record': [], 'selection_record': []}
+                    stored_data['output_count'] += 1
+                    stored_data['output_record'].append(stored_data['output_count'])
+                    print('Record:', stored_data['output_record'])
+                    stored_data['selection_record'].append('0116')
+                    print('Record:', stored_data['selection_record'])
+                    new_children = basic_01.create_0116(stored_data['output_count'])
+                    children.append(new_children)
+                    return children, stored_data
+                elif (button_id == '{"index":"01-btn-add-0117","type":"filter-btn"}'):
+                    print('filter 0117 clicked!')
+                    # record
+                    stored_data = stored_data or {'output_count': 0, 'output_record': [], 'selection_record': []}
+                    stored_data['output_count'] += 1
+                    stored_data['output_record'].append(stored_data['output_count'])
+                    print('Record:', stored_data['output_record'])
+                    stored_data['selection_record'].append('0117')
+                    print('Record:', stored_data['selection_record'])
+                    new_children = basic_01.create_0117(stored_data['output_count'])
+                    children.append(new_children)
+                    return children, stored_data
+                elif (button_id == '{"index":"01-btn-add-0118","type":"filter-btn"}'):
+                    print('filter 0118 clicked!')
+                    # record
+                    stored_data = stored_data or {'output_count': 0, 'output_record': [], 'selection_record': []}
+                    stored_data['output_count'] += 1
+                    stored_data['output_record'].append(stored_data['output_count'])
+                    print('Record:', stored_data['output_record'])
+                    stored_data['selection_record'].append('0118')
+                    print('Record:', stored_data['selection_record'])
+                    new_children = basic_01.create_0118(stored_data['output_count'])
+                    children.append(new_children)
+                    return children, stored_data
+                elif (button_id == '{"index":"01-btn-add-0119","type":"filter-btn"}'):
+                    print('filter 0119 clicked!')
+                    # record
+                    stored_data = stored_data or {'output_count': 0, 'output_record': [], 'selection_record': []}
+                    stored_data['output_count'] += 1
+                    stored_data['output_record'].append(stored_data['output_count'])
+                    print('Record:', stored_data['output_record'])
+                    stored_data['selection_record'].append('0119')
+                    print('Record:', stored_data['selection_record'])
+                    new_children = basic_01.create_0119(stored_data['output_count'])
+                    children.append(new_children)
+                    return children, stored_data
+                elif (button_id == '{"index":"01-btn-add-0120","type":"filter-btn"}'):
+                    print('filter 0120 clicked!')
+                    # record
+                    stored_data = stored_data or {'output_count': 0, 'output_record': [], 'selection_record': []}
+                    stored_data['output_count'] += 1
+                    stored_data['output_record'].append(stored_data['output_count'])
+                    print('Record:', stored_data['output_record'])
+                    stored_data['selection_record'].append('0120')
+                    print('Record:', stored_data['selection_record'])
+                    new_children = basic_01.create_0120(stored_data['output_count'])
+                    children.append(new_children)
+                    return children, stored_data
+                elif (button_id == '{"index":"01-btn-add-0121","type":"filter-btn"}'):
+                    print('filter 0121 clicked!')
+                    # record
+                    stored_data = stored_data or {'output_count': 0, 'output_record': [], 'selection_record': []}
+                    stored_data['output_count'] += 1
+                    stored_data['output_record'].append(stored_data['output_count'])
+                    print('Record:', stored_data['output_record'])
+                    stored_data['selection_record'].append('0121')
+                    print('Record:', stored_data['selection_record'])
+                    new_children = basic_01.create_0121(stored_data['output_count'])
+                    children.append(new_children)
+                    return children, stored_data
+                elif (button_id == '{"index":"01-btn-add-0122","type":"filter-btn"}'):
+                    print('filter 0122 clicked!')
+                    # record
+                    stored_data = stored_data or {'output_count': 0, 'output_record': [], 'selection_record': []}
+                    stored_data['output_count'] += 1
+                    stored_data['output_record'].append(stored_data['output_count'])
+                    print('Record:', stored_data['output_record'])
+                    stored_data['selection_record'].append('0122')
+                    print('Record:', stored_data['selection_record'])
+                    new_children = basic_01.create_0122(stored_data['output_count'])
+                    children.append(new_children)
+                    return children, stored_data
+                elif (button_id == '{"index":"01-btn-add-0123","type":"filter-btn"}'):
+                    print('filter 0123 clicked!')
+                    # record
+                    stored_data = stored_data or {'output_count': 0, 'output_record': [], 'selection_record': []}
+                    stored_data['output_count'] += 1
+                    stored_data['output_record'].append(stored_data['output_count'])
+                    print('Record:', stored_data['output_record'])
+                    stored_data['selection_record'].append('0123')
+                    print('Record:', stored_data['selection_record'])
+                    new_children = basic_01.create_0123(stored_data['output_count'])
+                    children.append(new_children)
+                    return children, stored_data
+                elif (button_id == '{"index":"01-btn-add-0124","type":"filter-btn"}'):
+                    print('filter 0124 clicked!')
+                    # record
+                    stored_data = stored_data or {'output_count': 0, 'output_record': [], 'selection_record': []}
+                    stored_data['output_count'] += 1
+                    stored_data['output_record'].append(stored_data['output_count'])
+                    print('Record:', stored_data['output_record'])
+                    stored_data['selection_record'].append('0124')
+                    print('Record:', stored_data['selection_record'])
+                    new_children = basic_01.create_0124(stored_data['output_count'])
+                    children.append(new_children)
+                    return children, stored_data
+                elif (button_id == '{"index":"01-btn-add-0125","type":"filter-btn"}'):
+                    print('filter 0125 clicked!')
+                    # record
+                    stored_data = stored_data or {'output_count': 0, 'output_record': [], 'selection_record': []}
+                    stored_data['output_count'] += 1
+                    stored_data['output_record'].append(stored_data['output_count'])
+                    print('Record:', stored_data['output_record'])
+                    stored_data['selection_record'].append('0125')
+                    print('Record:', stored_data['selection_record'])
+                    new_children = basic_01.create_0125(stored_data['output_count'])
+                    children.append(new_children)
+                    return children, stored_data
+                elif (button_id == '{"index":"01-btn-add-0126","type":"filter-btn"}'):
+                    print('filter 0126 clicked!')
+                    # record
+                    stored_data = stored_data or {'output_count': 0, 'output_record': [], 'selection_record': []}
+                    stored_data['output_count'] += 1
+                    stored_data['output_record'].append(stored_data['output_count'])
+                    print('Record:', stored_data['output_record'])
+                    stored_data['selection_record'].append('0126')
+                    print('Record:', stored_data['selection_record'])
+                    new_children = basic_01.create_0126(stored_data['output_count'])
+                    children.append(new_children)
+                    return children, stored_data
+                elif (button_id == '{"index":"01-btn-add-0127","type":"filter-btn"}'):
+                    print('filter 0127 clicked!')
+                    # record
+                    stored_data = stored_data or {'output_count': 0, 'output_record': [], 'selection_record': []}
+                    stored_data['output_count'] += 1
+                    stored_data['output_record'].append(stored_data['output_count'])
+                    print('Record:', stored_data['output_record'])
+                    stored_data['selection_record'].append('0127')
+                    print('Record:', stored_data['selection_record'])
+                    new_children = basic_01.create_0127(stored_data['output_count'])
+                    children.append(new_children)
+                    return children, stored_data
+                elif (button_id == '{"index":"01-btn-add-0128","type":"filter-btn"}'):
+                    print('filter 0128 clicked!')
+                    # record
+                    stored_data = stored_data or {'output_count': 0, 'output_record': [], 'selection_record': []}
+                    stored_data['output_count'] += 1
+                    stored_data['output_record'].append(stored_data['output_count'])
+                    print('Record:', stored_data['output_record'])
+                    stored_data['selection_record'].append('0128')
+                    print('Record:', stored_data['selection_record'])
+                    new_children = basic_01.create_0128(stored_data['output_count'])
+                    children.append(new_children)
+                    return children, stored_data
+                elif (button_id == '{"index":"01-btn-add-0129","type":"filter-btn"}'):
+                    print('filter 0129 clicked!')
+                    # record
+                    stored_data = stored_data or {'output_count': 0, 'output_record': [], 'selection_record': []}
+                    stored_data['output_count'] += 1
+                    stored_data['output_record'].append(stored_data['output_count'])
+                    print('Record:', stored_data['output_record'])
+                    stored_data['selection_record'].append('0129')
+                    print('Record:', stored_data['selection_record'])
+                    new_children = basic_01.create_0129(stored_data['output_count'])
+                    children.append(new_children)
+                    return children, stored_data
+                elif (button_id == '{"index":"01-btn-add-0130","type":"filter-btn"}'):
+                    print('filter 0130 clicked!')
+                    # record
+                    stored_data = stored_data or {'output_count': 0, 'output_record': [], 'selection_record': []}
+                    stored_data['output_count'] += 1
+                    stored_data['output_record'].append(stored_data['output_count'])
+                    print('Record:', stored_data['output_record'])
+                    stored_data['selection_record'].append('0130')
+                    print('Record:', stored_data['selection_record'])
+                    new_children = basic_01.create_0130(stored_data['output_count'])
+                    children.append(new_children)
+                    return children, stored_data
+                elif (button_id == '{"index":"01-btn-add-0131","type":"filter-btn"}'):
+                    print('filter 0131 clicked!')
+                    # record
+                    stored_data = stored_data or {'output_count': 0, 'output_record': [], 'selection_record': []}
+                    stored_data['output_count'] += 1
+                    stored_data['output_record'].append(stored_data['output_count'])
+                    print('Record:', stored_data['output_record'])
+                    stored_data['selection_record'].append('0131')
+                    print('Record:', stored_data['selection_record'])
+                    new_children = basic_01.create_0131(stored_data['output_count'])
                     children.append(new_children)
                     return children, stored_data
                 elif (button_id == '{"index":"02-btn-add-0201","type":"filter-btn"}') and (f_btn > 0):
