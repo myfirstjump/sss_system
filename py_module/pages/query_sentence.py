@@ -19,6 +19,8 @@ basic_info_revenue_q = 'STOCK_BASICINTO_DB.dbo.TW_STOCK_MonthRevenue_Quarterly'
 basic_info_revenue_y = 'STOCK_BASICINTO_DB.dbo.TW_STOCK_MonthRevenue_Yearly'
 basic_info_finDetail_q = 'STOCK_BASICINTO_DB.dbo.TW_STOCK_FinancialStatements_Detail'
 basic_info_finDetail_y = 'STOCK_BASICINTO_DB.dbo.TW_STOCK_FinancialStatements_Detail_Yearly'
+basic_info_finState_q = 'STOCK_BASICINTO_DB.dbo.TW_STOCK_FinancialStatements'
+basic_info_finState_y = 'STOCK_BASICINTO_DB.dbo.TW_STOCK_FinancialStatements_Yearly'
 skill_price_d = 'STOCK_SKILL_DB.dbo.TW_STOCK_PRICE_Daily'
 skill_price_w = 'STOCK_SKILL_DB.dbo.TW_STOCK_PRICE_Weekly'
 skill_price_m = 'STOCK_SKILL_DB.dbo.TW_STOCK_PRICE_monthly'
@@ -141,11 +143,30 @@ def create_query_0106(larger, price):
     return query
 
 
- 
+def create_query_0111(numbers, period, larger, amount):
+    '''0111 上(2)(季/年)平均EPS(大於)(10)'''
+    if larger == '1':
+        sign = '>='
+    else:
+        sign = '<'
+    
+    if period == 'y':
+        ref_table = basic_info_finState_y
+    else:
+        ref_table = basic_info_finState_q
+
+    query = '''(SELECT stock_id FROM
+    (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY date DESC) row_num
+    FROM (SELECT * FROM {} WITH(NOLOCK) where type='EPS') ) part_tbl
+    WHERE part_tbl.row_num <= {}
+    GRUOP BY stock_id HAVING AVG(value) {} {})
+    '''.format(ref_table, numbers, sign, price)
+    return query 
 
 
 
 def create_query_0201(larger, price):
+    '''0201 公司股價[大於][120]元'''
     if larger == '1':
         sign = '>='
     else:
