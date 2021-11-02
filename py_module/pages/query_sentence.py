@@ -156,10 +156,10 @@ def create_query_0111(numbers, period, larger, amount):
         ref_table = basic_info_finState_q
 
     query = '''(SELECT stock_id FROM
-    (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY date DESC) row_num
-    FROM (SELECT * FROM {} WITH(NOLOCK) where type='EPS') ) part_tbl
+    (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY [date] DESC) row_num
+    FROM (SELECT * FROM {} WITH(NOLOCK) where [type]='EPS') t1) part_tbl
     WHERE part_tbl.row_num <= {}
-    GRUOP BY stock_id HAVING AVG(value) {} {})
+    GROUP BY stock_id HAVING AVG(value) {} {})
     '''.format(ref_table, numbers, sign, amount)
     return query 
 
