@@ -160,7 +160,7 @@ def create_query_0111(numbers, period, larger, amount):
     FROM (SELECT * FROM {} WITH(NOLOCK) where type='EPS') ) part_tbl
     WHERE part_tbl.row_num <= {}
     GRUOP BY stock_id HAVING AVG(value) {} {})
-    '''.format(ref_table, numbers, sign, price)
+    '''.format(ref_table, numbers, sign, amount)
     return query 
 
 

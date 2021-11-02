@@ -1176,7 +1176,7 @@ class DashBuilder(object):
                         query = query_sentence.create_query_0106(value_dict[selection_code][0], value_dict[selection_code][1])
                         query_dict[idx] = query
                     elif selection_code == '0111':
-                        query = query_sentence.create_query_0111(value_dict[selection_code][0], value_dict[selection_code][1])
+                        query = query_sentence.create_query_0111(value_dict[selection_code][0], value_dict[selection_code][1], value_dict[selection_code][2], value_dict[selection_code][3])
                         query_dict[idx] = query
                     elif selection_code == '0201':
                         query = query_sentence.create_query_0201(value_dict[selection_code][0], value_dict[selection_code][1])
