@@ -188,6 +188,32 @@ def create_query_0112(numbers, period, direct, percent):
     return query
 
 
+def create_query_0113(period, direct, percent):
+
+    """0113 上(季/年)EPS較去年同期(成長/衰退)(5)%以上"""
+
+    if direct == '1':
+        sign = '>='
+    else:
+        sign = '<='
+
+    if period == 'y':
+        ref_table = basic_info_finState_y
+    else:
+        ref_table = basic_info_finState_q
+
+    query = '''
+    (SELECT stock_id FROM
+    (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY date DESC) row_num
+    FROM {} WITH(NOLOCK)) part_tbl
+    WHERE part_tbl.row_num <= 1 AND part_tbl.last_year_ratio {} {}
+    GROUP BY part_tbl.stock_id)
+    '''.format(ref_table, sign, percent)
+
+    return query
+
+
+
 
 def create_query_0201(larger, price):
     '''0201 公司股價[大於][120]元'''
