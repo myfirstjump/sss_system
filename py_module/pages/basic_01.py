@@ -114,6 +114,76 @@ def create_filters(button_id):
                                 ]),
                                 html.Div([
                                     html.Span([
+                                        html.P('3', style=self_style.text_bold),
+                                        html.P('年內平均ROE', style=self_style.text_normal),
+                                        html.P('大於', style=self_style.text_bold),
+                                        html.P('10', style=self_style.text_bold),
+                                        html.P('%', style=self_style.text_normal),
+                                    ], style=self_style.item_style),
+                                    html.Button(
+                                        html.Img(src=add_img_path, className='add-img-style'), 
+                                        n_clicks=0, 
+                                        className='btn-style', 
+                                    id={
+                                        'type': 'filter-btn',
+                                        'index': button_id + '-add-0107'
+                                    })                                    
+                                ]),
+                                html.Div([
+                                    html.Span([
+                                        html.P('ROE連續', style=self_style.text_normal), # normal text
+                                        html.P('3', style=self_style.text_bold),
+                                        html.P('年', style=self_style.text_normal),
+                                        html.P('成長', style=self_style.text_bold),
+                                        html.P('5', style=self_style.text_bold),
+                                        html.P('%以上', style=self_style.text_normal),
+                                    ], style=self_style.item_style),
+                                    html.Button(
+                                        html.Img(src=add_img_path, className='add-img-style'), 
+                                        n_clicks=0, 
+                                        className='btn-style', 
+                                    id={
+                                        'type': 'filter-btn',
+                                        'index': button_id + '-add-0108'
+                                    })                                    
+                                ]),
+                                html.Div([
+                                    html.Span([
+                                        html.P('3', style=self_style.text_bold),
+                                        html.P('年內平均ROA', style=self_style.text_normal),
+                                        html.P('大於', style=self_style.text_bold),
+                                        html.P('10', style=self_style.text_bold),
+                                        html.P('%', style=self_style.text_normal),
+                                    ], style=self_style.item_style),
+                                    html.Button(
+                                        html.Img(src=add_img_path, className='add-img-style'), 
+                                        n_clicks=0, 
+                                        className='btn-style', 
+                                    id={
+                                        'type': 'filter-btn',
+                                        'index': button_id + '-add-0109'
+                                    })                                    
+                                ]),
+                                html.Div([
+                                    html.Span([
+                                        html.P('ROA連續', style=self_style.text_normal), # normal text
+                                        html.P('3', style=self_style.text_bold),
+                                        html.P('年', style=self_style.text_normal),
+                                        html.P('成長', style=self_style.text_bold),
+                                        html.P('5', style=self_style.text_bold),
+                                        html.P('%以上', style=self_style.text_normal),
+                                    ], style=self_style.item_style),
+                                    html.Button(
+                                        html.Img(src=add_img_path, className='add-img-style'), 
+                                        n_clicks=0, 
+                                        className='btn-style', 
+                                    id={
+                                        'type': 'filter-btn',
+                                        'index': button_id + '-add-0110'
+                                    })                                    
+                                ]),
+                                html.Div([
+                                    html.Span([
                                         html.P('上', style=self_style.text_normal), # normal text
                                         html.P('2', style=self_style.text_bold),
                                         html.P('季', style=self_style.text_bold), # bold text
@@ -165,6 +235,186 @@ def create_filters(button_id):
                                     id={
                                         'type': 'filter-btn',
                                         'index': button_id + '-add-0113'
+                                    })
+                                ]),
+                                html.Div([
+                                    html.Span([
+                                        html.P('上', style=self_style.text_normal),
+                                        html.P('2', style=self_style.text_bold),
+                                        html.P('季', style=self_style.text_bold),
+                                        html.P('平均存貨週轉率', style=self_style.text_normal),
+                                        html.P('大於', style=self_style.text_bold),
+                                        html.P('10', style=self_style.text_bold),
+                                        html.P('%', style=self_style.text_normal),
+                                    ], style=self_style.item_style),
+                                    html.Button(
+                                        html.Img(src=add_img_path, className='add-img-style'), 
+                                        n_clicks=0, 
+                                        className='btn-style', 
+                                    id={
+                                        'type': 'filter-btn',
+                                        'index': button_id + '-add-0114'
+                                    })
+                                ]),
+                                html.Div([
+                                    html.Span([
+                                        html.P('季', style=self_style.text_bold),
+                                        html.P('存貨週轉率', style=self_style.text_normal),
+                                        html.P('成長', style=self_style.text_bold),
+                                        html.P('10', style=self_style.text_bold),
+                                        html.P('%', style=self_style.text_normal),
+                                    ], style=self_style.item_style),
+                                    html.Button(
+                                        html.Img(src=add_img_path, className='add-img-style'), 
+                                        n_clicks=0, 
+                                        className='btn-style', 
+                                    id={
+                                        'type': 'filter-btn',
+                                        'index': button_id + '-add-0115'
+                                    })
+                                ]),
+                                html.Div([
+                                    html.Span([
+                                        html.P('上', style=self_style.text_normal),
+                                        html.P('2', style=self_style.text_bold),
+                                        html.P('季', style=self_style.text_bold),
+                                        html.P('平均應收帳款週轉率', style=self_style.text_normal),
+                                        html.P('大於', style=self_style.text_bold),
+                                        html.P('10', style=self_style.text_bold),
+                                        html.P('%', style=self_style.text_normal),
+                                    ], style=self_style.item_style),
+                                    html.Button(
+                                        html.Img(src=add_img_path, className='add-img-style'), 
+                                        n_clicks=0, 
+                                        className='btn-style', 
+                                    id={
+                                        'type': 'filter-btn',
+                                        'index': button_id + '-add-0116'
+                                    })
+                                ]),
+                                html.Div([
+                                    html.Span([
+                                        html.P('季', style=self_style.text_bold),
+                                        html.P('應收帳款週轉率', style=self_style.text_normal),
+                                        html.P('成長', style=self_style.text_bold),
+                                        html.P('10', style=self_style.text_bold),
+                                        html.P('%', style=self_style.text_normal),
+                                    ], style=self_style.item_style),
+                                    html.Button(
+                                        html.Img(src=add_img_path, className='add-img-style'), 
+                                        n_clicks=0, 
+                                        className='btn-style', 
+                                    id={
+                                        'type': 'filter-btn',
+                                        'index': button_id + '-add-0117'
+                                    })
+                                ]),
+                                html.Div([
+                                    html.Span([
+                                        html.P('上', style=self_style.text_normal),
+                                        html.P('2', style=self_style.text_bold),
+                                        html.P('季', style=self_style.text_bold),
+                                        html.P('平均流動比率', style=self_style.text_normal),
+                                        html.P('大於', style=self_style.text_bold),
+                                        html.P('10', style=self_style.text_bold),
+                                        html.P('%', style=self_style.text_normal),
+                                    ], style=self_style.item_style),
+                                    html.Button(
+                                        html.Img(src=add_img_path, className='add-img-style'), 
+                                        n_clicks=0, 
+                                        className='btn-style', 
+                                    id={
+                                        'type': 'filter-btn',
+                                        'index': button_id + '-add-0118'
+                                    })
+                                ]),
+                                html.Div([
+                                    html.Span([
+                                        html.P('季', style=self_style.text_bold),
+                                        html.P('流動比率', style=self_style.text_normal),
+                                        html.P('成長', style=self_style.text_bold),
+                                        html.P('10', style=self_style.text_bold),
+                                        html.P('%', style=self_style.text_normal),
+                                    ], style=self_style.item_style),
+                                    html.Button(
+                                        html.Img(src=add_img_path, className='add-img-style'), 
+                                        n_clicks=0, 
+                                        className='btn-style', 
+                                    id={
+                                        'type': 'filter-btn',
+                                        'index': button_id + '-add-0119'
+                                    })
+                                ]),
+                                html.Div([
+                                    html.Span([
+                                        html.P('上', style=self_style.text_normal),
+                                        html.P('2', style=self_style.text_bold),
+                                        html.P('季', style=self_style.text_bold),
+                                        html.P('平均速動比率', style=self_style.text_normal),
+                                        html.P('大於', style=self_style.text_bold),
+                                        html.P('10', style=self_style.text_bold),
+                                        html.P('%', style=self_style.text_normal),
+                                    ], style=self_style.item_style),
+                                    html.Button(
+                                        html.Img(src=add_img_path, className='add-img-style'), 
+                                        n_clicks=0, 
+                                        className='btn-style', 
+                                    id={
+                                        'type': 'filter-btn',
+                                        'index': button_id + '-add-0120'
+                                    })
+                                ]),
+                                html.Div([
+                                    html.Span([
+                                        html.P('季', style=self_style.text_bold),
+                                        html.P('速動比率', style=self_style.text_normal),
+                                        html.P('成長', style=self_style.text_bold),
+                                        html.P('10', style=self_style.text_bold),
+                                        html.P('%', style=self_style.text_normal),
+                                    ], style=self_style.item_style),
+                                    html.Button(
+                                        html.Img(src=add_img_path, className='add-img-style'), 
+                                        n_clicks=0, 
+                                        className='btn-style', 
+                                    id={
+                                        'type': 'filter-btn',
+                                        'index': button_id + '-add-0121'
+                                    })
+                                ]),
+                                html.Div([
+                                    html.Span([
+                                        html.P('上', style=self_style.text_normal),
+                                        html.P('2', style=self_style.text_bold),
+                                        html.P('季', style=self_style.text_bold),
+                                        html.P('平均負債比率', style=self_style.text_normal),
+                                        html.P('大於', style=self_style.text_bold),
+                                        html.P('10', style=self_style.text_bold),
+                                        html.P('%', style=self_style.text_normal),
+                                    ], style=self_style.item_style),
+                                    html.Button(
+                                        html.Img(src=add_img_path, className='add-img-style'), 
+                                        n_clicks=0, 
+                                        className='btn-style', 
+                                    id={
+                                        'type': 'filter-btn',
+                                        'index': button_id + '-add-0122'
+                                    })
+                                ]),
+                                html.Div([
+                                    html.Span([
+                                        html.P('季', style=self_style.text_bold),
+                                        html.P('負債比率', style=self_style.text_normal),
+                                        html.P('成長', style=self_style.text_bold),
+                                        html.P('10', style=self_style.text_bold),
+                                        html.P('%', style=self_style.text_normal),
+                                    ], style=self_style.item_style),
+                                    html.Button(
+                                        html.Img(src=add_img_path, className='add-img-style'), 
+                                        n_clicks=0, 
+                                        className='btn-style', 
+                                    id={
+                                        'type': 'filter-btn',
+                                        'index': button_id + '-add-0123'
                                     })
                                 ]),
                             ])   
@@ -566,11 +816,608 @@ def create_0113(output_count):
                                                 type='number',
                                                 min=0,
                                                 max=999999,
-                                                value=5,
-                                                placeholder='5',
+                                                value=10,
+                                                placeholder='10',
                                                 style=self_style.input_style),
                                             ], style=self_style.ipt_div_style),
                                             html.P('%以上', style=self_style.text_normal),
+                                        ], style=self_style.output_item_style),
+                                        html.Button(
+                                            html.Img(src=delete_img_path, className='delete-img-style'), 
+                                            n_clicks=0, 
+                                            className='btn-style', 
+                                                id={'type':'output-btn',
+                                                    'index': str(output_count)})
+                                    ])
+
+    return new_children
+
+
+
+def create_0114(output_count):
+    '''0114 上(2)(季/年)平均存貨週轉率(大於)(10)%'''
+    new_children = html.Div([
+                                        html.Span([
+                                            html.P('上', style=self_style.text_normal),
+                                            html.Div([
+                                                dcc.Input(
+                                                    id={'type':'ip1',
+                                                        'index': '0114'},
+                                                    type='number',
+                                                    min=1,
+                                                    max=30,
+                                                    value=2,
+                                                    placeholder='2',
+                                                    style=self_style.input_style),
+                                            ], style=self_style.ipt_div_style),
+                                            html.Div([
+                                                dcc.Dropdown(
+                                                    id={'type':'dd1',
+                                                        'index': '0114'},
+                                                    options=[
+                                                        {'label': '季', 'value': 'q'},    
+                                                        {'label': '年', 'value': 'y'},                                                  
+                                                    ],
+                                                    value='q',
+                                                    placeholder='季',
+                                                    clearable=False,
+                                                    style=self_style.dropdown_style),
+                                            ], style=self_style.dp_div_style),
+                                            html.P('平均存貨週轉率', style=self_style.text_normal),
+                                            html.Div([
+                                                dcc.Dropdown(
+                                                    id={'type':'dd2',
+                                                        'index': '0114'},
+                                                    options=[
+                                                        {'label': '大於', 'value': '1'},
+                                                        {'label': '小於', 'value': '-1'},
+                                                    ],
+                                                    value='1',
+                                                    placeholder='大於',
+                                                    clearable=False,
+                                                    style=self_style.dropdown_style),
+                                            ], style=self_style.dp_div_style),
+                                            html.Div([
+                                                dcc.Input(
+                                                    id={'type':'ip2',
+                                                        'index': '0114'},
+                                                    type='number',
+                                                    min=-999,
+                                                    max=99999,
+                                                    value=10,
+                                                    placeholder='10',
+                                                    style=self_style.input_style),
+                                            ], style=self_style.ipt_div_style),
+                                            html.P('%', style=self_style.text_normal),
+                                        ], style=self_style.output_item_style),
+                                        html.Button(
+                                            html.Img(src=delete_img_path, className='delete-img-style'), 
+                                            n_clicks=0, 
+                                            className='btn-style', 
+                                            id={'type':'output-btn',
+                                                'index': str(output_count)})
+                                    ])
+    return new_children
+
+def create_0115(output_count):
+    '''0115 (季/年)存貨週轉率(成長/衰退)(10)%'''
+    new_children = html.Div([
+                                        html.Span([
+                                            html.Div([
+                                                dcc.Dropdown(
+                                                id={'type':'dd1',
+                                                    'index': '0115'},
+                                                options=[
+                                                    {'label': '季', 'value': 'q'},
+                                                    {'label': '年', 'value': 'y'},
+                                                ],
+                                                value='q',
+                                                placeholder='季',
+                                                clearable=False,
+                                                style=self_style.dropdown_style),
+                                            ],style=self_style.dp_div_style),
+                                            html.P('存貨週轉率', style=self_style.text_normal),
+                                            html.Div([
+                                                dcc.Dropdown(
+                                                id={'type':'dd2',
+                                                    'index': '0115'},
+                                                options=[
+                                                    {'label': '成長', 'value': '1'},
+                                                    {'label': '衰退', 'value': '-1'},
+                                                ],
+                                                value='1',
+                                                placeholder='成長',
+                                                clearable=False,
+                                                style=self_style.dropdown_style),
+                                            ],style=self_style.dp_div_style),
+                                            html.Div([
+                                                dcc.Input(
+                                                id={'type':'ip',
+                                                    'index': '0115'},
+                                                type='number',
+                                                min=0,
+                                                max=999999,
+                                                value=10,
+                                                placeholder='10',
+                                                style=self_style.input_style),
+                                            ], style=self_style.ipt_div_style),
+                                            html.P('%', style=self_style.text_normal),
+                                        ], style=self_style.output_item_style),
+                                        html.Button(
+                                            html.Img(src=delete_img_path, className='delete-img-style'), 
+                                            n_clicks=0, 
+                                            className='btn-style', 
+                                                id={'type':'output-btn',
+                                                    'index': str(output_count)})
+                                    ])
+
+    return new_children
+
+def create_0116(output_count):
+    '''上(2)(季/年)平均應收帳款週轉率(大於)(10)%'''
+    new_children = html.Div([
+                                        html.Span([
+                                            html.P('上', style=self_style.text_normal),
+                                            html.Div([
+                                                dcc.Input(
+                                                    id={'type':'ip1',
+                                                        'index': '0116'},
+                                                    type='number',
+                                                    min=1,
+                                                    max=30,
+                                                    value=2,
+                                                    placeholder='2',
+                                                    style=self_style.input_style),
+                                            ], style=self_style.ipt_div_style),
+                                            html.Div([
+                                                dcc.Dropdown(
+                                                    id={'type':'dd1',
+                                                        'index': '0116'},
+                                                    options=[
+                                                        {'label': '季', 'value': 'q'},    
+                                                        {'label': '年', 'value': 'y'},                                                  
+                                                    ],
+                                                    value='q',
+                                                    placeholder='季',
+                                                    clearable=False,
+                                                    style=self_style.dropdown_style),
+                                            ], style=self_style.dp_div_style),
+                                            html.P('平均應收帳款週轉率', style=self_style.text_normal),
+                                            html.Div([
+                                                dcc.Dropdown(
+                                                    id={'type':'dd2',
+                                                        'index': '0116'},
+                                                    options=[
+                                                        {'label': '大於', 'value': '1'},
+                                                        {'label': '小於', 'value': '-1'},
+                                                    ],
+                                                    value='1',
+                                                    placeholder='大於',
+                                                    clearable=False,
+                                                    style=self_style.dropdown_style),
+                                            ], style=self_style.dp_div_style),
+                                            html.Div([
+                                                dcc.Input(
+                                                    id={'type':'ip2',
+                                                        'index': '0116'},
+                                                    type='number',
+                                                    min=-999,
+                                                    max=99999,
+                                                    value=10,
+                                                    placeholder='10',
+                                                    style=self_style.input_style),
+                                            ], style=self_style.ipt_div_style),
+                                            html.P('%', style=self_style.text_normal),
+                                        ], style=self_style.output_item_style),
+                                        html.Button(
+                                            html.Img(src=delete_img_path, className='delete-img-style'), 
+                                            n_clicks=0, 
+                                            className='btn-style', 
+                                            id={'type':'output-btn',
+                                                'index': str(output_count)})
+                                    ])
+    return new_children
+
+def create_0117(output_count):
+    '''(季/年)應收帳款週轉率(成長/衰退)(10)%'''
+    new_children = html.Div([
+                                        html.Span([
+                                            html.Div([
+                                                dcc.Dropdown(
+                                                id={'type':'dd1',
+                                                    'index': '0117'},
+                                                options=[
+                                                    {'label': '季', 'value': 'q'},
+                                                    {'label': '年', 'value': 'y'},
+                                                ],
+                                                value='q',
+                                                placeholder='季',
+                                                clearable=False,
+                                                style=self_style.dropdown_style),
+                                            ],style=self_style.dp_div_style),
+                                            html.P('應收帳款週轉率', style=self_style.text_normal),
+                                            html.Div([
+                                                dcc.Dropdown(
+                                                id={'type':'dd2',
+                                                    'index': '0117'},
+                                                options=[
+                                                    {'label': '成長', 'value': '1'},
+                                                    {'label': '衰退', 'value': '-1'},
+                                                ],
+                                                value='1',
+                                                placeholder='成長',
+                                                clearable=False,
+                                                style=self_style.dropdown_style),
+                                            ],style=self_style.dp_div_style),
+                                            html.Div([
+                                                dcc.Input(
+                                                id={'type':'ip',
+                                                    'index': '0117'},
+                                                type='number',
+                                                min=0,
+                                                max=999999,
+                                                value=10,
+                                                placeholder='10',
+                                                style=self_style.input_style),
+                                            ], style=self_style.ipt_div_style),
+                                            html.P('%', style=self_style.text_normal),
+                                        ], style=self_style.output_item_style),
+                                        html.Button(
+                                            html.Img(src=delete_img_path, className='delete-img-style'), 
+                                            n_clicks=0, 
+                                            className='btn-style', 
+                                                id={'type':'output-btn',
+                                                    'index': str(output_count)})
+                                    ])
+
+    return new_children
+
+def create_0118(output_count):
+    '''0118 上(2)(季/年)平均流動比率(大於)(10)%'''
+    new_children = html.Div([
+                                        html.Span([
+                                            html.P('上', style=self_style.text_normal),
+                                            html.Div([
+                                                dcc.Input(
+                                                    id={'type':'ip1',
+                                                        'index': '0118'},
+                                                    type='number',
+                                                    min=1,
+                                                    max=30,
+                                                    value=2,
+                                                    placeholder='2',
+                                                    style=self_style.input_style),
+                                            ], style=self_style.ipt_div_style),
+                                            html.Div([
+                                                dcc.Dropdown(
+                                                    id={'type':'dd1',
+                                                        'index': '0118'},
+                                                    options=[
+                                                        {'label': '季', 'value': 'q'},    
+                                                        {'label': '年', 'value': 'y'},                                                  
+                                                    ],
+                                                    value='q',
+                                                    placeholder='季',
+                                                    clearable=False,
+                                                    style=self_style.dropdown_style),
+                                            ], style=self_style.dp_div_style),
+                                            html.P('平均流動比率', style=self_style.text_normal),
+                                            html.Div([
+                                                dcc.Dropdown(
+                                                    id={'type':'dd2',
+                                                        'index': '0118'},
+                                                    options=[
+                                                        {'label': '大於', 'value': '1'},
+                                                        {'label': '小於', 'value': '-1'},
+                                                    ],
+                                                    value='1',
+                                                    placeholder='大於',
+                                                    clearable=False,
+                                                    style=self_style.dropdown_style),
+                                            ], style=self_style.dp_div_style),
+                                            html.Div([
+                                                dcc.Input(
+                                                    id={'type':'ip2',
+                                                        'index': '0118'},
+                                                    type='number',
+                                                    min=-999,
+                                                    max=99999,
+                                                    value=10,
+                                                    placeholder='10',
+                                                    style=self_style.input_style),
+                                            ], style=self_style.ipt_div_style),
+                                            html.P('%', style=self_style.text_normal),
+                                        ], style=self_style.output_item_style),
+                                        html.Button(
+                                            html.Img(src=delete_img_path, className='delete-img-style'), 
+                                            n_clicks=0, 
+                                            className='btn-style', 
+                                            id={'type':'output-btn',
+                                                'index': str(output_count)})
+                                    ])
+    return new_children
+
+def create_0119(output_count):
+    '''0119 (季/年)流動比率(成長/衰退)(10)%'''
+    new_children = html.Div([
+                                        html.Span([
+                                            html.Div([
+                                                dcc.Dropdown(
+                                                id={'type':'dd1',
+                                                    'index': '0119'},
+                                                options=[
+                                                    {'label': '季', 'value': 'q'},
+                                                    {'label': '年', 'value': 'y'},
+                                                ],
+                                                value='q',
+                                                placeholder='季',
+                                                clearable=False,
+                                                style=self_style.dropdown_style),
+                                            ],style=self_style.dp_div_style),
+                                            html.P('流動比率', style=self_style.text_normal),
+                                            html.Div([
+                                                dcc.Dropdown(
+                                                id={'type':'dd2',
+                                                    'index': '0119'},
+                                                options=[
+                                                    {'label': '成長', 'value': '1'},
+                                                    {'label': '衰退', 'value': '-1'},
+                                                ],
+                                                value='1',
+                                                placeholder='成長',
+                                                clearable=False,
+                                                style=self_style.dropdown_style),
+                                            ],style=self_style.dp_div_style),
+                                            html.Div([
+                                                dcc.Input(
+                                                id={'type':'ip',
+                                                    'index': '0119'},
+                                                type='number',
+                                                min=0,
+                                                max=999999,
+                                                value=10,
+                                                placeholder='10',
+                                                style=self_style.input_style),
+                                            ], style=self_style.ipt_div_style),
+                                            html.P('%', style=self_style.text_normal),
+                                        ], style=self_style.output_item_style),
+                                        html.Button(
+                                            html.Img(src=delete_img_path, className='delete-img-style'), 
+                                            n_clicks=0, 
+                                            className='btn-style', 
+                                                id={'type':'output-btn',
+                                                    'index': str(output_count)})
+                                    ])
+
+    return new_children
+
+def create_0120(output_count):
+    '''0120 上(2)(季/年)平均速動比率(大於)(10)%'''
+    new_children = html.Div([
+                                        html.Span([
+                                            html.P('上', style=self_style.text_normal),
+                                            html.Div([
+                                                dcc.Input(
+                                                    id={'type':'ip1',
+                                                        'index': '0120'},
+                                                    type='number',
+                                                    min=1,
+                                                    max=30,
+                                                    value=2,
+                                                    placeholder='2',
+                                                    style=self_style.input_style),
+                                            ], style=self_style.ipt_div_style),
+                                            html.Div([
+                                                dcc.Dropdown(
+                                                    id={'type':'dd1',
+                                                        'index': '0120'},
+                                                    options=[
+                                                        {'label': '季', 'value': 'q'},    
+                                                        {'label': '年', 'value': 'y'},                                                  
+                                                    ],
+                                                    value='q',
+                                                    placeholder='季',
+                                                    clearable=False,
+                                                    style=self_style.dropdown_style),
+                                            ], style=self_style.dp_div_style),
+                                            html.P('平均速動比率', style=self_style.text_normal),
+                                            html.Div([
+                                                dcc.Dropdown(
+                                                    id={'type':'dd2',
+                                                        'index': '0120'},
+                                                    options=[
+                                                        {'label': '大於', 'value': '1'},
+                                                        {'label': '小於', 'value': '-1'},
+                                                    ],
+                                                    value='1',
+                                                    placeholder='大於',
+                                                    clearable=False,
+                                                    style=self_style.dropdown_style),
+                                            ], style=self_style.dp_div_style),
+                                            html.Div([
+                                                dcc.Input(
+                                                    id={'type':'ip2',
+                                                        'index': '0120'},
+                                                    type='number',
+                                                    min=-999,
+                                                    max=99999,
+                                                    value=10,
+                                                    placeholder='10',
+                                                    style=self_style.input_style),
+                                            ], style=self_style.ipt_div_style),
+                                            html.P('%', style=self_style.text_normal),
+                                        ], style=self_style.output_item_style),
+                                        html.Button(
+                                            html.Img(src=delete_img_path, className='delete-img-style'), 
+                                            n_clicks=0, 
+                                            className='btn-style', 
+                                            id={'type':'output-btn',
+                                                'index': str(output_count)})
+                                    ])
+    return new_children
+
+def create_0121(output_count):
+    '''0121 (季/年)速動比率(成長/衰退)(10)%'''
+    new_children = html.Div([
+                                        html.Span([
+                                            html.Div([
+                                                dcc.Dropdown(
+                                                id={'type':'dd1',
+                                                    'index': '0121'},
+                                                options=[
+                                                    {'label': '季', 'value': 'q'},
+                                                    {'label': '年', 'value': 'y'},
+                                                ],
+                                                value='q',
+                                                placeholder='季',
+                                                clearable=False,
+                                                style=self_style.dropdown_style),
+                                            ],style=self_style.dp_div_style),
+                                            html.P('速動比率', style=self_style.text_normal),
+                                            html.Div([
+                                                dcc.Dropdown(
+                                                id={'type':'dd2',
+                                                    'index': '0121'},
+                                                options=[
+                                                    {'label': '成長', 'value': '1'},
+                                                    {'label': '衰退', 'value': '-1'},
+                                                ],
+                                                value='1',
+                                                placeholder='成長',
+                                                clearable=False,
+                                                style=self_style.dropdown_style),
+                                            ],style=self_style.dp_div_style),
+                                            html.Div([
+                                                dcc.Input(
+                                                id={'type':'ip',
+                                                    'index': '0121'},
+                                                type='number',
+                                                min=0,
+                                                max=999999,
+                                                value=10,
+                                                placeholder='10',
+                                                style=self_style.input_style),
+                                            ], style=self_style.ipt_div_style),
+                                            html.P('%', style=self_style.text_normal),
+                                        ], style=self_style.output_item_style),
+                                        html.Button(
+                                            html.Img(src=delete_img_path, className='delete-img-style'), 
+                                            n_clicks=0, 
+                                            className='btn-style', 
+                                                id={'type':'output-btn',
+                                                    'index': str(output_count)})
+                                    ])
+
+    return new_children
+
+def create_0122(output_count):
+    '''0122 上(2)(季/年)平均負債比率(大於)(10)%'''
+    new_children = html.Div([
+                                        html.Span([
+                                            html.P('上', style=self_style.text_normal),
+                                            html.Div([
+                                                dcc.Input(
+                                                    id={'type':'ip1',
+                                                        'index': '0122'},
+                                                    type='number',
+                                                    min=1,
+                                                    max=30,
+                                                    value=2,
+                                                    placeholder='2',
+                                                    style=self_style.input_style),
+                                            ], style=self_style.ipt_div_style),
+                                            html.Div([
+                                                dcc.Dropdown(
+                                                    id={'type':'dd1',
+                                                        'index': '0122'},
+                                                    options=[
+                                                        {'label': '季', 'value': 'q'},    
+                                                        {'label': '年', 'value': 'y'},                                                  
+                                                    ],
+                                                    value='q',
+                                                    placeholder='季',
+                                                    clearable=False,
+                                                    style=self_style.dropdown_style),
+                                            ], style=self_style.dp_div_style),
+                                            html.P('平均負債比率', style=self_style.text_normal),
+                                            html.Div([
+                                                dcc.Dropdown(
+                                                    id={'type':'dd2',
+                                                        'index': '0122'},
+                                                    options=[
+                                                        {'label': '大於', 'value': '1'},
+                                                        {'label': '小於', 'value': '-1'},
+                                                    ],
+                                                    value='1',
+                                                    placeholder='大於',
+                                                    clearable=False,
+                                                    style=self_style.dropdown_style),
+                                            ], style=self_style.dp_div_style),
+                                            html.Div([
+                                                dcc.Input(
+                                                    id={'type':'ip2',
+                                                        'index': '0122'},
+                                                    type='number',
+                                                    min=-999,
+                                                    max=99999,
+                                                    value=10,
+                                                    placeholder='10',
+                                                    style=self_style.input_style),
+                                            ], style=self_style.ipt_div_style),
+                                            html.P('%', style=self_style.text_normal),
+                                        ], style=self_style.output_item_style),
+                                        html.Button(
+                                            html.Img(src=delete_img_path, className='delete-img-style'), 
+                                            n_clicks=0, 
+                                            className='btn-style', 
+                                            id={'type':'output-btn',
+                                                'index': str(output_count)})
+                                    ])
+    return new_children
+
+def create_0123(output_count):
+    '''0123 (季/年)負債比率(成長/衰退)(10)%'''
+    new_children = html.Div([
+                                        html.Span([
+                                            html.Div([
+                                                dcc.Dropdown(
+                                                id={'type':'dd1',
+                                                    'index': '0123'},
+                                                options=[
+                                                    {'label': '季', 'value': 'q'},
+                                                    {'label': '年', 'value': 'y'},
+                                                ],
+                                                value='q',
+                                                placeholder='季',
+                                                clearable=False,
+                                                style=self_style.dropdown_style),
+                                            ],style=self_style.dp_div_style),
+                                            html.P('負債比率', style=self_style.text_normal),
+                                            html.Div([
+                                                dcc.Dropdown(
+                                                id={'type':'dd2',
+                                                    'index': '0123'},
+                                                options=[
+                                                    {'label': '成長', 'value': '1'},
+                                                    {'label': '衰退', 'value': '-1'},
+                                                ],
+                                                value='1',
+                                                placeholder='成長',
+                                                clearable=False,
+                                                style=self_style.dropdown_style),
+                                            ],style=self_style.dp_div_style),
+                                            html.Div([
+                                                dcc.Input(
+                                                id={'type':'ip',
+                                                    'index': '0123'},
+                                                type='number',
+                                                min=0,
+                                                max=999999,
+                                                value=10,
+                                                placeholder='10',
+                                                style=self_style.input_style),
+                                            ], style=self_style.ipt_div_style),
+                                            html.P('%', style=self_style.text_normal),
                                         ], style=self_style.output_item_style),
                                         html.Button(
                                             html.Img(src=delete_img_path, className='delete-img-style'), 
