@@ -366,6 +366,30 @@ def create_query_0122(number, period, direct, percent):
 
     return query
 
+def create_query_0124(number, operation, direct, percent):
+
+    """0124 (3)年內現金股票股利(皆/平均)(大於)(10)元"""
+
+    if direct == '1':
+        sign = '>='
+    else:
+        sign = '<='
+
+    if period == 'y':
+        ref_table = basic_info_finDetail_y
+    else:
+        ref_table = basic_info_finDetail_q
+
+    query = '''
+    (SELECT stock_id FROM
+    (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY date DESC) row_num
+    FROM {} WITH(NOLOCK)) part_tbl
+    WHERE part_tbl.row_num <= {}
+    GROUP BY stock_id HAVING AVG(Debt_Rate) {} {})
+    '''.format(ref_table, number, sign, percent)
+
+    return query
+
 
 def create_query_0201(larger, price):
     '''0201 公司股價[大於][120]元'''
