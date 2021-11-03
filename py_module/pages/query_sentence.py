@@ -142,6 +142,40 @@ def create_query_0106(larger, price):
     '''.format(basic_info_finDetail_q, sign, price)
     return query
 
+def create_query_0107(numbers, larger, amount):
+    '''0107 (3)季度內平均ROE(大於)(10)%'''
+    if larger == '1':
+        sign = '>='
+    else:
+        sign = '<'
+    
+    ref_table = basic_info_finDetail_q
+
+    query = '''(SELECT stock_id FROM
+    (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY [date] DESC) row_num
+    FROM {}) part_tbl
+    WHERE part_tbl.row_num <= {}
+    GROUP BY stock_id HAVING AVG(after_return) {} {})
+    '''.format(ref_table, numbers, sign, amount)
+    return query
+
+def create_query_0109(numbers, larger, amount):
+    '''0109 (3)季度內平均ROA(大於)(10)%'''
+    if larger == '1':
+        sign = '>='
+    else:
+        sign = '<'
+    
+    ref_table = basic_info_finDetail_q
+
+    query = '''(SELECT stock_id FROM
+    (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY [date] DESC) row_num
+    FROM {}) part_tbl
+    WHERE part_tbl.row_num <= {}
+    GROUP BY stock_id HAVING AVG(total_return) {} {})
+    '''.format(ref_table, numbers, sign, amount)
+    return query 
+
 
 def create_query_0111(numbers, period, larger, amount):
     '''0111 上(2)(季/年)平均EPS(大於)(10)'''

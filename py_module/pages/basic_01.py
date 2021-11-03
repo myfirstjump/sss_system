@@ -115,7 +115,7 @@ def create_filters(button_id):
                                 html.Div([
                                     html.Span([
                                         html.P('3', style=self_style.text_bold),
-                                        html.P('年內平均ROE', style=self_style.text_normal),
+                                        html.P('季度內平均ROE', style=self_style.text_normal),
                                         html.P('大於', style=self_style.text_bold),
                                         html.P('10', style=self_style.text_bold),
                                         html.P('%', style=self_style.text_normal),
@@ -150,7 +150,7 @@ def create_filters(button_id):
                                 html.Div([
                                     html.Span([
                                         html.P('3', style=self_style.text_bold),
-                                        html.P('年內平均ROA', style=self_style.text_normal),
+                                        html.P('季度內平均ROA', style=self_style.text_normal),
                                         html.P('大於', style=self_style.text_bold),
                                         html.P('10', style=self_style.text_bold),
                                         html.P('%', style=self_style.text_normal),
@@ -637,6 +637,108 @@ def create_0106(output_count):
                                                     style=self_style.input_style),
                                             ], style=self_style.ipt_div_style),
                                             html.P('元之股票', style=self_style.text_normal),
+                                        ], style=self_style.output_item_style),
+                                        html.Button(
+                                            html.Img(src=delete_img_path, className='delete-img-style'), 
+                                            n_clicks=0, 
+                                            className='btn-style', 
+                                            id={'type':'output-btn',
+                                                'index': str(output_count)})
+                                    ])
+    return new_children
+
+def create_0107(output_count):
+    '''0107 (3)季度內平均ROE(大於)(10)%'''
+    new_children = html.Div([
+                                        html.Span([
+                                            html.Div([
+                                                dcc.Input(
+                                                    id={'type':'ip1',
+                                                        'index': '0107'},
+                                                    type='number',
+                                                    min=0,
+                                                    max=30,
+                                                    value=3,
+                                                    placeholder='3',
+                                                    style=self_style.input_style),
+                                            ], style=self_style.ipt_div_style),
+                                            html.P('季度內平均ROE', style=self_style.text_normal),
+                                            html.Div([
+                                                dcc.Dropdown(
+                                                    id={'type':'dd',
+                                                        'index': '0107'},
+                                                    options=[
+                                                        {'label': '大於', 'value': '1'},
+                                                        {'label': '小於', 'value': '-1'},
+                                                    ],
+                                                    value='1',
+                                                    placeholder='大於',
+                                                    clearable=False,
+                                                    style=self_style.dropdown_style),
+                                            ], style=self_style.dp_div_style),
+                                            html.Div([
+                                                dcc.Input(
+                                                    id={'type':'ip2',
+                                                        'index': '0107'},
+                                                    type='number',
+                                                    min=0,
+                                                    max=99999,
+                                                    value=10,
+                                                    placeholder='10',
+                                                    style=self_style.input_style),
+                                            ], style=self_style.ipt_div_style),
+                                            html.P('%', style=self_style.text_normal),
+                                        ], style=self_style.output_item_style),
+                                        html.Button(
+                                            html.Img(src=delete_img_path, className='delete-img-style'), 
+                                            n_clicks=0, 
+                                            className='btn-style', 
+                                            id={'type':'output-btn',
+                                                'index': str(output_count)})
+                                    ])
+    return new_children
+
+def create_0109(output_count):
+    '''0109 (3)季度內平均ROA(大於)(10)%'''
+    new_children = html.Div([
+                                        html.Span([
+                                            html.Div([
+                                                dcc.Input(
+                                                    id={'type':'ip1',
+                                                        'index': '0109'},
+                                                    type='number',
+                                                    min=0,
+                                                    max=30,
+                                                    value=3,
+                                                    placeholder='3',
+                                                    style=self_style.input_style),
+                                            ], style=self_style.ipt_div_style),
+                                            html.P('季度內平均ROA', style=self_style.text_normal),
+                                            html.Div([
+                                                dcc.Dropdown(
+                                                    id={'type':'dd',
+                                                        'index': '0109'},
+                                                    options=[
+                                                        {'label': '大於', 'value': '1'},
+                                                        {'label': '小於', 'value': '-1'},
+                                                    ],
+                                                    value='1',
+                                                    placeholder='大於',
+                                                    clearable=False,
+                                                    style=self_style.dropdown_style),
+                                            ], style=self_style.dp_div_style),
+                                            html.Div([
+                                                dcc.Input(
+                                                    id={'type':'ip2',
+                                                        'index': '0109'},
+                                                    type='number',
+                                                    min=0,
+                                                    max=99999,
+                                                    value=10,
+                                                    placeholder='10',
+                                                    style=self_style.input_style),
+                                            ], style=self_style.ipt_div_style),
+                                            html.P('%', style=self_style.text_normal),
                                         ], style=self_style.output_item_style),
                                         html.Button(
                                             html.Img(src=delete_img_path, className='delete-img-style'), 
