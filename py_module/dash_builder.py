@@ -1184,31 +1184,31 @@ class DashBuilder(object):
                         query = query_sentence.create_query_0113(value_dict[selection_code][0], value_dict[selection_code][1], value_dict[selection_code][2])
                         query_dict[idx] = query
                     elif selection_code == '0114':
-                        query = query_sentence.create_query_0114(value_dict[selection_code][0], value_dict[selection_code][1], value_dict[selection_code][2])
+                        query = query_sentence.create_query_0114(value_dict[selection_code][0], value_dict[selection_code][1], value_dict[selection_code][2], value_dict[selection_code][3])
                         query_dict[idx] = query
                     elif selection_code == '0115':
                         query = query_sentence.create_query_0115(value_dict[selection_code][0], value_dict[selection_code][1], value_dict[selection_code][2])
                         query_dict[idx] = query
                     elif selection_code == '0116':
-                        query = query_sentence.create_query_0116(value_dict[selection_code][0], value_dict[selection_code][1], value_dict[selection_code][2])
+                        query = query_sentence.create_query_0116(value_dict[selection_code][0], value_dict[selection_code][1], value_dict[selection_code][2], value_dict[selection_code][3])
                         query_dict[idx] = query
                     elif selection_code == '0117':
                         query = query_sentence.create_query_0117(value_dict[selection_code][0], value_dict[selection_code][1], value_dict[selection_code][2])
                         query_dict[idx] = query
                     elif selection_code == '0118':
-                        query = query_sentence.create_query_0118(value_dict[selection_code][0], value_dict[selection_code][1], value_dict[selection_code][2])
+                        query = query_sentence.create_query_0118(value_dict[selection_code][0], value_dict[selection_code][1], value_dict[selection_code][2], value_dict[selection_code][3])
                         query_dict[idx] = query
                     elif selection_code == '0119':
                         query = query_sentence.create_query_0119(value_dict[selection_code][0], value_dict[selection_code][1], value_dict[selection_code][2])
                         query_dict[idx] = query
                     elif selection_code == '0120':
-                        query = query_sentence.create_query_0120(value_dict[selection_code][0], value_dict[selection_code][1], value_dict[selection_code][2])
+                        query = query_sentence.create_query_0120(value_dict[selection_code][0], value_dict[selection_code][1], value_dict[selection_code][2], value_dict[selection_code][3])
                         query_dict[idx] = query
                     elif selection_code == '0121':
                         query = query_sentence.create_query_0121(value_dict[selection_code][0], value_dict[selection_code][1], value_dict[selection_code][2])
                         query_dict[idx] = query
                     elif selection_code == '0122':
-                        query = query_sentence.create_query_0122(value_dict[selection_code][0], value_dict[selection_code][1], value_dict[selection_code][2])
+                        query = query_sentence.create_query_0122(value_dict[selection_code][0], value_dict[selection_code][1], value_dict[selection_code][2], value_dict[selection_code][3])
                         query_dict[idx] = query
                     elif selection_code == '0123':
                         query = query_sentence.create_query_0123(value_dict[selection_code][0], value_dict[selection_code][1], value_dict[selection_code][2])

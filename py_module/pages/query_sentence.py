@@ -246,7 +246,7 @@ def create_query_0113(period, direct, percent):
 
     return query
 
-def create_query_0114(period, direct, percent):
+def create_query_0114(number, period, direct, percent):
 
     """0114 上(2)(季/年)平均存貨週轉率(大於)(10)%"""
 
@@ -266,11 +266,11 @@ def create_query_0114(period, direct, percent):
     FROM {} WITH(NOLOCK)) part_tbl
     WHERE part_tbl.row_num <= {}
     GROUP BY stock_id HAVING AVG(Inventory_Turnover) {} {})
-    '''.format(ref_table, sign, percent)
+    '''.format(ref_table, number, sign, percent)
 
     return query
 
-def create_query_0116(period, direct, percent):
+def create_query_0116(number, period, direct, percent):
 
     """0116 上(2)(季/年)平均應收帳款週轉率(大於)(10)%"""
 
@@ -290,11 +290,11 @@ def create_query_0116(period, direct, percent):
     FROM {} WITH(NOLOCK)) part_tbl
     WHERE part_tbl.row_num <= {}
     GROUP BY stock_id HAVING AVG(Accounts_Receivable_Turnover_Rate) {} {})
-    '''.format(ref_table, sign, percent)
+    '''.format(ref_table, number, sign, percent)
 
     return query
 
-def create_query_0118(period, direct, percent):
+def create_query_0118(number, period, direct, percent):
 
     """0118 上(2)(季/年)平均流動比率(大於)(10)%"""
 
@@ -314,11 +314,11 @@ def create_query_0118(period, direct, percent):
     FROM {} WITH(NOLOCK)) part_tbl
     WHERE part_tbl.row_num <= {}
     GROUP BY stock_id HAVING AVG(Current_Rate) {} {})
-    '''.format(ref_table, sign, percent)
+    '''.format(ref_table, number, sign, percent)
 
     return query
 
-def create_query_0120(period, direct, percent):
+def create_query_0120(number, period, direct, percent):
 
     """0120 上(2)(季/年)平均速動比率(大於)(10)%"""
 
@@ -338,11 +338,11 @@ def create_query_0120(period, direct, percent):
     FROM {} WITH(NOLOCK)) part_tbl
     WHERE part_tbl.row_num <= {}
     GROUP BY stock_id HAVING AVG(Quick_Rate) {} {})
-    '''.format(ref_table, sign, percent)
+    '''.format(ref_table, number, sign, percent)
 
     return query
 
-def create_query_0122(period, direct, percent):
+def create_query_0122(number, period, direct, percent):
 
     """0122 上(2)(季/年)平均負債比率(大於)(10)%"""
 
@@ -362,7 +362,7 @@ def create_query_0122(period, direct, percent):
     FROM {} WITH(NOLOCK)) part_tbl
     WHERE part_tbl.row_num <= {}
     GROUP BY stock_id HAVING AVG(Debt_Rate) {} {})
-    '''.format(ref_table, sign, percent)
+    '''.format(ref_table, number, sign, percent)
 
     return query
 
