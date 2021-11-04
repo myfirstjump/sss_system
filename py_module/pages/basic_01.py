@@ -436,6 +436,23 @@ def create_filters(button_id):
                                         'index': button_id + '-add-0124'
                                     })
                                 ]),
+                                html.Div([
+                                    html.Span([
+                                        html.P('現金股利', style=self_style.text_bold),
+                                        html.P('連續', style=self_style.text_normal),
+                                        html.P('3', style=self_style.text_bold),
+                                        html.P('年', style=self_style.text_normal),
+                                        html.P('成長', style=self_style.text_bold),
+                                    ], style=self_style.item_style),
+                                    html.Button(
+                                        html.Img(src=add_img_path, className='add-img-style'), 
+                                        n_clicks=0, 
+                                        className='btn-style', 
+                                    id={
+                                        'type': 'filter-btn',
+                                        'index': button_id + '-add-0125'
+                                    })
+                                ]),
                             ])   
     return content
 
