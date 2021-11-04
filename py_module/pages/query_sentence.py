@@ -576,7 +576,7 @@ def create_query_0124(number, distribution_type, all_avg, direct, price):
 
     return query
 
-def create_query_0125(distribution_type, numbers, growth):
+def create_query_0125(distribution_type, number, growth):
 
     """0125 (現金股利/股票股利)連續(3)年(成長/衰退)"""
 
