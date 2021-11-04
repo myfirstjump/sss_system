@@ -555,7 +555,7 @@ def create_query_0124(number, distribution_type, all_avg, direct, price):
     else:
         sign = '<='
 
-    ref_table = basic_info_finDetail_y
+    ref_table = basic_info_dividend
 
     if all_avg == '1':
         query = '''
