@@ -305,6 +305,36 @@ def create_query_0114(number, period, direct, percent):
 
     return query
 
+
+
+    
+def create_query_0115(period, direct, percent):
+
+    """0115 (季/年)存貨週轉率(成長/衰退)(10)%"""
+
+    if direct == '1':
+        sign = '>='
+    else:
+        sign = '<='
+        percent = -percent
+
+    if period == 'y':
+        ref_table = basic_info_finDetail_y
+        ref_column = 'Inventory_Turnover_last_year_ratio'
+    else:
+        ref_table = basic_info_finDetail_q
+        ref_column = 'Inventory_Turnover_last_quarter_ratio'
+
+    query = '''
+    (SELECT stock_id FROM
+    (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY date DESC) row_num
+    FROM {} WITH(NOLOCK)) part_tbl
+    WHERE part_tbl.row_num <= 1 AND {} {} {}
+    GROUP BY stock_id)
+    '''.format(ref_table, ref_column, sign, percent)
+
+    return query
+
 def create_query_0116(number, period, direct, percent):
 
     """0116 上(2)(季/年)平均應收帳款週轉率(大於)(10)%"""
