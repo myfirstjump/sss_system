@@ -29,7 +29,8 @@ skill_per = 'STOCK_SKILL_DB.dbo.TW_STOCK_PER'
 counter_legal_d = 'STOCK_COUNTER_DB.dbo.TW_STOCK_LEGALPERSON_Daily'
 counter_margin_d = 'STOCK_COUNTER_DB.dbo.TW_STOCK_MARGINTRADE_SHORTSELL_Daily'
 counter_loanshare_d = 'STOCK_COUNTER_DB.dbo.TW_STOCK_LOANSHARE_Daily'
-
+counter_holdrange_w = 'STOCK_Counter_DB.dbo.TW_STOCK_HOLDRANGE'
+counter_holdrange_m = 'STOCK_Counter_DB.dbo.TW_STOCK_HOLDRANGE_monthly'
 
 # Query Combination
 def query_combine(query_dict):
@@ -647,6 +648,33 @@ def create_query_0127(larger, times):
 
     return query
 
+
+def create_query_0128(number, period, interval, amount, unit):
+
+    '''0128 集保庫存(3)(週/月)內，(1-999股)區間者增加(100)(人/%)'''
+
+    if period == 'm':
+        ref_table = counter_holdrange_m
+        period_base = 7
+    else:
+        ref_table = counter_holdrange_w
+        period_base = 30
+
+    if unit == '1':
+        # (C-B) + (B-A) = C-A 即人數差計算
+        query = '''
+        (select stock_id from {} WITH(NOLOCK)
+        where [date] > (GETDATE()-({}*({}-1)+1)) AND HoldingSharesLevel = '{}' 
+        GROUP BY stock_id HAVING SUM(people - last_period_people) >= {})
+        '''.format(ref_table, period_base, number, interval, amount)
+    else:
+        query = '''
+        (select stock_id from {} WITH(NOLOCK)
+        where [date] > (GETDATE()-({}*({}-1)+1)) AND HoldingSharesLevel = '{}' 
+        GROUP BY stock_id HAVING SUM(percent - last_period_percent) >= {})
+        '''.format(ref_table, period_base, number, interval, amount)
+
+    return query
 
 def create_query_0201(larger, price):
     '''0201 公司股價[大於][120]元'''
