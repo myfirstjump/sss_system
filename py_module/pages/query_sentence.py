@@ -21,12 +21,14 @@ basic_info_finDetail_q = 'STOCK_BASICINTO_DB.dbo.TW_STOCK_FinancialStatements_De
 basic_info_finDetail_y = 'STOCK_BASICINTO_DB.dbo.TW_STOCK_FinancialStatements_Detail_Yearly'
 basic_info_finState_q = 'STOCK_BASICINTO_DB.dbo.TW_STOCK_FinancialStatements'
 basic_info_finState_y = 'STOCK_BASICINTO_DB.dbo.TW_STOCK_FinancialStatements_Yearly'
+basic_info_dividend = 'STOCK_BASICINTO_DB.dbo.TW_STOCK_DIVIDEND_YEARLY'
 skill_price_d = 'STOCK_SKILL_DB.dbo.TW_STOCK_PRICE_Daily'
 skill_price_w = 'STOCK_SKILL_DB.dbo.TW_STOCK_PRICE_Weekly'
 skill_price_m = 'STOCK_SKILL_DB.dbo.TW_STOCK_PRICE_monthly'
 counter_legal_d = 'STOCK_COUNTER_DB.dbo.TW_STOCK_LEGALPERSON_Daily'
 counter_margin_d = 'STOCK_COUNTER_DB.dbo.TW_STOCK_MARGINTRADE_SHORTSELL_Daily'
 counter_loanshare_d = 'STOCK_COUNTER_DB.dbo.TW_STOCK_LOANSHARE_Daily'
+
 
 # Query Combination
 def query_combine(query_dict):
@@ -539,29 +541,40 @@ def create_query_0123(period, direct, percent):
 
     return query
 
-# def create_query_0124(number, operation, direct, percent):
+def create_query_0124(number, distribution_type, all_avg, direct, price):
 
-#     """0124 (3)年內現金股票股利(皆/平均)(大於)(10)元"""
+    """0124 (3)年內(現金股利/股票股利)(皆/平均)(大於)(10)元"""
 
-#     if direct == '1':
-#         sign = '>='
-#     else:
-#         sign = '<='
+    if distribution_type == '2':
+        ref_column = 'StockEarningsDistribution'
+    else:
+        ref_column = 'CashEarningsDistribution'
 
-#     if period == 'y':
-#         ref_table = basic_info_finDetail_y
-#     else:
-#         ref_table = basic_info_finDetail_q
+    if direct == '1':
+        sign = '>='
+    else:
+        sign = '<='
 
-#     query = '''
-#     (SELECT stock_id FROM
-#     (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY date DESC) row_num
-#     FROM {} WITH(NOLOCK)) part_tbl
-#     WHERE part_tbl.row_num <= {}
-#     GROUP BY stock_id HAVING AVG(Debt_Rate) {} {})
-#     '''.format(ref_table, number, sign, percent)
+    ref_table = basic_info_finDetail_y
 
-#     return query
+    if all_avg == '1':
+        query = '''
+        (SELECT stock_id FROM
+        (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY date DESC) row_num
+        FROM {} WITH(NOLOCK)) part_tbl
+        WHERE part_tbl.row_num <= {} AND {} {} {}
+        GROUP BY stock_id HAVING COUNT(row_num) = {})
+        '''.format(ref_table, number, ref_column, sign, price, number)
+    else:
+        query = '''
+        (SELECT stock_id FROM
+        (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY date DESC) row_num
+        FROM {} WITH(NOLOCK)) part_tbl
+        WHERE part_tbl.row_num <= {}
+        GROUP BY stock_id HAVING AVG({}) {} {})
+        '''.format(ref_table, number, ref_column, sign, price)
+
+    return query
 
 
 def create_query_0201(larger, price):

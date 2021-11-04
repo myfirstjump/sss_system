@@ -420,7 +420,8 @@ def create_filters(button_id):
                                 html.Div([
                                     html.Span([
                                         html.P('3', style=self_style.text_bold),
-                                        html.P('年內現金股票股利', style=self_style.text_normal),
+                                        html.P('年內', style=self_style.text_normal),
+                                        html.P('現金股利', style=self_style.text_bold),
                                         html.P('皆', style=self_style.text_bold),
                                         html.P('大於', style=self_style.text_bold),
                                         html.P('10', style=self_style.text_bold),
@@ -1657,7 +1658,7 @@ def create_0123(output_count):
     return new_children
 
 def create_0124(output_count):
-    '''0124 (3)年內現金股票股利(皆/平均)(大於)(10)元'''
+    '''0124 (3)年內(現金股票股利)(皆/平均)(大於)(10)元'''
     new_children = html.Div([
                                         html.Span([
                                             html.Div([
@@ -1671,10 +1672,23 @@ def create_0124(output_count):
                                                 placeholder='3',
                                                 style=self_style.input_style),
                                             ], style=self_style.ipt_div_style),
-                                            html.P('年內現金股票股利', style=self_style.text_normal),
+                                            html.P('年內', style=self_style.text_normal),
                                             html.Div([
                                                 dcc.Dropdown(
                                                 id={'type':'dd1',
+                                                    'index': '0124'},
+                                                options=[
+                                                    {'label': '現金股利', 'value': '1'},
+                                                    {'label': '股票股利', 'value': '2'},
+                                                ],
+                                                value='1',
+                                                placeholder='現金股利',
+                                                clearable=False,
+                                                style=self_style.dropdown_style),
+                                            ],style=self_style.dp_div_style),
+                                            html.Div([
+                                                dcc.Dropdown(
+                                                id={'type':'dd2',
                                                     'index': '0124'},
                                                 options=[
                                                     {'label': '皆', 'value': '1'},
@@ -1687,7 +1701,7 @@ def create_0124(output_count):
                                             ],style=self_style.dp_div_style),
                                             html.Div([
                                                 dcc.Dropdown(
-                                                id={'type':'dd2',
+                                                id={'type':'dd3',
                                                     'index': '0124'},
                                                 options=[
                                                     {'label': '大於', 'value': '1'},
