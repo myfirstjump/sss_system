@@ -560,7 +560,7 @@ def create_query_0124(number, distribution_type, all_avg, direct, price):
     if all_avg == '1':
         query = '''
         (SELECT stock_id FROM
-        (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY date DESC) row_num
+        (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY yearly DESC) row_num
         FROM {} WITH(NOLOCK)) part_tbl
         WHERE part_tbl.row_num <= {} AND {} {} {}
         GROUP BY stock_id HAVING COUNT(row_num) = {})
