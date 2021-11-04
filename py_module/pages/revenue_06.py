@@ -12,15 +12,15 @@ def create_filters(button_id):
         0602 營收連續(3)(月/季/年)(成長/衰退)(5)%以上
         0603 營收較去年同期(成長/衰退)(5)%以上
 
-        0604 近(2)(月/季/年)營業毛利率(大於)(5)百萬元
+        0604 近(2)(月/季/年)營業毛利率(大於)(5)%
         0605 營業毛利率連續(3)(月/季/年)(成長/衰退)(5)%以上
         0606 營業毛利率較去年同期(成長/衰退)(5)%以上
 
-        0607 近(2)(月/季/年)營業利益率(大於)(5)百萬元
+        0607 近(2)(月/季/年)營業利益率(大於)(5)%
         0608 營業利益率連續(3)(月/季/年)(成長/衰退)(5)%以上
         0609 營業利益率較去年同期(成長/衰退)(5)%以上
 
-        0610 近(2)(月/季/年)稅後淨利率(大於)(5)百萬元
+        0610 近(2)(月/季/年)稅後淨利率(大於)(5)%
         0611 稅後淨利率連續(3)(月/季/年)(成長/衰退)(5)%以上
         0612 稅後淨利率較去年同期(成長/衰退)(5)%以上'''
     content = html.Div(
@@ -88,7 +88,7 @@ def create_filters(button_id):
                                         html.P('營業毛利率', style=self_style.text_normal),
                                         html.P('大於', style=self_style.text_bold),
                                         html.P('5', style=self_style.text_bold),
-                                        html.P('百萬元', style=self_style.text_normal),
+                                        html.P('%', style=self_style.text_normal),
                                     ], style=self_style.item_style),
                                     html.Button(
                                         html.Img(src=add_img_path, className='add-img-style'), 
@@ -143,7 +143,7 @@ def create_filters(button_id):
                                         html.P('營業利益率', style=self_style.text_normal),
                                         html.P('大於', style=self_style.text_bold),
                                         html.P('5', style=self_style.text_bold),
-                                        html.P('百萬元', style=self_style.text_normal),
+                                        html.P('%', style=self_style.text_normal),
                                     ], style=self_style.item_style),
                                     html.Button(
                                         html.Img(src=add_img_path, className='add-img-style'), 
@@ -198,7 +198,7 @@ def create_filters(button_id):
                                         html.P('稅後淨利率', style=self_style.text_normal),
                                         html.P('大於', style=self_style.text_bold),
                                         html.P('5', style=self_style.text_bold),
-                                        html.P('百萬元', style=self_style.text_normal),
+                                        html.P('%', style=self_style.text_normal),
                                     ], style=self_style.item_style),
                                     html.Button(
                                         html.Img(src=add_img_path, className='add-img-style'), 
@@ -487,11 +487,11 @@ def create_0604(output_count):
                                                 type='number',
                                                 min=0,
                                                 max=999999,
-                                                value=100,
-                                                placeholder='100',
+                                                value=50,
+                                                placeholder='50',
                                                 style=self_style.input_style),
                                             ], style=self_style.ipt_div_style),
-                                            html.P('百萬元', style=self_style.text_normal),
+                                            html.P('%', style=self_style.text_normal),
                                         ], style=self_style.output_item_style),
                                         html.Button(
                                             html.Img(src=delete_img_path, className='delete-img-style'), 
@@ -675,11 +675,11 @@ def create_0607(output_count):
                                                 type='number',
                                                 min=0,
                                                 max=999999,
-                                                value=100,
-                                                placeholder='100',
+                                                value=50,
+                                                placeholder='50',
                                                 style=self_style.input_style),
                                             ], style=self_style.ipt_div_style),
-                                            html.P('百萬元', style=self_style.text_normal),
+                                            html.P('%', style=self_style.text_normal),
                                         ], style=self_style.output_item_style),
                                         html.Button(
                                             html.Img(src=delete_img_path, className='delete-img-style'), 
@@ -863,11 +863,11 @@ def create_0610(output_count):
                                                 type='number',
                                                 min=0,
                                                 max=999999,
-                                                value=100,
-                                                placeholder='100',
+                                                value=50,
+                                                placeholder='50',
                                                 style=self_style.input_style),
                                             ], style=self_style.ipt_div_style),
-                                            html.P('百萬元', style=self_style.text_normal),
+                                            html.P('%', style=self_style.text_normal),
                                         ], style=self_style.output_item_style),
                                         html.Button(
                                             html.Img(src=delete_img_path, className='delete-img-style'), 

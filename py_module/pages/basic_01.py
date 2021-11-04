@@ -115,7 +115,7 @@ def create_filters(button_id):
                                 html.Div([
                                     html.Span([
                                         html.P('3', style=self_style.text_bold),
-                                        html.P('季度內平均ROE', style=self_style.text_normal),
+                                        html.P('年內平均ROE', style=self_style.text_normal),
                                         html.P('大於', style=self_style.text_bold),
                                         html.P('10', style=self_style.text_bold),
                                         html.P('%', style=self_style.text_normal),
@@ -150,7 +150,7 @@ def create_filters(button_id):
                                 html.Div([
                                     html.Span([
                                         html.P('3', style=self_style.text_bold),
-                                        html.P('季度內平均ROA', style=self_style.text_normal),
+                                        html.P('年內平均ROA', style=self_style.text_normal),
                                         html.P('大於', style=self_style.text_bold),
                                         html.P('10', style=self_style.text_bold),
                                         html.P('%', style=self_style.text_normal),
@@ -680,7 +680,7 @@ def create_0107(output_count):
                                                     placeholder='3',
                                                     style=self_style.input_style),
                                             ], style=self_style.ipt_div_style),
-                                            html.P('季度內平均ROE', style=self_style.text_normal),
+                                            html.P('年內平均ROE', style=self_style.text_normal),
                                             html.Div([
                                                 dcc.Dropdown(
                                                     id={'type':'dd',
@@ -716,6 +716,61 @@ def create_0107(output_count):
                                     ])
     return new_children
 
+
+    
+def create_0108(output_count):
+    '''0108 ROE連續(3)年(成長/衰退)(5)%以上'''
+    new_children = html.Div([
+                                        html.Span([
+                                            html.P('ROE連續', style=self_style.text_normal),
+                                            html.Div([
+                                                dcc.Input(
+                                                    id={'type':'ip1',
+                                                        'index': '0108'},
+                                                    type='number',
+                                                    min=0,
+                                                    max=30,
+                                                    value=3,
+                                                    placeholder='3',
+                                                    style=self_style.input_style),
+                                            ], style=self_style.ipt_div_style),
+                                            html.P('年', style=self_style.text_normal),
+                                            html.Div([
+                                                dcc.Dropdown(
+                                                    id={'type':'dd',
+                                                        'index': '0108'},
+                                                    options=[
+                                                        {'label': '成長', 'value': '1'},
+                                                        {'label': '衰退', 'value': '-1'},
+                                                    ],
+                                                    value='1',
+                                                    placeholder='成長',
+                                                    clearable=False,
+                                                    style=self_style.dropdown_style),
+                                            ], style=self_style.dp_div_style),
+                                            html.Div([
+                                                dcc.Input(
+                                                    id={'type':'ip2',
+                                                        'index': '0108'},
+                                                    type='number',
+                                                    min=0,
+                                                    max=99999,
+                                                    value=5,
+                                                    placeholder='5',
+                                                    style=self_style.input_style),
+                                            ], style=self_style.ipt_div_style),
+                                            html.P('%以上', style=self_style.text_normal),
+                                        ], style=self_style.output_item_style),
+                                        html.Button(
+                                            html.Img(src=delete_img_path, className='delete-img-style'), 
+                                            n_clicks=0, 
+                                            className='btn-style', 
+                                            id={'type':'output-btn',
+                                                'index': str(output_count)})
+                                    ])
+    return new_children
+
+
 def create_0109(output_count):
     '''0109 (3)季度內平均ROA(大於)(10)%'''
     new_children = html.Div([
@@ -731,7 +786,7 @@ def create_0109(output_count):
                                                     placeholder='3',
                                                     style=self_style.input_style),
                                             ], style=self_style.ipt_div_style),
-                                            html.P('季度內平均ROA', style=self_style.text_normal),
+                                            html.P('年內平均ROA', style=self_style.text_normal),
                                             html.Div([
                                                 dcc.Dropdown(
                                                     id={'type':'dd',
@@ -757,6 +812,58 @@ def create_0109(output_count):
                                                     style=self_style.input_style),
                                             ], style=self_style.ipt_div_style),
                                             html.P('%', style=self_style.text_normal),
+                                        ], style=self_style.output_item_style),
+                                        html.Button(
+                                            html.Img(src=delete_img_path, className='delete-img-style'), 
+                                            n_clicks=0, 
+                                            className='btn-style', 
+                                            id={'type':'output-btn',
+                                                'index': str(output_count)})
+                                    ])
+    return new_children
+
+def create_0110(output_count):
+    '''0110 ROA連續(3)年(成長/衰退)(5)%以上'''
+    new_children = html.Div([
+                                        html.Span([
+                                            html.P('ROA連續', style=self_style.text_normal),
+                                            html.Div([
+                                                dcc.Input(
+                                                    id={'type':'ip1',
+                                                        'index': '0110'},
+                                                    type='number',
+                                                    min=0,
+                                                    max=30,
+                                                    value=3,
+                                                    placeholder='3',
+                                                    style=self_style.input_style),
+                                            ], style=self_style.ipt_div_style),
+                                            html.P('年', style=self_style.text_normal),
+                                            html.Div([
+                                                dcc.Dropdown(
+                                                    id={'type':'dd',
+                                                        'index': '0110'},
+                                                    options=[
+                                                        {'label': '成長', 'value': '1'},
+                                                        {'label': '衰退', 'value': '-1'},
+                                                    ],
+                                                    value='1',
+                                                    placeholder='成長',
+                                                    clearable=False,
+                                                    style=self_style.dropdown_style),
+                                            ], style=self_style.dp_div_style),
+                                            html.Div([
+                                                dcc.Input(
+                                                    id={'type':'ip2',
+                                                        'index': '0110'},
+                                                    type='number',
+                                                    min=0,
+                                                    max=99999,
+                                                    value=5,
+                                                    placeholder='5',
+                                                    style=self_style.input_style),
+                                            ], style=self_style.ipt_div_style),
+                                            html.P('%以上', style=self_style.text_normal),
                                         ], style=self_style.output_item_style),
                                         html.Button(
                                             html.Img(src=delete_img_path, className='delete-img-style'), 

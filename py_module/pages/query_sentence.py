@@ -143,13 +143,13 @@ def create_query_0106(larger, price):
     return query
 
 def create_query_0107(numbers, larger, amount):
-    '''0107 (3)季度內平均ROE(大於)(10)%'''
+    '''0107 (3)年內平均ROE(大於)(10)%'''
     if larger == '1':
         sign = '>='
     else:
         sign = '<'
     
-    ref_table = basic_info_finDetail_q
+    ref_table = basic_info_finDetail_y
 
     query = '''(SELECT stock_id FROM
     (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY [date] DESC) row_num
@@ -159,14 +159,32 @@ def create_query_0107(numbers, larger, amount):
     '''.format(ref_table, numbers, sign, amount)
     return query
 
+def create_query_0108(numbers, larger, percent):
+    '''0108 ROE連續(3)年(成長/衰退)(5)%以上'''
+    if larger == '1':
+        sign = '>='
+    else:
+        sign = '<'
+        percent = -percent
+    
+    ref_table = basic_info_finDetail_y
+
+    query = '''(SELECT stock_id FROM
+    (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY [date] DESC) row_num
+    FROM {}) part_tbl
+    WHERE part_tbl.row_num <= {} AND after_return_last_year_ratio {} {}
+    GROUP BY stock_id HAVING COUNT(row_num) = {})
+    '''.format(ref_table, numbers, sign, percent, numbers)
+    return query
+
 def create_query_0109(numbers, larger, amount):
-    '''0109 (3)季度內平均ROA(大於)(10)%'''
+    '''0109 (3)年內平均ROA(大於)(10)%'''
     if larger == '1':
         sign = '>='
     else:
         sign = '<'
     
-    ref_table = basic_info_finDetail_q
+    ref_table = basic_info_finDetail_y
 
     query = '''(SELECT stock_id FROM
     (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY [date] DESC) row_num
@@ -176,6 +194,23 @@ def create_query_0109(numbers, larger, amount):
     '''.format(ref_table, numbers, sign, amount)
     return query 
 
+def create_query_0110(numbers, larger, percent):
+    '''0110 ROA連續(3)年(成長/衰退)(5)%以上'''
+    if larger == '1':
+        sign = '>='
+    else:
+        sign = '<'
+        percent = -percent
+    
+    ref_table = basic_info_finDetail_y
+
+    query = '''(SELECT stock_id FROM
+    (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY [date] DESC) row_num
+    FROM {}) part_tbl
+    WHERE part_tbl.row_num <= {} AND total_return_last_year_ratio {} {}
+    GROUP BY stock_id HAVING COUNT(row_num) = {})
+    '''.format(ref_table, numbers, sign, percent, numbers)
+    return query
 
 def create_query_0111(numbers, period, larger, amount):
     '''0111 上(2)(季/年)平均EPS(大於)(10)'''
