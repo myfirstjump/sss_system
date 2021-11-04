@@ -618,12 +618,12 @@ def create_query_0126(number, all_avg, larger, percent):
         query = '''
         (select stock_id FROM {} where [date] > (GETDATE()-({}*365)) 
         GROUP BY stock_id HAVING MIN(dividend_yield) {} {})
-        '''.format(ref_table, number, ref_column, sign, price, number)
+        '''.format(ref_table, number, sign, percent)
     else:
         query = '''
         (select stock_id FROM {} where [date] > (GETDATE()-({}*365)) group by stock_id
         HAVING AVG(dividend_yield) {} {})
-        '''.format(ref_table, number, ref_column, sign, percent)
+        '''.format(ref_table, number, sign, percent)
 
     return query
 
