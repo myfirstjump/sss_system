@@ -616,14 +616,34 @@ def create_query_0126(number, all_avg, larger, percent):
 
     if all_avg == '1':
         query = '''
-        (select stock_id FROM {} where [date] > (GETDATE()-({}*365)) 
+        (select stock_id FROM {} WITH(NOLOCK) where [date] > (GETDATE()-({}*365)) 
         GROUP BY stock_id HAVING MIN(dividend_yield) {} {})
         '''.format(ref_table, number, sign, percent)
     else:
         query = '''
-        (select stock_id FROM {} where [date] > (GETDATE()-({}*365)) group by stock_id
+        (select stock_id FROM {} WITH(NOLOCK) where [date] > (GETDATE()-({}*365)) group by stock_id
         HAVING AVG(dividend_yield) {} {})
         '''.format(ref_table, number, sign, percent)
+
+    return query
+
+def create_query_0127(larger, times):
+
+    """0127 本益比(大於)(15)倍"""
+
+    if larger == '1':
+        sign = '>='
+    else:
+        sign = '<='
+
+    ref_table = skill_per
+
+    query = '''
+    (SELECT stock_id FROM
+    (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY [date] DESC) row_num
+    FROM (SELECT * FROM {} WITH(NOLOCK) where [date] > (GETDATE()-(10)))t1 ) part_tbl
+    WHERE row_num <= 1 AND PER {} {})
+    '''.format(ref_table, sign, times)
 
     return query
 
