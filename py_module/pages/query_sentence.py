@@ -859,7 +859,7 @@ def create_query_0504(days, period, direct, lot):
     FROM {} WITH(NOLOCK)
     WHERE date > (GETDATE()-({}+10))) part_tbl
     WHERE part_tbl.row_num <= {} AND part_tbl.SHORTSELL_ratio {} {}
-    GROUP BY part_tbl.stock_id HAVING  count(row_num) = {})
+    GROUP BY part_tbl.stock_id HAVING  COUNT(row_num) = {})
     '''.format(counter_margin_d, days, days, sign, lot, days)
 
     return query
@@ -927,8 +927,8 @@ def create_query_0601(numbers, period, direct, amount):
     (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY date DESC) row_num
     FROM {} WITH(NOLOCK)) part_tbl
     WHERE part_tbl.row_num <= {} AND part_tbl.revenue {} {}
-    GROUP BY part_tbl.stock_id)
-    '''.format(ref_table, numbers, sign, amount)
+    GROUP BY part_tbl.stock_id HAVING COUNT(row_num) = {})
+    '''.format(ref_table, numbers, sign, amount, numbers)
 
     return query
 
@@ -940,6 +940,7 @@ def create_query_0602(numbers, period, direct, percent):
         sign = '>='
     else:
         sign = '<='
+        percent = -percent
 
     if period == 'q':
         ref_table = basic_info_revenue_q
@@ -953,8 +954,8 @@ def create_query_0602(numbers, period, direct, percent):
     (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY date DESC) row_num
     FROM {} WITH(NOLOCK)) part_tbl
     WHERE part_tbl.row_num <= {} AND part_tbl.last_month_ratio {} {}
-    GROUP BY part_tbl.stock_id)
-    '''.format(ref_table, numbers, sign, percent)
+    GROUP BY part_tbl.stock_id HAVING COUNT(row_num) = {})
+    '''.format(ref_table, numbers, sign, percent, numbers)
 
     return query
 
@@ -968,6 +969,7 @@ def create_query_0603(period, direct, percent):
         sign = '>='
     else:
         sign = '<='
+        percent = -percent
 
     if period == 'q':
         ref_table = basic_info_revenue_q
@@ -981,6 +983,237 @@ def create_query_0603(period, direct, percent):
     (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY date DESC) row_num
     FROM {} WITH(NOLOCK)) part_tbl
     WHERE part_tbl.row_num <= 1 AND part_tbl.lastyear_month_revenue {} {}
+    GROUP BY stock_id)
+    '''.format(ref_table, sign, percent)
+
+    return query
+
+
+def create_query_0604(numbers, period, direct, percent):
+
+    """0604 近(2)(月/季/年)營業毛利率(大於)(5)%"""
+
+    if direct == '1':
+        sign = '>='
+    else:
+        sign = '<='
+
+    if period == 'y':
+        ref_table = basic_info_finDetail_y
+    else:
+        ref_table = basic_info_finDetail_q
+
+    query = '''
+    (SELECT stock_id FROM
+    (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY date DESC) row_num
+    FROM {} WITH(NOLOCK)) part_tbl
+    WHERE part_tbl.row_num <= {} AND part_tbl.Gross_Profit_Margin {} {}
+    GROUP BY part_tbl.stock_id HAVING COUNT(row_num) = {})
+    '''.format(ref_table, numbers, sign, percent, numbers)
+
+    return query
+
+def create_query_0605(numbers, period, direct, percent):
+
+    """0605 營業毛利率連續(3)(季/年)(成長/衰退)(5)%以上"""
+
+    if direct == '1':
+        sign = '>='
+    else:
+        sign = '<='
+        percent = -percent
+
+    if period == 'y':
+        ref_table = basic_info_finDetail_y
+    else:
+        ref_table = basic_info_finDetail_q
+
+    query = '''
+    (SELECT stock_id FROM
+    (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY date DESC) row_num
+    FROM {} WITH(NOLOCK)) part_tbl
+    WHERE part_tbl.row_num <= {} AND part_tbl.Gross_Profit_Margin_last_quarter_ratio {} {}
+    GROUP BY part_tbl.stock_id HAVING COUNT(row_num) = {})
+    '''.format(ref_table, numbers, sign, percent, numbers)
+
+    return query
+
+    
+
+def create_query_0606(period, direct, percent):
+
+    """0606 上(季/年)營業毛利率較去年同期(成長/衰退)(5)%以上"""
+
+    if direct == '1':
+        sign = '>='
+    else:
+        sign = '<='
+        percent = -percent
+
+    if period == 'y':
+        ref_table = basic_info_finDetail_y
+    else:
+        ref_table = basic_info_finDetail_q
+
+    query = '''
+    (SELECT stock_id FROM
+    (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY date DESC) row_num
+    FROM {} WITH(NOLOCK)) part_tbl
+    WHERE part_tbl.row_num <= 1 AND part_tbl.Gross_Profit_Margin_last_year_ratio {} {}
+    GROUP BY part_tbl.stock_id)
+    '''.format(ref_table, sign, percent)
+
+    return query
+
+def create_query_0607(numbers, period, direct, amount):
+
+    """0607 近(2)(月/季/年)營業利益率(大於)(5)%"""
+
+    if direct == '1':
+        sign = '>='
+    else:
+        sign = '<='
+
+    if period == 'y':
+        ref_table = basic_info_finDetail_y
+    else:
+        ref_table = basic_info_finDetail_q
+
+    query = '''
+    (SELECT stock_id FROM
+    (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY date DESC) row_num
+    FROM {} WITH(NOLOCK)) part_tbl
+    WHERE part_tbl.row_num <= {} AND part_tbl.Operating_Profit_Margin {} {}
+    GROUP BY part_tbl.stock_id HAVING COUNT(row_num) = {})
+    '''.format(ref_table, numbers, sign, percent, numbers)
+
+    return query
+
+def create_query_0608(numbers, period, direct, percent):
+
+    """0608 營業利益率連續(3)(月/季/年)(成長/衰退)(5)%以上"""
+
+    if direct == '1':
+        sign = '>='
+    else:
+        sign = '<='
+        percent = -percent
+
+    if period == 'y':
+        ref_table = basic_info_finDetail_y
+    else:
+        ref_table = basic_info_finDetail_q
+
+    query = '''
+    (SELECT stock_id FROM
+    (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY date DESC) row_num
+    FROM {} WITH(NOLOCK)) part_tbl
+    WHERE part_tbl.row_num <= {} AND part_tbl.Operating_Profit_Margin_last_quarter_ratio {} {}
+    GROUP BY part_tbl.stock_id HAVING COUNT(row_num) = {})
+    '''.format(ref_table, numbers, sign, percent, numbers)
+
+    return query
+
+    
+
+def create_query_0609(period, direct, percent):
+
+    """0609 上(月/季/年)營業利益率較去年同期(成長/衰退)(5)%以上"""
+
+    if direct == '1':
+        sign = '>='
+    else:
+        sign = '<='
+        percent = -percent
+
+    if period == 'y':
+        ref_table = basic_info_finDetail_y
+    else:
+        ref_table = basic_info_finDetail_q
+
+    query = '''
+    (SELECT stock_id FROM
+    (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY date DESC) row_num
+    FROM {} WITH(NOLOCK)) part_tbl
+    WHERE part_tbl.row_num <= 1 AND part_tbl.Operating_Profit_Margin_last_year_ratio {} {}
+    GROUP BY part_tbl.stock_id)
+    '''.format(ref_table, sign, percent)
+
+    return query
+
+def create_query_0610(numbers, period, direct, amount):
+
+    """0610 近(2)(月/季/年)稅後淨利率(大於)(5)%"""
+
+    if direct == '1':
+        sign = '>='
+    else:
+        sign = '<='
+
+    if period == 'y':
+        ref_table = basic_info_finDetail_y
+    else:
+        ref_table = basic_info_finDetail_q
+
+    query = '''
+    (SELECT stock_id FROM
+    (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY date DESC) row_num
+    FROM {} WITH(NOLOCK)) part_tbl
+    WHERE part_tbl.row_num <= {} AND part_tbl.AfterTax_Income_Margin {} {}
+    GROUP BY part_tbl.stock_id HAVING COUNT(row_num) = {})
+    '''.format(ref_table, numbers, sign, percent, numbers)
+
+    return query
+
+    return query
+
+def create_query_0611(numbers, period, direct, percent):
+
+    """0611 稅後淨利率連續(3)(月/季/年)(成長/衰退)(5)%以上"""
+
+    if direct == '1':
+        sign = '>='
+    else:
+        sign = '<='
+        percent = -percent
+
+    if period == 'y':
+        ref_table = basic_info_finDetail_y
+    else:
+        ref_table = basic_info_finDetail_q
+
+    query = '''
+    (SELECT stock_id FROM
+    (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY date DESC) row_num
+    FROM {} WITH(NOLOCK)) part_tbl
+    WHERE part_tbl.row_num <= {} AND part_tbl.AfterTax_Income_Margin_last_quarter_ratio {} {}
+    GROUP BY part_tbl.stock_id HAVING COUNT(row_num) = {})
+    '''.format(ref_table, numbers, sign, percent, numbers)
+
+    return query
+
+    
+
+def create_query_0612(period, direct, percent):
+
+    """0612 上(月/季/年)稅後淨利率較去年同期(成長/衰退)(5)%以上"""
+
+    if direct == '1':
+        sign = '>='
+    else:
+        sign = '<='
+        percent = -percent
+
+    if period == 'y':
+        ref_table = basic_info_finDetail_y
+    else:
+        ref_table = basic_info_finDetail_q
+
+    query = '''
+    (SELECT stock_id FROM
+    (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY date DESC) row_num
+    FROM {} WITH(NOLOCK)) part_tbl
+    WHERE part_tbl.row_num <= 1 AND part_tbl.AfterTax_Income_Margin_last_year_ratio {} {}
     GROUP BY part_tbl.stock_id)
     '''.format(ref_table, sign, percent)
 
