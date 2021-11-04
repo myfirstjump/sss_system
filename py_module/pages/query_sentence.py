@@ -655,23 +655,23 @@ def create_query_0128(number, period, interval, amount, unit):
 
     if period == 'm':
         ref_table = counter_holdrange_m
-        period_base = 7
+        period_base = 31
     else:
         ref_table = counter_holdrange_w
-        period_base = 30
+        period_base = 7
 
     if unit == '1':
         # (C-B) + (B-A) = C-A 即人數差計算
         query = '''
         (select stock_id from {} WITH(NOLOCK)
         where [date] > (GETDATE()-({}*({}-1)+1)) AND HoldingSharesLevel = '{}' 
-        GROUP BY stock_id HAVING SUM(people - last_period_people) >= {})
+        GROUP BY stock_id HAVING SUM([people] - [last_period_people]) >= {})
         '''.format(ref_table, period_base, number, interval, amount)
     else:
         query = '''
         (select stock_id from {} WITH(NOLOCK)
         where [date] > (GETDATE()-({}*({}-1)+1)) AND HoldingSharesLevel = '{}' 
-        GROUP BY stock_id HAVING SUM(percent - last_period_percent) >= {})
+        GROUP BY stock_id HAVING SUM([percent] - [last_period_percent]) >= {})
         '''.format(ref_table, period_base, number, interval, amount)
 
     return query
