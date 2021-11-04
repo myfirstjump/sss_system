@@ -1734,3 +1734,58 @@ def create_0124(output_count):
                                     ])
 
     return new_children
+
+
+def create_0125(output_count):
+    '''0125 (現金股利/股票股利)連續(3)年(成長/衰退)'''
+    new_children = html.Div([
+                                        html.Span([
+                                            html.Div([
+                                                dcc.Dropdown(
+                                                id={'type':'dd1',
+                                                    'index': '0125'},
+                                                options=[
+                                                    {'label': '現金股利', 'value': '1'},
+                                                    {'label': '股票股利', 'value': '2'},
+                                                ],
+                                                value='1',
+                                                placeholder='現金股利',
+                                                clearable=False,
+                                                style=self_style.dropdown_style),
+                                            ],style=self_style.dp_div_style),
+                                            html.P('連續', style=self_style.text_normal),
+                                            html.Div([
+                                                dcc.Input(
+                                                id={'type':'ip',
+                                                    'index': '0125'},
+                                                type='number',
+                                                min=0,
+                                                max=10,
+                                                value=3,
+                                                placeholder='3',
+                                                style=self_style.input_style),
+                                            ], style=self_style.ipt_div_style),
+                                            html.P('年', style=self_style.text_normal),
+                                            html.Div([
+                                                dcc.Dropdown(
+                                                id={'type':'dd2',
+                                                    'index': '0125'},
+                                                options=[
+                                                    {'label': '成長', 'value': '1'},
+                                                    {'label': '衰退', 'value': '-1'},
+                                                ],
+                                                value='1',
+                                                placeholder='大於',
+                                                clearable=False,
+                                                style=self_style.dropdown_style),
+                                            ],style=self_style.dp_div_style),
+                                        ], style=self_style.output_item_style),
+                                        html.Button(
+                                            html.Img(src=delete_img_path, className='delete-img-style'), 
+                                            n_clicks=0, 
+                                            className='btn-style', 
+                                                id={'type':'output-btn',
+                                                    'index': str(output_count)})
+                                    ])
+
+    return new_children

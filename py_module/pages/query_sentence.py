@@ -576,6 +576,32 @@ def create_query_0124(number, distribution_type, all_avg, direct, price):
 
     return query
 
+def create_query_0125(distribution_type, numbers, growth):
+
+    """0125 (現金股利/股票股利)連續(3)年(成長/衰退)"""
+
+    ref_table = basic_info_dividend
+
+    if distribution_type == '2':
+        ref_column = 'stock_ratio'
+    else:
+        ref_column = 'cash_ratio'
+
+    if growth == '1':
+        sign = '>'
+    else:
+        sign = '<'
+
+    query = '''
+    (SELECT stock_id FROM
+    (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY yearly DESC) row_num
+    FROM {} WITH(NOLOCK)) part_tbl
+    WHERE part_tbl.row_num <= {} AND {} {} 0
+    GROUP BY stock_id HAVING COUNT(row_num) = {})
+    '''.format(ref_table, number, ref_column, sign, number)
+
+    return query
+
 
 def create_query_0201(larger, price):
     '''0201 公司股價[大於][120]元'''
