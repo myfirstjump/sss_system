@@ -25,6 +25,7 @@ basic_info_dividend = 'STOCK_BASICINTO_DB.dbo.TW_STOCK_DIVIDEND_YEARLY'
 skill_price_d = 'STOCK_SKILL_DB.dbo.TW_STOCK_PRICE_Daily'
 skill_price_w = 'STOCK_SKILL_DB.dbo.TW_STOCK_PRICE_Weekly'
 skill_price_m = 'STOCK_SKILL_DB.dbo.TW_STOCK_PRICE_monthly'
+skill_per = 'STOCK_SKILL_DB.dbo.TW_STOCK_PER'
 counter_legal_d = 'STOCK_COUNTER_DB.dbo.TW_STOCK_LEGALPERSON_Daily'
 counter_margin_d = 'STOCK_COUNTER_DB.dbo.TW_STOCK_MARGINTRADE_SHORTSELL_Daily'
 counter_loanshare_d = 'STOCK_COUNTER_DB.dbo.TW_STOCK_LOANSHARE_Daily'
@@ -599,6 +600,30 @@ def create_query_0125(distribution_type, number, growth):
     WHERE part_tbl.row_num <= {} AND {} {} 0
     GROUP BY stock_id HAVING COUNT(row_num) = {})
     '''.format(ref_table, number, ref_column, sign, number)
+
+    return query
+
+def create_query_0126(number, all_avg, larger, percent):
+
+    """0126 (3)年內殖利率(皆/平均)(大於)(5)%"""
+
+    if larger == '1':
+        sign = '>='
+    else:
+        sign = '<='
+
+    ref_table = skill_per
+
+    if all_avg == '1':
+        query = '''
+        (select stock_id FROM {} where [date] > (GETDATE()-({}*365)) 
+        GROUP BY stock_id HAVING MIN(dividend_yield) {} {})
+        '''.format(ref_table, number, ref_column, sign, price, number)
+    else:
+        query = '''
+        (select stock_id FROM {} where [date] > (GETDATE()-({}*365)) group by stock_id
+        HAVING AVG(dividend_yield) {} {})
+        '''.format(ref_table, number, ref_column, sign, percent)
 
     return query
 
