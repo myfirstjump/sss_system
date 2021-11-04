@@ -359,6 +359,33 @@ def create_query_0116(number, period, direct, percent):
 
     return query
 
+def create_query_0117(period, direct, percent):
+
+    """0117 (季/年)應收帳款週轉率(成長/衰退)(10)%"""
+
+    if direct == '1':
+        sign = '>='
+    else:
+        sign = '<='
+        percent = -percent
+
+    if period == 'y':
+        ref_table = basic_info_finDetail_y
+        ref_column = 'Accounts_Receivable_Turnover_Rate_last_year_ratio'
+    else:
+        ref_table = basic_info_finDetail_q
+        ref_column = 'Accounts_Receivable_Turnover_Rate_last_quarter_ratio'
+
+    query = '''
+    (SELECT stock_id FROM
+    (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY date DESC) row_num
+    FROM {} WITH(NOLOCK)) part_tbl
+    WHERE part_tbl.row_num <= 1 AND {} {} {}
+    GROUP BY stock_id)
+    '''.format(ref_table, ref_column, sign, percent)
+
+    return query
+
 def create_query_0118(number, period, direct, percent):
 
     """0118 上(2)(季/年)平均流動比率(大於)(10)%"""
@@ -380,6 +407,33 @@ def create_query_0118(number, period, direct, percent):
     WHERE part_tbl.row_num <= {}
     GROUP BY stock_id HAVING AVG(Current_Rate) {} {})
     '''.format(ref_table, number, sign, percent)
+
+    return query
+
+def create_query_0119(period, direct, percent):
+
+    """0119 (季/年)流動比率(成長/衰退)(10)%"""
+
+    if direct == '1':
+        sign = '>='
+    else:
+        sign = '<='
+        percent = -percent
+
+    if period == 'y':
+        ref_table = basic_info_finDetail_y
+        ref_column = 'Current_Rate_last_year_ratio'
+    else:
+        ref_table = basic_info_finDetail_q
+        ref_column = 'Current_Rate_last_quarter_ratio'
+
+    query = '''
+    (SELECT stock_id FROM
+    (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY date DESC) row_num
+    FROM {} WITH(NOLOCK)) part_tbl
+    WHERE part_tbl.row_num <= 1 AND {} {} {}
+    GROUP BY stock_id)
+    '''.format(ref_table, ref_column, sign, percent)
 
     return query
 
@@ -407,6 +461,33 @@ def create_query_0120(number, period, direct, percent):
 
     return query
 
+def create_query_0121(period, direct, percent):
+
+    """0121 (季/年)速動比率(成長/衰退)(10)%"""
+
+    if direct == '1':
+        sign = '>='
+    else:
+        sign = '<='
+        percent = -percent
+
+    if period == 'y':
+        ref_table = basic_info_finDetail_y
+        ref_column = 'Quick_Rate_last_year_ratio'
+    else:
+        ref_table = basic_info_finDetail_q
+        ref_column = 'Quick_Rate_last_quarter_ratio'
+
+    query = '''
+    (SELECT stock_id FROM
+    (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY date DESC) row_num
+    FROM {} WITH(NOLOCK)) part_tbl
+    WHERE part_tbl.row_num <= 1 AND {} {} {}
+    GROUP BY stock_id)
+    '''.format(ref_table, ref_column, sign, percent)
+
+    return query
+
 def create_query_0122(number, period, direct, percent):
 
     """0122 上(2)(季/年)平均負債比率(大於)(10)%"""
@@ -431,29 +512,56 @@ def create_query_0122(number, period, direct, percent):
 
     return query
 
-def create_query_0124(number, operation, direct, percent):
+def create_query_0123(period, direct, percent):
 
-    """0124 (3)年內現金股票股利(皆/平均)(大於)(10)元"""
+    """0123 (季/年)負債比率(成長/衰退)(10)%"""
 
     if direct == '1':
         sign = '>='
     else:
         sign = '<='
+        percent = -percent
 
     if period == 'y':
         ref_table = basic_info_finDetail_y
+        ref_column = 'Debt_Rate_last_year_ratio'
     else:
         ref_table = basic_info_finDetail_q
+        ref_column = 'Debt_Rate_last_quarter_ratio'
 
     query = '''
     (SELECT stock_id FROM
     (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY date DESC) row_num
     FROM {} WITH(NOLOCK)) part_tbl
-    WHERE part_tbl.row_num <= {}
-    GROUP BY stock_id HAVING AVG(Debt_Rate) {} {})
-    '''.format(ref_table, number, sign, percent)
+    WHERE part_tbl.row_num <= 1 AND {} {} {}
+    GROUP BY stock_id)
+    '''.format(ref_table, ref_column, sign, percent)
 
     return query
+
+# def create_query_0124(number, operation, direct, percent):
+
+#     """0124 (3)年內現金股票股利(皆/平均)(大於)(10)元"""
+
+#     if direct == '1':
+#         sign = '>='
+#     else:
+#         sign = '<='
+
+#     if period == 'y':
+#         ref_table = basic_info_finDetail_y
+#     else:
+#         ref_table = basic_info_finDetail_q
+
+#     query = '''
+#     (SELECT stock_id FROM
+#     (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY date DESC) row_num
+#     FROM {} WITH(NOLOCK)) part_tbl
+#     WHERE part_tbl.row_num <= {}
+#     GROUP BY stock_id HAVING AVG(Debt_Rate) {} {})
+#     '''.format(ref_table, number, sign, percent)
+
+#     return query
 
 
 def create_query_0201(larger, price):
