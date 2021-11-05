@@ -676,6 +676,32 @@ def create_query_0128(number, period, interval, amount, unit):
 
     return query
 
+
+
+def create_query_0129(number, period, interval, larger, amount):
+
+    '''0129 集保庫存(3)(週/月)內，(1-999股)區間者均(大於/小於)(100)人'''
+    if larger == '1':
+        sign = 'MIN'
+    else:
+        sign = 'MAX'
+        
+    if period == 'm':
+        ref_table = counter_holdrange_m
+        period_base = 31
+    else:
+        ref_table = counter_holdrange_w
+        period_base = 7
+
+
+    query = '''
+        (SELECT stock_id FROM {} WITH(NOLOCK)
+        WHERE [date] > (GETDATE()-({}*({}-1)+1)) AND HoldingSharesLevel = '{}'
+        GROUP BY stock_id HAVING {}([people]) > {})
+        '''.format(ref_table, period_base, number, interval, sign, amount)
+
+    return query
+
 def create_query_0201(larger, price):
     '''0201 公司股價[大於][120]元'''
     if larger == '1':
