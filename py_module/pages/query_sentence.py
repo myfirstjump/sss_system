@@ -173,12 +173,22 @@ def create_query_0108(numbers, larger, percent):
     
     ref_table = basic_info_finDetail_y
 
-    query = '''(SELECT stock_id FROM
-    (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY [date] DESC) row_num
-    FROM {}) part_tbl
+    query = '''(SELECT stock_id 
+    case
+    when sum(each_remark) > 0 then '負轉正'
+    end remark
+    FROM
+    (SELECT t1.*,  ROW_NUMBER() OVER(PARTITION BY t1.stock_id ORDER BY t1.[date] DESC) row_num
+    case
+    when t1.After_Return > 0 and t2.After_Return < 0 then 1
+    else 0
+    end each_remark
+    FROM {} t1 WITH(NOLOCK)
+    left join {} t2 WITH(NOLOCK) on t1.stock_id = t2.stock_id and t1.date = dateadd(y, 1, t2.date)
+    ) part_tbl
     WHERE part_tbl.row_num <= {} AND after_return_last_year_ratio {} {}
     GROUP BY stock_id HAVING COUNT(row_num) = {})
-    '''.format(ref_table, numbers, sign, percent, numbers)
+    '''.format(ref_table, ref_table, numbers, sign, percent, numbers)
     return query
 
 def create_query_0109(numbers, larger, amount):
