@@ -36,7 +36,7 @@ counter_holdrange_m = 'STOCK_Counter_DB.dbo.TW_STOCK_HOLDRANGE_monthly'
 def query_combine(query_dict):
     query_number = len(query_dict)
     remark_string = "+".join(['{}.remark'.format(i) for i in ascii_lowercase][:query_number])
-    combined_query = "SELECT {}.stock_id, {}.stock_name, {}.industry_category, {}.type, {} remark FROM ".format(ascii_lowercase[query_number], ascii_lowercase[query_number], 
+    combined_query = "SELECT {}.stock_id, {}.stock_name, {}.industry_category, {}.type, {} Remark FROM ".format(ascii_lowercase[query_number], ascii_lowercase[query_number], 
     ascii_lowercase[query_number], ascii_lowercase[query_number], remark_string)
     for num, query in query_dict.items():
         align_code = ascii_lowercase[num]
@@ -115,7 +115,7 @@ def create_query_0104(larger, ratio):
     else:
         sign = '<'
 
-    query = '''(SELECT stock_id, NULL as remark FROM (SELECT stock_id, AVG(share_ratio) new_share_ratio FROM {} 
+    query = '''(SELECT stock_id, NULL as remark FROM (SELECT stock_id, AVG(share_ratio) new_share_ratio FROM {}
             GROUP BY stock_id, name) t1
             GROUP BY stock_id HAVING SUM(new_share_ratio) {} {})'''.format(basic_info_supervisor, sign, ratio)
 
@@ -128,7 +128,7 @@ def create_query_0105(larger, ratio):
     else:
         sign = '<'
 
-    query = '''(SELECT stock_id, NULL as remark FROM (SELECT stock_id, AVG(pledge_ratio) new_pledge_ratio FROM {} 
+    query = '''(SELECT stock_id, NULL as remark FROM (SELECT stock_id, AVG(pledge_ratio) new_pledge_ratio FROM {}
             GROUP BY stock_id, name) t1
             GROUP BY stock_id HAVING SUM(new_pledge_ratio) {} {})'''.format(basic_info_supervisor, sign, ratio)
 

@@ -1367,7 +1367,7 @@ class DashBuilder(object):
                         df_etf_tpex = '無符合項目'
                     else:
                         df_etf_tpex = generate_table(df_etf_tpex)
-                    
+                    df_twse.to_csv('test_file.csv')
                 if tab_value == 'dynamic-selection-result-twse':
                     return df_twse
                 elif tab_value == 'dynamic-selection-result-tpex':
