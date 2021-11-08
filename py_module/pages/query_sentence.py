@@ -77,7 +77,7 @@ def create_query_0101(cate_str):
         cate_str = cate_str.replace(']', ')')
     else:
         cate_str = tuple(cate_str)
-    query = '''(SELECT stock_id FROM {} WITH(NOLOCK) WHERE industry_category IN {})'''.format(skill_info, cate_str)
+    query = '''(SELECT stock_id, NULL as remark FROM {} WITH(NOLOCK) WHERE industry_category IN {})'''.format(skill_info, cate_str)
     return query 
 
 def create_query_0102(larger, price):
@@ -89,7 +89,7 @@ def create_query_0102(larger, price):
         
     price = price * 100000
 
-    query = '''(SELECT stock_id FROM STOCK_SKILL_DB.dbo.TW_STOCK_CAPITAL WHERE Capital {} {})'''.format(sign, price)
+    query = '''(SELECT stock_id, NULL as remark FROM STOCK_SKILL_DB.dbo.TW_STOCK_CAPITAL WHERE Capital {} {})'''.format(sign, price)
     
     return query
 
@@ -102,7 +102,7 @@ def create_query_0103(larger, price):
         
     price = price * 100000
 
-    query = '''(SELECT stock_id FROM STOCK_SKILL_DB.dbo.TW_STOCK_CAPITAL WHERE Capital {} {})'''.format(sign, price)
+    query = '''(SELECT stock_id, NULL as remark FROM STOCK_SKILL_DB.dbo.TW_STOCK_CAPITAL WHERE Capital {} {})'''.format(sign, price)
     
     return query
 
@@ -113,7 +113,7 @@ def create_query_0104(larger, ratio):
     else:
         sign = '<'
 
-    query = '''(SELECT stock_id FROM (SELECT stock_id, AVG(share_ratio) new_share_ratio FROM {} 
+    query = '''(SELECT stock_id, NULL as remark FROM (SELECT stock_id, AVG(share_ratio) new_share_ratio FROM {} 
             GROUP BY stock_id, name) t1
             GROUP BY stock_id HAVING SUM(new_share_ratio) {} {})'''.format(basic_info_supervisor, sign, ratio)
 
@@ -126,7 +126,7 @@ def create_query_0105(larger, ratio):
     else:
         sign = '<'
 
-    query = '''(SELECT stock_id FROM (SELECT stock_id, AVG(pledge_ratio) new_pledge_ratio FROM {} 
+    query = '''(SELECT stock_id, NULL as remark FROM (SELECT stock_id, AVG(pledge_ratio) new_pledge_ratio FROM {} 
             GROUP BY stock_id, name) t1
             GROUP BY stock_id HAVING SUM(new_pledge_ratio) {} {})'''.format(basic_info_supervisor, sign, ratio)
 
@@ -139,7 +139,7 @@ def create_query_0106(larger, price):
     else:
         sign = '<'
 
-    query = '''(SELECT stock_id FROM
+    query = '''(SELECT stock_id, NULL as remark FROM
     (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY date DESC) row_num
     FROM {} WITH(NOLOCK)) part_tbl
     WHERE part_tbl.row_num <= 1 AND PER_STOCK_PRICE {} {})
@@ -155,7 +155,7 @@ def create_query_0107(numbers, larger, amount):
     
     ref_table = basic_info_finDetail_y
 
-    query = '''(SELECT stock_id FROM
+    query = '''(SELECT stock_id, NULL as remark FROM
     (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY [date] DESC) row_num
     FROM {}) part_tbl
     WHERE part_tbl.row_num <= {}
@@ -173,12 +173,12 @@ def create_query_0108(numbers, larger, percent):
     
     ref_table = basic_info_finDetail_y
 
-    query = '''(SELECT stock_id 
+    query = '''(SELECT stock_id,
     case
-    when sum(each_remark) > 0 then '負轉正'
+    when sum(each_remark) > 0 then '含ROE負轉正'
     end remark
     FROM
-    (SELECT t1.*,  ROW_NUMBER() OVER(PARTITION BY t1.stock_id ORDER BY t1.[date] DESC) row_num
+    (SELECT t1.*,  ROW_NUMBER() OVER(PARTITION BY t1.stock_id ORDER BY t1.[date] DESC) row_num,
     case
     when t1.After_Return > 0 and t2.After_Return < 0 then 1
     else 0
@@ -200,7 +200,7 @@ def create_query_0109(numbers, larger, amount):
     
     ref_table = basic_info_finDetail_y
 
-    query = '''(SELECT stock_id FROM
+    query = '''(SELECT stock_id, NULL as remark FROM
     (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY [date] DESC) row_num
     FROM {}) part_tbl
     WHERE part_tbl.row_num <= {}
@@ -218,9 +218,18 @@ def create_query_0110(numbers, larger, percent):
     
     ref_table = basic_info_finDetail_y
 
-    query = '''(SELECT stock_id FROM
-    (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY [date] DESC) row_num
-    FROM {}) part_tbl
+    query = '''(SELECT stock_id, 
+    CASE
+    WHEN SUM(each_remark) > 0 THEN '含ROA負轉正'
+    END remark
+    FROM
+    (SELECT t1.*,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY [date] DESC) row_num,
+    CASE
+    WHEN t1.total_return > 0 AND t2.total_return < 0 then 1
+    ELSE 0
+    END each_remark
+    FROM {} t1 WITH(NOLOCK)
+    LEFT JOIN {} t2 WITH(NOLOCK) ON t1.stock_id = t2.stock_id AND t1.date = dateadd(y, 1, t2.date)) part_tbl
     WHERE part_tbl.row_num <= {} AND total_return_last_year_ratio {} {}
     GROUP BY stock_id HAVING COUNT(row_num) = {})
     '''.format(ref_table, numbers, sign, percent, numbers)
@@ -238,7 +247,7 @@ def create_query_0111(numbers, period, larger, amount):
     else:
         ref_table = basic_info_finState_q
 
-    query = '''(SELECT stock_id FROM
+    query = '''(SELECT stock_id, NULL as remark FROM
     (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY [date] DESC) row_num
     FROM (SELECT * FROM {} WITH(NOLOCK) where [type]='EPS') t1) part_tbl
     WHERE part_tbl.row_num <= {}
@@ -261,12 +270,22 @@ def create_query_0112(numbers, period, direct, percent):
         ref_table = basic_info_finState_q
 
     query = '''
-    (SELECT stock_id FROM
-    (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY date DESC) row_num
-    FROM {} WITH(NOLOCK)) part_tbl
-    WHERE part_tbl.row_num <= {} AND part_tbl.last_period_ratio {} {}
+    (SELECT stock_id, 
+    CASE 
+    WHEN SUM(each_remark) > 0 THEN '含EPS負轉正'
+    END remark 
+    FROM
+    (SELECT t1.*,  ROW_NUMBER() OVER(PARTITION BY t1.stock_id ORDER BY t1.[date] DESC) row_num,
+    CASE
+    WHEN t1.value > 0 AND t2.value < 0 THEN 1
+    ELSE 0
+    END each_remark
+    FROM {} t1 WITH(NOLOCK)
+    LEFT JOIN {} t2 WITH(NOLOCK) ON t1.stock_id = t2.stock_id AND t1.date = dateadd(quarter, 1, t2.date)
+    ) part_tbl
+    WHERE part_tbl.row_num <= {} AND part_tbl.[type] = 'EPS' AND part_tbl.last_period_ratio {} {}
     GROUP BY part_tbl.stock_id)
-    '''.format(ref_table, numbers, sign, percent)
+    '''.format(ref_table, ref_table, numbers, sign, percent)
 
     return query
 
@@ -286,7 +305,7 @@ def create_query_0113(period, direct, percent):
         ref_table = basic_info_finState_q
 
     query = '''
-    (SELECT stock_id FROM
+    (SELECT stock_id, NULL as remark FROM
     (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY date DESC) row_num
     FROM {} WITH(NOLOCK)) part_tbl
     WHERE part_tbl.row_num <= 1 AND part_tbl.last_year_ratio {} {}
@@ -310,7 +329,7 @@ def create_query_0114(number, period, direct, percent):
         ref_table = basic_info_finDetail_q
 
     query = '''
-    (SELECT stock_id FROM
+    (SELECT stock_id, NULL as remark FROM
     (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY date DESC) row_num
     FROM {} WITH(NOLOCK)) part_tbl
     WHERE part_tbl.row_num <= {}
@@ -340,7 +359,7 @@ def create_query_0115(period, direct, percent):
         ref_column = 'Inventory_Turnover_last_quarter_ratio'
 
     query = '''
-    (SELECT stock_id FROM
+    (SELECT stock_id, NULL as remark FROM
     (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY date DESC) row_num
     FROM {} WITH(NOLOCK)) part_tbl
     WHERE part_tbl.row_num <= 1 AND {} {} {}
@@ -364,7 +383,7 @@ def create_query_0116(number, period, direct, percent):
         ref_table = basic_info_finDetail_q
 
     query = '''
-    (SELECT stock_id FROM
+    (SELECT stock_id, NULL as remark FROM
     (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY date DESC) row_num
     FROM {} WITH(NOLOCK)) part_tbl
     WHERE part_tbl.row_num <= {}
@@ -391,7 +410,7 @@ def create_query_0117(period, direct, percent):
         ref_column = 'Accounts_Receivable_Turnover_Rate_last_quarter_ratio'
 
     query = '''
-    (SELECT stock_id FROM
+    (SELECT stock_id, NULL as remark FROM
     (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY date DESC) row_num
     FROM {} WITH(NOLOCK)) part_tbl
     WHERE part_tbl.row_num <= 1 AND {} {} {}
@@ -415,7 +434,7 @@ def create_query_0118(number, period, direct, percent):
         ref_table = basic_info_finDetail_q
 
     query = '''
-    (SELECT stock_id FROM
+    (SELECT stock_id, NULL as remark FROM
     (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY date DESC) row_num
     FROM {} WITH(NOLOCK)) part_tbl
     WHERE part_tbl.row_num <= {}
@@ -442,7 +461,7 @@ def create_query_0119(period, direct, percent):
         ref_column = 'Current_Rate_last_quarter_ratio'
 
     query = '''
-    (SELECT stock_id FROM
+    (SELECT stock_id, NULL as remark FROM
     (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY date DESC) row_num
     FROM {} WITH(NOLOCK)) part_tbl
     WHERE part_tbl.row_num <= 1 AND {} {} {}
@@ -466,7 +485,7 @@ def create_query_0120(number, period, direct, percent):
         ref_table = basic_info_finDetail_q
 
     query = '''
-    (SELECT stock_id FROM
+    (SELECT stock_id, NULL as remark FROM
     (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY date DESC) row_num
     FROM {} WITH(NOLOCK)) part_tbl
     WHERE part_tbl.row_num <= {}
@@ -493,7 +512,7 @@ def create_query_0121(period, direct, percent):
         ref_column = 'Quick_Rate_last_quarter_ratio'
 
     query = '''
-    (SELECT stock_id FROM
+    (SELECT stock_id, NULL as remark FROM
     (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY date DESC) row_num
     FROM {} WITH(NOLOCK)) part_tbl
     WHERE part_tbl.row_num <= 1 AND {} {} {}
@@ -517,7 +536,7 @@ def create_query_0122(number, period, direct, percent):
         ref_table = basic_info_finDetail_q
 
     query = '''
-    (SELECT stock_id FROM
+    (SELECT stock_id, NULL as remark FROM
     (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY date DESC) row_num
     FROM {} WITH(NOLOCK)) part_tbl
     WHERE part_tbl.row_num <= {}
@@ -544,7 +563,7 @@ def create_query_0123(period, direct, percent):
         ref_column = 'Debt_Rate_last_quarter_ratio'
 
     query = '''
-    (SELECT stock_id FROM
+    (SELECT stock_id, NULL as remark FROM
     (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY date DESC) row_num
     FROM {} WITH(NOLOCK)) part_tbl
     WHERE part_tbl.row_num <= 1 AND {} {} {}
@@ -571,7 +590,7 @@ def create_query_0124(number, distribution_type, all_avg, direct, price):
 
     if all_avg == '1':
         query = '''
-        (SELECT stock_id FROM
+        (SELECT stock_id, NULL as remark FROM
         (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY yearly DESC) row_num
         FROM {} WITH(NOLOCK)) part_tbl
         WHERE part_tbl.row_num <= {} AND {} {} {}
@@ -579,7 +598,7 @@ def create_query_0124(number, distribution_type, all_avg, direct, price):
         '''.format(ref_table, number, ref_column, sign, price, number)
     else:
         query = '''
-        (SELECT stock_id FROM
+        (SELECT stock_id, NULL as remark FROM
         (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY yearly DESC) row_num
         FROM {} WITH(NOLOCK)) part_tbl
         WHERE part_tbl.row_num <= {}
@@ -605,7 +624,7 @@ def create_query_0125(distribution_type, number, growth):
         sign = '<'
 
     query = '''
-    (SELECT stock_id FROM
+    (SELECT stock_id, NULL as remark FROM
     (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY yearly DESC) row_num
     FROM {} WITH(NOLOCK)) part_tbl
     WHERE part_tbl.row_num <= {} AND {} {} 0
@@ -627,12 +646,12 @@ def create_query_0126(number, all_avg, larger, percent):
 
     if all_avg == '1':
         query = '''
-        (select stock_id FROM {} WITH(NOLOCK) where [date] > (GETDATE()-({}*365)) 
+        (select stock_id, NULL as remark FROM {} WITH(NOLOCK) where [date] > (GETDATE()-({}*365)) 
         GROUP BY stock_id HAVING MIN(dividend_yield) {} {})
         '''.format(ref_table, number, sign, percent)
     else:
         query = '''
-        (select stock_id FROM {} WITH(NOLOCK) where [date] > (GETDATE()-({}*365)) group by stock_id
+        (select stock_id, NULL as remark FROM {} WITH(NOLOCK) where [date] > (GETDATE()-({}*365)) group by stock_id
         HAVING AVG(dividend_yield) {} {})
         '''.format(ref_table, number, sign, percent)
 
@@ -650,7 +669,7 @@ def create_query_0127(larger, times):
     ref_table = skill_per
 
     query = '''
-    (SELECT stock_id FROM
+    (SELECT stock_id, NULL as remark FROM
     (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY [date] DESC) row_num
     FROM (SELECT * FROM {} WITH(NOLOCK) where [date] > (GETDATE()-(10)))t1 ) part_tbl
     WHERE row_num <= 1 AND PER {} {})
@@ -673,13 +692,13 @@ def create_query_0128(number, period, interval, amount, unit):
     if unit == '1':
         # (C-B) + (B-A) = C-A 即人數差計算
         query = '''
-        (select stock_id from {} WITH(NOLOCK)
+        (select stock_id, NULL as remark from {} WITH(NOLOCK)
         where [date] > (GETDATE()-({}*({}-1)+1)) AND HoldingSharesLevel = '{}' 
         GROUP BY stock_id HAVING SUM([people] - [last_period_people]) >= {})
         '''.format(ref_table, period_base, number, interval, amount)
     else:
         query = '''
-        (select stock_id from {} WITH(NOLOCK)
+        (select stock_id, NULL as remark from {} WITH(NOLOCK)
         where [date] > (GETDATE()-({}*({}-1)+1)) AND HoldingSharesLevel = '{}' 
         GROUP BY stock_id HAVING SUM([percent] - [last_period_percent]) >= {})
         '''.format(ref_table, period_base, number, interval, amount)
@@ -705,7 +724,7 @@ def create_query_0129(number, period, interval, larger, amount):
 
 
     query = '''
-        (SELECT stock_id FROM {} WITH(NOLOCK)
+        (SELECT stock_id, NULL as remark FROM {} WITH(NOLOCK)
         WHERE [date] > (GETDATE()-({}*({}-1)+1)) AND HoldingSharesLevel = '{}'
         GROUP BY stock_id HAVING {}([people]) > {})
         '''.format(ref_table, period_base, number, interval, sign, amount)
@@ -719,7 +738,7 @@ def create_query_0201(larger, price):
     else:
         sign = '<'
 
-    query = '''(SELECT stock_id FROM
+    query = '''(SELECT stock_id, NULL as remark FROM
     (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY date DESC) row_num
     FROM TW_STOCK_PRICE_Daily WITH(NOLOCK)
     WHERE date > (GETDATE()-(10))) part_tbl
@@ -733,7 +752,7 @@ def create_query_0202(larger, price):
     else:
         sign = '<'
     
-    query = '''(SELECT stock_id FROM
+    query = '''(SELECT stock_id, NULL as remark FROM
     (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY date DESC) row_num
     FROM TW_STOCK_PRICE_Daily WITH(NOLOCK)
     WHERE date > (GETDATE()-(10))) part_tbl
@@ -748,7 +767,7 @@ def create_query_0203(direct, days):
         sign = '<='  
         days = -days
     
-    query = '''(SELECT t1.stock_id, [close], t1.stock_name FROM {} t1 
+    query = '''(SELECT t1.stock_id, NULL as remark FROM {} t1 
     inner join (SELECT stock_id, MAX(date) as each_max_date FROM {} GROUP BY stock_id) t2
     on t2.stock_id = t1.stock_id AND limitup_limitdown_CNT {} {} 
     inner join {} t3 on t3.stock_id = t2.stock_id AND t2.each_max_date = t3.date)'''.format(skill_info, skill_price_d, sign, str(days), skill_price_d)
@@ -764,7 +783,7 @@ def create_query_0204(days, period, direct, percent):
         sign = '<='
 
     query = '''
-    (SELECT stock_id FROM
+    (SELECT stock_id, NULL as remark FROM
     (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY date DESC) row_num
     FROM {} WITH(NOLOCK)
     WHERE date > (GETDATE()-({}+10))) part_tbl
@@ -783,7 +802,7 @@ def create_query_0205(days, period, direct, percent):
         sign = '<='
 
     query = '''
-    (SELECT stock_id FROM
+    (SELECT stock_id, NULL as remark FROM
     (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY date DESC) row_num
     FROM {} WITH(NOLOCK)
     WHERE date > (GETDATE()-({}+10))) part_tbl
@@ -803,7 +822,7 @@ def create_query_0301(days, period, direct, percent):
         sign = '<='
 
     query = '''
-    (SELECT stock_id FROM
+    (SELECT stock_id, NULL as remark FROM
     (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY date DESC) row_num
     FROM {} WITH(NOLOCK)
     WHERE date > (GETDATE()-({}+10))) part_tbl
@@ -822,7 +841,7 @@ def create_query_0302(days, period, direct, percent):
         sign = '<='
 
     query = '''
-    (SELECT stock_id FROM
+    (SELECT stock_id, NULL as remark FROM
     (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY date DESC) row_num
     FROM {} WITH(NOLOCK)
     WHERE date > (GETDATE()-({}+10))) part_tbl
@@ -843,7 +862,7 @@ def create_query_0303(days, period, direct, lot):
     # lot = lot * 1000
 
     query = '''
-    (SELECT stock_id FROM
+    (SELECT stock_id, NULL as remark FROM
     (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY date DESC) row_num
     FROM {} WITH(NOLOCK)
     WHERE date > (GETDATE()-({}+10))) part_tbl
@@ -865,7 +884,7 @@ def create_query_0304(days, period, direct, lot):
     # lot = lot * 1000
 
     query = '''
-    (SELECT stock_id FROM
+    (SELECT stock_id, NULL as remark FROM
     (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY date DESC) row_num
     FROM {} WITH(NOLOCK)
     WHERE date > (GETDATE()-({}+10))) part_tbl
@@ -886,7 +905,7 @@ def create_query_0305(days, period, direct, percent):
         sign = '<='
 
     query = '''
-    (SELECT stock_id FROM
+    (SELECT stock_id, NULL as remark FROM
     (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY date DESC) row_num
     FROM {} WITH(NOLOCK)
     WHERE date > (GETDATE()-({}+10))) part_tbl
@@ -906,7 +925,7 @@ def create_query_0306(days, period, direct, percent):
         sign = '<='
 
     query = '''
-    (SELECT stock_id FROM
+    (SELECT stock_id, NULL as remark FROM
     (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY date DESC) row_num
     FROM {} WITH(NOLOCK)
     WHERE date > (GETDATE()-({}+10))) part_tbl
@@ -938,7 +957,7 @@ def create_query_0401(days, period, buy_sell, direct, lot):
         lot = lot * -1000
 
     query = '''
-    (SELECT stock_id FROM
+    (SELECT stock_id, NULL as remark FROM
     (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY date DESC) row_num
     FROM {} WITH(NOLOCK)
     WHERE date > (GETDATE()-({}+10)) AND name = 'Foreign_Investor') part_tbl
@@ -969,7 +988,7 @@ def create_query_0402(days, period, buy_sell, direct, lot):
         lot = lot * -1000
 
     query = '''
-    (SELECT stock_id FROM
+    (SELECT stock_id, NULL as remark FROM
     (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY date DESC) row_num
     FROM {} WITH(NOLOCK)
     WHERE date > (GETDATE()-({}+10)) AND name = 'Foreign_Investor') part_tbl
@@ -1000,7 +1019,7 @@ def create_query_0403(days, period, buy_sell, direct, lot):
         lot = lot * -1000
 
     query = '''
-    (SELECT stock_id FROM
+    (SELECT stock_id, NULL as remark FROM
     (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY date DESC) row_num
     FROM {} WITH(NOLOCK)
     WHERE date > (GETDATE()-({}+10)) AND name = 'Investment_Trust') part_tbl
@@ -1031,7 +1050,7 @@ def create_query_0404(days, period, buy_sell, direct, lot):
         lot = lot * -1000
 
     query = '''
-    (SELECT stock_id FROM
+    (SELECT stock_id, NULL as remark FROM
     (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY date DESC) row_num
     FROM {} WITH(NOLOCK)
     WHERE date > (GETDATE()-({}+10)) AND name = 'Investment_Trust') part_tbl
@@ -1062,7 +1081,7 @@ def create_query_0405(days, period, buy_sell, direct, lot):
         lot = lot * -1000
 
     query = '''
-    (SELECT stock_id FROM
+    (SELECT stock_id, NULL as remark FROM
     (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY date DESC) row_num
     FROM {} WITH(NOLOCK)
     WHERE date > (GETDATE()-({}+10)) AND name = 'Dealer_Hedging') part_tbl
@@ -1093,7 +1112,7 @@ def create_query_0406(days, period, buy_sell, direct, lot):
         lot = lot * -1000
 
     query = '''
-    (SELECT stock_id FROM
+    (SELECT stock_id, NULL as remark FROM
     (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY date DESC) row_num
     FROM {} WITH(NOLOCK)
     WHERE date > (GETDATE()-({}+10)) AND name = 'Dealer_Hedging') part_tbl
@@ -1115,7 +1134,7 @@ def create_query_0501(days, period, direct, lot):
         lot = -lot
 
     query = '''
-    (SELECT stock_id FROM
+    (SELECT stock_id, NULL as remark FROM
     (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY date DESC) row_num
     FROM {} WITH(NOLOCK)
     WHERE date > (GETDATE()-({}+10))) part_tbl
@@ -1135,7 +1154,7 @@ def create_query_0502(days, period, direct, lot):
         lot = -lot
 
     query = '''
-    (SELECT stock_id FROM
+    (SELECT stock_id, NULL as remark FROM
     (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY date DESC) row_num
     FROM {} WITH(NOLOCK)
     WHERE date > (GETDATE()-({}+10))) part_tbl
@@ -1155,7 +1174,7 @@ def create_query_0503(days, period, direct, lot):
         lot = -lot
 
     query = '''
-    (SELECT stock_id FROM
+    (SELECT stock_id, NULL as remark FROM
     (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY date DESC) row_num
     FROM {} WITH(NOLOCK)
     WHERE date > (GETDATE()-({}+10))) part_tbl
@@ -1175,7 +1194,7 @@ def create_query_0504(days, period, direct, lot):
         lot = -lot
 
     query = '''
-    (SELECT stock_id FROM
+    (SELECT stock_id, NULL as remark FROM
     (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY date DESC) row_num
     FROM {} WITH(NOLOCK)
     WHERE date > (GETDATE()-({}+10))) part_tbl
@@ -1195,7 +1214,7 @@ def create_query_0505(days, period, direct, lot):
         lot = -lot
 
     query = '''
-    (SELECT stock_id FROM
+    (SELECT stock_id, NULL as remark FROM
     (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY date DESC) row_num
     FROM {} WITH(NOLOCK)
     WHERE date > (GETDATE()-({}+10))) part_tbl
@@ -1215,7 +1234,7 @@ def create_query_0506(days, period, direct, lot):
         lot = -lot
 
     query = '''
-    (SELECT stock_id FROM
+    (SELECT stock_id, NULL as remark FROM
     (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY date DESC) row_num
     FROM {} WITH(NOLOCK)
     WHERE date > (GETDATE()-({}+10))) part_tbl
@@ -1244,7 +1263,7 @@ def create_query_0601(numbers, period, direct, amount):
         ref_table = basic_info_revenue_m
 
     query = '''
-    (SELECT stock_id FROM
+    (SELECT stock_id, NULL as remark FROM
     (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY date DESC) row_num
     FROM {} WITH(NOLOCK)) part_tbl
     WHERE part_tbl.row_num <= {} AND part_tbl.revenue {} {}
@@ -1271,7 +1290,7 @@ def create_query_0602(numbers, period, direct, percent):
         ref_table = basic_info_revenue_m
 
     query = '''
-    (SELECT stock_id FROM
+    (SELECT stock_id, NULL as remark FROM
     (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY date DESC) row_num
     FROM {} WITH(NOLOCK)) part_tbl
     WHERE part_tbl.row_num <= {} AND part_tbl.last_month_ratio {} {}
@@ -1300,7 +1319,7 @@ def create_query_0603(period, direct, percent):
         ref_table = basic_info_revenue_m
 
     query = '''
-    (SELECT stock_id FROM
+    (SELECT stock_id, NULL as remark FROM
     (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY date DESC) row_num
     FROM {} WITH(NOLOCK)) part_tbl
     WHERE part_tbl.row_num <= 1 AND part_tbl.lastyear_month_revenue {} {}
@@ -1325,7 +1344,7 @@ def create_query_0604(numbers, period, direct, percent):
         ref_table = basic_info_finDetail_q
 
     query = '''
-    (SELECT stock_id FROM
+    (SELECT stock_id, NULL as remark FROM
     (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY date DESC) row_num
     FROM {} WITH(NOLOCK)) part_tbl
     WHERE part_tbl.row_num <= {} AND part_tbl.Gross_Profit_Margin {} {}
@@ -1350,7 +1369,7 @@ def create_query_0605(numbers, period, direct, percent):
         ref_table = basic_info_finDetail_q
 
     query = '''
-    (SELECT stock_id FROM
+    (SELECT stock_id, NULL as remark FROM
     (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY date DESC) row_num
     FROM {} WITH(NOLOCK)) part_tbl
     WHERE part_tbl.row_num <= {} AND part_tbl.Gross_Profit_Margin_last_quarter_ratio {} {}
@@ -1377,7 +1396,7 @@ def create_query_0606(period, direct, percent):
         ref_table = basic_info_finDetail_q
 
     query = '''
-    (SELECT stock_id FROM
+    (SELECT stock_id, NULL as remark FROM
     (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY date DESC) row_num
     FROM {} WITH(NOLOCK)) part_tbl
     WHERE part_tbl.row_num <= 1 AND part_tbl.Gross_Profit_Margin_last_year_ratio {} {}
@@ -1401,7 +1420,7 @@ def create_query_0607(numbers, period, direct, amount):
         ref_table = basic_info_finDetail_q
 
     query = '''
-    (SELECT stock_id FROM
+    (SELECT stock_id, NULL as remark FROM
     (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY date DESC) row_num
     FROM {} WITH(NOLOCK)) part_tbl
     WHERE part_tbl.row_num <= {} AND part_tbl.Operating_Profit_Margin {} {}
@@ -1426,7 +1445,7 @@ def create_query_0608(numbers, period, direct, percent):
         ref_table = basic_info_finDetail_q
 
     query = '''
-    (SELECT stock_id FROM
+    (SELECT stock_id, NULL as remark FROM
     (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY date DESC) row_num
     FROM {} WITH(NOLOCK)) part_tbl
     WHERE part_tbl.row_num <= {} AND part_tbl.Operating_Profit_Margin_last_quarter_ratio {} {}
@@ -1453,7 +1472,7 @@ def create_query_0609(period, direct, percent):
         ref_table = basic_info_finDetail_q
 
     query = '''
-    (SELECT stock_id FROM
+    (SELECT stock_id, NULL as remark FROM
     (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY date DESC) row_num
     FROM {} WITH(NOLOCK)) part_tbl
     WHERE part_tbl.row_num <= 1 AND part_tbl.Operating_Profit_Margin_last_year_ratio {} {}
@@ -1477,7 +1496,7 @@ def create_query_0610(numbers, period, direct, amount):
         ref_table = basic_info_finDetail_q
 
     query = '''
-    (SELECT stock_id FROM
+    (SELECT stock_id, NULL as remark FROM
     (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY date DESC) row_num
     FROM {} WITH(NOLOCK)) part_tbl
     WHERE part_tbl.row_num <= {} AND part_tbl.AfterTax_Income_Margin {} {}
@@ -1504,7 +1523,7 @@ def create_query_0611(numbers, period, direct, percent):
         ref_table = basic_info_finDetail_q
 
     query = '''
-    (SELECT stock_id FROM
+    (SELECT stock_id, NULL as remark FROM
     (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY date DESC) row_num
     FROM {} WITH(NOLOCK)) part_tbl
     WHERE part_tbl.row_num <= {} AND part_tbl.AfterTax_Income_Margin_last_quarter_ratio {} {}
@@ -1531,7 +1550,7 @@ def create_query_0612(period, direct, percent):
         ref_table = basic_info_finDetail_q
 
     query = '''
-    (SELECT stock_id FROM
+    (SELECT stock_id, NULL as remark FROM
     (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY date DESC) row_num
     FROM {} WITH(NOLOCK)) part_tbl
     WHERE part_tbl.row_num <= 1 AND part_tbl.AfterTax_Income_Margin_last_year_ratio {} {}
