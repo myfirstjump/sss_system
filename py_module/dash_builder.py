@@ -1347,7 +1347,7 @@ class DashBuilder(object):
                 else:
                     data = pd.DataFrame.from_records(data)
                     df_twse, df_tpex, df_etf_twse, df_etf_tpex = stock_classifier(data)
-                    
+                    df_twse.to_csv('test_file.csv')
                     if df_twse.shape[0] == 0:
                         df_twse = '無符合項目'
                     else:
@@ -1367,7 +1367,7 @@ class DashBuilder(object):
                         df_etf_tpex = '無符合項目'
                     else:
                         df_etf_tpex = generate_table(df_etf_tpex)
-                    df_twse.to_csv('test_file.csv')
+                    
                 if tab_value == 'dynamic-selection-result-twse':
                     return df_twse
                 elif tab_value == 'dynamic-selection-result-tpex':
