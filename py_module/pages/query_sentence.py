@@ -35,7 +35,9 @@ counter_holdrange_m = 'STOCK_Counter_DB.dbo.TW_STOCK_HOLDRANGE_monthly'
 # Query Combination
 def query_combine(query_dict):
     query_number = len(query_dict)
-    combined_query = "SELECT {}.stock_id, {}.stock_name, {}.industry_category, {}.type FROM ".format(ascii_lowercase[query_number], ascii_lowercase[query_number], ascii_lowercase[query_number], ascii_lowercase[query_number])
+    remark_string = "+".join(['{}.remark'.format(i) for i in ascii_lowercase][:query_number])
+    combined_query = "SELECT {}.stock_id, {}.stock_name, {}.industry_category, {}.type, {} remark FROM ".format(ascii_lowercase[query_number], ascii_lowercase[query_number], 
+    ascii_lowercase[query_number], ascii_lowercase[query_number], remark_string)
     for num, query in query_dict.items():
         align_code = ascii_lowercase[num]
         if align_code == 'a':
@@ -266,8 +268,10 @@ def create_query_0112(numbers, period, direct, percent):
 
     if period == 'y':
         ref_table = basic_info_finState_y
+        period_unit = 'year'
     else:
         ref_table = basic_info_finState_q
+        period_unit = 'quarter'
 
     query = '''
     (SELECT stock_id, 
@@ -281,11 +285,11 @@ def create_query_0112(numbers, period, direct, percent):
     ELSE 0
     END each_remark
     FROM {} t1 WITH(NOLOCK)
-    LEFT JOIN {} t2 WITH(NOLOCK) ON t1.stock_id = t2.stock_id AND t1.date = dateadd(quarter, 1, t2.date)
+    LEFT JOIN {} t2 WITH(NOLOCK) ON t1.stock_id = t2.stock_id AND t1.date = dateadd({}, 1, t2.date)
     ) part_tbl
     WHERE part_tbl.row_num <= {} AND part_tbl.[type] = 'EPS' AND part_tbl.last_period_ratio {} {}
     GROUP BY part_tbl.stock_id)
-    '''.format(ref_table, ref_table, numbers, sign, percent)
+    '''.format(ref_table, ref_table, period_unit, numbers, sign, percent)
 
     return query
 
@@ -305,10 +309,20 @@ def create_query_0113(period, direct, percent):
         ref_table = basic_info_finState_q
 
     query = '''
-    (SELECT stock_id, NULL as remark FROM
-    (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY date DESC) row_num
-    FROM {} WITH(NOLOCK)) part_tbl
-    WHERE part_tbl.row_num <= 1 AND part_tbl.last_year_ratio {} {}
+    (SELECT stock_id,
+    CASE
+    WHEN SUM(each_remark) > 0 THEN '含EPS負轉正'
+    END remark
+    FROM
+    (SELECT t1.*,  ROW_NUMBER() OVER(PARTITION BY t1.stock_id ORDER BY t1.[date] DESC) row_num,
+    CASE
+    WHEN t1.value > 0 AND t2.value < 0 THEN 1
+    ELSE 0
+    END each_remark
+    FROM {} t1 WITH(NOLOCK)
+    LEFT JOIN {} t2 WITH(NOLOCK) ON t1.stock_id = t2.stock_id AND t1.date = dateadd(y, 1, t2.date)
+    ) part_tbl
+    WHERE part_tbl.row_num <= 1 AND part_tbl.[type] = 'EPS' AND part_tbl.last_year_ratio {} {}
     GROUP BY part_tbl.stock_id)
     '''.format(ref_table, sign, percent)
 
@@ -1365,16 +1379,29 @@ def create_query_0605(numbers, period, direct, percent):
 
     if period == 'y':
         ref_table = basic_info_finDetail_y
+        period_unit = 'year'
     else:
         ref_table = basic_info_finDetail_q
+        period_unit = 'quarter'
 
     query = '''
-    (SELECT stock_id, NULL as remark FROM
-    (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY date DESC) row_num
-    FROM {} WITH(NOLOCK)) part_tbl
+    (SELECT stock_id,
+    CASE
+    WHEN SUM(each_remark) > 0 THEN '含營業毛利率負轉正'
+    END remark
+    FROM
+    (SELECT t1.*,  ROW_NUMBER() OVER(PARTITION BY t1.stock_id ORDER BY t1.[date] DESC) row_num,
+    CASE
+    WHEN t1.Gross_Profit_Margin > 0 AND t2.Gross_Profit_Margin < 0 THEN 1
+    ELSE 0
+    END each_remark
+    FROM {} t1 WITH(NOLOCK)
+    LEFT JOIN {} t2 WITH(NOLOCK)
+    ON t1.stock_id = t2.stock_id AND t1.date = dateadd({}, 1, t2.date)
+    ) part_tbl
     WHERE part_tbl.row_num <= {} AND part_tbl.Gross_Profit_Margin_last_quarter_ratio {} {}
     GROUP BY part_tbl.stock_id HAVING COUNT(row_num) = {})
-    '''.format(ref_table, numbers, sign, percent, numbers)
+    '''.format(ref_table, ref_table, period_unit, numbers, sign, percent, numbers)
 
     return query
 
@@ -1396,12 +1423,23 @@ def create_query_0606(period, direct, percent):
         ref_table = basic_info_finDetail_q
 
     query = '''
-    (SELECT stock_id, NULL as remark FROM
-    (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY date DESC) row_num
-    FROM {} WITH(NOLOCK)) part_tbl
+    (SELECT stock_id,
+    CASE
+    WHEN SUM(each_remark) > 0 THEN '含營業毛利率負轉正'
+    END remark
+    FROM
+    (SELECT t1.*,  ROW_NUMBER() OVER(PARTITION BY t1.stock_id ORDER BY t1.[date] DESC) row_num,
+    CASE
+    WHEN t1.Gross_Profit_Margin > 0 AND t2.Gross_Profit_Margin < 0 THEN 1
+    ELSE 0
+    END each_remark
+    FROM {} t1 WITH(NOLOCK)
+    LEFT JOIN {} t2 WITH(NOLOCK)
+    ON t1.stock_id = t2.stock_id AND t1.date = dateadd(y, 1, t2.date)
+    ) part_tbl
     WHERE part_tbl.row_num <= 1 AND part_tbl.Gross_Profit_Margin_last_year_ratio {} {}
     GROUP BY part_tbl.stock_id)
-    '''.format(ref_table, sign, percent)
+    '''.format(ref_table, ref_table, sign, percent)
 
     return query
 
@@ -1441,16 +1479,29 @@ def create_query_0608(numbers, period, direct, percent):
 
     if period == 'y':
         ref_table = basic_info_finDetail_y
+        period_unit = 'year'
     else:
         ref_table = basic_info_finDetail_q
+        period_unit = 'quarter'
 
     query = '''
-    (SELECT stock_id, NULL as remark FROM
-    (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY date DESC) row_num
-    FROM {} WITH(NOLOCK)) part_tbl
+    (SELECT stock_id,
+    CASE
+    WHEN SUM(each_remark) > 0 THEN '含營業利益率負轉正'
+    END remark
+    FROM
+    (SELECT t1.*,  ROW_NUMBER() OVER(PARTITION BY t1.stock_id ORDER BY t1.[date] DESC) row_num,
+    CASE
+    WHEN t1.Operating_Profit_Margin > 0 AND t2.Operating_Profit_Margin < 0 THEN 1
+    ELSE 0
+    END each_remark
+    FROM {} t1 WITH(NOLOCK)
+    LEFT JOIN {} t2 WITH(NOLOCK)
+    ON t1.stock_id = t2.stock_id AND t1.date = dateadd({}, 1, t2.date)
+    ) part_tbl
     WHERE part_tbl.row_num <= {} AND part_tbl.Operating_Profit_Margin_last_quarter_ratio {} {}
     GROUP BY part_tbl.stock_id HAVING COUNT(row_num) = {})
-    '''.format(ref_table, numbers, sign, percent, numbers)
+    '''.format(ref_table, ref_table, numbers, sign, percent, numbers)
 
     return query
 
@@ -1472,12 +1523,23 @@ def create_query_0609(period, direct, percent):
         ref_table = basic_info_finDetail_q
 
     query = '''
-    (SELECT stock_id, NULL as remark FROM
-    (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY date DESC) row_num
-    FROM {} WITH(NOLOCK)) part_tbl
+    (SELECT stock_id,
+    CASE
+    WHEN SUM(each_remark) > 0 THEN '含營業利益率負轉正'
+    END remark
+    FROM
+    (SELECT t1.*,  ROW_NUMBER() OVER(PARTITION BY t1.stock_id ORDER BY t1.[date] DESC) row_num,
+    CASE
+    WHEN t1.Operating_Profit_Margin > 0 AND t2.Operating_Profit_Margin < 0 THEN 1
+    ELSE 0
+    END each_remark
+    FROM {} t1 WITH(NOLOCK)
+    LEFT JOIN {} t2 WITH(NOLOCK)
+    ON t1.stock_id = t2.stock_id AND t1.date = dateadd(y, 1, t2.date)
+    ) part_tbl
     WHERE part_tbl.row_num <= 1 AND part_tbl.Operating_Profit_Margin_last_year_ratio {} {}
     GROUP BY part_tbl.stock_id)
-    '''.format(ref_table, sign, percent)
+    '''.format(ref_table, ref_table, sign, percent)
 
     return query
 
@@ -1519,16 +1581,29 @@ def create_query_0611(numbers, period, direct, percent):
 
     if period == 'y':
         ref_table = basic_info_finDetail_y
+        period_unit = 'year'
     else:
         ref_table = basic_info_finDetail_q
+        period_unit = 'quarter'
 
     query = '''
-    (SELECT stock_id, NULL as remark FROM
-    (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY date DESC) row_num
-    FROM {} WITH(NOLOCK)) part_tbl
+    (SELECT stock_id,
+    CASE
+    WHEN SUM(each_remark) > 0 THEN '含稅後淨利率負轉正'
+    END remark
+    FROM
+    (SELECT t1.*,  ROW_NUMBER() OVER(PARTITION BY t1.stock_id ORDER BY t1.[date] DESC) row_num,
+    CASE
+    WHEN t1.AfterTax_Income_Margin > 0 AND t2.AfterTax_Income_Margin < 0 THEN 1
+    ELSE 0
+    END each_remark
+    FROM {} t1 WITH(NOLOCK)
+    LEFT JOIN {} t2 WITH(NOLOCK)
+    ON t1.stock_id = t2.stock_id AND t1.date = dateadd({}, 1, t2.date)
+    ) part_tbl
     WHERE part_tbl.row_num <= {} AND part_tbl.AfterTax_Income_Margin_last_quarter_ratio {} {}
     GROUP BY part_tbl.stock_id HAVING COUNT(row_num) = {})
-    '''.format(ref_table, numbers, sign, percent, numbers)
+    '''.format(ref_table, ref_table, period_unit, numbers, sign, percent, numbers)
 
     return query
 
@@ -1550,11 +1625,22 @@ def create_query_0612(period, direct, percent):
         ref_table = basic_info_finDetail_q
 
     query = '''
-    (SELECT stock_id, NULL as remark FROM
-    (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY date DESC) row_num
-    FROM {} WITH(NOLOCK)) part_tbl
+    (SELECT stock_id,
+    CASE
+    WHEN SUM(each_remark) > 0 THEN '含稅後淨利率負轉正'
+    END remark
+    FROM
+    (SELECT t1.*,  ROW_NUMBER() OVER(PARTITION BY t1.stock_id ORDER BY t1.[date] DESC) row_num,
+    CASE
+    WHEN t1.AfterTax_Income_Margin > 0 AND t2.AfterTax_Income_Margin < 0 THEN 1
+    ELSE 0
+    END each_remark
+    FROM {} t1 WITH(NOLOCK)
+    LEFT JOIN {} t2 WITH(NOLOCK)
+    ON t1.stock_id = t2.stock_id AND t1.date = dateadd(y, 1, t2.date)
+    ) part_tbl
     WHERE part_tbl.row_num <= 1 AND part_tbl.AfterTax_Income_Margin_last_year_ratio {} {}
     GROUP BY part_tbl.stock_id)
-    '''.format(ref_table, sign, percent)
+    '''.format(ref_table, ref_table, sign, percent)
 
     return query
