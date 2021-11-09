@@ -1627,7 +1627,7 @@ def create_query_0612(period, direct, percent):
     query = '''
     (SELECT stock_id,
     CASE
-    WHEN SUM(each_remark) > 0 THEN '含稅後淨利率負轉正；'
+    WHEN SUM(each_remark) > 0 THEN N'含稅後淨利率負轉正；'
     END remark
     FROM
     (SELECT t1.*,  ROW_NUMBER() OVER(PARTITION BY t1.stock_id ORDER BY t1.[date] DESC) row_num,
