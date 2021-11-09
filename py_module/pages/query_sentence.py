@@ -60,7 +60,7 @@ def sql_execute(query):
     # data = [row for row in cursor]
     data = []
     for row in cursor:
-        print(row['Remark'], row['Remark'].encode('latin1').decode('GB2312'))
+        print(row['Remark'])
         data.append(row)
     cursor.close()
     conn.close()
