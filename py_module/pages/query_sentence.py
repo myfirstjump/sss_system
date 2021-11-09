@@ -54,13 +54,12 @@ def query_combine(query_dict):
 # 最後查詢
 def sql_execute(query):
 
-    conn = pymssql.connect(host='localhost', user = 'myfirstjump', password='myfirstjump', database='STOCK_SKILL_DB')
+    conn = pymssql.connect(host='localhost', user = 'myfirstjump', password='myfirstjump', database='STOCK_SKILL_DB', charset='cp936')
     cursor = conn.cursor(as_dict=True)
     cursor.execute(query)
     # data = [row for row in cursor]
     data = []
     for row in cursor:
-        print(row)
         data.append(row)
     cursor.close()
     conn.close()
