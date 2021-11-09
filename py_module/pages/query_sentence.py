@@ -60,8 +60,7 @@ def sql_execute(query):
     # data = [row for row in cursor]
     data = []
     for row in cursor:
-        
-        print(row[1], row[2], row[3], row[4])
+        print(row)
         data.append(row)
     cursor.close()
     conn.close()
