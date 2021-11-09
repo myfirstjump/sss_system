@@ -1345,6 +1345,7 @@ class DashBuilder(object):
                 if len(data) == 0:
                     return '無符合項目'
                 else:
+                    print(data)
                     data = pd.DataFrame.from_records(data)
                     df_twse, df_tpex, df_etf_twse, df_etf_tpex = stock_classifier(data)
                     df_twse.to_csv('test_file.csv')
