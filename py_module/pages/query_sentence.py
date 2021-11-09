@@ -1,7 +1,3 @@
-#encoding:utf8
-import sys
-reload(sys)
-sys.setdefaultencoding('utf8')
 import pymssql
 import datetime
 from datetime import timedelta
@@ -64,7 +60,7 @@ def sql_execute(query):
     # data = [row for row in cursor]
     data = []
     for row in cursor:
-        print(row)
+        print(row['Remark'], row['Remark'].encode('latin1').decode('GB2312'))
         data.append(row)
     cursor.close()
     conn.close()
