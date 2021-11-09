@@ -177,7 +177,7 @@ def create_query_0108(numbers, larger, percent):
 
     query = '''(SELECT stock_id,
     case
-    when sum(each_remark) > 0 then '含ROE負轉正'
+    when sum(each_remark) > 0 then '含ROE負轉正；'
     end remark
     FROM
     (SELECT t1.*,  ROW_NUMBER() OVER(PARTITION BY t1.stock_id ORDER BY t1.[date] DESC) row_num,
@@ -222,7 +222,7 @@ def create_query_0110(numbers, larger, percent):
 
     query = '''(SELECT stock_id, 
     CASE
-    WHEN SUM(each_remark) > 0 THEN '含ROA負轉正'
+    WHEN SUM(each_remark) > 0 THEN '含ROA負轉正；'
     END remark
     FROM
     (SELECT t1.*,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY [date] DESC) row_num,
@@ -276,7 +276,7 @@ def create_query_0112(numbers, period, direct, percent):
     query = '''
     (SELECT stock_id, 
     CASE 
-    WHEN SUM(each_remark) > 0 THEN '含EPS負轉正'
+    WHEN SUM(each_remark) > 0 THEN '含EPS負轉正；'
     END remark 
     FROM
     (SELECT t1.*,  ROW_NUMBER() OVER(PARTITION BY t1.stock_id ORDER BY t1.[date] DESC) row_num,
@@ -311,7 +311,7 @@ def create_query_0113(period, direct, percent):
     query = '''
     (SELECT stock_id,
     CASE
-    WHEN SUM(each_remark) > 0 THEN '含EPS負轉正'
+    WHEN SUM(each_remark) > 0 THEN '含EPS負轉正；'
     END remark
     FROM
     (SELECT t1.*,  ROW_NUMBER() OVER(PARTITION BY t1.stock_id ORDER BY t1.[date] DESC) row_num,
@@ -1387,7 +1387,7 @@ def create_query_0605(numbers, period, direct, percent):
     query = '''
     (SELECT stock_id,
     CASE
-    WHEN SUM(each_remark) > 0 THEN '含營業毛利率負轉正'
+    WHEN SUM(each_remark) > 0 THEN '含營業毛利率負轉正；'
     END remark
     FROM
     (SELECT t1.*,  ROW_NUMBER() OVER(PARTITION BY t1.stock_id ORDER BY t1.[date] DESC) row_num,
@@ -1425,7 +1425,7 @@ def create_query_0606(period, direct, percent):
     query = '''
     (SELECT stock_id,
     CASE
-    WHEN SUM(each_remark) > 0 THEN '含營業毛利率負轉正'
+    WHEN SUM(each_remark) > 0 THEN '含營業毛利率負轉正；'
     END remark
     FROM
     (SELECT t1.*,  ROW_NUMBER() OVER(PARTITION BY t1.stock_id ORDER BY t1.[date] DESC) row_num,
@@ -1487,7 +1487,7 @@ def create_query_0608(numbers, period, direct, percent):
     query = '''
     (SELECT stock_id,
     CASE
-    WHEN SUM(each_remark) > 0 THEN '含營業利益率負轉正'
+    WHEN SUM(each_remark) > 0 THEN '含營業利益率負轉正；'
     END remark
     FROM
     (SELECT t1.*,  ROW_NUMBER() OVER(PARTITION BY t1.stock_id ORDER BY t1.[date] DESC) row_num,
@@ -1501,7 +1501,7 @@ def create_query_0608(numbers, period, direct, percent):
     ) part_tbl
     WHERE part_tbl.row_num <= {} AND part_tbl.Operating_Profit_Margin_last_quarter_ratio {} {}
     GROUP BY part_tbl.stock_id HAVING COUNT(row_num) = {})
-    '''.format(ref_table, ref_table, numbers, sign, percent, numbers)
+    '''.format(ref_table, ref_table, period_unit, numbers, sign, percent, numbers)
 
     return query
 
@@ -1525,7 +1525,7 @@ def create_query_0609(period, direct, percent):
     query = '''
     (SELECT stock_id,
     CASE
-    WHEN SUM(each_remark) > 0 THEN '含營業利益率負轉正'
+    WHEN SUM(each_remark) > 0 THEN '含營業利益率負轉正；'
     END remark
     FROM
     (SELECT t1.*,  ROW_NUMBER() OVER(PARTITION BY t1.stock_id ORDER BY t1.[date] DESC) row_num,
@@ -1589,7 +1589,7 @@ def create_query_0611(numbers, period, direct, percent):
     query = '''
     (SELECT stock_id,
     CASE
-    WHEN SUM(each_remark) > 0 THEN '含稅後淨利率負轉正'
+    WHEN SUM(each_remark) > 0 THEN '含稅後淨利率負轉正；'
     END remark
     FROM
     (SELECT t1.*,  ROW_NUMBER() OVER(PARTITION BY t1.stock_id ORDER BY t1.[date] DESC) row_num,
@@ -1627,7 +1627,7 @@ def create_query_0612(period, direct, percent):
     query = '''
     (SELECT stock_id,
     CASE
-    WHEN SUM(each_remark) > 0 THEN '含稅後淨利率負轉正'
+    WHEN SUM(each_remark) > 0 THEN '含稅後淨利率負轉正；'
     END remark
     FROM
     (SELECT t1.*,  ROW_NUMBER() OVER(PARTITION BY t1.stock_id ORDER BY t1.[date] DESC) row_num,
