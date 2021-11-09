@@ -54,7 +54,7 @@ def query_combine(query_dict):
 # 最後查詢
 def sql_execute(query):
 
-    conn = pymssql.connect(host='localhost', user = 'myfirstjump', password='myfirstjump', database='STOCK_SKILL_DB', charset='ISO-8859-1')
+    conn = pymssql.connect(host='localhost', user = 'myfirstjump', password='myfirstjump', database='STOCK_SKILL_DB', charset='utf8')
     cursor = conn.cursor(as_dict=True)
     cursor.execute(query)
     # data = [row for row in cursor]
