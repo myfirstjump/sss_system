@@ -3,6 +3,7 @@ import dash_core_components as dcc
 import dash_html_components as html
 from dash.dependencies import Output, Input, State, ALL
 from dash.exceptions import PreventUpdate
+import dash_table
 import plotly.express as px
 import pandas as pd
 import json
@@ -1376,6 +1377,9 @@ class DashBuilder(object):
                     return df_etf_twse 
                 else:
                     return df_etf_tpex 
+
+                # data = generate_table(stock_data)
+                # return my_table
                 # return total_query
                 # return ['{}\n'.format(i) for i in range(9999)]
             else:
@@ -1383,17 +1387,11 @@ class DashBuilder(object):
 
         self.app.run_server(debug=True, dev_tools_hot_reload=True)#, dev_tools_ui=False, dev_tools_props_check=False)
 
-def generate_table(dataframe, max_rows=5000):
-    return html.Table([
-        html.Thead(
-            html.Tr([html.Th(col) for col in dataframe.columns])
-        ),
-        html.Tbody([
-            html.Tr([
-                html.Td(dataframe.iloc[i][col]) for col in dataframe.columns
-            ]) for i in range(min(len(dataframe), max_rows))
-        ])
-    ])
+def generate_table(stock_data, max_rows=5000):
+    return dash_table.DataTable(
+                    columns = [{"name": i, "id": i} for i in stock_data.columns],
+                    data=stock_data.to_dict('records'),
+                )
 
 def stock_classifier(dataframe):
     data = dataframe.rename(columns={'stock_id':'股票代碼', 'stock_name': '公司', 'industry_category':'產業別'})

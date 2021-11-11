@@ -129,7 +129,7 @@ result_div_etf = {
 result_content = {
     'margin': '5%',
     'font-size': '28px',
-    'color': 'white',
+    # 'color': 'white',
     'height': '500px',
     # 'border': 'solid 1px white',
     'overflow': 'auto',
@@ -319,4 +319,8 @@ text_bold = {
 
 result_words = {
     'color': result_words
+}
+
+td_style = {
+    'width': '20%'
 }
