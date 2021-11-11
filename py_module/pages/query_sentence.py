@@ -1443,7 +1443,7 @@ def create_query_0606(period, direct, percent):
 
     return query
 
-def create_query_0607(numbers, period, direct, amount):
+def create_query_0607(numbers, period, direct, percent):
 
     """0607 近(2)(月/季/年)營業利益率(大於)(5)%"""
 
@@ -1543,7 +1543,7 @@ def create_query_0609(period, direct, percent):
 
     return query
 
-def create_query_0610(numbers, period, direct, amount):
+def create_query_0610(numbers, period, direct, percent):
 
     """0610 近(2)(月/季/年)稅後淨利率(大於)(5)%"""
 
