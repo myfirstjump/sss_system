@@ -1397,8 +1397,9 @@ def generate_table(stock_data, max_rows=5000):
 def stock_classifier(data):
     
     data = data.rename(columns={'stock_id':'股票代碼', 'stock_name': '公司', 'industry_category':'產業別'})
-    data = data.groupby(['股票代碼'])['產業別'].transform(lambda x: ','.join(x))
-    data = data.drop_duplicates()
+    print(data.head(20))
+    # data = data.groupby(['股票代碼'])['產業別'].transform(lambda x: ','.join(x))
+    # data = data.drop_duplicates()
 
     df_etf_all = data[data['產業別'].isin(['ETF', '上櫃指數股票型基金(ETF)', '指數投資證券(ETN)', '受益證券'])]
     df_all = data[~data['產業別'].isin(['ETF', '上櫃指數股票型基金(ETF)', '指數投資證券(ETN)', '受益證券'])]
