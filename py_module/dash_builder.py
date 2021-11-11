@@ -1394,7 +1394,7 @@ def generate_table(stock_data, max_rows=5000):
                     columns = [{"name": i, "id": i} for i in stock_data.columns],
                     data=stock_data.to_dict('records'),
                     fixed_rows={'headers': True},
-                    style_table={'overflowX': 'auto'},
+                    style_cell={'minWidth': '180px'},
                 )
 
 def stock_classifier(data):
