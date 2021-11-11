@@ -1395,7 +1395,7 @@ def generate_table(stock_data, max_rows=5000):
                 )
 
 def stock_classifier(data):
-    data = data.group_by(['stock_id'])['industry_category'].transform(lambda x: ','.join(x))
+    data = data.groupby(['stock_id'])['industry_category'].transform(lambda x: ','.join(x))
     data = data.drop_duplicates()
     data = data.rename(columns={'stock_id':'股票代碼', 'stock_name': '公司', 'industry_category':'產業別'})
 
