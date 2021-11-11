@@ -2018,7 +2018,7 @@ def create_0128(output_count):
                                                 clearable=False,
                                                 style=self_style.dropdown_style),
                                             ],style=self_style.dp_div_style),
-                                            html.P('內，', style=self_style.text_normal),
+                                            html.P('內', style=self_style.text_normal),
                                             html.Div([
                                                 dcc.Dropdown(
                                                 id={'type':'dd2',
@@ -2046,7 +2046,7 @@ def create_0128(output_count):
                                                 clearable=False,
                                                 style=self_style.dropdown_style),
                                             ],style=self_style.dp_div_style),
-                                            html.P('區間者增加，', style=self_style.text_normal),
+                                            html.P('者增加', style=self_style.text_normal),
                                             html.Div([
                                                 dcc.Input(
                                                 id={'type':'ip2',
@@ -2112,7 +2112,7 @@ def create_0129(output_count):
                                                 clearable=False,
                                                 style=self_style.dropdown_style),
                                             ],style=self_style.dp_div_style),
-                                            html.P('內，', style=self_style.text_normal),
+                                            html.P('內', style=self_style.text_normal),
                                             html.Div([
                                                 dcc.Dropdown(
                                                 id={'type':'dd2',
@@ -2140,7 +2140,7 @@ def create_0129(output_count):
                                                 clearable=False,
                                                 style=self_style.dropdown_style),
                                             ],style=self_style.dp_div_style),
-                                            html.P('區間者均', style=self_style.text_normal),
+                                            html.P('者均', style=self_style.text_normal),
                                             html.Div([
                                                 dcc.Dropdown(
                                                 id={'type':'dd3',
