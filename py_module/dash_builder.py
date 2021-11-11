@@ -1378,8 +1378,10 @@ class DashBuilder(object):
                 else:
                     return df_etf_tpex 
 
-                # data = generate_table(stock_data)
+                # my_table, _, _, _ = stock_classifier(stock_data)
+                # my_table = generate_table(my_table)
                 # return my_table
+
                 # return total_query
                 # return ['{}\n'.format(i) for i in range(9999)]
             else:
@@ -1397,9 +1399,9 @@ def generate_table(stock_data, max_rows=5000):
 def stock_classifier(data):
     
     data = data.rename(columns={'stock_id':'股票代碼', 'stock_name': '公司', 'industry_category':'產業別'})
-    print(data.head(20))
-    # data = data.groupby(['股票代碼'])['產業別'].transform(lambda x: ','.join(x))
-    # data = data.drop_duplicates()
+    
+    data['產業別'] = data.groupby(['股票代碼'])['產業別'].transform(lambda x: ','.join(x))
+    data = data.drop_duplicates(subset=['股票代碼'])
 
     df_etf_all = data[data['產業別'].isin(['ETF', '上櫃指數股票型基金(ETF)', '指數投資證券(ETN)', '受益證券'])]
     df_all = data[~data['產業別'].isin(['ETF', '上櫃指數股票型基金(ETF)', '指數投資證券(ETN)', '受益證券'])]
