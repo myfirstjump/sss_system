@@ -1391,11 +1391,14 @@ def generate_table(stock_data, max_rows=5000):
     return dash_table.DataTable(
                     columns = [{"name": i, "id": i} for i in stock_data.columns],
                     data=stock_data.to_dict('records'),
+                    fixed_rows={'headers': True},
                 )
 
 def stock_classifier(dataframe):
+    data = data.group_by(['stock_id'])['industry_category'].transform(lambda x: ','.join(x))
+    data = data.drop_duplicates()
     data = dataframe.rename(columns={'stock_id':'股票代碼', 'stock_name': '公司', 'industry_category':'產業別'})
-    
+
     df_etf_all = data[data['產業別'].isin(['ETF', '上櫃指數股票型基金(ETF)', '指數投資證券(ETN)', '受益證券'])]
     df_all = data[~data['產業別'].isin(['ETF', '上櫃指數股票型基金(ETF)', '指數投資證券(ETN)', '受益證券'])]
 
