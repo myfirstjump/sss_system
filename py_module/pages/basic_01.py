@@ -2016,7 +2016,7 @@ def create_0128(output_count):
                                                 value='w',
                                                 placeholder='週',
                                                 clearable=False,
-                                                style=self_style.dropdown_style),
+                                                style=self_style.short_dropdown_style),
                                             ],style=self_style.dp_div_style),
                                             html.P('內', style=self_style.text_normal),
                                             html.Div([
@@ -2110,7 +2110,7 @@ def create_0129(output_count):
                                                 value='w',
                                                 placeholder='週',
                                                 clearable=False,
-                                                style=self_style.dropdown_style),
+                                                style=self_style.short_dropdown_style),
                                             ],style=self_style.dp_div_style),
                                             html.P('內', style=self_style.text_normal),
                                             html.Div([
