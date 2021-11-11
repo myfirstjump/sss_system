@@ -2003,8 +2003,8 @@ def create_0128(output_count):
                                                 max=30,
                                                 value=3,
                                                 placeholder='3',
-                                                style=self_style.input_style),
-                                            ], style=self_style.ipt_div_style),
+                                                style=self_style.short_input_style),
+                                            ], style=self_style.short_ipt_div_style),
                                             html.Div([
                                                 dcc.Dropdown(
                                                 id={'type':'dd1',
@@ -2097,8 +2097,8 @@ def create_0129(output_count):
                                                 max=30,
                                                 value=3,
                                                 placeholder='3',
-                                                style=self_style.input_style),
-                                            ], style=self_style.ipt_div_style),
+                                                style=self_style.short_input_style),
+                                            ], style=self_style.short_ipt_div_style),
                                             html.Div([
                                                 dcc.Dropdown(
                                                 id={'type':'dd1',
