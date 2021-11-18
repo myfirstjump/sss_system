@@ -979,7 +979,7 @@ def create_query_0401(days, period, buy_sell, direct, lot):
         lot = lot * -1000 #以每股為單位
 
     query = '''
-    (SELECT stock_id, AVG(SUM(part_tbl.buy) - SUM(part_tbl.sell)) [外資平均買賣超], CAST(NULL AS NVARCHAR(100)) as remark FROM
+    (SELECT stock_id, AVG(part_tbl.buy - part_tbl.sell) [外資平均買賣超], CAST(NULL AS NVARCHAR(100)) as remark FROM
     (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY date DESC) row_num
     FROM {} WITH(NOLOCK)
     WHERE date > (GETDATE()-({}+10)) AND name = 'Foreign_Investor') part_tbl
@@ -1010,7 +1010,7 @@ def create_query_0402(days, period, buy_sell, direct, lot):
         lot = lot * -1000
 
     query = '''
-    (SELECT stock_id, AVG(SUM(part_tbl.buy) - SUM(part_tbl.sell)) [外資平均買賣超], CAST(NULL AS NVARCHAR(100)) as remark FROM
+    (SELECT stock_id, AVG(part_tbl.buy - part_tbl.sell) [外資平均買賣超], CAST(NULL AS NVARCHAR(100)) as remark FROM
     (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY date DESC) row_num
     FROM {} WITH(NOLOCK)
     WHERE date > (GETDATE()-({}+10)) AND name = 'Foreign_Investor') part_tbl
@@ -1041,7 +1041,7 @@ def create_query_0403(days, period, buy_sell, direct, lot):
         lot = lot * -1000
 
     query = '''
-    (SELECT stock_id, AVG(SUM(part_tbl.buy) - SUM(part_tbl.sell)) [投信平均買賣超], CAST(NULL AS NVARCHAR(100)) as remark FROM
+    (SELECT stock_id, AVG(part_tbl.buy - part_tbl.sell) [投信平均買賣超], CAST(NULL AS NVARCHAR(100)) as remark FROM
     (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY date DESC) row_num
     FROM {} WITH(NOLOCK)
     WHERE date > (GETDATE()-({}+10)) AND name = 'Investment_Trust') part_tbl
@@ -1072,7 +1072,7 @@ def create_query_0404(days, period, buy_sell, direct, lot):
         lot = lot * -1000
 
     query = '''
-    (SELECT stock_id, AVG(SUM(part_tbl.buy) - SUM(part_tbl.sell)) [投信平均買賣超], CAST(NULL AS NVARCHAR(100)) as remark FROM
+    (SELECT stock_id, AVG(part_tbl.buy - part_tbl.sell) [投信平均買賣超], CAST(NULL AS NVARCHAR(100)) as remark FROM
     (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY date DESC) row_num
     FROM {} WITH(NOLOCK)
     WHERE date > (GETDATE()-({}+10)) AND name = 'Investment_Trust') part_tbl
@@ -1103,7 +1103,7 @@ def create_query_0405(days, period, buy_sell, direct, lot):
         lot = lot * -1000
 
     query = '''
-    (SELECT stock_id, AVG(SUM(part_tbl.buy) - SUM(part_tbl.sell)) [自營商平均買賣超], CAST(NULL AS NVARCHAR(100)) as remark FROM
+    (SELECT stock_id, AVG(part_tbl.buy - part_tbl.sell) [自營商平均買賣超], CAST(NULL AS NVARCHAR(100)) as remark FROM
     (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY date DESC) row_num
     FROM {} WITH(NOLOCK)
     WHERE date > (GETDATE()-({}+10)) AND name = 'Dealer_Hedging') part_tbl
@@ -1134,7 +1134,7 @@ def create_query_0406(days, period, buy_sell, direct, lot):
         lot = lot * -1000
 
     query = '''
-    (SELECT stock_id, AVG(SUM(part_tbl.buy) - SUM(part_tbl.sell)) [自營商平均買賣超], CAST(NULL AS NVARCHAR(100)) as remark FROM
+    (SELECT stock_id, AVG(part_tbl.buy - part_tbl.sell) [自營商平均買賣超], CAST(NULL AS NVARCHAR(100)) as remark FROM
     (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY date DESC) row_num
     FROM {} WITH(NOLOCK)
     WHERE date > (GETDATE()-({}+10)) AND name = 'Dealer_Hedging') part_tbl
