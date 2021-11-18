@@ -315,6 +315,7 @@ text_bold = {
     #'height':'25px',
     #'border':'solid 1px',
     'font-size':'15px',
+    'color': '#FF0000',
 }
 
 result_words = {

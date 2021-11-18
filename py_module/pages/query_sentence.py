@@ -13,6 +13,7 @@ from string import ascii_lowercase
             # this_year_start = datetime.datetime(today.year, 1, 1).date()
 
 skill_info = 'STOCK_SKILL_DB.dbo.TW_STOCK_INFO'
+skill_capital = 'STOCK_SKILL_DB.dbo.TW_STOCK_CAPITAL'
 basic_info_supervisor = 'STOCK_BASICINTO_DB.dbo.TW_STOCK_Director_Supervisor'
 basic_info_revenue_m = 'STOCK_BASICINTO_DB.dbo.TW_STOCK_MonthRevenue'
 basic_info_revenue_q = 'STOCK_BASICINTO_DB.dbo.TW_STOCK_MonthRevenue_Quarterly'
@@ -35,9 +36,12 @@ counter_holdrange_m = 'STOCK_Counter_DB.dbo.TW_STOCK_HOLDRANGE_monthly'
 # Query Combination
 def query_combine(query_dict):
     query_number = len(query_dict)
+
+    specific_columns_string = ",".join([])
     remark_string = "+".join(['{}.remark'.format(i) for i in ascii_lowercase][:query_number])
-    combined_query = "SELECT {}.stock_id, {}.stock_name, {}.industry_category, {}.type, {} Remark FROM ".format(ascii_lowercase[query_number], ascii_lowercase[query_number], 
+    combined_query = "SELECT {}.stock_id, {}.stock_name, {}.industry_category, {}.type, {} {} Remark FROM ".format(ascii_lowercase[query_number], ascii_lowercase[query_number], 
     ascii_lowercase[query_number], ascii_lowercase[query_number], remark_string)
+
     for num, query in query_dict.items():
         align_code = ascii_lowercase[num]
         if align_code == 'a':
@@ -67,12 +71,7 @@ def sql_execute(query):
 
 # 各項條件的string
 def create_query_0101(cate_str):
-    # if type(cate_str) == str:
-    #     cate_str = "('" + cate_str + "')"
-    # else:
-    #     cate_str = tuple(cate_str)
     
-    # query = '''(SELECT stock_id FROM {} WITH(NOLOCK) WHERE industry_category IN {})'''.format(skill_info, cate_str)
     if len(cate_str) == 1:
         cate_str = str(cate_str)
         cate_str = cate_str.replace('[', '(')
@@ -80,7 +79,7 @@ def create_query_0101(cate_str):
     else:
         cate_str = tuple(cate_str)
     query = '''(SELECT stock_id, CAST(NULL AS NVARCHAR(100)) as remark FROM {} WITH(NOLOCK) WHERE industry_category IN {})'''.format(skill_info, cate_str)
-    return query 
+    return query, 'stock_id' #產業別在TW_STOCK_INFO已經有了，故以stock_id代替回傳值。
 
 def create_query_0102(larger, price):
     '''公司股本(大於/小於)(100)億元'''
@@ -91,9 +90,9 @@ def create_query_0102(larger, price):
         
     price = price * 100000
 
-    query = '''(SELECT stock_id, CAST(NULL AS NVARCHAR(100)) as remark FROM STOCK_SKILL_DB.dbo.TW_STOCK_CAPITAL WHERE Capital {} {})'''.format(sign, price)
+    query = '''(SELECT stock_id, Capital '股本', CAST(NULL AS NVARCHAR(100)) as remark FROM {} WHERE Capital {} {})'''.format(skill_capital, sign, price)
     
-    return query
+    return query, '股本'
 
 def create_query_0103(larger, price):
     '''公司股本(大於/小於)(100)億元'''
@@ -104,9 +103,9 @@ def create_query_0103(larger, price):
         
     price = price * 100000
 
-    query = '''(SELECT stock_id, CAST(NULL AS NVARCHAR(100)) as remark FROM STOCK_SKILL_DB.dbo.TW_STOCK_CAPITAL WHERE Capital {} {})'''.format(sign, price)
+    query = '''(SELECT stock_id, Capital '股本', CAST(NULL AS NVARCHAR(100)) as remark FROM {} WITH(NOLOCK) WHERE Capital {} {})'''.format(skill_capital, sign, price)
     
-    return query
+    return query, '股本'
 
 def create_query_0104(larger, ratio):
     '''董監持股比例(大於)(50)%之股票'''
@@ -115,7 +114,7 @@ def create_query_0104(larger, ratio):
     else:
         sign = '<'
 
-    query = '''(SELECT stock_id, CAST(NULL AS NVARCHAR(100)) as remark FROM (SELECT stock_id, AVG(share_ratio) new_share_ratio FROM {}
+    query = '''(SELECT stock_id, SUM(new_share_ratio) '董監持股比例', CAST(NULL AS NVARCHAR(100)) as remark FROM (SELECT stock_id, AVG(share_ratio) new_share_ratio FROM {} WITH(NOLOCK)
             GROUP BY stock_id, name) t1
             GROUP BY stock_id HAVING SUM(new_share_ratio) {} {})'''.format(basic_info_supervisor, sign, ratio)
 
@@ -754,9 +753,9 @@ def create_query_0201(larger, price):
 
     query = '''(SELECT stock_id, CAST(NULL AS NVARCHAR(100)) as remark FROM
     (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY date DESC) row_num
-    FROM TW_STOCK_PRICE_Daily WITH(NOLOCK)
+    FROM {} WITH(NOLOCK)
     WHERE date > (GETDATE()-(10))) part_tbl
-    WHERE part_tbl.row_num <= 1 AND part_tbl.[close] {} {})'''.format(sign, str(price))
+    WHERE part_tbl.row_num <= 1 AND part_tbl.[close] {} {})'''.format(skill_price_d, sign, str(price))
 
     return query
 
@@ -768,9 +767,9 @@ def create_query_0202(larger, price):
     
     query = '''(SELECT stock_id, CAST(NULL AS NVARCHAR(100)) as remark FROM
     (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY date DESC) row_num
-    FROM TW_STOCK_PRICE_Daily WITH(NOLOCK)
+    FROM {} WITH(NOLOCK)
     WHERE date > (GETDATE()-(10))) part_tbl
-    WHERE part_tbl.row_num <= 1 AND part_tbl.[close] {} {})'''.format(sign, str(price))
+    WHERE part_tbl.row_num <= 1 AND part_tbl.[close] {} {})'''.format(skill_price_d, sign, str(price))
 
     return query
 

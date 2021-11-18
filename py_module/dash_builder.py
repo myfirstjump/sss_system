@@ -1339,8 +1339,10 @@ class DashBuilder(object):
                         query_dict[idx] = query
                     else:
                         pass
+                    
+                print('Query Dict:', query_dict)
                 total_query = query_sentence.query_combine(query_dict)
-                print('final query:', total_query)
+                print('Final Query:', total_query)
                 data = query_sentence.sql_execute(total_query)
                 
                 if len(data) == 0:
