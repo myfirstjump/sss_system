@@ -1165,180 +1165,239 @@ class DashBuilder(object):
                     elif selection_code == '0105':
                         query = query_sentence.create_query_0105(value_dict[selection_code][0], value_dict[selection_code][1])
                         query_dict[idx] = query
+                        col_name_dict[idx] = col_name
                     elif selection_code == '0106':
                         query = query_sentence.create_query_0106(value_dict[selection_code][0], value_dict[selection_code][1])
                         query_dict[idx] = query
+                        col_name_dict[idx] = col_name
                     elif selection_code == '0107':
                         query = query_sentence.create_query_0107(value_dict[selection_code][0], value_dict[selection_code][1], value_dict[selection_code][2])
                         query_dict[idx] = query
+                        col_name_dict[idx] = col_name
                     elif selection_code == '0108':
                         query = query_sentence.create_query_0108(value_dict[selection_code][0], value_dict[selection_code][1], value_dict[selection_code][2])
                         query_dict[idx] = query
+                        col_name_dict[idx] = col_name
                     elif selection_code == '0109':
                         query = query_sentence.create_query_0109(value_dict[selection_code][0], value_dict[selection_code][1], value_dict[selection_code][2])
                         query_dict[idx] = query
+                        col_name_dict[idx] = col_name
                     elif selection_code == '0110':
                         query = query_sentence.create_query_0110(value_dict[selection_code][0], value_dict[selection_code][1], value_dict[selection_code][2])
                         query_dict[idx] = query
+                        col_name_dict[idx] = col_name
                     elif selection_code == '0111':
                         query = query_sentence.create_query_0111(value_dict[selection_code][0], value_dict[selection_code][1], value_dict[selection_code][2], value_dict[selection_code][3])
                         query_dict[idx] = query
+                        col_name_dict[idx] = col_name
                     elif selection_code == '0112':
                         query = query_sentence.create_query_0112(value_dict[selection_code][0], value_dict[selection_code][1], value_dict[selection_code][2], value_dict[selection_code][3])
                         query_dict[idx] = query
+                        col_name_dict[idx] = col_name
                     elif selection_code == '0113':
                         query = query_sentence.create_query_0113(value_dict[selection_code][0], value_dict[selection_code][1], value_dict[selection_code][2])
                         query_dict[idx] = query
+                        col_name_dict[idx] = col_name
                     elif selection_code == '0114':
                         query = query_sentence.create_query_0114(value_dict[selection_code][0], value_dict[selection_code][1], value_dict[selection_code][2], value_dict[selection_code][3])
                         query_dict[idx] = query
+                        col_name_dict[idx] = col_name
                     elif selection_code == '0115':
                         query = query_sentence.create_query_0115(value_dict[selection_code][0], value_dict[selection_code][1], value_dict[selection_code][2])
                         query_dict[idx] = query
+                        col_name_dict[idx] = col_name
                     elif selection_code == '0116':
                         query = query_sentence.create_query_0116(value_dict[selection_code][0], value_dict[selection_code][1], value_dict[selection_code][2], value_dict[selection_code][3])
                         query_dict[idx] = query
+                        col_name_dict[idx] = col_name
                     elif selection_code == '0117':
                         query = query_sentence.create_query_0117(value_dict[selection_code][0], value_dict[selection_code][1], value_dict[selection_code][2])
                         query_dict[idx] = query
+                        col_name_dict[idx] = col_name
                     elif selection_code == '0118':
                         query = query_sentence.create_query_0118(value_dict[selection_code][0], value_dict[selection_code][1], value_dict[selection_code][2], value_dict[selection_code][3])
                         query_dict[idx] = query
+                        col_name_dict[idx] = col_name
                     elif selection_code == '0119':
                         query = query_sentence.create_query_0119(value_dict[selection_code][0], value_dict[selection_code][1], value_dict[selection_code][2])
                         query_dict[idx] = query
+                        col_name_dict[idx] = col_name
                     elif selection_code == '0120':
                         query = query_sentence.create_query_0120(value_dict[selection_code][0], value_dict[selection_code][1], value_dict[selection_code][2], value_dict[selection_code][3])
                         query_dict[idx] = query
+                        col_name_dict[idx] = col_name
                     elif selection_code == '0121':
                         query = query_sentence.create_query_0121(value_dict[selection_code][0], value_dict[selection_code][1], value_dict[selection_code][2])
                         query_dict[idx] = query
+                        col_name_dict[idx] = col_name
                     elif selection_code == '0122':
                         query = query_sentence.create_query_0122(value_dict[selection_code][0], value_dict[selection_code][1], value_dict[selection_code][2], value_dict[selection_code][3])
                         query_dict[idx] = query
+                        col_name_dict[idx] = col_name
                     elif selection_code == '0123':
                         query = query_sentence.create_query_0123(value_dict[selection_code][0], value_dict[selection_code][1], value_dict[selection_code][2])
                         query_dict[idx] = query
+                        col_name_dict[idx] = col_name
                     elif selection_code == '0124':
                         query = query_sentence.create_query_0124(value_dict[selection_code][0], value_dict[selection_code][1], value_dict[selection_code][2], value_dict[selection_code][3], value_dict[selection_code][4])
                         query_dict[idx] = query
+                        col_name_dict[idx] = col_name
                     elif selection_code == '0125':
                         query = query_sentence.create_query_0125(value_dict[selection_code][0], value_dict[selection_code][1], value_dict[selection_code][2])
                         query_dict[idx] = query
+                        col_name_dict[idx] = col_name
                     elif selection_code == '0126':
                         query = query_sentence.create_query_0126(value_dict[selection_code][0], value_dict[selection_code][1], value_dict[selection_code][2], value_dict[selection_code][3])
                         query_dict[idx] = query
+                        col_name_dict[idx] = col_name
                     elif selection_code == '0127':
                         query = query_sentence.create_query_0127(value_dict[selection_code][0], value_dict[selection_code][1])
                         query_dict[idx] = query
+                        col_name_dict[idx] = col_name
                     elif selection_code == '0128':
                         query = query_sentence.create_query_0128(value_dict[selection_code][0], value_dict[selection_code][1], value_dict[selection_code][2], value_dict[selection_code][3], value_dict[selection_code][4])
                         query_dict[idx] = query
+                        col_name_dict[idx] = col_name
                     elif selection_code == '0129':
                         query = query_sentence.create_query_0129(value_dict[selection_code][0], value_dict[selection_code][1], value_dict[selection_code][2], value_dict[selection_code][3], value_dict[selection_code][4])
                         query_dict[idx] = query
+                        col_name_dict[idx] = col_name
                     elif selection_code == '0201':
                         query = query_sentence.create_query_0201(value_dict[selection_code][0], value_dict[selection_code][1])
                         query_dict[idx] = query
+                        col_name_dict[idx] = col_name
                     elif selection_code == '0202':
                         query = query_sentence.create_query_0202(value_dict[selection_code][0], value_dict[selection_code][1])
                         query_dict[idx] = query
+                        col_name_dict[idx] = col_name
                     elif selection_code == '0203':
                         query = query_sentence.create_query_0203(value_dict[selection_code][0], value_dict[selection_code][1])
                         query_dict[idx] = query
+                        col_name_dict[idx] = col_name
                     elif selection_code == '0204':
                         query = query_sentence.create_query_0204(value_dict[selection_code][0], value_dict[selection_code][1], value_dict[selection_code][2], value_dict[selection_code][3])
                         query_dict[idx] = query
+                        col_name_dict[idx] = col_name
                     elif selection_code == '0205':
                         query = query_sentence.create_query_0205(value_dict[selection_code][0], value_dict[selection_code][1], value_dict[selection_code][2], value_dict[selection_code][3])
                         query_dict[idx] = query
+                        col_name_dict[idx] = col_name
                     elif selection_code == '0301':
                         query = query_sentence.create_query_0301(value_dict[selection_code][0], value_dict[selection_code][1], value_dict[selection_code][2], value_dict[selection_code][3])
                         query_dict[idx] = query
+                        col_name_dict[idx] = col_name
                     elif selection_code == '0302':
                         query = query_sentence.create_query_0302(value_dict[selection_code][0], value_dict[selection_code][1], value_dict[selection_code][2], value_dict[selection_code][3])
                         query_dict[idx] = query
+                        col_name_dict[idx] = col_name
                     elif selection_code == '0303':
                         query = query_sentence.create_query_0303(value_dict[selection_code][0], value_dict[selection_code][1], value_dict[selection_code][2], value_dict[selection_code][3])
                         query_dict[idx] = query
+                        col_name_dict[idx] = col_name
                     elif selection_code == '0304':
                         query = query_sentence.create_query_0304(value_dict[selection_code][0], value_dict[selection_code][1], value_dict[selection_code][2], value_dict[selection_code][3])
                         query_dict[idx] = query
+                        col_name_dict[idx] = col_name
                     elif selection_code == '0305':
                         query = query_sentence.create_query_0305(value_dict[selection_code][0], value_dict[selection_code][1], value_dict[selection_code][2], value_dict[selection_code][3])
                         query_dict[idx] = query
+                        col_name_dict[idx] = col_name
                     elif selection_code == '0306':
                         query = query_sentence.create_query_0306(value_dict[selection_code][0], value_dict[selection_code][1], value_dict[selection_code][2], value_dict[selection_code][3])
                         query_dict[idx] = query
+                        col_name_dict[idx] = col_name
                     elif selection_code == '0401':
                         query = query_sentence.create_query_0401(value_dict[selection_code][0], value_dict[selection_code][1], value_dict[selection_code][2], value_dict[selection_code][3], value_dict[selection_code][4])
                         query_dict[idx] = query
+                        col_name_dict[idx] = col_name
                     elif selection_code == '0402':
                         query = query_sentence.create_query_0402(value_dict[selection_code][0], value_dict[selection_code][1], value_dict[selection_code][2], value_dict[selection_code][3], value_dict[selection_code][4])
                         query_dict[idx] = query
+                        col_name_dict[idx] = col_name
                     elif selection_code == '0403':
                         query = query_sentence.create_query_0403(value_dict[selection_code][0], value_dict[selection_code][1], value_dict[selection_code][2], value_dict[selection_code][3], value_dict[selection_code][4])
                         query_dict[idx] = query
+                        col_name_dict[idx] = col_name
                     elif selection_code == '0404':
                         query = query_sentence.create_query_0404(value_dict[selection_code][0], value_dict[selection_code][1], value_dict[selection_code][2], value_dict[selection_code][3], value_dict[selection_code][4])
                         query_dict[idx] = query
+                        col_name_dict[idx] = col_name
                     elif selection_code == '0405':
                         query = query_sentence.create_query_0405(value_dict[selection_code][0], value_dict[selection_code][1], value_dict[selection_code][2], value_dict[selection_code][3], value_dict[selection_code][4])
                         query_dict[idx] = query
+                        col_name_dict[idx] = col_name
                     elif selection_code == '0406':
                         query = query_sentence.create_query_0406(value_dict[selection_code][0], value_dict[selection_code][1], value_dict[selection_code][2], value_dict[selection_code][3], value_dict[selection_code][4])
                         query_dict[idx] = query
+                        col_name_dict[idx] = col_name
                     elif selection_code == '0501':
                         query = query_sentence.create_query_0501(value_dict[selection_code][0], value_dict[selection_code][1], value_dict[selection_code][2], value_dict[selection_code][3])
                         query_dict[idx] = query
+                        col_name_dict[idx] = col_name
                     elif selection_code == '0502':
                         query = query_sentence.create_query_0502(value_dict[selection_code][0], value_dict[selection_code][1], value_dict[selection_code][2], value_dict[selection_code][3])
                         query_dict[idx] = query
+                        col_name_dict[idx] = col_name
                     elif selection_code == '0503':
                         query = query_sentence.create_query_0503(value_dict[selection_code][0], value_dict[selection_code][1], value_dict[selection_code][2], value_dict[selection_code][3])
                         query_dict[idx] = query
+                        col_name_dict[idx] = col_name
                     elif selection_code == '0504':
                         query = query_sentence.create_query_0504(value_dict[selection_code][0], value_dict[selection_code][1], value_dict[selection_code][2], value_dict[selection_code][3])
                         query_dict[idx] = query
+                        col_name_dict[idx] = col_name
                     elif selection_code == '0505':
                         query = query_sentence.create_query_0505(value_dict[selection_code][0], value_dict[selection_code][1], value_dict[selection_code][2], value_dict[selection_code][3])
                         query_dict[idx] = query
+                        col_name_dict[idx] = col_name
                     elif selection_code == '0506':
                         query = query_sentence.create_query_0506(value_dict[selection_code][0], value_dict[selection_code][1], value_dict[selection_code][2], value_dict[selection_code][3])
                         query_dict[idx] = query
+                        col_name_dict[idx] = col_name
                     elif selection_code == '0601':
                         query = query_sentence.create_query_0601(value_dict[selection_code][0], value_dict[selection_code][1], value_dict[selection_code][2], value_dict[selection_code][3])
                         query_dict[idx] = query
+                        col_name_dict[idx] = col_name
                     elif selection_code == '0602':
                         query = query_sentence.create_query_0602(value_dict[selection_code][0], value_dict[selection_code][1], value_dict[selection_code][2], value_dict[selection_code][3])
                         query_dict[idx] = query
+                        col_name_dict[idx] = col_name
                     elif selection_code == '0603':
                         query = query_sentence.create_query_0603(value_dict[selection_code][0], value_dict[selection_code][1], value_dict[selection_code][2])
                         query_dict[idx] = query
+                        col_name_dict[idx] = col_name
                     elif selection_code == '0604':
                         query = query_sentence.create_query_0604(value_dict[selection_code][0], value_dict[selection_code][1], value_dict[selection_code][2], value_dict[selection_code][3])
                         query_dict[idx] = query
+                        col_name_dict[idx] = col_name
                     elif selection_code == '0605':
                         query = query_sentence.create_query_0605(value_dict[selection_code][0], value_dict[selection_code][1], value_dict[selection_code][2], value_dict[selection_code][3])
                         query_dict[idx] = query
+                        col_name_dict[idx] = col_name
                     elif selection_code == '0606':
                         query = query_sentence.create_query_0606(value_dict[selection_code][0], value_dict[selection_code][1], value_dict[selection_code][2])
                         query_dict[idx] = query
+                        col_name_dict[idx] = col_name
                     elif selection_code == '0607':
                         query = query_sentence.create_query_0607(value_dict[selection_code][0], value_dict[selection_code][1], value_dict[selection_code][2], value_dict[selection_code][3])
                         query_dict[idx] = query
+                        col_name_dict[idx] = col_name
                     elif selection_code == '0608':
                         query = query_sentence.create_query_0608(value_dict[selection_code][0], value_dict[selection_code][1], value_dict[selection_code][2], value_dict[selection_code][3])
                         query_dict[idx] = query
+                        col_name_dict[idx] = col_name
                     elif selection_code == '0609':
                         query = query_sentence.create_query_0609(value_dict[selection_code][0], value_dict[selection_code][1], value_dict[selection_code][2])
                         query_dict[idx] = query
+                        col_name_dict[idx] = col_name
                     elif selection_code == '0610':
                         query = query_sentence.create_query_0610(value_dict[selection_code][0], value_dict[selection_code][1], value_dict[selection_code][2], value_dict[selection_code][3])
                         query_dict[idx] = query
+                        col_name_dict[idx] = col_name
                     elif selection_code == '0611':
                         query = query_sentence.create_query_0611(value_dict[selection_code][0], value_dict[selection_code][1], value_dict[selection_code][2], value_dict[selection_code][3])
                         query_dict[idx] = query
+                        col_name_dict[idx] = col_name
                     elif selection_code == '0612':
                         query = query_sentence.create_query_0612(value_dict[selection_code][0], value_dict[selection_code][1], value_dict[selection_code][2])
                         query_dict[idx] = query

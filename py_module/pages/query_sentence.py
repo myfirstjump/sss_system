@@ -127,11 +127,11 @@ def create_query_0105(larger, ratio):
     else:
         sign = '<'
 
-    query = '''(SELECT stock_id, CAST(NULL AS NVARCHAR(100)) as remark FROM (SELECT stock_id, AVG(pledge_ratio) new_pledge_ratio FROM {}
+    query = '''(SELECT stock_id, SUM(new_pledge_ratio) [董監質押比例], CAST(NULL AS NVARCHAR(100)) as remark FROM (SELECT stock_id, AVG(pledge_ratio) new_pledge_ratio FROM {}
             GROUP BY stock_id, name) t1
             GROUP BY stock_id HAVING SUM(new_pledge_ratio) {} {})'''.format(basic_info_supervisor, sign, ratio)
 
-    return query
+    return query, '[董監質押比例]'
 
 def create_query_0106(larger, price):
     '''0106 每股淨值(大於)(10)元之股票'''
@@ -140,12 +140,12 @@ def create_query_0106(larger, price):
     else:
         sign = '<'
 
-    query = '''(SELECT stock_id, CAST(NULL AS NVARCHAR(100)) as remark FROM
+    query = '''(SELECT stock_id, PER_STOCK_PRICE [每股淨值], CAST(NULL AS NVARCHAR(100)) as remark FROM
     (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY date DESC) row_num
     FROM {} WITH(NOLOCK)) part_tbl
     WHERE part_tbl.row_num <= 1 AND PER_STOCK_PRICE {} {})
     '''.format(basic_info_finDetail_q, sign, price)
-    return query
+    return query, [每股淨值]
 
 def create_query_0107(numbers, larger, amount):
     '''0107 (3)年內平均ROE(大於)(10)%'''
@@ -156,7 +156,7 @@ def create_query_0107(numbers, larger, amount):
     
     ref_table = basic_info_finDetail_y
 
-    query = '''(SELECT stock_id, CAST(NULL AS NVARCHAR(100)) as remark FROM
+    query = '''(SELECT stock_id, AVG(after_return) [平均ROE], CAST(NULL AS NVARCHAR(100)) as remark FROM
     (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY [date] DESC) row_num
     FROM {}) part_tbl
     WHERE part_tbl.row_num <= {}
@@ -174,7 +174,7 @@ def create_query_0108(numbers, larger, percent):
     
     ref_table = basic_info_finDetail_y
 
-    query = '''(SELECT stock_id,
+    query = '''(SELECT stock_id, AVG(after_return_last_year_ratio) [平均ROE成長],
     case
     when sum(each_remark) > 0 then CAST('含ROE負轉正；' AS NVARCHAR(100))
     end remark
@@ -190,7 +190,7 @@ def create_query_0108(numbers, larger, percent):
     WHERE part_tbl.row_num <= {} AND after_return_last_year_ratio {} {}
     GROUP BY stock_id HAVING COUNT(row_num) = {})
     '''.format(ref_table, ref_table, numbers, sign, percent, numbers)
-    return query
+    return query, [平均ROE成長]
 
 def create_query_0109(numbers, larger, amount):
     '''0109 (3)年內平均ROA(大於)(10)%'''
@@ -201,13 +201,13 @@ def create_query_0109(numbers, larger, amount):
     
     ref_table = basic_info_finDetail_y
 
-    query = '''(SELECT stock_id, CAST(NULL AS NVARCHAR(100)) as remark FROM
+    query = '''(SELECT stock_id, AVG(total_return) [平均ROA], CAST(NULL AS NVARCHAR(100)) as remark FROM
     (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY [date] DESC) row_num
     FROM {}) part_tbl
     WHERE part_tbl.row_num <= {}
     GROUP BY stock_id HAVING AVG(total_return) {} {})
     '''.format(ref_table, numbers, sign, amount)
-    return query 
+    return query, [平均ROA]
 
 def create_query_0110(numbers, larger, percent):
     '''0110 ROA連續(3)年(成長/衰退)(5)%以上'''
@@ -219,7 +219,7 @@ def create_query_0110(numbers, larger, percent):
     
     ref_table = basic_info_finDetail_y
 
-    query = '''(SELECT stock_id, 
+    query = '''(SELECT stock_id, AVG(total_return_last_year_ratio) [平均ROA成長],
     CASE
     WHEN SUM(each_remark) > 0 THEN CAST('含ROA負轉正；' AS NVARCHAR(100))
     END remark
@@ -234,7 +234,7 @@ def create_query_0110(numbers, larger, percent):
     WHERE part_tbl.row_num <= {} AND total_return_last_year_ratio {} {}
     GROUP BY stock_id HAVING COUNT(row_num) = {})
     '''.format(ref_table, ref_table, numbers, sign, percent, numbers)
-    return query
+    return query, [平均ROA成長]
 
 def create_query_0111(numbers, period, larger, amount):
     '''0111 上(2)(季/年)平均EPS(大於)(10)'''
@@ -248,13 +248,13 @@ def create_query_0111(numbers, period, larger, amount):
     else:
         ref_table = basic_info_finState_q
 
-    query = '''(SELECT stock_id, CAST(NULL AS NVARCHAR(100)) as remark FROM
+    query = '''(SELECT stock_id, AVG(value) [平均EPS], CAST(NULL AS NVARCHAR(100)) as remark FROM
     (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY [date] DESC) row_num
     FROM (SELECT * FROM {} WITH(NOLOCK) where [type]='EPS') t1) part_tbl
     WHERE part_tbl.row_num <= {}
     GROUP BY stock_id HAVING AVG(value) {} {})
     '''.format(ref_table, numbers, sign, amount)
-    return query 
+    return query, [平均EPS]
 
 def create_query_0112(numbers, period, direct, percent):
 
@@ -273,7 +273,7 @@ def create_query_0112(numbers, period, direct, percent):
         period_unit = 'quarter'
 
     query = '''
-    (SELECT stock_id, 
+    (SELECT stock_id, AVG(last_period_ratio) [平均EPS成長],
     CASE 
     WHEN SUM(each_remark) > 0 THEN CAST('含EPS負轉正；' AS NVARCHAR(100))
     END remark 
