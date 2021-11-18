@@ -789,7 +789,7 @@ def create_query_0203(direct, days):
         days = -days
     
     query = '''(SELECT t1.stock_id, CAST(NULL AS NVARCHAR(100)) as remark FROM {} t1 
-    inner join (SELECT stock_id, MAX(date) as each_max_date FROM {} GROUP BY stock_id) t2
+    inner join (SELECT stock_id, MAX(date) as each_max_date FROM {} WHERE date > (GETDATE()-(10)) GROUP BY stock_id) t2
     on t2.stock_id = t1.stock_id AND limitup_limitdown_CNT {} {} 
     inner join {} t3 on t3.stock_id = t2.stock_id AND t2.each_max_date = t3.date)'''.format(skill_info, skill_price_d, sign, str(days), skill_price_d)
 
