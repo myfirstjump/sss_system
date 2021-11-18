@@ -90,9 +90,9 @@ def create_query_0102(larger, price):
         
     price = price * 100000
 
-    query = '''(SELECT stock_id, Capital '股本', CAST(NULL AS NVARCHAR(100)) as remark FROM {} WHERE Capital {} {})'''.format(skill_capital, sign, price)
+    query = '''(SELECT stock_id, Capital [股本], CAST(NULL AS NVARCHAR(100)) as remark FROM {} WHERE Capital {} {})'''.format(skill_capital, sign, price)
     
-    return query, '股本'
+    return query, '[股本]'
 
 def create_query_0103(larger, price):
     '''公司股本(大於/小於)(100)億元'''
@@ -103,9 +103,9 @@ def create_query_0103(larger, price):
         
     price = price * 100000
 
-    query = '''(SELECT stock_id, Capital '股本', CAST(NULL AS NVARCHAR(100)) as remark FROM {} WITH(NOLOCK) WHERE Capital {} {})'''.format(skill_capital, sign, price)
+    query = '''(SELECT stock_id, Capital [股本], CAST(NULL AS NVARCHAR(100)) as remark FROM {} WITH(NOLOCK) WHERE Capital {} {})'''.format(skill_capital, sign, price)
     
-    return query, '股本'
+    return query, '[股本]'
 
 def create_query_0104(larger, ratio):
     '''董監持股比例(大於)(50)%之股票'''
@@ -114,11 +114,11 @@ def create_query_0104(larger, ratio):
     else:
         sign = '<'
 
-    query = '''(SELECT stock_id, SUM(new_share_ratio) '董監持股比例', CAST(NULL AS NVARCHAR(100)) as remark FROM (SELECT stock_id, AVG(share_ratio) new_share_ratio FROM {} WITH(NOLOCK)
+    query = '''(SELECT stock_id, SUM(new_share_ratio) [董監持股比例], CAST(NULL AS NVARCHAR(100)) as remark FROM (SELECT stock_id, AVG(share_ratio) new_share_ratio FROM {} WITH(NOLOCK)
             GROUP BY stock_id, name) t1
             GROUP BY stock_id HAVING SUM(new_share_ratio) {} {})'''.format(basic_info_supervisor, sign, ratio)
 
-    return query
+    return query, '[董監持股比例]'
 
 def create_query_0105(larger, ratio):
     '''董監質押比例(大於)(10)%之股票'''
