@@ -14,14 +14,18 @@ result_bg = '#2E2E40' #5
 result_words = '#F93A0B' #6
 
 header_div_style = {
+    'background-color': top_div_bg,
     'margin':'10px 15px 10px 30px', 
     'padding':'10px',
     #'border':'solid 1px',  
 }
 
+header_text_style = {
+    'color': 'white',
+}
 
 top_div_style = {
-    'background-color': 'white',
+    'background-color': top_div_bg,
     'height': '1500px', 
     #'border':'solid 1px',  
 }
@@ -68,7 +72,7 @@ filter_frame = {
     'display':'inline-block',
 
     
-    'border-radius':'15px',
+    'border-radius':'5px',
 
     # 'border':'solid 1px',  
 }
@@ -83,7 +87,7 @@ condition_frame = {
     'display': 'inline-block',
 
 
-    'border-radius':'15px',
+    'border-radius':'5px',
     
     # 'border':'solid 1px',
 }
@@ -98,7 +102,7 @@ result_frame = {
     'background-color': filter_condition_bg, 
     'width': '96%', 
     'height': '60%',
-    'border-radius':'25px', 
+    'border-radius':'8px', 
     'margin':'1%',
     'display':'inline-block',
     #'border':'solid 1px',  
