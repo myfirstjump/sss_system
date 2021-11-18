@@ -1202,7 +1202,7 @@ def create_query_0502(days, period, direct, lot):
         ref_table = counter_margin_d
 
     query = '''
-    (SELECT stock_id, SUM(MARGIN_ratio) [融資增加%], CAST(NULL AS NVARCHAR(100)) as remark FROM
+    (SELECT stock_id, AVG(MARGIN_ratio) [融資平均增加%], CAST(NULL AS NVARCHAR(100)) as remark FROM
     (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY date DESC) row_num
     FROM {} WITH(NOLOCK)
     WHERE date > (GETDATE()-({}+10))) part_tbl
@@ -1210,7 +1210,7 @@ def create_query_0502(days, period, direct, lot):
     GROUP BY part_tbl.stock_id HAVING  count(row_num) = {})
     '''.format(ref_table, days, days, sign, lot, days)
 
-    return query, '[融資增加%]'
+    return query, '[融資平均增加%]'
 
 def create_query_0503(days, period, direct, lot):
 
@@ -1264,7 +1264,7 @@ def create_query_0504(days, period, direct, lot):
         ref_table = counter_margin_d
 
     query = '''
-    (SELECT stock_id, SUM(SHORTSELL_ratio) [融券增加%], CAST(NULL AS NVARCHAR(100)) as remark FROM
+    (SELECT stock_id, AVG(SHORTSELL_ratio) [融券平均增加%], CAST(NULL AS NVARCHAR(100)) as remark FROM
     (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY date DESC) row_num
     FROM {} WITH(NOLOCK)
     WHERE date > (GETDATE()-({}+10))) part_tbl
@@ -1272,7 +1272,7 @@ def create_query_0504(days, period, direct, lot):
     GROUP BY part_tbl.stock_id HAVING  COUNT(row_num) = {})
     '''.format(ref_table, days, days, sign, lot, days)
 
-    return query, '[融券增加%]'
+    return query, '[融券平均增加%]'
 
 def create_query_0505(days, period, direct, lot):
 
@@ -1326,7 +1326,7 @@ def create_query_0506(days, period, direct, lot):
         ref_table = counter_margin_d
 
     query = '''
-    (SELECT stock_id, SUM(load_ratio) [借券增加%], CAST(NULL AS NVARCHAR(100)) as remark FROM
+    (SELECT stock_id, AVG(load_ratio) [借券平均增加%], CAST(NULL AS NVARCHAR(100)) as remark FROM
     (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY date DESC) row_num
     FROM {} WITH(NOLOCK)
     WHERE date > (GETDATE()-({}+10))) part_tbl
@@ -1334,7 +1334,7 @@ def create_query_0506(days, period, direct, lot):
     GROUP BY part_tbl.stock_id HAVING SUM(part_tbl.load_ratio) {} {} )
     '''.format(ref_table, days, days, sign, lot)
 
-    return query, '[借券增加%]'
+    return query, '[借券平均增加%]'
 
 
 def create_query_0601(numbers, period, direct, amount):
