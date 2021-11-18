@@ -28,6 +28,10 @@ skill_price_w = 'STOCK_SKILL_DB.dbo.TW_STOCK_PRICE_Weekly'
 skill_price_m = 'STOCK_SKILL_DB.dbo.TW_STOCK_PRICE_monthly'
 skill_per = 'STOCK_SKILL_DB.dbo.TW_STOCK_PER'
 counter_legal_d = 'STOCK_COUNTER_DB.dbo.TW_STOCK_LEGALPERSON_Daily'
+counter_legal_w = 'STOCK_COUNTER_DB.dbo.TW_STOCK_LEGALPERSON_Weekly'
+counter_legal_m = 'STOCK_COUNTER_DB.dbo.TW_STOCK_LEGALPERSON_Monthly'
+counter_legal_q = 'STOCK_COUNTER_DB.dbo.TW_STOCK_LEGALPERSON_Quarterly'
+counter_legal_y = 'STOCK_COUNTER_DB.dbo.TW_STOCK_LEGALPERSON_Yearly'
 counter_margin_d = 'STOCK_COUNTER_DB.dbo.TW_STOCK_MARGINTRADE_SHORTSELL_Daily'
 counter_loanshare_d = 'STOCK_COUNTER_DB.dbo.TW_STOCK_LOANSHARE_Daily'
 counter_holdrange_w = 'STOCK_Counter_DB.dbo.TW_STOCK_HOLDRANGE'
@@ -705,18 +709,18 @@ def create_query_0128(number, period, interval, amount, unit):
     if unit == '1':
         # (C-B) + (B-A) = C-A 即人數差計算
         query = '''
-        (select stock_id, CAST(NULL AS NVARCHAR(100)) as remark from {} WITH(NOLOCK)
+        (select stock_id, SUM([people] - [last_period_people]) [集保區間增加], CAST(NULL AS NVARCHAR(100)) as remark from {} WITH(NOLOCK)
         where [date] > (GETDATE()-({}*({}-1)+1)) AND HoldingSharesLevel = '{}' 
         GROUP BY stock_id HAVING SUM([people] - [last_period_people]) >= {})
         '''.format(ref_table, period_base, number, interval, amount)
     else:
         query = '''
-        (select stock_id, CAST(NULL AS NVARCHAR(100)) as remark from {} WITH(NOLOCK)
+        (select stock_id, SUM([percent] - [last_period_percent]) [集保區間增加], CAST(NULL AS NVARCHAR(100)) as remark from {} WITH(NOLOCK)
         where [date] > (GETDATE()-({}*({}-1)+1)) AND HoldingSharesLevel = '{}' 
         GROUP BY stock_id HAVING SUM([percent] - [last_period_percent]) >= {})
         '''.format(ref_table, period_base, number, interval, amount)
 
-    return query
+    return query, '[集保區間增加]'
 
 
 
@@ -737,12 +741,12 @@ def create_query_0129(number, period, interval, larger, amount):
 
 
     query = '''
-        (SELECT stock_id, CAST(NULL AS NVARCHAR(100)) as remark FROM {} WITH(NOLOCK)
+        (SELECT stock_id, people [區間人數], CAST(NULL AS NVARCHAR(100)) as remark FROM {} WITH(NOLOCK)
         WHERE [date] > (GETDATE()-({}*({}-1)+1)) AND HoldingSharesLevel = '{}'
         GROUP BY stock_id HAVING {}([people]) > {})
         '''.format(ref_table, period_base, number, interval, sign, amount)
 
-    return query
+    return query, '[區間人數]'
 
 def create_query_0201(larger, price):
     '''0201 公司股價[大於][120]元'''
@@ -757,7 +761,7 @@ def create_query_0201(larger, price):
     WHERE date > (GETDATE()-(10))) part_tbl
     WHERE part_tbl.row_num <= 1 AND part_tbl.[close] {} {})'''.format(skill_price_d, sign, str(price))
 
-    return query
+    return query, stock_id
 
 def create_query_0202(larger, price):
     if larger == '1':
@@ -771,9 +775,10 @@ def create_query_0202(larger, price):
     WHERE date > (GETDATE()-(10))) part_tbl
     WHERE part_tbl.row_num <= 1 AND part_tbl.[close] {} {})'''.format(skill_price_d, sign, str(price))
 
-    return query
+    return query, stock_id
 
 def create_query_0203(direct, days):
+    '0203 公司股價連續[漲/跌停][3]日以上'
     if direct == '1':
         sign = '>='
     else:
@@ -785,7 +790,7 @@ def create_query_0203(direct, days):
     on t2.stock_id = t1.stock_id AND limitup_limitdown_CNT {} {} 
     inner join {} t3 on t3.stock_id = t2.stock_id AND t2.each_max_date = t3.date)'''.format(skill_info, skill_price_d, sign, str(days), skill_price_d)
 
-    return query
+    return query, stock_id
 
 def create_query_0204(days, period, direct, percent):
 
@@ -804,7 +809,7 @@ def create_query_0204(days, period, direct, percent):
     GROUP BY stock_id HAVING count(row_num) = {})
     '''.format(skill_price_d, days, days, sign, percent, days)
 
-    return query
+    return query, stock_id
 
 def create_query_0205(days, period, direct, percent):
 
@@ -823,7 +828,7 @@ def create_query_0205(days, period, direct, percent):
     GROUP BY stock_id HAVING count(row_num) = {})
     '''.format(skill_price_d, days, days, sign, percent, days)
 
-    return query
+    return query, stock_id
 
 
 def create_query_0301(days, period, direct, percent):
@@ -835,7 +840,7 @@ def create_query_0301(days, period, direct, percent):
         sign = '<='
 
     query = '''
-    (SELECT stock_id, CAST(NULL AS NVARCHAR(100)) as remark FROM
+    (SELECT stock_id, AVG(Trading_Volume) [平均成交量], CAST(NULL AS NVARCHAR(100)) as remark FROM
     (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY date DESC) row_num
     FROM {} WITH(NOLOCK)
     WHERE date > (GETDATE()-({}+10))) part_tbl
@@ -843,7 +848,7 @@ def create_query_0301(days, period, direct, percent):
     GROUP BY part_tbl.stock_id HAVING AVG(Trading_Volume) {} {})
     '''.format(skill_price_d, days, days, sign, percent)
 
-    return query
+    return query, '[平均成交量]'
 
 def create_query_0302(days, period, direct, percent):
 
@@ -854,7 +859,7 @@ def create_query_0302(days, period, direct, percent):
         sign = '<='
 
     query = '''
-    (SELECT stock_id, CAST(NULL AS NVARCHAR(100)) as remark FROM
+    (SELECT stock_id, AVG(Trading_Volume) [平均成交量], CAST(NULL AS NVARCHAR(100)) as remark FROM
     (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY date DESC) row_num
     FROM {} WITH(NOLOCK)
     WHERE date > (GETDATE()-({}+10))) part_tbl
@@ -862,11 +867,12 @@ def create_query_0302(days, period, direct, percent):
     GROUP BY part_tbl.stock_id HAVING AVG(Trading_Volume) {} {})
     '''.format(skill_price_d, days, days, sign, percent)
 
-    return query
+    return query, '[平均成交量]'
 
 def create_query_0303(days, period, direct, lot):
 
     """於[3][日]內，成交量均[增加][1000]張之股票"""
+    """BUG: 均增加1000，是否要用相減算?"""
     if direct == '1':
         sign = '>='
     else:
@@ -875,16 +881,16 @@ def create_query_0303(days, period, direct, lot):
     # lot = lot * 1000
 
     query = '''
-    (SELECT stock_id, CAST(NULL AS NVARCHAR(100)) as remark FROM
+    (SELECT stock_id, AVG(Trading_spread) [成交量平均增減量], CAST(NULL AS NVARCHAR(100)) as remark FROM
     (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY date DESC) row_num
     FROM {} WITH(NOLOCK)
     WHERE date > (GETDATE()-({}+10))) part_tbl
-    WHERE part_tbl.row_num <= {} AND part_tbl.Trading_Volume {} {}
+    WHERE part_tbl.row_num <= {} AND part_tbl.Trading_spread {} {}
     GROUP BY part_tbl.stock_id HAVING COUNT(row_num) = {})
     '''.format(skill_price_d, days, days, sign, lot, days)
 
 
-    return query
+    return query, '[成交量平均增減量]'
 
 def create_query_0304(days, period, direct, lot):
 
@@ -897,15 +903,15 @@ def create_query_0304(days, period, direct, lot):
     # lot = lot * 1000
 
     query = '''
-    (SELECT stock_id, CAST(NULL AS NVARCHAR(100)) as remark FROM
+    (SELECT stock_id, AVG(Trading_spread) [成交量平均增減量], CAST(NULL AS NVARCHAR(100)) as remark FROM
     (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY date DESC) row_num
     FROM {} WITH(NOLOCK)
     WHERE date > (GETDATE()-({}+10))) part_tbl
-    WHERE part_tbl.row_num <= {} AND part_tbl.Trading_Volume {} {}
+    WHERE part_tbl.row_num <= {} AND part_tbl.Trading_spread {} {}
     GROUP BY part_tbl.stock_id HAVING COUNT(row_num) = {})
     '''.format(skill_price_d, days, days, sign, lot, days)
 
-    return query
+    return query, '[成交量平均增減量]'
     
 
 
@@ -918,7 +924,7 @@ def create_query_0305(days, period, direct, percent):
         sign = '<='
 
     query = '''
-    (SELECT stock_id, CAST(NULL AS NVARCHAR(100)) as remark FROM
+    (SELECT stock_id, AVG(Trading_spread_ratio) [成交量平均增減%], CAST(NULL AS NVARCHAR(100)) as remark FROM
     (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY date DESC) row_num
     FROM {} WITH(NOLOCK)
     WHERE date > (GETDATE()-({}+10))) part_tbl
@@ -926,7 +932,7 @@ def create_query_0305(days, period, direct, percent):
     GROUP BY part_tbl.stock_id HAVING COUNT(row_num) = {})
     '''.format(skill_price_d, days, days, sign, percent, days)
 
-    return query
+    return query, '[成交量平均增減%]'
 
 
 def create_query_0306(days, period, direct, percent):
@@ -938,7 +944,7 @@ def create_query_0306(days, period, direct, percent):
         sign = '<='
 
     query = '''
-    (SELECT stock_id, CAST(NULL AS NVARCHAR(100)) as remark FROM
+    (SELECT stock_id, AVG(Trading_spread_ratio) [成交量平均增減%], CAST(NULL AS NVARCHAR(100)) as remark FROM
     (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY date DESC) row_num
     FROM {} WITH(NOLOCK)
     WHERE date > (GETDATE()-({}+10))) part_tbl
@@ -946,7 +952,7 @@ def create_query_0306(days, period, direct, percent):
     GROUP BY part_tbl.stock_id HAVING COUNT(row_num) = {})
     '''.format(skill_price_d, days, days, sign, percent, days)
 
-    return query
+    return query, '[成交量平均增減%]'
 
 
 def create_query_0401(days, period, buy_sell, direct, lot):
@@ -955,22 +961,22 @@ def create_query_0401(days, period, buy_sell, direct, lot):
     if buy_sell == '1' and direct == '1':
         sign = '>='
         sign_0 = '>=' 
-        lot = lot * 1000
+        lot = lot * 1000 #以每股為單位
     elif buy_sell == '1' and direct == '-1':
         sign = '<='
         sign_0 = '>='
-        lot = lot * 1000
+        lot = lot * 1000 #以每股為單位
     elif buy_sell == '-1' and direct == '1':
         sign = '<='
         sign_0 = '<='
-        lot = lot * -1000
+        lot = lot * -1000 #以每股為單位
     else:
         sign = '>='
         sign_0 = '<='
-        lot = lot * -1000
+        lot = lot * -1000 #以每股為單位
 
     query = '''
-    (SELECT stock_id, CAST(NULL AS NVARCHAR(100)) as remark FROM
+    (SELECT stock_id, AVG(SUM(part_tbl.buy) - SUM(part_tbl.sell)) [外資平均買賣超], CAST(NULL AS NVARCHAR(100)) as remark FROM
     (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY date DESC) row_num
     FROM {} WITH(NOLOCK)
     WHERE date > (GETDATE()-({}+10)) AND name = 'Foreign_Investor') part_tbl
@@ -978,7 +984,7 @@ def create_query_0401(days, period, buy_sell, direct, lot):
     GROUP BY part_tbl.stock_id HAVING SUM(part_tbl.buy) - SUM(part_tbl.sell) {} {} AND SUM(part_tbl.buy) - SUM(part_tbl.sell) {} 0)
     '''.format(counter_legal_d, days, days, sign, lot, sign_0)
 
-    return query
+    return query, '[外資平均買賣超]'
 
 def create_query_0402(days, period, buy_sell, direct, lot):
 
@@ -1001,7 +1007,7 @@ def create_query_0402(days, period, buy_sell, direct, lot):
         lot = lot * -1000
 
     query = '''
-    (SELECT stock_id, CAST(NULL AS NVARCHAR(100)) as remark FROM
+    (SELECT stock_id, AVG(SUM(part_tbl.buy) - SUM(part_tbl.sell)) [外資平均買賣超], CAST(NULL AS NVARCHAR(100)) as remark FROM
     (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY date DESC) row_num
     FROM {} WITH(NOLOCK)
     WHERE date > (GETDATE()-({}+10)) AND name = 'Foreign_Investor') part_tbl
@@ -1009,7 +1015,7 @@ def create_query_0402(days, period, buy_sell, direct, lot):
     GROUP BY part_tbl.stock_id HAVING SUM(part_tbl.buy) - SUM(part_tbl.sell) {} {} AND SUM(part_tbl.buy) - SUM(part_tbl.sell) {} 0)
     '''.format(counter_legal_d, days, days, sign, lot, sign_0)
 
-    return query
+    return query, '[外資平均買賣超]'
 
 def create_query_0403(days, period, buy_sell, direct, lot):
 
@@ -1032,7 +1038,7 @@ def create_query_0403(days, period, buy_sell, direct, lot):
         lot = lot * -1000
 
     query = '''
-    (SELECT stock_id, CAST(NULL AS NVARCHAR(100)) as remark FROM
+    (SELECT stock_id, AVG(SUM(part_tbl.buy) - SUM(part_tbl.sell)) [投信平均買賣超], CAST(NULL AS NVARCHAR(100)) as remark FROM
     (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY date DESC) row_num
     FROM {} WITH(NOLOCK)
     WHERE date > (GETDATE()-({}+10)) AND name = 'Investment_Trust') part_tbl
@@ -1040,7 +1046,7 @@ def create_query_0403(days, period, buy_sell, direct, lot):
     GROUP BY part_tbl.stock_id HAVING SUM(part_tbl.buy) - SUM(part_tbl.sell) {} {} AND SUM(part_tbl.buy) - SUM(part_tbl.sell) {} 0)
     '''.format(counter_legal_d, days, days, sign, lot, sign_0)
 
-    return query
+    return query, '[投信平均買賣超]'
 
 def create_query_0404(days, period, buy_sell, direct, lot):
 
@@ -1063,7 +1069,7 @@ def create_query_0404(days, period, buy_sell, direct, lot):
         lot = lot * -1000
 
     query = '''
-    (SELECT stock_id, CAST(NULL AS NVARCHAR(100)) as remark FROM
+    (SELECT stock_id, AVG(SUM(part_tbl.buy) - SUM(part_tbl.sell)) [投信平均買賣超], CAST(NULL AS NVARCHAR(100)) as remark FROM
     (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY date DESC) row_num
     FROM {} WITH(NOLOCK)
     WHERE date > (GETDATE()-({}+10)) AND name = 'Investment_Trust') part_tbl
@@ -1071,7 +1077,7 @@ def create_query_0404(days, period, buy_sell, direct, lot):
     GROUP BY part_tbl.stock_id HAVING SUM(part_tbl.buy) - SUM(part_tbl.sell) {} {} AND SUM(part_tbl.buy) - SUM(part_tbl.sell) {} 0)
     '''.format(counter_legal_d, days, days, sign, lot, sign_0)
 
-    return query
+    return query, '[投信平均買賣超]'
 
 def create_query_0405(days, period, buy_sell, direct, lot):
 
@@ -1094,7 +1100,7 @@ def create_query_0405(days, period, buy_sell, direct, lot):
         lot = lot * -1000
 
     query = '''
-    (SELECT stock_id, CAST(NULL AS NVARCHAR(100)) as remark FROM
+    (SELECT stock_id, AVG(SUM(part_tbl.buy) - SUM(part_tbl.sell)) [自營商平均買賣超], CAST(NULL AS NVARCHAR(100)) as remark FROM
     (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY date DESC) row_num
     FROM {} WITH(NOLOCK)
     WHERE date > (GETDATE()-({}+10)) AND name = 'Dealer_Hedging') part_tbl
@@ -1102,7 +1108,7 @@ def create_query_0405(days, period, buy_sell, direct, lot):
     GROUP BY part_tbl.stock_id HAVING SUM(part_tbl.buy) - SUM(part_tbl.sell) {} {} AND SUM(part_tbl.buy) - SUM(part_tbl.sell) {} 0)
     '''.format(counter_legal_d, days, days, sign, lot, sign_0)
 
-    return query
+    return query, '[自營商平均買賣超]'
 
 def create_query_0406(days, period, buy_sell, direct, lot):
 
@@ -1125,7 +1131,7 @@ def create_query_0406(days, period, buy_sell, direct, lot):
         lot = lot * -1000
 
     query = '''
-    (SELECT stock_id, CAST(NULL AS NVARCHAR(100)) as remark FROM
+    (SELECT stock_id, AVG(SUM(part_tbl.buy) - SUM(part_tbl.sell)) [自營商平均買賣超], CAST(NULL AS NVARCHAR(100)) as remark FROM
     (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY date DESC) row_num
     FROM {} WITH(NOLOCK)
     WHERE date > (GETDATE()-({}+10)) AND name = 'Dealer_Hedging') part_tbl
@@ -1133,7 +1139,7 @@ def create_query_0406(days, period, buy_sell, direct, lot):
     GROUP BY part_tbl.stock_id HAVING SUM(part_tbl.buy) - SUM(part_tbl.sell) {} {} AND SUM(part_tbl.buy) - SUM(part_tbl.sell) {} 0)
     '''.format(counter_legal_d, days, days, sign, lot, sign_0)
 
-    return query
+    return query, '[自營商平均買賣超]'
 
 
 
@@ -1145,17 +1151,28 @@ def create_query_0501(days, period, direct, lot):
     else:
         sign = '<='
         lot = -lot
+    
+    if period == 'w':
+        ref_table = counter_legal_w 
+    elif period == 'm':
+        ref_table = counter_legal_m
+    elif period == 'q':
+        ref_table = counter_legal_q
+    elif period == 'y':
+        ref_table = counter_legal_y
+    else:
+        ref_table = counter_legal_d
 
     query = '''
-    (SELECT stock_id, CAST(NULL AS NVARCHAR(100)) as remark FROM
+    (SELECT stock_id, SUM(MARGIN_SPREAD) [融資增加數], CAST(NULL AS NVARCHAR(100)) as remark FROM
     (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY date DESC) row_num
     FROM {} WITH(NOLOCK)
     WHERE date > (GETDATE()-({}+10))) part_tbl
     WHERE part_tbl.row_num <= {} AND part_tbl.MARGIN_SPREAD {} {}
     GROUP BY part_tbl.stock_id HAVING  count(row_num) = {})
-    '''.format(counter_margin_d, days, days, sign, lot, days)
+    '''.format(ref_table, days, days, sign, lot, days)
 
-    return query
+    return query, '[融資平均增加數]'
 
 def create_query_0502(days, period, direct, lot):
 
@@ -1165,17 +1182,28 @@ def create_query_0502(days, period, direct, lot):
     else:
         sign = '<='
         lot = -lot
+    
+    if period == 'w':
+        ref_table = counter_legal_w 
+    elif period == 'm':
+        ref_table = counter_legal_m
+    elif period == 'q':
+        ref_table = counter_legal_q
+    elif period == 'y':
+        ref_table = counter_legal_y
+    else:
+        ref_table = counter_legal_d
 
     query = '''
-    (SELECT stock_id, CAST(NULL AS NVARCHAR(100)) as remark FROM
+    (SELECT stock_id, SUM(MARGIN_ratio) [融資增加%], CAST(NULL AS NVARCHAR(100)) as remark FROM
     (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY date DESC) row_num
     FROM {} WITH(NOLOCK)
     WHERE date > (GETDATE()-({}+10))) part_tbl
     WHERE part_tbl.row_num <= {} AND part_tbl.MARGIN_ratio {} {}
     GROUP BY part_tbl.stock_id HAVING  count(row_num) = {})
-    '''.format(counter_margin_d, days, days, sign, lot, days)
+    '''.format(ref_table, days, days, sign, lot, days)
 
-    return query
+    return query, '[融資平均增加%]'
 
 def create_query_0503(days, period, direct, lot):
 
@@ -1185,17 +1213,28 @@ def create_query_0503(days, period, direct, lot):
     else:
         sign = '<='
         lot = -lot
+    
+    if period == 'w':
+        ref_table = counter_legal_w 
+    elif period == 'm':
+        ref_table = counter_legal_m
+    elif period == 'q':
+        ref_table = counter_legal_q
+    elif period == 'y':
+        ref_table = counter_legal_y
+    else:
+        ref_table = counter_legal_d
 
     query = '''
-    (SELECT stock_id, CAST(NULL AS NVARCHAR(100)) as remark FROM
+    (SELECT stock_id, SUM(SHORTSELL_SPREAD) [融券增加數], CAST(NULL AS NVARCHAR(100)) as remark FROM
     (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY date DESC) row_num
     FROM {} WITH(NOLOCK)
     WHERE date > (GETDATE()-({}+10))) part_tbl
     WHERE part_tbl.row_num <= {} AND part_tbl.SHORTSELL_SPREAD {} {}
     GROUP BY part_tbl.stock_id HAVING  count(row_num) = {})
-    '''.format(counter_margin_d, days, days, sign, lot, days)
+    '''.format(ref_table, days, days, sign, lot, days)
 
-    return query
+    return query, '[融券平均增加數]'
 
 def create_query_0504(days, period, direct, lot):
 
@@ -1205,17 +1244,28 @@ def create_query_0504(days, period, direct, lot):
     else:
         sign = '<='
         lot = -lot
+    
+    if period == 'w':
+        ref_table = counter_legal_w 
+    elif period == 'm':
+        ref_table = counter_legal_m
+    elif period == 'q':
+        ref_table = counter_legal_q
+    elif period == 'y':
+        ref_table = counter_legal_y
+    else:
+        ref_table = counter_legal_d
 
     query = '''
-    (SELECT stock_id, CAST(NULL AS NVARCHAR(100)) as remark FROM
+    (SELECT stock_id, SUM(SHORTSELL_ratio) [融資增加%], CAST(NULL AS NVARCHAR(100)) as remark FROM
     (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY date DESC) row_num
     FROM {} WITH(NOLOCK)
     WHERE date > (GETDATE()-({}+10))) part_tbl
     WHERE part_tbl.row_num <= {} AND part_tbl.SHORTSELL_ratio {} {}
     GROUP BY part_tbl.stock_id HAVING  COUNT(row_num) = {})
-    '''.format(counter_margin_d, days, days, sign, lot, days)
+    '''.format(ref_table, days, days, sign, lot, days)
 
-    return query
+    return query, '[融資平均增加%]'
 
 def create_query_0505(days, period, direct, lot):
 
@@ -1225,17 +1275,28 @@ def create_query_0505(days, period, direct, lot):
     else:
         sign = '<='
         lot = -lot
+    
+    if period == 'w':
+        ref_table = counter_legal_w 
+    elif period == 'm':
+        ref_table = counter_legal_m
+    elif period == 'q':
+        ref_table = counter_legal_q
+    elif period == 'y':
+        ref_table = counter_legal_y
+    else:
+        ref_table = counter_legal_d
 
     query = '''
-    (SELECT stock_id, CAST(NULL AS NVARCHAR(100)) as remark FROM
+    (SELECT stock_id, SUM(load_spread) [借券增加數], CAST(NULL AS NVARCHAR(100)) as remark FROM
     (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY date DESC) row_num
     FROM {} WITH(NOLOCK)
     WHERE date > (GETDATE()-({}+10))) part_tbl
     WHERE part_tbl.row_num <= {}
     GROUP BY part_tbl.stock_id HAVING SUM(part_tbl.load_spread) {} {} )
-    '''.format(counter_loanshare_d, days, days, sign, lot)
+    '''.format(ref_table, days, days, sign, lot)
 
-    return query
+    return query, '[借券增加數]'
 
 def create_query_0506(days, period, direct, lot):
 
@@ -1245,17 +1306,28 @@ def create_query_0506(days, period, direct, lot):
     else:
         sign = '<='
         lot = -lot
+    
+    if period == 'w':
+        ref_table = counter_legal_w 
+    elif period == 'm':
+        ref_table = counter_legal_m
+    elif period == 'q':
+        ref_table = counter_legal_q
+    elif period == 'y':
+        ref_table = counter_legal_y
+    else:
+        ref_table = counter_legal_d
 
     query = '''
-    (SELECT stock_id, CAST(NULL AS NVARCHAR(100)) as remark FROM
+    (SELECT stock_id, SUM(load_ratio) [借券增加%], CAST(NULL AS NVARCHAR(100)) as remark FROM
     (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY date DESC) row_num
     FROM {} WITH(NOLOCK)
     WHERE date > (GETDATE()-({}+10))) part_tbl
     WHERE part_tbl.row_num <= {}
     GROUP BY part_tbl.stock_id HAVING SUM(part_tbl.load_ratio) {} {} )
-    '''.format(counter_loanshare_d, days, days, sign, lot)
+    '''.format(ref_table, days, days, sign, lot)
 
-    return query
+    return query, '[借券增加%]'
 
 
 def create_query_0601(numbers, period, direct, amount):
@@ -1276,14 +1348,14 @@ def create_query_0601(numbers, period, direct, amount):
         ref_table = basic_info_revenue_m
 
     query = '''
-    (SELECT stock_id, CAST(NULL AS NVARCHAR(100)) as remark FROM
+    (SELECT stock_id, revenue [平均營收], CAST(NULL AS NVARCHAR(100)) as remark FROM
     (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY date DESC) row_num
     FROM {} WITH(NOLOCK)) part_tbl
     WHERE part_tbl.row_num <= {} AND part_tbl.revenue {} {}
     GROUP BY part_tbl.stock_id HAVING COUNT(row_num) = {})
     '''.format(ref_table, numbers, sign, amount, numbers)
 
-    return query
+    return query, '[平均營收]'
 
 def create_query_0602(numbers, period, direct, percent):
 
@@ -1303,14 +1375,14 @@ def create_query_0602(numbers, period, direct, percent):
         ref_table = basic_info_revenue_m
 
     query = '''
-    (SELECT stock_id, CAST(NULL AS NVARCHAR(100)) as remark FROM
+    (SELECT stock_id, AVG(last_month_ratio) [平均營收成長率], CAST(NULL AS NVARCHAR(100)) as remark FROM
     (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY date DESC) row_num
     FROM {} WITH(NOLOCK)) part_tbl
     WHERE part_tbl.row_num <= {} AND part_tbl.last_month_ratio {} {}
     GROUP BY part_tbl.stock_id HAVING COUNT(row_num) = {})
     '''.format(ref_table, numbers, sign, percent, numbers)
 
-    return query
+    return query, '[平均營收成長率]'
 
     
 
@@ -1332,14 +1404,14 @@ def create_query_0603(period, direct, percent):
         ref_table = basic_info_revenue_m
 
     query = '''
-    (SELECT stock_id, CAST(NULL AS NVARCHAR(100)) as remark FROM
+    (SELECT stock_id, lastyear_month_revenue [營收成長率], CAST(NULL AS NVARCHAR(100)) as remark FROM
     (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY date DESC) row_num
     FROM {} WITH(NOLOCK)) part_tbl
     WHERE part_tbl.row_num <= 1 AND part_tbl.lastyear_month_revenue {} {}
     GROUP BY stock_id)
     '''.format(ref_table, sign, percent)
 
-    return query
+    return query, '[營收成長率]'
 
 
 def create_query_0604(numbers, period, direct, percent):
@@ -1357,14 +1429,14 @@ def create_query_0604(numbers, period, direct, percent):
         ref_table = basic_info_finDetail_q
 
     query = '''
-    (SELECT stock_id, CAST(NULL AS NVARCHAR(100)) as remark FROM
+    (SELECT stock_id, AVG(Gross_Profit_Margin) [平均營業毛利率], CAST(NULL AS NVARCHAR(100)) as remark FROM
     (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY date DESC) row_num
     FROM {} WITH(NOLOCK)) part_tbl
     WHERE part_tbl.row_num <= {} AND part_tbl.Gross_Profit_Margin {} {}
     GROUP BY part_tbl.stock_id HAVING COUNT(row_num) = {})
     '''.format(ref_table, numbers, sign, percent, numbers)
 
-    return query
+    return query, '[平均營業毛利率]'
 
 def create_query_0605(numbers, period, direct, percent):
 
@@ -1384,7 +1456,7 @@ def create_query_0605(numbers, period, direct, percent):
         period_unit = 'quarter'
 
     query = '''
-    (SELECT stock_id,
+    (SELECT stock_id, AVG(Gross_Profit_Margin_last_quarter_ratio) [平均營業毛利率成長率],
     CASE
     WHEN SUM(each_remark) > 0 THEN CAST('含營業毛利率負轉正；' AS NVARCHAR(100))
     END remark
@@ -1402,7 +1474,7 @@ def create_query_0605(numbers, period, direct, percent):
     GROUP BY part_tbl.stock_id HAVING COUNT(row_num) = {})
     '''.format(ref_table, ref_table, period_unit, numbers, sign, percent, numbers)
 
-    return query
+    return query, '[平均營業毛利率成長率]'
 
     
 
@@ -1422,7 +1494,7 @@ def create_query_0606(period, direct, percent):
         ref_table = basic_info_finDetail_q
 
     query = '''
-    (SELECT stock_id,
+    (SELECT stock_id, Gross_Profit_Margin_last_year_ratio [營業毛利率成長率],
     CASE
     WHEN SUM(each_remark) > 0 THEN CAST('含營業毛利率負轉正；' AS NVARCHAR(100))
     END remark
@@ -1440,7 +1512,7 @@ def create_query_0606(period, direct, percent):
     GROUP BY part_tbl.stock_id)
     '''.format(ref_table, ref_table, sign, percent)
 
-    return query
+    return query, '[營業毛利率成長率]'
 
 def create_query_0607(numbers, period, direct, percent):
 
@@ -1457,14 +1529,14 @@ def create_query_0607(numbers, period, direct, percent):
         ref_table = basic_info_finDetail_q
 
     query = '''
-    (SELECT stock_id, CAST(NULL AS NVARCHAR(100)) as remark FROM
+    (SELECT stock_id, AVG(Operating_Profit_Margin) [平均營業利益率], CAST(NULL AS NVARCHAR(100)) as remark FROM
     (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY date DESC) row_num
     FROM {} WITH(NOLOCK)) part_tbl
     WHERE part_tbl.row_num <= {} AND part_tbl.Operating_Profit_Margin {} {}
     GROUP BY part_tbl.stock_id HAVING COUNT(row_num) = {})
     '''.format(ref_table, numbers, sign, percent, numbers)
 
-    return query
+    return query, '[平均營業利益率]'
 
 def create_query_0608(numbers, period, direct, percent):
 
@@ -1484,7 +1556,7 @@ def create_query_0608(numbers, period, direct, percent):
         period_unit = 'quarter'
 
     query = '''
-    (SELECT stock_id,
+    (SELECT stock_id, AVG(Operating_Profit_Margin_last_quarter_ratio) [平均營業利益率成長率],
     CASE
     WHEN SUM(each_remark) > 0 THEN CAST('含營業利益率負轉正；' AS NVARCHAR(100))
     END remark
@@ -1502,7 +1574,7 @@ def create_query_0608(numbers, period, direct, percent):
     GROUP BY part_tbl.stock_id HAVING COUNT(row_num) = {})
     '''.format(ref_table, ref_table, period_unit, numbers, sign, percent, numbers)
 
-    return query
+    return query, '[平均營業利益率成長率]'
 
     
 
@@ -1522,7 +1594,7 @@ def create_query_0609(period, direct, percent):
         ref_table = basic_info_finDetail_q
 
     query = '''
-    (SELECT stock_id,
+    (SELECT stock_id, Operating_Profit_Margin_last_year_ratio [營業利益率成長率],
     CASE
     WHEN SUM(each_remark) > 0 THEN CAST('含營業利益率負轉正；' AS NVARCHAR(100))
     END remark
@@ -1540,7 +1612,7 @@ def create_query_0609(period, direct, percent):
     GROUP BY part_tbl.stock_id)
     '''.format(ref_table, ref_table, sign, percent)
 
-    return query
+    return query, '[營業利益率成長率]'
 
 def create_query_0610(numbers, period, direct, percent):
 
@@ -1557,14 +1629,14 @@ def create_query_0610(numbers, period, direct, percent):
         ref_table = basic_info_finDetail_q
 
     query = '''
-    (SELECT stock_id, CAST(NULL AS NVARCHAR(100)) as remark FROM
+    (SELECT stock_id, AVG(AfterTax_Income_Margin) [平均稅後淨利率], CAST(NULL AS NVARCHAR(100)) as remark FROM
     (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY date DESC) row_num
     FROM {} WITH(NOLOCK)) part_tbl
     WHERE part_tbl.row_num <= {} AND part_tbl.AfterTax_Income_Margin {} {}
     GROUP BY part_tbl.stock_id HAVING COUNT(row_num) = {})
     '''.format(ref_table, numbers, sign, percent, numbers)
 
-    return query
+    return query, '[平均稅後淨利率]'
 
     return query
 
@@ -1586,7 +1658,7 @@ def create_query_0611(numbers, period, direct, percent):
         period_unit = 'quarter'
 
     query = '''
-    (SELECT stock_id,
+    (SELECT stock_id, AVG(AfterTax_Income_Margin_last_quarter_ratio) [平均稅後淨利率成長率],
     CASE
     WHEN SUM(each_remark) > 0 THEN CAST('含稅後淨利率負轉正；' AS NVARCHAR(100))
     END remark
@@ -1604,7 +1676,7 @@ def create_query_0611(numbers, period, direct, percent):
     GROUP BY part_tbl.stock_id HAVING COUNT(row_num) = {})
     '''.format(ref_table, ref_table, period_unit, numbers, sign, percent, numbers)
 
-    return query
+    return query, '[平均稅後淨利率成長率]'
 
     
 
@@ -1624,7 +1696,7 @@ def create_query_0612(period, direct, percent):
         ref_table = basic_info_finDetail_q
 
     query = '''
-    (SELECT stock_id,
+    (SELECT stock_id, AfterTax_Income_Margin_last_year_ratio [稅後淨利率成長率],
     CASE
     WHEN SUM(each_remark) > 0 THEN CAST('含稅後淨利率負轉正；' AS NVARCHAR(100))
     END remark
@@ -1642,4 +1714,4 @@ def create_query_0612(period, direct, percent):
     GROUP BY part_tbl.stock_id)
     '''.format(ref_table, ref_table, sign, percent)
 
-    return query
+    return query, '稅後淨利率成長率'
