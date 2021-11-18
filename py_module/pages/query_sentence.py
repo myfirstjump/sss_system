@@ -1156,7 +1156,7 @@ def create_query_0406(days, period, buy_sell, direct, lot):
 
 def create_query_0501(days, period, direct, lot):
 
-    """0501 融資於[3][日]內均[增加/減少][100]張以上"""
+    """0501 融資於[3][日]內，共[增加/減少][100]張以上"""
     if direct == '1':
         sign = '>='
     else:
@@ -1179,11 +1179,11 @@ def create_query_0501(days, period, direct, lot):
     (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY date DESC) row_num
     FROM {} WITH(NOLOCK)
     WHERE date > (GETDATE()-({}+10))) part_tbl
-    WHERE part_tbl.row_num <= {} AND part_tbl.MARGIN_SPREAD {} {}
-    GROUP BY part_tbl.stock_id HAVING  count(row_num) = {})
-    '''.format(ref_table, days, days, sign, lot, days)
+    WHERE part_tbl.row_num <= {}
+    GROUP BY part_tbl.stock_id HAVING SUM(part_tbl.MARGIN_SPREAD) {} {} )
+    '''.format(ref_table, days, days, sign, lot)
 
-    return query, '[融資增加數]'
+    return query, '[融資增加數(張)]'
 
 def create_query_0502(days, period, direct, lot):
 
@@ -1218,7 +1218,7 @@ def create_query_0502(days, period, direct, lot):
 
 def create_query_0503(days, period, direct, lot):
 
-    """0503 融券於[3][日]內均[增加/減少][100]張以上"""
+    """0503 融券於[3][日]內，共[增加/減少][100]張以上"""
     if direct == '1':
         sign = '>='
     else:
@@ -1241,11 +1241,11 @@ def create_query_0503(days, period, direct, lot):
     (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY date DESC) row_num
     FROM {} WITH(NOLOCK)
     WHERE date > (GETDATE()-({}+10))) part_tbl
-    WHERE part_tbl.row_num <= {} AND part_tbl.SHORTSELL_SPREAD {} {}
-    GROUP BY part_tbl.stock_id HAVING  count(row_num) = {})
-    '''.format(ref_table, days, days, sign, lot, days)
+    WHERE part_tbl.row_num <= {}
+    GROUP BY part_tbl.stock_id HAVING SUM(part_tbl.SHORTSELL_SPREAD) {} {} )
+    '''.format(ref_table, days, days, sign, lot)
 
-    return query, '[融券增加數]'
+    return query, '[融券增加數(張)]'
 
 def create_query_0504(days, period, direct, lot):
 
@@ -1280,7 +1280,7 @@ def create_query_0504(days, period, direct, lot):
 
 def create_query_0505(days, period, direct, lot):
 
-    """0505 借券於[3][日]內均[增加/減少][100]張以上"""
+    """0505 借券於[3][日]內，共[增加/減少][100]張以上"""
     if direct == '1':
         sign = '>='
     else:
