@@ -32,12 +32,16 @@ counter_legal_w = 'STOCK_COUNTER_DB.dbo.TW_STOCK_LEGALPERSON_Weekly'
 counter_legal_m = 'STOCK_COUNTER_DB.dbo.TW_STOCK_LEGALPERSON_Monthly'
 counter_legal_q = 'STOCK_COUNTER_DB.dbo.TW_STOCK_LEGALPERSON_Quarterly'
 counter_legal_y = 'STOCK_COUNTER_DB.dbo.TW_STOCK_LEGALPERSON_Yearly'
-counter_margin_d = 'STOCK_COUNTER_DB.dbo.TW_STOCK_MARGINTRADE_SHORTSELL_Daily'
+counter_margin_d = 'STOCK_COUNTER_DB.dbo.TW_STOCK_MARGINTRADE_SHORTSELL_Daily' #融資 #融券
 counter_margin_w = 'STOCK_COUNTER_DB.dbo.TW_STOCK_MARGINTRADE_SHORTSELL_Weekly'
 counter_margin_m = 'STOCK_COUNTER_DB.dbo.TW_STOCK_MARGINTRADE_SHORTSELL_Monthly'
 counter_margin_q = 'STOCK_COUNTER_DB.dbo.TW_STOCK_MARGINTRADE_SHORTSELL_Quarterly'
 counter_margin_y = 'STOCK_COUNTER_DB.dbo.TW_STOCK_MARGINTRADE_SHORTSELL_Yearly'
-counter_loanshare_d = 'STOCK_COUNTER_DB.dbo.TW_STOCK_LOANSHARE_Daily'
+counter_loanshare_d = 'STOCK_COUNTER_DB.dbo.TW_STOCK_LOANSHARE_Daily' #借券
+counter_loanshare_w = 'STOCK_COUNTER_DB.dbo.TW_STOCK_LOANSHARE_Weekly'
+counter_loanshare_m = 'STOCK_COUNTER_DB.dbo.TW_STOCK_LOANSHARE_Monthly'
+counter_loanshare_q = 'STOCK_COUNTER_DB.dbo.TW_STOCK_LOANSHARE_Quarterly'
+counter_loanshare_y = 'STOCK_COUNTER_DB.dbo.TW_STOCK_LOANSHARE_Yearly'
 counter_holdrange_w = 'STOCK_Counter_DB.dbo.TW_STOCK_HOLDRANGE'
 counter_holdrange_m = 'STOCK_Counter_DB.dbo.TW_STOCK_HOLDRANGE_monthly'
 
@@ -1284,15 +1288,15 @@ def create_query_0505(days, period, direct, lot):
         lot = -lot
     
     if period == 'w':
-        ref_table = counter_margin_w 
+        ref_table = counter_loanshare_w
     elif period == 'm':
-        ref_table = counter_margin_m
+        ref_table = counter_loanshare_m
     elif period == 'q':
-        ref_table = counter_margin_q
+        ref_table = counter_loanshare_q
     elif period == 'y':
-        ref_table = counter_margin_y
+        ref_table = counter_loanshare_y
     else:
-        ref_table = counter_margin_d
+        ref_table = counter_loanshare_d
 
     query = '''
     (SELECT stock_id, SUM(load_spread) [借券增加數], CAST(NULL AS NVARCHAR(100)) as remark FROM
@@ -1315,15 +1319,15 @@ def create_query_0506(days, period, direct, lot):
         lot = -lot
     
     if period == 'w':
-        ref_table = counter_margin_w 
+        ref_table = counter_loanshare_w
     elif period == 'm':
-        ref_table = counter_margin_m
+        ref_table = counter_loanshare_m
     elif period == 'q':
-        ref_table = counter_margin_q
+        ref_table = counter_loanshare_q
     elif period == 'y':
-        ref_table = counter_margin_y
+        ref_table = counter_loanshare_y
     else:
-        ref_table = counter_margin_d
+        ref_table = counter_loanshare_d
 
     query = '''
     (SELECT stock_id, AVG(load_ratio) [借券平均增加%], CAST(NULL AS NVARCHAR(100)) as remark FROM
