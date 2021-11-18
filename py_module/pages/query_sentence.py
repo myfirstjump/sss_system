@@ -259,7 +259,7 @@ def create_query_0111(numbers, period, larger, amount):
 def create_query_0112(numbers, period, direct, percent):
 
     """0112 EPS連續(3)(季/年)(成長/衰退)(5)%以上"""
-
+    """BUG: 負轉正好像有問題"""
     if direct == '1':
         sign = '>='
     else:
@@ -308,7 +308,7 @@ def create_query_0113(period, direct, percent):
         ref_table = basic_info_finState_q
 
     query = '''
-    (SELECT stock_id,
+    (SELECT stock_id, part_tbl.last_year_ratio [EPS成長率],
     CASE
     WHEN SUM(each_remark) > 0 THEN CAST('含EPS負轉正；' AS NVARCHAR(100))
     END remark
@@ -323,9 +323,9 @@ def create_query_0113(period, direct, percent):
     ) part_tbl
     WHERE part_tbl.row_num <= 1 AND part_tbl.[type] = 'EPS' AND part_tbl.last_year_ratio {} {}
     GROUP BY part_tbl.stock_id)
-    '''.format(ref_table, sign, percent)
+    '''.format(ref_table, ref_table, sign, percent)
 
-    return query
+    return query, '[EPS成長率]'
 
 def create_query_0114(number, period, direct, percent):
 
@@ -342,14 +342,14 @@ def create_query_0114(number, period, direct, percent):
         ref_table = basic_info_finDetail_q
 
     query = '''
-    (SELECT stock_id, CAST(NULL AS NVARCHAR(100)) as remark FROM
+    (SELECT stock_id, AVG(Inventory_Turnover) [平均存貨週轉率], CAST(NULL AS NVARCHAR(100)) as remark FROM
     (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY date DESC) row_num
     FROM {} WITH(NOLOCK)) part_tbl
     WHERE part_tbl.row_num <= {}
     GROUP BY stock_id HAVING AVG(Inventory_Turnover) {} {})
     '''.format(ref_table, number, sign, percent)
 
-    return query
+    return query, '[平均存貨週轉率]'
 
 
 
@@ -372,14 +372,14 @@ def create_query_0115(period, direct, percent):
         ref_column = 'Inventory_Turnover_last_quarter_ratio'
 
     query = '''
-    (SELECT stock_id, CAST(NULL AS NVARCHAR(100)) as remark FROM
+    (SELECT stock_id, {} [存貨週轉率成長率], CAST(NULL AS NVARCHAR(100)) as remark FROM
     (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY date DESC) row_num
     FROM {} WITH(NOLOCK)) part_tbl
     WHERE part_tbl.row_num <= 1 AND {} {} {}
     GROUP BY stock_id)
-    '''.format(ref_table, ref_column, sign, percent)
+    '''.format(ref_column, ref_table, ref_column, sign, percent)
 
-    return query
+    return query, '[存貨週轉率成長率]'
 
 def create_query_0116(number, period, direct, percent):
 
@@ -396,14 +396,14 @@ def create_query_0116(number, period, direct, percent):
         ref_table = basic_info_finDetail_q
 
     query = '''
-    (SELECT stock_id, CAST(NULL AS NVARCHAR(100)) as remark FROM
+    (SELECT stock_id, AVG(Accounts_Receivable_Turnover_Rate) [平均應收帳款週轉率], CAST(NULL AS NVARCHAR(100)) as remark FROM
     (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY date DESC) row_num
     FROM {} WITH(NOLOCK)) part_tbl
     WHERE part_tbl.row_num <= {}
     GROUP BY stock_id HAVING AVG(Accounts_Receivable_Turnover_Rate) {} {})
     '''.format(ref_table, number, sign, percent)
 
-    return query
+    return query, '[平均應收帳款週轉率]'
 
 def create_query_0117(period, direct, percent):
 
@@ -423,14 +423,14 @@ def create_query_0117(period, direct, percent):
         ref_column = 'Accounts_Receivable_Turnover_Rate_last_quarter_ratio'
 
     query = '''
-    (SELECT stock_id, CAST(NULL AS NVARCHAR(100)) as remark FROM
+    (SELECT stock_id, {} [應收帳款週轉率成長率], CAST(NULL AS NVARCHAR(100)) as remark FROM
     (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY date DESC) row_num
     FROM {} WITH(NOLOCK)) part_tbl
     WHERE part_tbl.row_num <= 1 AND {} {} {}
     GROUP BY stock_id)
-    '''.format(ref_table, ref_column, sign, percent)
+    '''.format(ref_column, ref_table, ref_column, sign, percent)
 
-    return query
+    return query, '[應收帳款週轉率成長率]'
 
 def create_query_0118(number, period, direct, percent):
 
@@ -447,14 +447,14 @@ def create_query_0118(number, period, direct, percent):
         ref_table = basic_info_finDetail_q
 
     query = '''
-    (SELECT stock_id, CAST(NULL AS NVARCHAR(100)) as remark FROM
+    (SELECT stock_id, AVG(Current_Rate) [平均流動比率], CAST(NULL AS NVARCHAR(100)) as remark FROM
     (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY date DESC) row_num
     FROM {} WITH(NOLOCK)) part_tbl
     WHERE part_tbl.row_num <= {}
     GROUP BY stock_id HAVING AVG(Current_Rate) {} {})
     '''.format(ref_table, number, sign, percent)
 
-    return query
+    return query, '[平均流動比率]'
 
 def create_query_0119(period, direct, percent):
 
@@ -474,14 +474,14 @@ def create_query_0119(period, direct, percent):
         ref_column = 'Current_Rate_last_quarter_ratio'
 
     query = '''
-    (SELECT stock_id, CAST(NULL AS NVARCHAR(100)) as remark FROM
+    (SELECT stock_id, {} [流動比率成長率], CAST(NULL AS NVARCHAR(100)) as remark FROM
     (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY date DESC) row_num
     FROM {} WITH(NOLOCK)) part_tbl
     WHERE part_tbl.row_num <= 1 AND {} {} {}
     GROUP BY stock_id)
     '''.format(ref_table, ref_column, sign, percent)
 
-    return query
+    return query, '[流動比率成長率]'
 
 def create_query_0120(number, period, direct, percent):
 
@@ -498,14 +498,14 @@ def create_query_0120(number, period, direct, percent):
         ref_table = basic_info_finDetail_q
 
     query = '''
-    (SELECT stock_id, CAST(NULL AS NVARCHAR(100)) as remark FROM
+    (SELECT stock_id, AVG(Quick_Rate) [平均速動比率], CAST(NULL AS NVARCHAR(100)) as remark FROM
     (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY date DESC) row_num
     FROM {} WITH(NOLOCK)) part_tbl
     WHERE part_tbl.row_num <= {}
     GROUP BY stock_id HAVING AVG(Quick_Rate) {} {})
     '''.format(ref_table, number, sign, percent)
 
-    return query
+    return query, '[平均速動比率]'
 
 def create_query_0121(period, direct, percent):
 
@@ -525,14 +525,14 @@ def create_query_0121(period, direct, percent):
         ref_column = 'Quick_Rate_last_quarter_ratio'
 
     query = '''
-    (SELECT stock_id, CAST(NULL AS NVARCHAR(100)) as remark FROM
+    (SELECT stock_id, {} [速動比率成長率], CAST(NULL AS NVARCHAR(100)) as remark FROM
     (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY date DESC) row_num
     FROM {} WITH(NOLOCK)) part_tbl
     WHERE part_tbl.row_num <= 1 AND {} {} {}
     GROUP BY stock_id)
-    '''.format(ref_table, ref_column, sign, percent)
+    '''.format(ref_column, ref_table, ref_column, sign, percent)
 
-    return query
+    return query, '[速動比率成長率]'
 
 def create_query_0122(number, period, direct, percent):
 
@@ -549,14 +549,14 @@ def create_query_0122(number, period, direct, percent):
         ref_table = basic_info_finDetail_q
 
     query = '''
-    (SELECT stock_id, CAST(NULL AS NVARCHAR(100)) as remark FROM
+    (SELECT stock_id, AVG(Debt_Rate) [平均負債比率], CAST(NULL AS NVARCHAR(100)) as remark FROM
     (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY date DESC) row_num
     FROM {} WITH(NOLOCK)) part_tbl
     WHERE part_tbl.row_num <= {}
     GROUP BY stock_id HAVING AVG(Debt_Rate) {} {})
     '''.format(ref_table, number, sign, percent)
 
-    return query
+    return query, '[平均負債比率]'
 
 def create_query_0123(period, direct, percent):
 
@@ -576,14 +576,14 @@ def create_query_0123(period, direct, percent):
         ref_column = 'Debt_Rate_last_quarter_ratio'
 
     query = '''
-    (SELECT stock_id, CAST(NULL AS NVARCHAR(100)) as remark FROM
+    (SELECT stock_id, {} [負債比率成長率], CAST(NULL AS NVARCHAR(100)) as remark FROM
     (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY date DESC) row_num
     FROM {} WITH(NOLOCK)) part_tbl
     WHERE part_tbl.row_num <= 1 AND {} {} {}
     GROUP BY stock_id)
-    '''.format(ref_table, ref_column, sign, percent)
+    '''.format(ref_column, ref_table, ref_column, sign, percent)
 
-    return query
+    return query, '[負債比率成長率]'
 
 def create_query_0124(number, distribution_type, all_avg, direct, price):
 
@@ -603,22 +603,22 @@ def create_query_0124(number, distribution_type, all_avg, direct, price):
 
     if all_avg == '1':
         query = '''
-        (SELECT stock_id, CAST(NULL AS NVARCHAR(100)) as remark FROM
+        (SELECT stock_id, AVG({}) [平均股利], CAST(NULL AS NVARCHAR(100)) as remark FROM
         (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY yearly DESC) row_num
         FROM {} WITH(NOLOCK)) part_tbl
         WHERE part_tbl.row_num <= {} AND {} {} {}
         GROUP BY stock_id HAVING COUNT(row_num) = {})
-        '''.format(ref_table, number, ref_column, sign, price, number)
+        '''.format(ref_column, ref_table, number, ref_column, sign, price, number)
     else:
         query = '''
-        (SELECT stock_id, CAST(NULL AS NVARCHAR(100)) as remark FROM
+        (SELECT stock_id, AVG({}) [平均股利], CAST(NULL AS NVARCHAR(100)) as remark FROM
         (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY yearly DESC) row_num
         FROM {} WITH(NOLOCK)) part_tbl
         WHERE part_tbl.row_num <= {}
         GROUP BY stock_id HAVING AVG({}) {} {})
         '''.format(ref_table, number, ref_column, sign, price)
 
-    return query
+    return query, '[平均股利]'
 
 def create_query_0125(distribution_type, number, growth):
 
@@ -637,14 +637,14 @@ def create_query_0125(distribution_type, number, growth):
         sign = '<'
 
     query = '''
-    (SELECT stock_id, CAST(NULL AS NVARCHAR(100)) as remark FROM
+    (SELECT stock_id, AVG({}) [平均股利成長率], CAST(NULL AS NVARCHAR(100)) as remark FROM
     (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY yearly DESC) row_num
     FROM {} WITH(NOLOCK)) part_tbl
     WHERE part_tbl.row_num <= {} AND {} {} 0
     GROUP BY stock_id HAVING COUNT(row_num) = {})
     '''.format(ref_table, number, ref_column, sign, number)
 
-    return query
+    return query, '[平均股利成長率]'
 
 def create_query_0126(number, all_avg, larger, percent):
 
@@ -659,16 +659,16 @@ def create_query_0126(number, all_avg, larger, percent):
 
     if all_avg == '1':
         query = '''
-        (select stock_id, CAST(NULL AS NVARCHAR(100)) as remark FROM {} WITH(NOLOCK) where [date] > (GETDATE()-({}*365)) 
+        (select stock_id, AVG(dividend_yield) [平均殖利率], CAST(NULL AS NVARCHAR(100)) as remark FROM {} WITH(NOLOCK) where [date] > (GETDATE()-({}*365)) 
         GROUP BY stock_id HAVING MIN(dividend_yield) {} {})
         '''.format(ref_table, number, sign, percent)
     else:
         query = '''
-        (select stock_id, CAST(NULL AS NVARCHAR(100)) as remark FROM {} WITH(NOLOCK) where [date] > (GETDATE()-({}*365)) group by stock_id
+        (select stock_id, AVG(dividend_yield) [平均殖利率], CAST(NULL AS NVARCHAR(100)) as remark FROM {} WITH(NOLOCK) where [date] > (GETDATE()-({}*365)) group by stock_id
         HAVING AVG(dividend_yield) {} {})
         '''.format(ref_table, number, sign, percent)
 
-    return query
+    return query, '[平均殖利率]'
 
 def create_query_0127(larger, times):
 
@@ -682,13 +682,13 @@ def create_query_0127(larger, times):
     ref_table = skill_per
 
     query = '''
-    (SELECT stock_id, CAST(NULL AS NVARCHAR(100)) as remark FROM
+    (SELECT stock_id, PER [本益比], CAST(NULL AS NVARCHAR(100)) as remark FROM
     (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY [date] DESC) row_num
     FROM (SELECT * FROM {} WITH(NOLOCK) where [date] > (GETDATE()-(10)))t1 ) part_tbl
     WHERE row_num <= 1 AND PER {} {})
     '''.format(ref_table, sign, times)
 
-    return query
+    return query, '[本益比]'
 
 
 def create_query_0128(number, period, interval, amount, unit):

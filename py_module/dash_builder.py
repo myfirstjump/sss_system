@@ -1471,6 +1471,7 @@ def stock_classifier(data):
     
     data['產業別'] = data.groupby(['股票代碼'])['產業別'].transform(lambda x: ','.join(x))
     data = data.drop_duplicates(subset=['股票代碼'])
+    data = round(data, 2)
 
     df_etf_all = data[data['產業別'].isin(['ETF', '上櫃指數股票型基金(ETF)', '指數投資證券(ETN)', '受益證券'])]
     df_all = data[~data['產業別'].isin(['ETF', '上櫃指數股票型基金(ETF)', '指數投資證券(ETN)', '受益證券'])]
