@@ -362,6 +362,8 @@ def create_query_0114(number, period, direct, percent):
 def create_query_0115(period, direct, percent):
 
     """0115 (季/年)存貨週轉率(成長/衰退)(10)%"""
+    """BUG: 此寫法只抓最後一筆，會抓到下市的公司以前資料"""
+
 
     if direct == '1':
         sign = '>='
@@ -484,7 +486,7 @@ def create_query_0119(period, direct, percent):
     FROM {} WITH(NOLOCK)) part_tbl
     WHERE part_tbl.row_num <= 1 AND {} {} {}
     GROUP BY stock_id)
-    '''.format(ref_table, ref_column, sign, percent)
+    '''.format(ref_column, ref_table, ref_column, sign, percent)
 
     return query, '[流動比率成長率]'
 
@@ -647,7 +649,7 @@ def create_query_0125(distribution_type, number, growth):
     FROM {} WITH(NOLOCK)) part_tbl
     WHERE part_tbl.row_num <= {} AND {} {} 0
     GROUP BY stock_id HAVING COUNT(row_num) = {})
-    '''.format(ref_table, number, ref_column, sign, number)
+    '''.format(ref_column, ref_table, number, ref_column, sign, number)
 
     return query, '[平均股利成長率]'
 
@@ -762,7 +764,7 @@ def create_query_0201(larger, price):
     WHERE date > (GETDATE()-(10))) part_tbl
     WHERE part_tbl.row_num <= 1 AND part_tbl.[close] {} {})'''.format(skill_price_d, sign, str(price))
 
-    return query, stock_id
+    return query, 'stock_id'
 
 def create_query_0202(larger, price):
     if larger == '1':
@@ -776,7 +778,7 @@ def create_query_0202(larger, price):
     WHERE date > (GETDATE()-(10))) part_tbl
     WHERE part_tbl.row_num <= 1 AND part_tbl.[close] {} {})'''.format(skill_price_d, sign, str(price))
 
-    return query, stock_id
+    return query, 'stock_id'
 
 def create_query_0203(direct, days):
     '0203 公司股價連續[漲/跌停][3]日以上'
@@ -791,7 +793,7 @@ def create_query_0203(direct, days):
     on t2.stock_id = t1.stock_id AND limitup_limitdown_CNT {} {} 
     inner join {} t3 on t3.stock_id = t2.stock_id AND t2.each_max_date = t3.date)'''.format(skill_info, skill_price_d, sign, str(days), skill_price_d)
 
-    return query, stock_id
+    return query, 'stock_id'
 
 def create_query_0204(days, period, direct, percent):
 
@@ -810,7 +812,7 @@ def create_query_0204(days, period, direct, percent):
     GROUP BY stock_id HAVING count(row_num) = {})
     '''.format(skill_price_d, days, days, sign, percent, days)
 
-    return query, stock_id
+    return query, 'stock_id'
 
 def create_query_0205(days, period, direct, percent):
 
@@ -829,7 +831,7 @@ def create_query_0205(days, period, direct, percent):
     GROUP BY stock_id HAVING count(row_num) = {})
     '''.format(skill_price_d, days, days, sign, percent, days)
 
-    return query, stock_id
+    return query, 'stock_id'
 
 
 def create_query_0301(days, period, direct, percent):
