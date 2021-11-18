@@ -1287,6 +1287,8 @@ def create_query_0505(days, period, direct, lot):
         sign = '<='
         lot = -lot
     
+    lot = lot * 1000 #每股為單位
+    
     if period == 'w':
         ref_table = counter_loanshare_w
     elif period == 'm':
@@ -1299,7 +1301,7 @@ def create_query_0505(days, period, direct, lot):
         ref_table = counter_loanshare_d
 
     query = '''
-    (SELECT stock_id, SUM(load_spread) [借券增加數], CAST(NULL AS NVARCHAR(100)) as remark FROM
+    (SELECT stock_id, SUM(load_spread) [借券增加數(股)], CAST(NULL AS NVARCHAR(100)) as remark FROM
     (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY date DESC) row_num
     FROM {} WITH(NOLOCK)
     WHERE date > (GETDATE()-({}+10))) part_tbl
@@ -1307,7 +1309,7 @@ def create_query_0505(days, period, direct, lot):
     GROUP BY part_tbl.stock_id HAVING SUM(part_tbl.load_spread) {} {} )
     '''.format(ref_table, days, days, sign, lot)
 
-    return query, '[借券增加數]'
+    return query, '[借券增加數(股)]'
 
 def create_query_0506(days, period, direct, lot):
 
