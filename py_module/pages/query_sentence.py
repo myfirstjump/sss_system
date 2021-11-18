@@ -1334,9 +1334,9 @@ def create_query_0506(days, period, direct, lot):
     (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY date DESC) row_num
     FROM {} WITH(NOLOCK)
     WHERE date > (GETDATE()-({}+10))) part_tbl
-    WHERE part_tbl.row_num <= {}
-    GROUP BY part_tbl.stock_id HAVING SUM(part_tbl.load_ratio) {} {} )
-    '''.format(ref_table, days, days, sign, lot)
+    WHERE part_tbl.row_num <= {} AND part_tbl.load_ratio {} {}
+    GROUP BY part_tbl.stock_id HAVING COUNT(row_num) = {})
+    '''.format(ref_table, days, days, sign, lot, days)
 
     return query, '[借券平均增加%]'
 
