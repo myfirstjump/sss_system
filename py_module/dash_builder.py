@@ -1142,21 +1142,26 @@ class DashBuilder(object):
             if btn > 0:
                 condition_number = len(stored_data['output_record'])
                 query_dict = {}
+                col_name_dict = {}
                 for idx in range(condition_number):
                     # if stored_data['selection_record'][idx] == '0101':
                     selection_code = stored_data['selection_record'][idx]
                     if selection_code == '0101':
-                        query = query_sentence.create_query_0101(value_dict[selection_code][0])
+                        query, col_name = query_sentence.create_query_0101(value_dict[selection_code][0])
                         query_dict[idx] = query
+                        col_name_dict[idx] = col_name
                     elif selection_code == '0102':
-                        query = query_sentence.create_query_0102(value_dict[selection_code][0], value_dict[selection_code][1])
+                        query, col_name = query_sentence.create_query_0102(value_dict[selection_code][0], value_dict[selection_code][1])
                         query_dict[idx] = query
+                        col_name_dict[idx] = col_name
                     elif selection_code == '0103':
-                        query = query_sentence.create_query_0103(value_dict[selection_code][0], value_dict[selection_code][1])
+                        query, col_name = query_sentence.create_query_0103(value_dict[selection_code][0], value_dict[selection_code][1])
                         query_dict[idx] = query
+                        col_name_dict[idx] = col_name
                     elif selection_code == '0104':
-                        query = query_sentence.create_query_0104(value_dict[selection_code][0], value_dict[selection_code][1])
+                        query, col_name = query_sentence.create_query_0104(value_dict[selection_code][0], value_dict[selection_code][1])
                         query_dict[idx] = query
+                        col_name_dict[idx] = col_name
                     elif selection_code == '0105':
                         query = query_sentence.create_query_0105(value_dict[selection_code][0], value_dict[selection_code][1])
                         query_dict[idx] = query
@@ -1341,7 +1346,9 @@ class DashBuilder(object):
                         pass
                     
                 print('Query Dict:', query_dict)
-                total_query = query_sentence.query_combine(query_dict)
+                print('Column Name Dict:', col_name_dict)
+                total_query = query_sentence.query_combine(query_dict, col_name_dict)
+                
                 print('Final Query:', total_query)
                 data = query_sentence.sql_execute(total_query)
                 

@@ -34,13 +34,13 @@ counter_holdrange_w = 'STOCK_Counter_DB.dbo.TW_STOCK_HOLDRANGE'
 counter_holdrange_m = 'STOCK_Counter_DB.dbo.TW_STOCK_HOLDRANGE_monthly'
 
 # Query Combination
-def query_combine(query_dict):
+def query_combine(query_dict, col_name_dict):
     query_number = len(query_dict)
 
-    specific_columns_string = ",".join([])
+    specific_columns_string = " ,".join(['{}.{}'.format(alias, colname[1]) for colname,alias in zip(col_name_dict.items(), ascii_lowercase)])
     remark_string = "+".join(['{}.remark'.format(i) for i in ascii_lowercase][:query_number])
     combined_query = "SELECT {}.stock_id, {}.stock_name, {}.industry_category, {}.type, {} {} Remark FROM ".format(ascii_lowercase[query_number], ascii_lowercase[query_number], 
-    ascii_lowercase[query_number], ascii_lowercase[query_number], remark_string)
+    ascii_lowercase[query_number], ascii_lowercase[query_number], specific_columns_string, remark_string)
 
     for num, query in query_dict.items():
         align_code = ascii_lowercase[num]
