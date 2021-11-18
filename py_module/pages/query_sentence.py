@@ -290,7 +290,7 @@ def create_query_0112(numbers, period, direct, percent):
     GROUP BY part_tbl.stock_id)
     '''.format(ref_table, ref_table, period_unit, numbers, sign, percent)
 
-    return query
+    return query, [平均EPS成長]
 
 
 def create_query_0113(period, direct, percent):
