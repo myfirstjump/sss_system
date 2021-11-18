@@ -1345,7 +1345,7 @@ def create_query_0506(days, period, direct, lot):
 
 def create_query_0601(numbers, period, direct, amount):
 
-    """0601 近(2)(月/季/年)營收(大於)(5)百萬元"""
+    """0601 近(2)(月/季/年)營收合計(大於)(5)百萬元"""
 
     if direct == '1':
         sign = '>='
@@ -1361,14 +1361,14 @@ def create_query_0601(numbers, period, direct, amount):
         ref_table = basic_info_revenue_m
 
     query = '''
-    (SELECT stock_id, revenue [平均營收], CAST(NULL AS NVARCHAR(100)) as remark FROM
+    (SELECT stock_id, SUM(revenue) [合計營收], CAST(NULL AS NVARCHAR(100)) as remark FROM
     (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY date DESC) row_num
     FROM {} WITH(NOLOCK)) part_tbl
-    WHERE part_tbl.row_num <= {} AND part_tbl.revenue {} {}
-    GROUP BY part_tbl.stock_id HAVING COUNT(row_num) = {})
-    '''.format(ref_table, numbers, sign, amount, numbers)
+    WHERE part_tbl.row_num <= {}
+    GROUP BY part_tbl.stock_id HAVING SUM(revenue) {} {})
+    '''.format(ref_table, numbers, sign, amount)
 
-    return query, '[平均營收]'
+    return query, '[合計營收]'
 
 def create_query_0602(numbers, period, direct, percent):
 

@@ -30,7 +30,7 @@ def create_filters(button_id):
                                         html.P('近', style=self_style.text_normal),
                                         html.P('2', style=self_style.text_bold),
                                         html.P('季', style=self_style.text_bold),
-                                        html.P('營收', style=self_style.text_normal),
+                                        html.P('營收合計', style=self_style.text_normal),
                                         html.P('大於', style=self_style.text_bold),
                                         html.P('5', style=self_style.text_bold),
                                         html.P('百萬元', style=self_style.text_normal),
@@ -278,7 +278,7 @@ def create_0601(output_count):
                                                 clearable=False,
                                                 style=self_style.dropdown_style),
                                             ],style=self_style.dp_div_style),
-                                            html.P('營收', style=self_style.text_normal),
+                                            html.P('營收合計', style=self_style.text_normal),
                                             html.Div([
                                                 dcc.Dropdown(
                                                 id={'type':'dd2',
