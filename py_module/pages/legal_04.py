@@ -12,13 +12,12 @@ def create_filters(button_id):
                             [                              
                                 html.Div([
                                     html.Span([
-                                        html.P('外資', style=self_style.text_normal),
+                                        html.P('外資', style=self_style.text_bold),
                                         html.P('3', style=self_style.text_color_bold),
                                         html.P('日內', style=self_style.text_normal),
-                                        html.P('買超/賣超', style=self_style.text_color_bold),
-                                        html.P('大於', style=self_style.text_color_bold),
-                                        html.P('5000', style=self_style.text_color_bold),
-                                        html.P('張', style=self_style.text_normal),
+                                        html.P('買超/賣超', style=self_style.text_bold),
+                                        html.P('大於', style=self_style.text_bold),
+                                        html.P('5000張', style=self_style.text_color_bold),
                                         
                                     ], style=self_style.item_style),
                                     html.Button(
@@ -32,13 +31,12 @@ def create_filters(button_id):
                                 ]),
                                 html.Div([
                                     html.Span([
-                                        html.P('外資', style=self_style.text_normal),
+                                        html.P('外資', style=self_style.text_bold),
                                         html.P('3', style=self_style.text_color_bold),
                                         html.P('日內', style=self_style.text_normal),
-                                        html.P('買超/賣超', style=self_style.text_color_bold),
-                                        html.P('小於', style=self_style.text_color_bold),
-                                        html.P('5000', style=self_style.text_color_bold),
-                                        html.P('張', style=self_style.text_normal),
+                                        html.P('買超/賣超', style=self_style.text_bold),
+                                        html.P('小於', style=self_style.text_bold),
+                                        html.P('5000張', style=self_style.text_color_bold),
                                         
                                     ], style=self_style.item_style),
                                     html.Button(
@@ -52,13 +50,12 @@ def create_filters(button_id):
                                 ]),                  
                                 html.Div([
                                     html.Span([
-                                        html.P('投信', style=self_style.text_normal),
+                                        html.P('投信', style=self_style.text_bold),
                                         html.P('3', style=self_style.text_color_bold),
                                         html.P('日內', style=self_style.text_normal),
-                                        html.P('買超/賣超', style=self_style.text_color_bold),
-                                        html.P('大於', style=self_style.text_color_bold),
-                                        html.P('5000', style=self_style.text_color_bold),
-                                        html.P('張', style=self_style.text_normal),
+                                        html.P('買超/賣超', style=self_style.text_bold),
+                                        html.P('大於', style=self_style.text_bold),
+                                        html.P('5000張', style=self_style.text_color_bold),
                                         
                                     ], style=self_style.item_style),
                                     html.Button(
@@ -72,13 +69,12 @@ def create_filters(button_id):
                                 ]),
                                 html.Div([
                                     html.Span([
-                                        html.P('投信', style=self_style.text_normal),
+                                        html.P('投信', style=self_style.text_bold),
                                         html.P('3', style=self_style.text_color_bold),
                                         html.P('日內', style=self_style.text_normal),
-                                        html.P('買超/賣超', style=self_style.text_color_bold),
-                                        html.P('小於', style=self_style.text_color_bold),
-                                        html.P('5000', style=self_style.text_color_bold),
-                                        html.P('張', style=self_style.text_normal),
+                                        html.P('買超/賣超', style=self_style.text_bold),
+                                        html.P('小於', style=self_style.text_bold),
+                                        html.P('5000張', style=self_style.text_color_bold),
                                         
                                     ], style=self_style.item_style),
                                     html.Button(
@@ -92,13 +88,12 @@ def create_filters(button_id):
                                 ]),         
                                 html.Div([
                                     html.Span([
-                                        html.P('自營商', style=self_style.text_normal),
+                                        html.P('自營商', style=self_style.text_bold),
                                         html.P('3', style=self_style.text_color_bold),
                                         html.P('日內', style=self_style.text_normal),
-                                        html.P('買超/賣超', style=self_style.text_color_bold),
-                                        html.P('大於', style=self_style.text_color_bold),
-                                        html.P('5000', style=self_style.text_color_bold),
-                                        html.P('張', style=self_style.text_normal),
+                                        html.P('買超/賣超', style=self_style.text_bold),
+                                        html.P('大於', style=self_style.text_bold),
+                                        html.P('5000張', style=self_style.text_color_bold),
                                         
                                     ], style=self_style.item_style),
                                     html.Button(
@@ -112,14 +107,12 @@ def create_filters(button_id):
                                 ]),
                                 html.Div([
                                     html.Span([
-                                        html.P('自營商', style=self_style.text_normal),
+                                        html.P('自營商', style=self_style.text_bold),
                                         html.P('3', style=self_style.text_color_bold),
                                         html.P('日內', style=self_style.text_normal),
-                                        html.P('買超/賣超', style=self_style.text_color_bold),
-                                        html.P('小於', style=self_style.text_color_bold),
-                                        html.P('5000', style=self_style.text_color_bold),
-                                        html.P('張', style=self_style.text_normal),
-                                        
+                                        html.P('買超/賣超', style=self_style.text_bold),
+                                        html.P('小於', style=self_style.text_bold),
+                                        html.P('5000張', style=self_style.text_color_bold),
                                     ], style=self_style.item_style),
                                     html.Button(
                                         html.Img(src=add_img_path, className='add-img-style'), 

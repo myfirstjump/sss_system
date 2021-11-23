@@ -29,11 +29,11 @@ def create_filters(button_id):
                                     html.Span([
                                         html.P('近', style=self_style.text_normal),
                                         html.P('2', style=self_style.text_color_bold),
-                                        html.P('季', style=self_style.text_color_bold),
-                                        html.P('營收合計', style=self_style.text_normal),
-                                        html.P('大於', style=self_style.text_color_bold),
-                                        html.P('5', style=self_style.text_color_bold),
-                                        html.P('百萬元', style=self_style.text_normal),
+                                        html.P('季', style=self_style.text_normal),
+                                        html.P('營收', style=self_style.text_bold),
+                                        html.P('合計', style=self_style.text_normal),
+                                        html.P('大於', style=self_style.text_bold),
+                                        html.P('5百萬元', style=self_style.text_color_bold),
                                     ], style=self_style.item_style),
                                     html.Button(
                                         html.Img(src=add_img_path, className='add-img-style'), 
@@ -46,12 +46,13 @@ def create_filters(button_id):
                                 ]),
                                 html.Div([
                                     html.Span([
-                                        html.P('營收連續', style=self_style.text_normal),
+                                        html.P('營收', style=self_style.text_bold),
+                                        html.P('連續', style=self_style.text_normal),
                                         html.P('3', style=self_style.text_color_bold),
-                                        html.P('季', style=self_style.text_color_bold),
-                                        html.P('成長', style=self_style.text_color_bold),
-                                        html.P('5', style=self_style.text_color_bold),
-                                        html.P('%以上', style=self_style.text_normal),
+                                        html.P('季', style=self_style.text_normal),
+                                        html.P('成長', style=self_style.text_bold),
+                                        html.P('5%', style=self_style.text_color_bold),
+                                        html.P('以上', style=self_style.text_normal),
                                     ], style=self_style.item_style),
                                     html.Button(
                                         html.Img(src=add_img_path, className='add-img-style'), 
@@ -64,12 +65,12 @@ def create_filters(button_id):
                                 ]),
                                 html.Div([
                                     html.Span([
-                                        html.P('上', style=self_style.text_normal),
-                                        html.P('季', style=self_style.text_color_bold),
-                                        html.P('營收較去年同期', style=self_style.text_normal),
-                                        html.P('成長', style=self_style.text_color_bold),
-                                        html.P('5', style=self_style.text_color_bold),
-                                        html.P('%以上', style=self_style.text_normal),
+                                        html.P('上季', style=self_style.text_normal),
+                                        html.P('營收', style=self_style.text_bold),
+                                        html.P('較去年同期', style=self_style.text_normal),
+                                        html.P('成長', style=self_style.text_bold),
+                                        html.P('5%', style=self_style.text_color_bold),
+                                        html.P('以上', style=self_style.text_normal),
                                     ], style=self_style.item_style),
                                     html.Button(
                                         html.Img(src=add_img_path, className='add-img-style'), 
@@ -84,11 +85,11 @@ def create_filters(button_id):
                                     html.Span([
                                         html.P('近', style=self_style.text_normal),
                                         html.P('2', style=self_style.text_color_bold),
-                                        html.P('季', style=self_style.text_color_bold),
-                                        html.P('營業毛利率', style=self_style.text_normal),
-                                        html.P('大於', style=self_style.text_color_bold),
+                                        html.P('季', style=self_style.text_normal),
+                                        html.P('營業毛利率', style=self_style.text_bold),
+                                        html.P('大於', style=self_style.text_bold),
                                         html.P('5', style=self_style.text_color_bold),
-                                        html.P('%', style=self_style.text_normal),
+                                        html.P('%', style=self_style.text_color_bold),
                                     ], style=self_style.item_style),
                                     html.Button(
                                         html.Img(src=add_img_path, className='add-img-style'), 
@@ -101,12 +102,13 @@ def create_filters(button_id):
                                 ]),
                                 html.Div([
                                     html.Span([
-                                        html.P('營業毛利率連續', style=self_style.text_normal),
+                                        html.P('營業毛利率', style=self_style.text_bold),
+                                        html.P('連續', style=self_style.text_normal),
                                         html.P('3', style=self_style.text_color_bold),
-                                        html.P('季', style=self_style.text_color_bold),
-                                        html.P('成長', style=self_style.text_color_bold),
-                                        html.P('5', style=self_style.text_color_bold),
-                                        html.P('%以上', style=self_style.text_normal),
+                                        html.P('季', style=self_style.text_normal),
+                                        html.P('成長', style=self_style.text_bold),
+                                        html.P('5%', style=self_style.text_color_bold),
+                                        html.P('以上', style=self_style.text_normal),
                                     ], style=self_style.item_style),
                                     html.Button(
                                         html.Img(src=add_img_path, className='add-img-style'), 
@@ -120,11 +122,12 @@ def create_filters(button_id):
                                 html.Div([
                                     html.Span([
                                         html.P('上', style=self_style.text_normal),
-                                        html.P('季', style=self_style.text_color_bold),
-                                        html.P('營業毛利率較去年同期', style=self_style.text_normal),
-                                        html.P('成長', style=self_style.text_color_bold),
-                                        html.P('5', style=self_style.text_color_bold),
-                                        html.P('%以上', style=self_style.text_normal),
+                                        html.P('季', style=self_style.text_normal),
+                                        html.P('營業毛利率', style=self_style.text_bold),
+                                        html.P('較去年同期', style=self_style.text_normal),
+                                        html.P('成長', style=self_style.text_bold),
+                                        html.P('5%', style=self_style.text_color_bold),
+                                        html.P('以上', style=self_style.text_normal),
                                     ], style=self_style.item_style),
                                     html.Button(
                                         html.Img(src=add_img_path, className='add-img-style'), 
@@ -139,11 +142,11 @@ def create_filters(button_id):
                                     html.Span([
                                         html.P('近', style=self_style.text_normal),
                                         html.P('2', style=self_style.text_color_bold),
-                                        html.P('季', style=self_style.text_color_bold),
-                                        html.P('營業利益率', style=self_style.text_normal),
-                                        html.P('大於', style=self_style.text_color_bold),
+                                        html.P('季', style=self_style.text_normal),
+                                        html.P('營業利益率', style=self_style.text_bold),
+                                        html.P('大於', style=self_style.text_bold),
                                         html.P('5', style=self_style.text_color_bold),
-                                        html.P('%', style=self_style.text_normal),
+                                        html.P('%', style=self_style.text_color_bold),
                                     ], style=self_style.item_style),
                                     html.Button(
                                         html.Img(src=add_img_path, className='add-img-style'), 
@@ -156,12 +159,13 @@ def create_filters(button_id):
                                 ]),
                                 html.Div([
                                     html.Span([
-                                        html.P('營業利益率連續', style=self_style.text_normal),
+                                        html.P('營業利益率', style=self_style.text_bold),
+                                        html.P('連續', style=self_style.text_normal),
                                         html.P('3', style=self_style.text_color_bold),
-                                        html.P('季', style=self_style.text_color_bold),
-                                        html.P('成長', style=self_style.text_color_bold),
-                                        html.P('5', style=self_style.text_color_bold),
-                                        html.P('%以上', style=self_style.text_normal),
+                                        html.P('季', style=self_style.text_normal),
+                                        html.P('成長', style=self_style.text_bold),
+                                        html.P('5%', style=self_style.text_color_bold),
+                                        html.P('以上', style=self_style.text_normal),
                                     ], style=self_style.item_style),
                                     html.Button(
                                         html.Img(src=add_img_path, className='add-img-style'), 
@@ -175,11 +179,12 @@ def create_filters(button_id):
                                 html.Div([
                                     html.Span([
                                         html.P('上', style=self_style.text_normal),
-                                        html.P('季', style=self_style.text_color_bold),
-                                        html.P('營業利益率較去年同期', style=self_style.text_normal),
-                                        html.P('成長', style=self_style.text_color_bold),
-                                        html.P('5', style=self_style.text_color_bold),
-                                        html.P('%以上', style=self_style.text_normal),
+                                        html.P('季', style=self_style.text_normal),
+                                        html.P('營業利益率', style=self_style.text_bold),
+                                        html.P('較去年同期', style=self_style.text_normal),
+                                        html.P('成長', style=self_style.text_bold),
+                                        html.P('5%', style=self_style.text_color_bold),
+                                        html.P('以上', style=self_style.text_normal),
                                     ], style=self_style.item_style),
                                     html.Button(
                                         html.Img(src=add_img_path, className='add-img-style'), 
@@ -194,11 +199,11 @@ def create_filters(button_id):
                                     html.Span([
                                         html.P('近', style=self_style.text_normal),
                                         html.P('2', style=self_style.text_color_bold),
-                                        html.P('季', style=self_style.text_color_bold),
-                                        html.P('稅後淨利率', style=self_style.text_normal),
-                                        html.P('大於', style=self_style.text_color_bold),
+                                        html.P('季', style=self_style.text_normal),
+                                        html.P('稅後淨利率', style=self_style.text_bold),
+                                        html.P('大於', style=self_style.text_bold),
                                         html.P('5', style=self_style.text_color_bold),
-                                        html.P('%', style=self_style.text_normal),
+                                        html.P('%', style=self_style.text_color_bold),
                                     ], style=self_style.item_style),
                                     html.Button(
                                         html.Img(src=add_img_path, className='add-img-style'), 
@@ -211,12 +216,13 @@ def create_filters(button_id):
                                 ]),
                                 html.Div([
                                     html.Span([
-                                        html.P('稅後淨利率連續', style=self_style.text_normal),
+                                        html.P('稅後淨利率', style=self_style.text_bold),
+                                        html.P('連續', style=self_style.text_normal),
                                         html.P('3', style=self_style.text_color_bold),
-                                        html.P('季', style=self_style.text_color_bold),
-                                        html.P('成長', style=self_style.text_color_bold),
-                                        html.P('5', style=self_style.text_color_bold),
-                                        html.P('%以上', style=self_style.text_normal),
+                                        html.P('季', style=self_style.text_normal),
+                                        html.P('成長', style=self_style.text_bold),
+                                        html.P('5%', style=self_style.text_color_bold),
+                                        html.P('以上', style=self_style.text_normal),
                                     ], style=self_style.item_style),
                                     html.Button(
                                         html.Img(src=add_img_path, className='add-img-style'), 
@@ -230,11 +236,12 @@ def create_filters(button_id):
                                 html.Div([
                                     html.Span([
                                         html.P('上', style=self_style.text_normal),
-                                        html.P('季', style=self_style.text_color_bold),
-                                        html.P('稅後淨利率較去年同期', style=self_style.text_normal),
-                                        html.P('成長', style=self_style.text_color_bold),
-                                        html.P('5', style=self_style.text_color_bold),
-                                        html.P('%以上', style=self_style.text_normal),
+                                        html.P('季', style=self_style.text_normal),
+                                        html.P('稅後淨利率', style=self_style.text_bold),
+                                        html.P('較去年同期', style=self_style.text_normal),
+                                        html.P('成長', style=self_style.text_bold),
+                                        html.P('5%', style=self_style.text_color_bold),
+                                        html.P('以上', style=self_style.text_normal),
                                     ], style=self_style.item_style),
                                     html.Button(
                                         html.Img(src=add_img_path, className='add-img-style'), 
