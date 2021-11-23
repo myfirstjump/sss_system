@@ -1722,4 +1722,4 @@ def create_query_0612(period, direct, percent):
     GROUP BY part_tbl.stock_id)
     '''.format(ref_table, ref_table, sign, percent)
 
-    return query, '稅後淨利率成長率'
+    return query, '[稅後淨利率成長率]'
