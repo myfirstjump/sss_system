@@ -1462,12 +1462,12 @@ def generate_table(stock_data, max_rows=5000):
                     columns = [{"name": i, "id": i} for i in stock_data.columns],
                     data=stock_data.to_dict('records'),
                     fixed_rows={'headers': True},
-                    style_cell={'minWidth': '90px', 'maxWidth': '250px'},
+                    style_cell={'minWidth': '90px', 'maxWidth': '300px'},
                 )
 
 def stock_classifier(data):
     
-    data = data.rename(columns={'stock_id':'股票代碼', 'stock_name': '公司', 'price':'股價', 'spread_ratio':'漲跌幅', 'industry_category':'產業別'})
+    data = data.rename(columns={'stock_id':'股票代碼', 'stock_name': '公司', 'price':'股價', 'spread_ratio':'漲跌幅%', 'industry_category':'產業別'})
     
     data['產業別'] = data.groupby(['股票代碼'])['產業別'].transform(lambda x: ','.join(x))
     data = data.drop_duplicates(subset=['股票代碼'])

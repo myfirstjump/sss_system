@@ -1341,13 +1341,12 @@ def create_query_0506(days, period, direct, lot):
 
 def create_query_0601(numbers, period, direct, amount):
 
-    """0601 近(2)(月/季/年)營收合計(大於)(5)百萬元"""
+    """0601 近(2)(月/季/年)營收合計(大於)(500000000)元"""
 
     if direct == '1':
         sign = '>='
     else:
         sign = '<='
-    amount = amount * 1000000 # 以百萬元為單位
 
     if period == 'q':
         ref_table = basic_info_revenue_q
