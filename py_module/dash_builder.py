@@ -1401,6 +1401,7 @@ class DashBuilder(object):
                     elif selection_code == '0612':
                         query, col_name = query_sentence.create_query_0612(value_dict[selection_code][0], value_dict[selection_code][1], value_dict[selection_code][2])
                         query_dict[idx] = query
+                        col_name_dict[idx] = col_name
                     else:
                         pass
                     
