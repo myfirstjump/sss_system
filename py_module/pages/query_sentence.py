@@ -1502,7 +1502,7 @@ def create_query_0606(period, direct, percent):
         ref_table = basic_info_finDetail_q
 
     query = '''
-    (SELECT stock_id, Gross_Profit_Margin_last_year_ratio [營業毛利率成長率],
+    (SELECT stock_id, AVG(Gross_Profit_Margin_last_year_ratio) [營業毛利率成長率],
     CASE
     WHEN SUM(each_remark) > 0 THEN CAST('含營業毛利率負轉正；' AS NVARCHAR(100))
     END remark
@@ -1602,7 +1602,7 @@ def create_query_0609(period, direct, percent):
         ref_table = basic_info_finDetail_q
 
     query = '''
-    (SELECT stock_id, Operating_Profit_Margin_last_year_ratio [營業利益率成長率],
+    (SELECT stock_id, AVG(Operating_Profit_Margin_last_year_ratio) [營業利益率成長率],
     CASE
     WHEN SUM(each_remark) > 0 THEN CAST('含營業利益率負轉正；' AS NVARCHAR(100))
     END remark
@@ -1704,7 +1704,7 @@ def create_query_0612(period, direct, percent):
         ref_table = basic_info_finDetail_q
 
     query = '''
-    (SELECT stock_id, AfterTax_Income_Margin_last_year_ratio [稅後淨利率成長率],
+    (SELECT stock_id, AVG(AfterTax_Income_Margin_last_year_ratio) [稅後淨利率成長率],
     CASE
     WHEN SUM(each_remark) > 0 THEN CAST('含稅後淨利率負轉正；' AS NVARCHAR(100))
     END remark
