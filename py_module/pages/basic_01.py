@@ -31,7 +31,7 @@ def create_filters(button_id):
                                     html.Span([
                                         html.P('公司股本', style=self_style.text_normal), # normal text
                                         html.P('大於', style=self_style.text_bold), # bold text
-                                        html.P('5', style=self_style.text_bold),
+                                        html.P('5000000', style=self_style.text_bold),
                                         html.P('仟元', style=self_style.text_normal),
                                         
                                     ], style=self_style.item_style),
@@ -48,7 +48,7 @@ def create_filters(button_id):
                                     html.Span([
                                         html.P('公司股本', style=self_style.text_normal), # normal text
                                         html.P('小於', style=self_style.text_bold), # bold text
-                                        html.P('5', style=self_style.text_bold),
+                                        html.P('5000000', style=self_style.text_bold),
                                         html.P('仟元', style=self_style.text_normal),
                                         
                                     ], style=self_style.item_style),
@@ -586,8 +586,8 @@ def create_0102(output_count):
                                                     type='number',
                                                     min=0,
                                                     max=99999,
-                                                    value=5,
-                                                    placeholder='5',
+                                                    value=5000000,
+                                                    placeholder='5000000',
                                                     style=self_style.large_input_style),
                                             ], style=self_style.large_ipt_div_style),
                                             html.P('仟元', style=self_style.text_normal),
@@ -625,8 +625,8 @@ def create_0103(output_count):
                                                     type='number',
                                                     min=0,
                                                     max=99999,
-                                                    value=5,
-                                                    placeholder='5',
+                                                    value=5000000,
+                                                    placeholder='5000000',
                                                     style=self_style.large_input_style),
                                             ], style=self_style.large_ipt_div_style),
                                             html.P('仟元', style=self_style.text_normal),
