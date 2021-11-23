@@ -94,26 +94,22 @@ def create_query_0101(cate_str):
     return query, 'stock_id' #產業別在TW_STOCK_INFO已經有了，故以stock_id代替回傳值。
 
 def create_query_0102(larger, price):
-    '''公司股本(大於/小於)(100)億元'''
+    '''公司股本(大於/小於)(100)仟元'''
     if larger == '1':
         sign = '>='
     else:
         sign = '<'
-        
-    price = price * 100000
 
     query = '''(SELECT stock_id, Capital [股本(仟元)], CAST(NULL AS NVARCHAR(100)) as remark FROM {} WHERE Capital {} {})'''.format(skill_capital, sign, price)
     
     return query, '[股本(仟元)]'
 
 def create_query_0103(larger, price):
-    '''公司股本(大於/小於)(100)億元'''
+    '''公司股本(大於/小於)(100)仟元'''
     if larger == '1':
         sign = '>='
     else:
         sign = '<'
-        
-    price = price * 100000
 
     query = '''(SELECT stock_id, Capital [股本(仟元)], CAST(NULL AS NVARCHAR(100)) as remark FROM {} WITH(NOLOCK) WHERE Capital {} {})'''.format(skill_capital, sign, price)
     
