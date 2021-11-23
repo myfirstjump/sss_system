@@ -131,7 +131,7 @@ result_div_etf = {
 }
 
 result_content = {
-    'margin': '5%',
+    'margin': '2%',
     'font-size': '28px',
     # 'color': 'white',
     'height': '500px',
