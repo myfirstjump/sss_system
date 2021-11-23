@@ -13,9 +13,9 @@ def create_filters(button_id):
                                 html.Div([
                                     html.Span([
                                         html.P('融資於', style=self_style.text_normal),
-                                        html.P('3', style=self_style.text_bold),
+                                        html.P('3', style=self_style.text_color_bold),
                                         html.P('日內，共', style=self_style.text_normal),
-                                        html.P('增加/減少', style=self_style.text_bold),
+                                        html.P('增加/減少', style=self_style.text_color_bold),
                                         html.P('100', style=self_style.text_normal),
                                         html.P(' 張以上', style=self_style.text_normal),
                                     ], style=self_style.item_style),
@@ -31,9 +31,9 @@ def create_filters(button_id):
                                 html.Div([
                                     html.Span([
                                         html.P('融資於', style=self_style.text_normal),
-                                        html.P('3', style=self_style.text_bold),
+                                        html.P('3', style=self_style.text_color_bold),
                                         html.P('日內均', style=self_style.text_normal),
-                                        html.P('增加/減少', style=self_style.text_bold),
+                                        html.P('增加/減少', style=self_style.text_color_bold),
                                         html.P('100', style=self_style.text_normal),
                                         html.P(' %以上', style=self_style.text_normal),
                                     ], style=self_style.item_style),
@@ -49,9 +49,9 @@ def create_filters(button_id):
                                 html.Div([
                                     html.Span([
                                         html.P('融券於', style=self_style.text_normal),
-                                        html.P('3', style=self_style.text_bold),
+                                        html.P('3', style=self_style.text_color_bold),
                                         html.P('日內，共', style=self_style.text_normal),
-                                        html.P('增加/減少', style=self_style.text_bold),
+                                        html.P('增加/減少', style=self_style.text_color_bold),
                                         html.P('100', style=self_style.text_normal),
                                         html.P(' 張以上', style=self_style.text_normal),
                                     ], style=self_style.item_style),
@@ -67,9 +67,9 @@ def create_filters(button_id):
                                 html.Div([
                                     html.Span([
                                         html.P('融券於', style=self_style.text_normal),
-                                        html.P('3', style=self_style.text_bold),
+                                        html.P('3', style=self_style.text_color_bold),
                                         html.P('日內均', style=self_style.text_normal),
-                                        html.P('增加/減少', style=self_style.text_bold),
+                                        html.P('增加/減少', style=self_style.text_color_bold),
                                         html.P('100', style=self_style.text_normal),
                                         html.P(' %以上', style=self_style.text_normal),
                                     ], style=self_style.item_style),
@@ -85,9 +85,9 @@ def create_filters(button_id):
                                 html.Div([
                                     html.Span([
                                         html.P('借券於', style=self_style.text_normal),
-                                        html.P('3', style=self_style.text_bold),
+                                        html.P('3', style=self_style.text_color_bold),
                                         html.P('日內，共', style=self_style.text_normal),
-                                        html.P('增加/減少', style=self_style.text_bold),
+                                        html.P('增加/減少', style=self_style.text_color_bold),
                                         html.P('100', style=self_style.text_normal),
                                         html.P(' 張以上', style=self_style.text_normal),
                                     ], style=self_style.item_style),
@@ -103,9 +103,9 @@ def create_filters(button_id):
                                 html.Div([
                                     html.Span([
                                         html.P('借券於', style=self_style.text_normal),
-                                        html.P('3', style=self_style.text_bold),
+                                        html.P('3', style=self_style.text_color_bold),
                                         html.P('日內均', style=self_style.text_normal),
-                                        html.P('增加/減少', style=self_style.text_bold),
+                                        html.P('增加/減少', style=self_style.text_color_bold),
                                         html.P('100', style=self_style.text_normal),
                                         html.P(' %以上', style=self_style.text_normal),
                                     ], style=self_style.item_style),

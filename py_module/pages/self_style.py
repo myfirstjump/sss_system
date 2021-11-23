@@ -341,8 +341,19 @@ text_bold = {
     #'height':'25px',
     #'border':'solid 1px',
     'font-size':'15px',
+}
+
+text_color_bold = {
+    'display': 'inline-block',
+    'font-weight':'bold',
+    'padding':'0px 5px 0px 5px',
+    #'height':'25px',
+    #'border':'solid 1px',
+    'font-size':'15px',
     'color': '#FF0000',
 }
+
+
 
 result_words = {
     'color': result_words
