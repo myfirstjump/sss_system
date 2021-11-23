@@ -285,6 +285,18 @@ short_input_style = {
     'margin': '3%'
 }
 
+large_input_style = {
+    'display':'inline-block',
+    'verticalAlign': 'middle',
+    'width':'120px',
+    'height': '27px',
+    #'border':'solid 1px',
+    'font-size':'15px',
+    'background-color':dark_code,
+    'border':'hidden',
+    'margin': '3%'
+}
+
 ipt_div_style = {
     'verticalAlign': 'middle', 
     'display':'inline-block',
@@ -299,6 +311,16 @@ short_ipt_div_style = {
     'verticalAlign': 'middle', 
     'display':'inline-block',
     'width':'55px', # 要較short_input_style 40px大一些
+    'border':'solid 1px',
+    'border-color': emphsis_code,
+    'border-radius': '7px',
+    'margin': '1%'
+}
+
+large_ipt_div_style = {
+    'verticalAlign': 'middle', 
+    'display':'inline-block',
+    'width':'135px', # 要較large_input_style 40px大一些
     'border':'solid 1px',
     'border-color': emphsis_code,
     'border-radius': '7px',

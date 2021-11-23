@@ -588,8 +588,8 @@ def create_0102(output_count):
                                                     max=99999,
                                                     value=5,
                                                     placeholder='5',
-                                                    style=self_style.input_style),
-                                            ], style=self_style.ipt_div_style),
+                                                    style=self_style.large_input_style),
+                                            ], style=self_style.large_ipt_div_style),
                                             html.P('億元', style=self_style.text_normal),
                                         ], style=self_style.output_item_style),
                                         html.Button(
