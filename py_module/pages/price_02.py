@@ -12,10 +12,10 @@ def create_filters(button_id):
                             [
                                 html.Div([
                                     html.Span([
-                                        html.P('公司股價', style=self_style.text_normal),
-                                        html.P('大於', style=self_style.text_color_bold),
+                                        html.P('公司', style=self_style.text_normal),
+                                        html.P('股價大於', style=self_style.text_bold),
                                         html.P('120', style=self_style.text_color_bold),
-                                        html.P('元', style=self_style.text_normal),
+                                        html.P('元', style=self_style.text_color_bold),
                                         
                                     ], style=self_style.item_style),
                                     html.Button(
@@ -29,10 +29,10 @@ def create_filters(button_id):
                                 ]),
                                 html.Div([
                                     html.Span([
-                                        html.P('公司股價', style=self_style.text_normal),
-                                        html.P('小於', style=self_style.text_color_bold),
+                                        html.P('公司', style=self_style.text_normal),
+                                        html.P('股價小於', style=self_style.text_bold),
                                         html.P('120', style=self_style.text_color_bold),
-                                        html.P('元', style=self_style.text_normal),
+                                        html.P('元', style=self_style.text_color_bold),
                                         
                                     ], style=self_style.item_style),
                                     html.Button(
@@ -46,10 +46,12 @@ def create_filters(button_id):
                                 ]),
                                 html.Div([
                                     html.Span([
-                                        html.P('公司股價連續', style=self_style.text_normal),
-                                        html.P('漲/跌停', style=self_style.text_color_bold),
-                                        html.P('3', style=self_style.text_color_bold),
-                                        html.P('日以上', style=self_style.text_normal),
+                                        html.P('公司', style=self_style.text_normal),
+                                        html.P('股價', style=self_style.text_bold),
+                                        html.P('連續', style=self_style.text_normal),
+                                        html.P('漲/跌停', style=self_style.text_bold),
+                                        html.P('3日', style=self_style.text_color_bold),
+                                        html.P('以上', style=self_style.text_normal),
                                     ], style=self_style.item_style),
                                     html.Button(
                                         html.Img(src=add_img_path, className='add-img-style'), 
@@ -65,7 +67,7 @@ def create_filters(button_id):
                                         html.P('於', style=self_style.text_normal),
                                         html.P('3', style=self_style.text_color_bold),
                                         html.P('日內', style=self_style.text_normal),
-                                        html.P('漲/跌幅', style=self_style.text_color_bold),
+                                        html.P('漲/跌幅', style=self_style.text_bold),
                                         html.P('均超過', style=self_style.text_normal),
                                         html.P('10%', style=self_style.text_color_bold),
                                         html.P('之股票', style=self_style.text_normal),
@@ -84,7 +86,7 @@ def create_filters(button_id):
                                         html.P('於', style=self_style.text_normal),
                                         html.P('3', style=self_style.text_color_bold),
                                         html.P('日內', style=self_style.text_normal),
-                                        html.P('上漲/下跌', style=self_style.text_color_bold),
+                                        html.P('上漲/下跌', style=self_style.text_bold),
                                         html.P('均超過', style=self_style.text_normal),
                                         html.P('20元', style=self_style.text_color_bold),
                                         html.P('之股票', style=self_style.text_normal),
