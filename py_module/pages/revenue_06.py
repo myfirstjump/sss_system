@@ -953,13 +953,28 @@ def create_0611(output_count):
     return new_children
 
 def create_0612(output_count):
-    '''0612 稅後淨利率較去年同期(成長/衰退)(5)%以上'''
+    '''0612 上(季/年)稅後淨利率較去年同期(成長/衰退)(5)%以上'''
     new_children = html.Div([
                                         html.Span([
+                                            html.P('上', style=self_style.text_normal),
+                                            html.Div([
+                                                dcc.Dropdown(
+                                                id={'type':'dd1',
+                                                    'index': '0612'},
+                                                options=[
+                                                    {'label': '月', 'value': 'm'},
+                                                    {'label': '季', 'value': 'q'},
+                                                    {'label': '年', 'value': 'y'},
+                                                ],
+                                                value='q',
+                                                placeholder='季',
+                                                clearable=False,
+                                                style=self_style.dropdown_style),
+                                            ],style=self_style.dp_div_style),
                                             html.P('稅後淨利率較去年同期', style=self_style.text_normal),
                                             html.Div([
                                                 dcc.Dropdown(
-                                                id={'type':'dd',
+                                                id={'type':'dd2',
                                                     'index': '0612'},
                                                 options=[
                                                     {'label': '成長', 'value': '1'},
