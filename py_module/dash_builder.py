@@ -1463,7 +1463,17 @@ def generate_table(stock_data, max_rows=5000):
                     columns = [{"name": i, "id": i} for i in stock_data.columns],
                     data=stock_data.to_dict('records'),
                     fixed_rows={'headers': True},
-                    style_cell={'minWidth': '90px', 'maxWidth': '300px'},
+                     
+                    #style_header : header, style_data : data, style_cell : cells & header一起調整
+                    style_header={
+                        'backgroundColor': 'grey',
+                        'fontWeight': 'bold',
+                    }, 
+                    style_data={}, 
+                    style_cell={'minWidth': '90px', 'maxWidth': '300px', 'fontSize': '20px'}, 
+                    style_table={'overflowX': 'auto'},
+                    # style_as_list_view=True, #移除column分隔線
+
                 )
 
 def stock_classifier(data):

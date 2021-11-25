@@ -136,7 +136,7 @@ result_content = {
     # 'color': 'white',
     'height': '500px',
     # 'border': 'solid 1px white',
-    'overflow': 'auto',
+    # 'overflow': 'auto',
 }
 
 menu_btn = {

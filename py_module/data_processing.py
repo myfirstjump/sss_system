@@ -13,7 +13,7 @@ class DataProcessing(object):
         new_data = self.add_column_to_pd_dataframe(data, '股價', new_col_0)
 
         new_col_1 = np.random.exponential(5, data.shape[0])
-        new_data = self.add_column_to_pd_dataframe(data, '每股淨值', new_col_1)
+        new_data = self.add_column_to_pd_dataframe(data, '每股淨值成長百分比比率%', new_col_1)
 
         new_col_2 = np.random.exponential(10000000, data.shape[0])
         new_data = self.add_column_to_pd_dataframe(data, '營業額', new_col_2)
