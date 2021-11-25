@@ -18,6 +18,8 @@ class DataProcessing(object):
         new_col_2 = np.random.exponential(10000000, data.shape[0])
         new_data = self.add_column_to_pd_dataframe(data, '營業額', new_col_2)
 
+        new_data = self.add_column_to_pd_dataframe(data, 'Remark', '含ROE負轉正；含ROE負轉正；含ROE負轉正；')
+
         # new_col_3 = np.random.exponential(10000000, data.shape[0])
         # new_data = self.add_column_to_pd_dataframe(data, '營業額', new_col_3)
 

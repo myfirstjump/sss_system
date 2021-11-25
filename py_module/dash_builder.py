@@ -1473,9 +1473,13 @@ def generate_table(stock_data, max_rows=5000):
                     }, 
                     style_data={}, 
                     style_cell={'fontSize': '20px', 'height': 'auto', 'whiteSpace': 'normal'}, 
-                    style_table={'overflowX': 'auto'},
+                    style_table={'overflowX': 'auto', 'minWidth': '100%'},
                     # style_as_list_view=True, #移除column分隔線
                     # fill_width = False,
+                    style_cell_conditional=[
+                        {'if': {'column_id': 'Remark'},
+                        'width': '10%'},
+                    ]
                 )
 
 def stock_classifier(data):
