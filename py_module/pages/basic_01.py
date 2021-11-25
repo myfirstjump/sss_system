@@ -570,7 +570,7 @@ def create_0102(output_count):
                                                     clearable=False),
                                             ], style=self_style.dp_div_style),
                                             html.Div([
-                                                dcc.Input(
+                                                dcc.Input(required = True,
                                                     id={'type':'ip',
                                                         'index': '0102'},
                                                     type='number',
@@ -609,7 +609,7 @@ def create_0103(output_count):
                                                     style=self_style.dropdown_style),
                                             ], style=self_style.dp_div_style),
                                             html.Div([
-                                                dcc.Input(
+                                                dcc.Input(required = True,
                                                     id={'type':'ip',
                                                         'index': '0103'},
                                                     type='number',
@@ -649,7 +649,7 @@ def create_0104(output_count):
                                                     style=self_style.dropdown_style),
                                             ], style=self_style.dp_div_style),
                                             html.Div([
-                                                dcc.Input(
+                                                dcc.Input(required = True,
                                                     id={'type':'ip',
                                                         'index': '0104'},
                                                     type='number',
@@ -688,7 +688,7 @@ def create_0105(output_count):
                                                     style=self_style.dropdown_style),
                                             ], style=self_style.dp_div_style),
                                             html.Div([
-                                                dcc.Input(
+                                                dcc.Input(required = True,
                                                     id={'type':'ip',
                                                         'index': '0105'},
                                                     type='number',
@@ -727,7 +727,7 @@ def create_0106(output_count):
                                                     style=self_style.dropdown_style),
                                             ], style=self_style.dp_div_style),
                                             html.Div([
-                                                dcc.Input(
+                                                dcc.Input(required = True,
                                                     id={'type':'ip',
                                                         'index': '0106'},
                                                     type='number',
@@ -753,7 +753,7 @@ def create_0107(output_count):
     new_children = html.Div([
                                         html.Span([
                                             html.Div([
-                                                dcc.Input(
+                                                dcc.Input(required = True,
                                                     id={'type':'ip1',
                                                         'index': '0107'},
                                                     type='number',
@@ -778,7 +778,7 @@ def create_0107(output_count):
                                                     style=self_style.dropdown_style),
                                             ], style=self_style.dp_div_style),
                                             html.Div([
-                                                dcc.Input(
+                                                dcc.Input(required = True,
                                                     id={'type':'ip2',
                                                         'index': '0107'},
                                                     type='number',
@@ -807,15 +807,14 @@ def create_0108(output_count):
                                         html.Span([
                                             html.P('ROE連續', style=self_style.text_normal),
                                             html.Div([
-                                                dcc.Input(
+                                                dcc.Input(required = True,
                                                     id={'type':'ip1',
                                                         'index': '0108'},
                                                     type='number',
                                                     min=0,
                                                     max=30,
                                                     value=3,
-                                                    placeholder='3',
-                                                    required = True,
+                                                    placeholder='3',                                                    
                                                     style=self_style.input_style),
                                             ], style=self_style.ipt_div_style),
                                             html.P('年', style=self_style.text_normal),
@@ -833,7 +832,7 @@ def create_0108(output_count):
                                                     style=self_style.dropdown_style),
                                             ], style=self_style.dp_div_style),
                                             html.Div([
-                                                dcc.Input(
+                                                dcc.Input(required = True,
                                                     id={'type':'ip2',
                                                         'index': '0108'},
                                                     type='number',
@@ -841,7 +840,6 @@ def create_0108(output_count):
                                                     max=99999,
                                                     value=5,
                                                     placeholder='5',
-                                                    required = True,
                                                     style=self_style.input_style),
                                             ], style=self_style.ipt_div_style),
                                             html.P('%以上', style=self_style.text_normal),
@@ -861,7 +859,7 @@ def create_0109(output_count):
     new_children = html.Div([
                                         html.Span([
                                             html.Div([
-                                                dcc.Input(
+                                                dcc.Input(required = True,
                                                     id={'type':'ip1',
                                                         'index': '0109'},
                                                     type='number',
@@ -886,7 +884,7 @@ def create_0109(output_count):
                                                     style=self_style.dropdown_style),
                                             ], style=self_style.dp_div_style),
                                             html.Div([
-                                                dcc.Input(
+                                                dcc.Input(required = True,
                                                     id={'type':'ip2',
                                                         'index': '0109'},
                                                     type='number',
@@ -913,7 +911,7 @@ def create_0110(output_count):
                                         html.Span([
                                             html.P('ROA連續', style=self_style.text_normal),
                                             html.Div([
-                                                dcc.Input(
+                                                dcc.Input(required = True,
                                                     id={'type':'ip1',
                                                         'index': '0110'},
                                                     type='number',
@@ -938,7 +936,7 @@ def create_0110(output_count):
                                                     style=self_style.dropdown_style),
                                             ], style=self_style.dp_div_style),
                                             html.Div([
-                                                dcc.Input(
+                                                dcc.Input(required = True,
                                                     id={'type':'ip2',
                                                         'index': '0110'},
                                                     type='number',
@@ -964,7 +962,7 @@ def create_0111(output_count):
                                         html.Span([
                                             html.P('上', style=self_style.text_normal),
                                             html.Div([
-                                                dcc.Input(
+                                                dcc.Input(required = True,
                                                     id={'type':'ip1',
                                                         'index': '0111'},
                                                     type='number',
@@ -1002,7 +1000,7 @@ def create_0111(output_count):
                                                     style=self_style.dropdown_style),
                                             ], style=self_style.dp_div_style),
                                             html.Div([
-                                                dcc.Input(
+                                                dcc.Input(required = True,
                                                     id={'type':'ip2',
                                                         'index': '0111'},
                                                     type='number',
@@ -1152,7 +1150,7 @@ def create_0114(output_count):
                                         html.Span([
                                             html.P('上', style=self_style.text_normal),
                                             html.Div([
-                                                dcc.Input(
+                                                dcc.Input(required = True,
                                                     id={'type':'ip1',
                                                         'index': '0114'},
                                                     type='number',
@@ -1190,7 +1188,7 @@ def create_0114(output_count):
                                                     style=self_style.dropdown_style),
                                             ], style=self_style.dp_div_style),
                                             html.Div([
-                                                dcc.Input(
+                                                dcc.Input(required = True,
                                                     id={'type':'ip2',
                                                         'index': '0114'},
                                                     type='number',
@@ -1271,7 +1269,7 @@ def create_0116(output_count):
                                         html.Span([
                                             html.P('上', style=self_style.text_normal),
                                             html.Div([
-                                                dcc.Input(
+                                                dcc.Input(required = True,
                                                     id={'type':'ip1',
                                                         'index': '0116'},
                                                     type='number',
@@ -1309,7 +1307,7 @@ def create_0116(output_count):
                                                     style=self_style.dropdown_style),
                                             ], style=self_style.dp_div_style),
                                             html.Div([
-                                                dcc.Input(
+                                                dcc.Input(required = True,
                                                     id={'type':'ip2',
                                                         'index': '0116'},
                                                     type='number',
@@ -1390,7 +1388,7 @@ def create_0118(output_count):
                                         html.Span([
                                             html.P('上', style=self_style.text_normal),
                                             html.Div([
-                                                dcc.Input(
+                                                dcc.Input(required = True,
                                                     id={'type':'ip1',
                                                         'index': '0118'},
                                                     type='number',
@@ -1428,7 +1426,7 @@ def create_0118(output_count):
                                                     style=self_style.dropdown_style),
                                             ], style=self_style.dp_div_style),
                                             html.Div([
-                                                dcc.Input(
+                                                dcc.Input(required = True,
                                                     id={'type':'ip2',
                                                         'index': '0118'},
                                                     type='number',
@@ -1509,7 +1507,7 @@ def create_0120(output_count):
                                         html.Span([
                                             html.P('上', style=self_style.text_normal),
                                             html.Div([
-                                                dcc.Input(
+                                                dcc.Input(required = True,
                                                     id={'type':'ip1',
                                                         'index': '0120'},
                                                     type='number',
@@ -1547,7 +1545,7 @@ def create_0120(output_count):
                                                     style=self_style.dropdown_style),
                                             ], style=self_style.dp_div_style),
                                             html.Div([
-                                                dcc.Input(
+                                                dcc.Input(required = True,
                                                     id={'type':'ip2',
                                                         'index': '0120'},
                                                     type='number',
@@ -1628,7 +1626,7 @@ def create_0122(output_count):
                                         html.Span([
                                             html.P('上', style=self_style.text_normal),
                                             html.Div([
-                                                dcc.Input(
+                                                dcc.Input(required = True,
                                                     id={'type':'ip1',
                                                         'index': '0122'},
                                                     type='number',
@@ -1666,7 +1664,7 @@ def create_0122(output_count):
                                                     style=self_style.dropdown_style),
                                             ], style=self_style.dp_div_style),
                                             html.Div([
-                                                dcc.Input(
+                                                dcc.Input(required = True,
                                                     id={'type':'ip2',
                                                         'index': '0122'},
                                                     type='number',
