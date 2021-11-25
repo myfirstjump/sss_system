@@ -1478,7 +1478,9 @@ def generate_table(stock_data, max_rows=5000):
                     # fill_width = False,
                     style_cell_conditional=[
                         {'if': {'column_id': 'Remark'},
-                        'width': '10%'},
+                        'width': '15%'},
+                        {'if': {'column_id': '產業別'},
+                        'width': '20%'},
                     ]
                 )
 
