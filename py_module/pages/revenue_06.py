@@ -261,7 +261,7 @@ def create_0601(output_count):
                                         html.Span([
                                             html.P('近', style=self_style.text_normal),
                                             html.Div([
-                                                dcc.Input(
+                                                dcc.Input(required = True,
                                                 id={'type':'ip1',
                                                     'index': '0601'},
                                                 type='number',
@@ -300,7 +300,7 @@ def create_0601(output_count):
                                                 style=self_style.dropdown_style),
                                             ],style=self_style.dp_div_style),
                                             html.Div([
-                                                dcc.Input(
+                                                dcc.Input(required = True,
                                                 id={'type':'ip2',
                                                     'index': '0601'},
                                                 type='number',
@@ -328,7 +328,7 @@ def create_0602(output_count):
                                         html.Span([
                                             html.P('營收連續', style=self_style.text_normal),
                                             html.Div([
-                                                dcc.Input(
+                                                dcc.Input(required = True,
                                                 id={'type':'ip1',
                                                     'index': '0602'},
                                                 type='number',
@@ -366,7 +366,7 @@ def create_0602(output_count):
                                                 style=self_style.dropdown_style),
                                             ],style=self_style.dp_div_style),
                                             html.Div([
-                                                dcc.Input(
+                                                dcc.Input(required = True,
                                                 id={'type':'ip2',
                                                     'index': '0602'},
                                                 type='number',
@@ -422,7 +422,7 @@ def create_0603(output_count):
                                                 style=self_style.dropdown_style),
                                             ],style=self_style.dp_div_style),
                                             html.Div([
-                                                dcc.Input(
+                                                dcc.Input(required = True,
                                                 id={'type':'ip',
                                                     'index': '0603'},
                                                 type='number',
@@ -449,7 +449,7 @@ def create_0604(output_count):
                                         html.Span([
                                             html.P('近', style=self_style.text_normal),
                                             html.Div([
-                                                dcc.Input(
+                                                dcc.Input(required = True,
                                                 id={'type':'ip1',
                                                     'index': '0604'},
                                                 type='number',
@@ -488,7 +488,7 @@ def create_0604(output_count):
                                                 style=self_style.dropdown_style),
                                             ],style=self_style.dp_div_style),
                                             html.Div([
-                                                dcc.Input(
+                                                dcc.Input(required = True,
                                                 id={'type':'ip2',
                                                     'index': '0604'},
                                                 type='number',
@@ -516,7 +516,7 @@ def create_0605(output_count):
                                         html.Span([
                                             html.P('營業毛利率連續', style=self_style.text_normal),
                                             html.Div([
-                                                dcc.Input(
+                                                dcc.Input(required = True,
                                                 id={'type':'ip1',
                                                     'index': '0605'},
                                                 type='number',
@@ -554,7 +554,7 @@ def create_0605(output_count):
                                                 style=self_style.dropdown_style),
                                             ],style=self_style.dp_div_style),
                                             html.Div([
-                                                dcc.Input(
+                                                dcc.Input(required = True,
                                                 id={'type':'ip2',
                                                     'index': '0605'},
                                                 type='number',
@@ -610,7 +610,7 @@ def create_0606(output_count):
                                                 style=self_style.dropdown_style),
                                             ],style=self_style.dp_div_style),
                                             html.Div([
-                                                dcc.Input(
+                                                dcc.Input(required = True,
                                                 id={'type':'ip',
                                                     'index': '0606'},
                                                 type='number',
@@ -637,7 +637,7 @@ def create_0607(output_count):
                                         html.Span([
                                             html.P('近', style=self_style.text_normal),
                                             html.Div([
-                                                dcc.Input(
+                                                dcc.Input(required = True,
                                                 id={'type':'ip1',
                                                     'index': '0607'},
                                                 type='number',
@@ -676,7 +676,7 @@ def create_0607(output_count):
                                                 style=self_style.dropdown_style),
                                             ],style=self_style.dp_div_style),
                                             html.Div([
-                                                dcc.Input(
+                                                dcc.Input(required = True,
                                                 id={'type':'ip2',
                                                     'index': '0607'},
                                                 type='number',
@@ -704,7 +704,7 @@ def create_0608(output_count):
                                         html.Span([
                                             html.P('營業利益率連續', style=self_style.text_normal),
                                             html.Div([
-                                                dcc.Input(
+                                                dcc.Input(required = True,
                                                 id={'type':'ip1',
                                                     'index': '0608'},
                                                 type='number',
@@ -742,7 +742,7 @@ def create_0608(output_count):
                                                 style=self_style.dropdown_style),
                                             ],style=self_style.dp_div_style),
                                             html.Div([
-                                                dcc.Input(
+                                                dcc.Input(required = True,
                                                 id={'type':'ip2',
                                                     'index': '0608'},
                                                 type='number',
@@ -798,7 +798,7 @@ def create_0609(output_count):
                                                 style=self_style.dropdown_style),
                                             ],style=self_style.dp_div_style),
                                             html.Div([
-                                                dcc.Input(
+                                                dcc.Input(required = True,
                                                 id={'type':'ip',
                                                     'index': '0609'},
                                                 type='number',
@@ -825,7 +825,7 @@ def create_0610(output_count):
                                         html.Span([
                                             html.P('近', style=self_style.text_normal),
                                             html.Div([
-                                                dcc.Input(
+                                                dcc.Input(required = True,
                                                 id={'type':'ip1',
                                                     'index': '0610'},
                                                 type='number',
@@ -864,7 +864,7 @@ def create_0610(output_count):
                                                 style=self_style.dropdown_style),
                                             ],style=self_style.dp_div_style),
                                             html.Div([
-                                                dcc.Input(
+                                                dcc.Input(required = True,
                                                 id={'type':'ip2',
                                                     'index': '0610'},
                                                 type='number',
@@ -892,7 +892,7 @@ def create_0611(output_count):
                                         html.Span([
                                             html.P('稅後淨利率連續', style=self_style.text_normal),
                                             html.Div([
-                                                dcc.Input(
+                                                dcc.Input(required = True,
                                                 id={'type':'ip1',
                                                     'index': '0611'},
                                                 type='number',
@@ -930,7 +930,7 @@ def create_0611(output_count):
                                                 style=self_style.dropdown_style),
                                             ],style=self_style.dp_div_style),
                                             html.Div([
-                                                dcc.Input(
+                                                dcc.Input(required = True,
                                                 id={'type':'ip2',
                                                     'index': '0611'},
                                                 type='number',
@@ -986,7 +986,7 @@ def create_0612(output_count):
                                                 style=self_style.dropdown_style),
                                             ],style=self_style.dp_div_style),
                                             html.Div([
-                                                dcc.Input(
+                                                dcc.Input(required = True,
                                                 id={'type':'ip',
                                                     'index': '0612'},
                                                 type='number',

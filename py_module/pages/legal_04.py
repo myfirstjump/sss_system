@@ -133,7 +133,7 @@ def create_0401(output_count):
                                         html.Span([
                                             html.P('外資', style=self_style.text_normal),
                                             html.Div([
-                                                dcc.Input(
+                                                dcc.Input(required = True,
                                                 id={'type':'ip1',
                                                     'index': '0401'},
                                                 type='number',
@@ -188,7 +188,7 @@ def create_0401(output_count):
                                                 style=self_style.dropdown_style),
                                             ],style=self_style.dp_div_style),    
                                             html.Div([
-                                                dcc.Input(
+                                                dcc.Input(required = True,
                                                 id={'type':'ip2',
                                                     'index': '0401'},
                                                 type='number',
@@ -216,7 +216,7 @@ def create_0402(output_count):
                                         html.Span([
                                             html.P('外資', style=self_style.text_normal),
                                             html.Div([
-                                                dcc.Input(
+                                                dcc.Input(required = True,
                                                 id={'type':'ip1',
                                                     'index': '0402'},
                                                 type='number',
@@ -271,7 +271,7 @@ def create_0402(output_count):
                                                 style=self_style.dropdown_style),
                                             ],style=self_style.dp_div_style),
                                             html.Div([
-                                                dcc.Input(
+                                                dcc.Input(required = True,
                                                 id={'type':'ip2',
                                                     'index': '0402'},
                                                 type='number',
@@ -299,7 +299,7 @@ def create_0403(output_count):
                                         html.Span([
                                             html.P('投信', style=self_style.text_normal),
                                             html.Div([
-                                                dcc.Input(
+                                                dcc.Input(required = True,
                                                 id={'type':'ip1',
                                                     'index': '0403'},
                                                 type='number',
@@ -354,7 +354,7 @@ def create_0403(output_count):
                                                 style=self_style.dropdown_style),
                                             ],style=self_style.dp_div_style),                                          
                                             html.Div([
-                                                dcc.Input(
+                                                dcc.Input(required = True,
                                                 id={'type':'ip2',
                                                     'index': '0403'},
                                                 type='number',
@@ -382,7 +382,7 @@ def create_0404(output_count):
                                         html.Span([
                                             html.P('投信', style=self_style.text_normal),
                                             html.Div([
-                                                dcc.Input(
+                                                dcc.Input(required = True,
                                                 id={'type':'ip1',
                                                     'index': '0404'},
                                                 type='number',
@@ -439,7 +439,7 @@ def create_0404(output_count):
                                             
 
                                             html.Div([
-                                                dcc.Input(
+                                                dcc.Input(required = True,
                                                 id={'type':'ip2',
                                                     'index': '0404'},
                                                 type='number',
@@ -467,7 +467,7 @@ def create_0405(output_count):
                                         html.Span([
                                             html.P('自營商', style=self_style.text_normal),
                                             html.Div([
-                                                dcc.Input(
+                                                dcc.Input(required = True,
                                                 id={'type':'ip1',
                                                     'index': '0405'},
                                                 type='number',
@@ -524,7 +524,7 @@ def create_0405(output_count):
                                             
 
                                             html.Div([
-                                                dcc.Input(
+                                                dcc.Input(required = True,
                                                 id={'type':'ip2',
                                                     'index': '0405'},
                                                 type='number',
@@ -552,7 +552,7 @@ def create_0406(output_count):
                                         html.Span([
                                             html.P('自營商', style=self_style.text_normal),
                                             html.Div([
-                                                dcc.Input(
+                                                dcc.Input(required = True,
                                                 id={'type':'ip1',
                                                     'index': '0406'},
                                                 type='number',
@@ -609,7 +609,7 @@ def create_0406(output_count):
                                             
 
                                             html.Div([
-                                                dcc.Input(
+                                                dcc.Input(required = True,
                                                 id={'type':'ip2',
                                                     'index': '0406'},
                                                 type='number',
