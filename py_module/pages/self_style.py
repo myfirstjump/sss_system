@@ -336,7 +336,7 @@ text_normal = {
 
 text_bold = {
     'display': 'inline-block',
-    'font-weight':'bold',
+    'font-weight':'900',
     'padding':'0px 5px 0px 5px',
     #'height':'25px',
     #'border':'solid 1px',
@@ -345,7 +345,7 @@ text_bold = {
 
 text_color_bold = {
     'display': 'inline-block',
-    'font-weight':'bold',
+    'font-weight':'900',
     'padding':'0px 5px 0px 5px',
     #'height':'25px',
     #'border':'solid 1px',
