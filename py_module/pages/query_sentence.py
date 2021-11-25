@@ -183,17 +183,17 @@ def create_query_0108(numbers, larger, percent):
     ref_table = basic_info_finDetail_y
 
     query = '''(SELECT stock_id, AVG(after_return_last_year_ratio) [平均ROE成長%],
-    case
-    when sum(each_remark) > 0 then CAST('含ROE負轉正；' AS NVARCHAR(100))
-    end remark
+    CASE
+    WHEN SUM(each_remark) > 0 THEN CAST('含ROE負轉正；' AS NVARCHAR(100))
+    END remark
     FROM
     (SELECT t1.*,  ROW_NUMBER() OVER(PARTITION BY t1.stock_id ORDER BY t1.[date] DESC) row_num,
-    case
-    when t1.After_Return > 0 and t2.After_Return < 0 then 1
-    else 0
-    end each_remark
+    CASE
+    WHEN t1.After_Return > 0 and t2.After_Return < 0 then 1
+    ELSE 0
+    END each_remark
     FROM {} t1 WITH(NOLOCK)
-    left join {} t2 WITH(NOLOCK) on t1.stock_id = t2.stock_id and t1.date = dateadd(y, 1, t2.date)
+    LEFT JOIN {} t2 WITH(NOLOCK) on t1.stock_id = t2.stock_id and t1.date = dateadd(y, 1, t2.date)
     ) part_tbl
     WHERE part_tbl.row_num <= {} AND after_return_last_year_ratio {} {}
     GROUP BY stock_id HAVING COUNT(row_num) = {})
