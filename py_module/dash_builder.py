@@ -1462,7 +1462,7 @@ def generate_table(stock_data, max_rows=5000):
     return dash_table.DataTable(
                     columns = [{"name": i, "id": i} for i in stock_data.columns],
                     data=stock_data.to_dict('records'),
-                    fixed_rows={'headers': True},
+                    fixed_rows={'headers': True}, #固定表頭
                      
                     #style_header : header, style_data : data, style_cell : cells & header一起調整
                     style_header={
@@ -1470,7 +1470,7 @@ def generate_table(stock_data, max_rows=5000):
                         'fontWeight': 'bold',
                     }, 
                     style_data={}, 
-                    style_cell={'minWidth': '90px', 'maxWidth': '300px', 'fontSize': '20px'}, 
+                    style_cell={'fontSize': '20px', 'height': 'auto', 'whiteSpace': 'normal'}, 
                     style_table={'overflowX': 'auto'},
                     # style_as_list_view=True, #移除column分隔線
 
