@@ -1473,7 +1473,7 @@ def generate_table(stock_data, max_rows=5000):
                     style_cell={'fontSize': '20px', 'height': 'auto', 'whiteSpace': 'normal'}, 
                     style_table={'overflowX': 'auto'},
                     # style_as_list_view=True, #移除column分隔線
-                    fill_width = False,
+                    # fill_width = False,
                 )
 
 def stock_classifier(data):
