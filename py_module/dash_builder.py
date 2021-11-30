@@ -144,10 +144,10 @@ class DashBuilder(object):
                         
                         dcc.Tabs(id='results-tabs', value='dynamic-selection-result-twse', # value是預設顯示值
                             children=[
-                                dcc.Tab(label='台灣證券交易所 TWSE (上市)', value='dynamic-selection-result-twse', style=self_style.result_words),
-                                dcc.Tab(label='櫃買中心 TPEX (上櫃)', value='dynamic-selection-result-tpex', style=self_style.result_words),
-                                dcc.Tab(label='上市 ETF', value='dynamic-selection-result-twse-etf', style=self_style.result_words),
-                                dcc.Tab(label='上櫃 ETF', value='dynamic-selection-result-tpex-etf', style=self_style.result_words),
+                                dcc.Tab(label='台灣證券交易所 TWSE (上市)', id='dynamic-selection-result-twse', value='dynamic-selection-result-twse', style=self_style.result_words, selected_style=self_style.result_words_onclick),
+                                dcc.Tab(label='櫃買中心 TPEX (上櫃)', id='dynamic-selection-result-tpex', value='dynamic-selection-result-tpex', style=self_style.result_words, selected_style=self_style.result_words_onclick),
+                                dcc.Tab(label='上市 ETF', id='dynamic-selection-result-twse-etf', value='dynamic-selection-result-twse-etf', style=self_style.result_words, selected_style=self_style.result_words_onclick),
+                                dcc.Tab(label='上櫃 ETF', id='dynamic-selection-result-tpex-etf', value='dynamic-selection-result-tpex-etf', style=self_style.result_words, selected_style=self_style.result_words_onclick),
                         ]),
                         dcc.Loading(
                             id='result-content-loading',
@@ -1444,13 +1444,17 @@ class DashBuilder(object):
                         df_etf_tpex = generate_table(df_etf_tpex)
                     
                 if tab_value == 'dynamic-selection-result-twse':
+                    style_1 = self_style.result_words_onclick
                     return df_twse
                 elif tab_value == 'dynamic-selection-result-tpex':
+                    style_2 = self_style.result_words_onclick
                     return df_tpex
                 elif tab_value == 'dynamic-selection-result-twse-etf':
-                    return df_etf_twse 
+                    style_3 = self_style.result_words_onclick
+                    return df_etf_twse
                 else:
-                    return df_etf_tpex 
+                    style_4 = self_style.result_words_onclick
+                    return df_etf_tpex
 
                 # my_table, _, _, _ = stock_classifier(stock_data)
                 # print(my_table.head(5))

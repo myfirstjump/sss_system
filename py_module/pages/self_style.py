@@ -11,7 +11,7 @@ filter_condition_bg = '#212130' #2
 inner_frame_bg = '#17171E' #3
 item_bg = '#A9DBFC' #4
 result_bg = '#2E2E40' #5
-result_words = '#F93A0B' #6
+result_words = '#2399E7' #6
 
 header_div_style = {
     'background-color': top_div_bg,
@@ -31,7 +31,7 @@ top_div_style = {
 }
 
 top_frame_style = {
-    'width': '99%', 
+    'width': '97%', 
     'height': '1300px', 
     'margin':'auto', 
     'padding':'1%',   
@@ -186,6 +186,7 @@ dynamic_output_container_style = {
 }
 
 item_style = {
+    'font-size':'18px',
     'margin':'1% 2%',
     'padding':'0% 2%',
     #'border':'solid 1px',#bfd5f5',
@@ -198,6 +199,7 @@ item_style = {
 }
 
 output_item_style = {
+    'font-size':'18px',
     'margin':'1% 1%',
     'padding':'0% 1%',
     #'border':'solid 1px',#bfd5f5',
@@ -360,7 +362,23 @@ text_color_bold = {
 
 
 result_words = {
-    'color': result_words
+    'font-size': '20px',
+    'color': result_words,
+    'background-color': '#192340',
+    'border-color': result_words,
+    # 'border-right': '#2399E7',
+    'border-top': 'hidden',
+    'border-bottom': 'hidden',
+}
+
+result_words_onclick = {
+    'font-size': '20px',
+    'color': '#E1EBF9',
+    'background-color': '#33A7ED',
+    'border-color': result_words,
+    # 'border-right': '#2399E7',
+    'border-top': 'hidden',
+    'border-bottom': 'hidden',
 }
 
 td_style = {
