@@ -129,6 +129,7 @@ result_content = {
     'font-size': '28px',
     'color': 'white',
     'height': '500px',
+    'background-color': '#17171E',
     # 'border': 'solid 1px white',
     # 'overflow': 'auto',
 }
