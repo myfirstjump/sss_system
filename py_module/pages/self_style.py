@@ -337,7 +337,7 @@ text_normal = {
     'display': 'inline-block',
     #'height':'25px',
     #'border':'solid 1px',
-    'font-size':'15px',
+    'font-size':'17px',
 }
 
 text_bold = {
@@ -346,7 +346,7 @@ text_bold = {
     # 'padding':'0px 5px 0px 5px',
     #'height':'25px',
     #'border':'solid 1px',
-    'font-size':'15px',
+    'font-size':'17px',
 }
 
 text_color_bold = {
@@ -355,7 +355,7 @@ text_color_bold = {
     # 'padding':'0px 5px 0px 5px',
     #'height':'25px',
     #'border':'solid 1px',
-    'font-size':'15px',
+    'font-size':'17px',
     'color': '#FF0000',
 }
 
