@@ -129,7 +129,7 @@ result_content = {
     'font-size': '28px',
     'color': 'black',
     'height': '500px',
-    'background-color': '#17171E',
+    # 'background-color': '#17171E',
     # 'border': 'solid 1px white',
 }
 
@@ -138,7 +138,7 @@ result_content_only_words = {
     'font-size': '28px',
     'color': 'white',
     'height': '500px',
-    'background-color': '#17171E',
+    # 'background-color': '#17171E',
     # 'border': 'solid 1px white',
 }
 
