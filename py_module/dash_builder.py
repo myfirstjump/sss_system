@@ -1409,8 +1409,8 @@ class DashBuilder(object):
                     else:
                         pass
                     
-                print('Query Dict:', query_dict)
-                print('Column Name Dict:', col_name_dict)
+                # print('Query Dict:', query_dict)
+                # print('Column Name Dict:', col_name_dict)
                 total_query = query_sentence.query_combine(query_dict, col_name_dict)
                 
                 print('Final Query:', total_query)
@@ -1422,7 +1422,7 @@ class DashBuilder(object):
                     data = pd.DataFrame.from_records(data)
                     df_twse, df_tpex, df_etf_twse, df_etf_tpex = stock_classifier(data)
                     print(df_twse.head(5))
-                    df_twse.to_csv('test_file.csv')
+                    # df_twse.to_csv('test_file.csv')
                     if df_twse.shape[0] == 0:
                         df_twse = '無符合項目'
                     else:
@@ -1444,16 +1444,12 @@ class DashBuilder(object):
                         df_etf_tpex = generate_table(df_etf_tpex)
                     
                 if tab_value == 'dynamic-selection-result-twse':
-                    style_1 = self_style.result_words_onclick
                     return df_twse
                 elif tab_value == 'dynamic-selection-result-tpex':
-                    style_2 = self_style.result_words_onclick
                     return df_tpex
                 elif tab_value == 'dynamic-selection-result-twse-etf':
-                    style_3 = self_style.result_words_onclick
                     return df_etf_twse
                 else:
-                    style_4 = self_style.result_words_onclick
                     return df_etf_tpex
 
                 # my_table, _, _, _ = stock_classifier(stock_data)
