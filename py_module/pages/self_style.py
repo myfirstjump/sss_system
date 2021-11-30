@@ -9,7 +9,7 @@ top_div_bg = '#212130' #1
 
 filter_condition_bg = '#212130' #2
 inner_frame_bg = '#17171E' #3
-item_bg = '#83CEFF' #4
+item_bg = '#A9DBFC' #4
 result_bg = '#2E2E40' #5
 result_words = '#F93A0B' #6
 
@@ -46,10 +46,10 @@ menu_style = {
     # 'border-radius':'15px',
     'width': '10%', 
     'height': '1300px', 
-    'margin':'1%', 
+    # 'margin':'1%', 
     'display':'inline-block',
     'verticalAlign':'middle',
-    # 'border':'solid 1px',
+    #'border':'solid 1px',
 }
 
 inner_frame_style = {
@@ -59,37 +59,31 @@ inner_frame_style = {
     'margin': '1%',
     'display':'inline-block',
     'verticalAlign':'middle',
-    # 'border':'solid 1px',
+    #'border':'solid 1px',
 }
 
 filter_frame = {
     'background-color': filter_condition_bg, 
     'width': '37%', 
-    'height': '35%', 
+    'height': '40%', 
     'overflow': 'auto',
     'margin': '1%',
     'verticalAlign':'middle',
     'display':'inline-block',
-
-    
     'border-radius':'5px',
-
-    # 'border':'solid 1px',  
+    #'border':'solid 1px',  
 }
 
 condition_frame = {
     'background-color': filter_condition_bg, #E9D9D9
     'width': '57%', 
-    'height': '35%',
+    'height': '40%',
     'overflow': 'auto',
     'margin': '1%',
     'verticalAlign': "middle",
     'display': 'inline-block',
-
-
     'border-radius':'5px',
-    
-    # 'border':'solid 1px',
+    #'border':'solid 1px',
 }
 
 selection_btn = {
@@ -101,7 +95,7 @@ selection_btn = {
 result_frame = { 
     'background-color': filter_condition_bg, 
     'width': '96%', 
-    'height': '60%',
+    'height': '55%',
     'border-radius':'8px', 
     'margin':'1%',
     'display':'inline-block',
@@ -133,7 +127,7 @@ result_div_etf = {
 result_content = {
     'margin': '2%',
     'font-size': '28px',
-    # 'color': 'white',
+    'color': 'white',
     'height': '500px',
     # 'border': 'solid 1px white',
     # 'overflow': 'auto',
@@ -143,16 +137,23 @@ menu_btn = {
     'background-color': top_div_bg,
     'color': 'white',
     'border': 'hidden',
-    'margin': '2px auto',
+    # 'margin': '2px auto',
+    'width': '100%', 
+    'height': '100%',
     'font-size': '20px',
+    'verticalAlign':'middle',
 }
 
 menu_btn_onclick = {
-    'background-color': '#EA5716', # 橘色
-    'color': 'white',
+    'background-color': 'white',
+    'color': 'black',
     'border': 'hidden',
-    'margin': '2px auto',
+    # 'margin': '2px auto',
+    'width': '100%', 
+    'height': '100%',
     'font-size': '20px',
+    'font-weight': '700',
+    'verticalAlign':'middle',
 }
 
 menu_arrow = {
@@ -168,7 +169,7 @@ frame_text_style = {
     'font-size': '20px',
     'color': 'white',
     'verticalAlign':'middle',
-    'margin': '1%'
+    'margin': '1%',
     # 'border-bottom': 'dashed 5px #B2CCF2',
     # 'border-radius':'20px',
     #'border':'solid 1px',  
@@ -187,25 +188,25 @@ dynamic_output_container_style = {
 item_style = {
     'margin':'1% 2%',
     'padding':'0% 2%',
-    'border':'solid 1px',#bfd5f5',
+    #'border':'solid 1px',#bfd5f5',
     'border-color': border_code,
     'border-radius':'5px',
     'background-color': item_bg,
     'display':'inline-block',
     'width': '75%',
-    'border':'solid 1px black',  
+    #'border':'solid 1px',  
 }
 
 output_item_style = {
     'margin':'1% 1%',
     'padding':'0% 1%',
-    'border':'solid 1px',#bfd5f5',
+    #'border':'solid 1px',#bfd5f5',
     'border-color': border_code,
     'border-radius':'5px',
     'background-color': item_bg,
     'display':'inline-block',
     'width': '82%',
-    'border':'solid 1px black',  
+    #'border':'solid 1px',  
 }
 
 button_style = {
@@ -220,9 +221,12 @@ button_style = {
 }
 
 link_div_style = {
-    'margin':'5%',
-    'padding':'5%',
-    #'border':'solid 1px',  
+    # 'background-color': '#090101', # 橘色
+    # 'margin':'0%',
+    # 'padding':'0%',
+    #'border':'solid 1px', 
+    'width': '100%', 
+    'height': '7%',
 }
 
 dropdown_style = {
@@ -255,7 +259,7 @@ short_dropdown_style = {
 dp_div_style = { #dropdown外層div
     'verticalAlign': 'middle', 
     'display':'inline-block',
-    'border':'solid 1px',
+    #'border':'solid 1px',
     'border-color': emphsis_code,
     'border-radius': '7px',
     'margin': '1%',
@@ -301,7 +305,7 @@ ipt_div_style = {
     'verticalAlign': 'middle', 
     'display':'inline-block',
     'width':'95px',# input_style 80px大一些
-    'border':'solid 1px',
+    #'border':'solid 1px',
     'border-color': emphsis_code,
     'border-radius': '7px',
     'margin': '1%'
@@ -311,7 +315,7 @@ short_ipt_div_style = {
     'verticalAlign': 'middle', 
     'display':'inline-block',
     'width':'55px', # 要較short_input_style 40px大一些
-    'border':'solid 1px',
+    #'border':'solid 1px',
     'border-color': emphsis_code,
     'border-radius': '7px',
     'margin': '1%'
@@ -321,7 +325,7 @@ large_ipt_div_style = {
     'verticalAlign': 'middle', 
     'display':'inline-block',
     'width':'135px', # 要較large_input_style 40px大一些
-    'border':'solid 1px',
+    #'border':'solid 1px',
     'border-color': emphsis_code,
     'border-radius': '7px',
     'margin': '1%'

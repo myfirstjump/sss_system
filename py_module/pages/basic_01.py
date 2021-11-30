@@ -16,7 +16,7 @@ def create_filters(button_id):
                             [
                                 html.Div([
                                     html.Span([
-                                        html.P('公司隸屬產業別篩選', style=self_style.text_normal),
+                                        html.P('公司隸屬', style=self_style.text_normal),
                                         html.P('產業別', style=self_style.text_bold),
                                         html.P('篩選', style=self_style.text_normal),
                                     ], style=self_style.item_style),

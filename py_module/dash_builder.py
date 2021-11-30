@@ -56,54 +56,58 @@ class DashBuilder(object):
                 html.Div([
                     html.Div([ # menu-1
                         html.Button(
-                            ["基本資訊", html.Img(src=self.arrow_img, style=self_style.menu_arrow)],
+                            ["基本資訊　＞",],
                             id='01-btn',
                             n_clicks=0,
                             title='展開基本資訊選項',
-                            className='menu-btn',
                             style=self_style.menu_btn,
                         ),                        
                     ],  
                     style=self_style.link_div_style),
+                    html.Br(),
                     html.Div([ # menu-2
                         html.Button(
-                            ["股價條件", html.Img(src=self.arrow_img, style=self_style.menu_arrow),],
+                            ["股價條件　＞"],
                             id='02-btn',
                             title='展開股價條件選項',
                             className='menu-btn'
                         ),                        
                     ],
                     style=self_style.link_div_style),
+                    html.Br(),
                     html.Div([ # menu-3
                         html.Button(
-                            ["成交量值", html.Img(src=self.arrow_img, style=self_style.menu_arrow),],
+                            ["成交量值　＞"],
                             id='03-btn',
                             title='展開成交量值選項',
                             className='menu-btn'
                         ),                        
                     ],
                     style=self_style.link_div_style),
+                    html.Br(),
                     html.Div([ # menu-4
                         html.Button(
-                            ["法人籌碼", html.Img(src=self.arrow_img, style=self_style.menu_arrow),],
+                            ["法人籌碼　＞"],
                             id='04-btn',
                             title='展開法人籌碼選項',
                             className='menu-btn'
                         ),                        
                     ],
                     style=self_style.link_div_style),
+                    html.Br(),
                     html.Div([ # menu-5
                         html.Button(
-                            ["信用交易", html.Img(src=self.arrow_img, style=self_style.menu_arrow),],
+                            ["信用交易　＞"],
                             id='05-btn',
                             title='展開信用交易選項',
                             className='menu-btn'
                         ),                        
                     ],
                     style=self_style.link_div_style),
+                    html.Br(),
                     html.Div([ # menu-6
                         html.Button(
-                            ["公司營收", html.Img(src=self.arrow_img, style=self_style.menu_arrow),],
+                            ["公司營收　＞"],
                             id='06-btn',
                             title='展開公司營收選項',
                             className='menu-btn'
