@@ -343,7 +343,7 @@ text_normal = {
 text_bold = {
     'display': 'inline-block',
     'font-weight':'900',
-    'padding':'0px 5px 0px 5px',
+    # 'padding':'0px 5px 0px 5px',
     #'height':'25px',
     #'border':'solid 1px',
     'font-size':'15px',
@@ -352,7 +352,7 @@ text_bold = {
 text_color_bold = {
     'display': 'inline-block',
     'font-weight':'900',
-    'padding':'0px 5px 0px 5px',
+    # 'padding':'0px 5px 0px 5px',
     #'height':'25px',
     #'border':'solid 1px',
     'font-size':'15px',
@@ -363,6 +363,7 @@ text_color_bold = {
 
 result_words = {
     'font-size': '20px',
+    'font-weight':'900',
     'color': result_words,
     'background-color': '#192340',
     'border-color': result_words,
@@ -373,6 +374,7 @@ result_words = {
 
 result_words_onclick = {
     'font-size': '20px',
+    'font-weight':'900',
     'color': '#E1EBF9',
     'background-color': '#33A7ED',
     'border-color': result_words,
