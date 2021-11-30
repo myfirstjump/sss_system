@@ -1105,6 +1105,7 @@ class DashBuilder(object):
  
         @self.app.callback(
             Output('result-content', 'children'),
+            Output('result-content', 'style'),
             Input('selection-btn', 'n_clicks'),
             Input('results-tabs', 'value'),
             State({'type': ALL, 'index': '0101'}, 'value'), State({'type': ALL, 'index': '0102'}, 'value'), State({'type': ALL, 'index': '0103'}, 'value'), State({'type': ALL, 'index': '0104'}, 'value'), State({'type': ALL, 'index': '0105'}, 'value'), State({'type': ALL, 'index': '0106'}, 'value'), State({'type': ALL, 'index': '0107'}, 'value'), State({'type': ALL, 'index': '0108'}, 'value'), State({'type': ALL, 'index': '0109'}, 'value'), State({'type': ALL, 'index': '0110'}, 'value'), 
@@ -1417,40 +1418,40 @@ class DashBuilder(object):
                 data = query_sentence.sql_execute(total_query)
                 
                 if len(data) == 0:
-                    return '無符合項目'
+                    return '無符合項目', self_style.result_content_only_words
                 else:
                     data = pd.DataFrame.from_records(data)
                     df_twse, df_tpex, df_etf_twse, df_etf_tpex = stock_classifier(data)
                     print(df_twse.head(5))
                     # df_twse.to_csv('test_file.csv')
                     if df_twse.shape[0] == 0:
-                        df_twse = '無符合項目'
+                        df_twse = '無符合項目', self_style.result_content_only_words
                     else:
                         df_twse = generate_table(df_twse)
                     
                     if df_tpex.shape[0] == 0:
-                        df_tpex = '無符合項目'
+                        df_tpex = '無符合項目', self_style.result_content_only_words
                     else:
                         df_tpex = generate_table(df_tpex)
                     
                     if df_etf_twse.shape[0] == 0:
-                        df_etf_twse = '無符合項目'
+                        df_etf_twse = '無符合項目', self_style.result_content_only_words
                     else:
                         df_etf_twse = generate_table(df_etf_twse)
                     
                     if df_etf_tpex.shape[0] == 0:
-                        df_etf_tpex = '無符合項目'
+                        df_etf_tpex = '無符合項目', self_style.result_content_only_words
                     else:
                         df_etf_tpex = generate_table(df_etf_tpex)
                     
                 if tab_value == 'dynamic-selection-result-twse':
-                    return df_twse
+                    return df_twse, self_style.result_content
                 elif tab_value == 'dynamic-selection-result-tpex':
-                    return df_tpex
+                    return df_tpex, self_style.result_content
                 elif tab_value == 'dynamic-selection-result-twse-etf':
-                    return df_etf_twse
+                    return df_etf_twse, self_style.result_content
                 else:
-                    return df_etf_tpex
+                    return df_etf_tpex, self_style.result_content
 
                 # my_table, _, _, _ = stock_classifier(stock_data)
                 # print(my_table.head(5))
@@ -1460,7 +1461,7 @@ class DashBuilder(object):
                 # return total_query
                 # return ['{}\n'.format(i) for i in range(9999)]
             else:
-                return ''
+                return '', self_style.result_content
 
         self.app.run_server(debug=True, dev_tools_hot_reload=True)#, dev_tools_ui=False, dev_tools_props_check=False)
 

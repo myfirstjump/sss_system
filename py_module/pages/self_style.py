@@ -127,11 +127,19 @@ result_div_etf = {
 result_content = {
     'margin': '2%',
     'font-size': '28px',
+    'color': 'black',
+    'height': '500px',
+    'background-color': '#17171E',
+    # 'border': 'solid 1px white',
+}
+
+result_content_only_words = {
+    'margin': '2%',
+    'font-size': '28px',
     'color': 'white',
     'height': '500px',
     'background-color': '#17171E',
     # 'border': 'solid 1px white',
-    # 'overflow': 'auto',
 }
 
 menu_btn = {
