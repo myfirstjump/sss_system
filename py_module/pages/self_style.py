@@ -26,14 +26,13 @@ header_text_style = {
 
 top_div_style = {
     'background-color': top_div_bg,
-    'height': '1500px', 
+    'height': '1400px', 
     #'border':'solid 1px',  
 }
 
 top_frame_style = {
     'width': '97%', 
-    'height': '1400px', 
-    'margin':'auto', 
+    'height': '1300', 
     'padding':'1%',   
     'background-color': top_div_bg,  
     #'border':'solid 1px',        
@@ -55,7 +54,7 @@ menu_style = {
 inner_frame_style = {
     'background-color': inner_frame_bg,
     'width': '85%', 
-    'height': '1400px',
+    'height': '1300px',
     'margin': '1%',
     'display':'inline-block',
     'verticalAlign':'middle',
@@ -186,12 +185,17 @@ frame_text_style = {
 
 dynamic_output_container_style = {
     'width': '95%', 
-    'height': '75%', 
+    'height': '78%', 
     'margin':'left', 
     'padding':'1%',
     'display':'inline-block',
     'verticalAlign':'middle',
     'overflow': 'auto',
+}
+
+selection_btn_div_style = {
+    'height': '18%',
+    'display':'inline-block',
 }
 
 item_style = {

@@ -136,7 +136,7 @@ class DashBuilder(object):
                                 id='clear-all-btn',
                                 style=self_style.selection_btn,
                                 className='clear-btn')
-                        ]),
+                        ], self_style.selection_btn_div_style),
                     ], style=self_style.condition_frame),
 
                     html.Div([
