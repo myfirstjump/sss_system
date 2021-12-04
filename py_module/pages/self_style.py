@@ -186,7 +186,7 @@ frame_text_style = {
 
 dynamic_output_container_style = {
     'width': '95%', 
-    'height': '70%', 
+    'height': '75%', 
     'margin':'left', 
     'padding':'1%',
     'display':'inline-block',
