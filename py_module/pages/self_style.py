@@ -65,7 +65,7 @@ inner_frame_style = {
 filter_frame = {
     'background-color': filter_condition_bg, 
     'width': '37%', 
-    'height': '40%', 
+    'height': '42%', 
     'overflow': 'auto',
     'margin': '1%',
     'verticalAlign':'middle',
@@ -77,7 +77,7 @@ filter_frame = {
 condition_frame = {
     'background-color': filter_condition_bg, #E9D9D9
     'width': '57%', 
-    'height': '40%',
+    'height': '42%',
     'overflow': 'auto',
     'margin': '1%',
     'verticalAlign': "middle",
