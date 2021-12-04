@@ -185,8 +185,8 @@ frame_text_style = {
 
 dynamic_output_container_style = {
     'width': '95%', 
-    'height': '78%', 
-    'margin':'left', 
+    'height': '72%', 
+    # 'margin':'left', 
     'padding':'1%',
     'display':'inline-block',
     'verticalAlign':'middle',
@@ -194,8 +194,9 @@ dynamic_output_container_style = {
 }
 
 selection_btn_div_style = {
-    'height': '18%',
+    'height': '12%',
     'display':'inline-block',
+    'verticalAlign': 'bottom',
 }
 
 item_style = {
