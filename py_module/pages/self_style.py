@@ -32,7 +32,7 @@ top_div_style = {
 
 top_frame_style = {
     'width': '97%', 
-    'height': '1300px', 
+    'height': '1400px', 
     'margin':'auto', 
     'padding':'1%',   
     'background-color': top_div_bg,  
