@@ -64,7 +64,7 @@ class DashBuilder(object):
                         ),                        
                     ],  
                     style=self_style.link_div_style),
-                    html.Br(),
+                    # html.Br(),
                     html.Div([ # menu-2
                         html.Button(
                             ["股價條件　＞"],
@@ -74,7 +74,7 @@ class DashBuilder(object):
                         ),                        
                     ],
                     style=self_style.link_div_style),
-                    html.Br(),
+                    # html.Br(),
                     html.Div([ # menu-3
                         html.Button(
                             ["成交量值　＞"],
@@ -84,7 +84,7 @@ class DashBuilder(object):
                         ),                        
                     ],
                     style=self_style.link_div_style),
-                    html.Br(),
+                    # html.Br(),
                     html.Div([ # menu-4
                         html.Button(
                             ["法人籌碼　＞"],
@@ -94,7 +94,7 @@ class DashBuilder(object):
                         ),                        
                     ],
                     style=self_style.link_div_style),
-                    html.Br(),
+                    # html.Br(),
                     html.Div([ # menu-5
                         html.Button(
                             ["信用交易　＞"],
@@ -104,7 +104,7 @@ class DashBuilder(object):
                         ),                        
                     ],
                     style=self_style.link_div_style),
-                    html.Br(),
+                    # html.Br(),
                     html.Div([ # menu-6
                         html.Button(
                             ["公司營收　＞"],

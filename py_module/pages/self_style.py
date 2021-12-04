@@ -237,7 +237,7 @@ link_div_style = {
     # 'padding':'0%',
     #'border':'solid 1px', 
     'width': '100%', 
-    'height': '7%',
+    'height': '4%',
 }
 
 dropdown_style = {
