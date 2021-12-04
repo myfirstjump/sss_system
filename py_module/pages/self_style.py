@@ -185,7 +185,7 @@ frame_text_style = {
 
 dynamic_output_container_style = {
     'width': '95%', 
-    'height': '72%', 
+    'height': '68%', 
     # 'margin':'left', 
     'padding':'1%',
     'display':'inline-block',
@@ -194,7 +194,7 @@ dynamic_output_container_style = {
 }
 
 selection_btn_div_style = {
-    'height': '12%',
+    'height': '10%',
     'display':'inline-block',
     'verticalAlign': 'bottom',
 }
