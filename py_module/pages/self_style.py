@@ -55,7 +55,7 @@ menu_style = {
 inner_frame_style = {
     'background-color': inner_frame_bg,
     'width': '85%', 
-    'height': '1300px',
+    'height': '1400px',
     'margin': '1%',
     'display':'inline-block',
     'verticalAlign':'middle',
@@ -65,7 +65,7 @@ inner_frame_style = {
 filter_frame = {
     'background-color': filter_condition_bg, 
     'width': '37%', 
-    'height': '42%', 
+    'height': '45%', 
     'overflow': 'auto',
     'margin': '1%',
     'verticalAlign':'middle',
@@ -77,7 +77,7 @@ filter_frame = {
 condition_frame = {
     'background-color': filter_condition_bg, #E9D9D9
     'width': '57%', 
-    'height': '42%',
+    'height': '45%',
     'overflow': 'auto',
     'margin': '1%',
     'verticalAlign': "middle",
@@ -95,7 +95,7 @@ selection_btn = {
 result_frame = { 
     'background-color': filter_condition_bg, 
     'width': '96%', 
-    'height': '55%',
+    'height': '50%',
     'border-radius':'8px', 
     'margin':'1%',
     'display':'inline-block',
