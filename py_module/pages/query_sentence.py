@@ -1179,7 +1179,7 @@ def create_query_0501(days, period, direct, lot):
     GROUP BY part_tbl.stock_id HAVING SUM(part_tbl.MARGIN_SPREAD) {} {} )
     '''.format(ref_table, days, days, sign, lot)
 
-    return query, '[融資增加數(張)]'
+    return query, '[融資增加數]'
 
 def create_query_0502(days, period, direct, lot):
 
@@ -1241,7 +1241,7 @@ def create_query_0503(days, period, direct, lot):
     GROUP BY part_tbl.stock_id HAVING SUM(part_tbl.SHORTSELL_SPREAD) {} {} )
     '''.format(ref_table, days, days, sign, lot)
 
-    return query, '[融券增加數(張)]'
+    return query, '[融券增加數]'
 
 def create_query_0504(days, period, direct, lot):
 
