@@ -1427,40 +1427,40 @@ class DashBuilder(object):
                     # df_twse.to_csv('test_file.csv')
                     if df_twse.shape[0] == 0:
                         df_twse = '無符合項目'
-                        return_style = self_style.result_content_only_words
+                        return_twse_style = self_style.result_content_only_words
                     else:
                         df_twse = generate_table(df_twse)
-                        return_style = self_style.result_content
+                        return_twse_style = self_style.result_content
                     
                     if df_tpex.shape[0] == 0:
                         df_tpex = '無符合項目'
-                        return_style = self_style.result_content_only_words
+                        return_tpex_style = self_style.result_content_only_words
                     else:
                         df_tpex = generate_table(df_tpex)
-                        return_style = self_style.result_content
+                        return_tpex_style = self_style.result_content
                     
                     if df_etf_twse.shape[0] == 0:
                         df_etf_twse = '無符合項目'
-                        return_style = self_style.result_content_only_words
+                        return_etf_twse_style = self_style.result_content_only_words
                     else:
                         df_etf_twse = generate_table(df_etf_twse)
-                        return_style = self_style.result_content
+                        return_etf_twse_style = self_style.result_content
                     
                     if df_etf_tpex.shape[0] == 0:
                         df_etf_tpex = '無符合項目'
-                        return_style = self_style.result_content_only_words
+                        return_etf_tpex_style = self_style.result_content_only_words
                     else:
                         df_etf_tpex = generate_table(df_etf_tpex)
-                        return_style = self_style.result_content
+                        return_etf_tpex_style = self_style.result_content
                     
                 if tab_value == 'dynamic-selection-result-twse':
-                    return df_twse, return_style
+                    return df_twse, return_twse_style
                 elif tab_value == 'dynamic-selection-result-tpex':
-                    return df_tpex, return_style
+                    return df_tpex, return_tpex_style
                 elif tab_value == 'dynamic-selection-result-twse-etf':
-                    return df_etf_twse, return_style
+                    return df_etf_twse, return_etf_twse_style
                 else:
-                    return df_etf_tpex, return_style
+                    return df_etf_tpex, return_etf_tpex_style
 
                 # my_table, _, _, _ = stock_classifier(stock_data)
                 # print(my_table.head(5))
