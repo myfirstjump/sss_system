@@ -376,7 +376,7 @@ text_color_bold = {
 
 
 result_words = {
-    'font-size': '20px',
+    'font-size': '18px',
     'font-weight':'900',
     'color': result_words,
     'background-color': '#192340',
@@ -387,7 +387,7 @@ result_words = {
 }
 
 result_words_onclick = {
-    'font-size': '20px',
+    'font-size': '18px',
     'font-weight':'900',
     'color': '#E1EBF9',
     'background-color': '#33A7ED',
