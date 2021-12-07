@@ -251,7 +251,7 @@ def create_0302(output_count):
                                                 type='number',
                                                 min=0,
                                                 max=9999999,
-                                                value=10,
+                                                value=1000,
                                                 style=self_style.input_style),
                                             ], style=self_style.ipt_div_style),
                                             html.P('張之股票', style=self_style.text_normal),
