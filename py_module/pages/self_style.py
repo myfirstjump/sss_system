@@ -13,6 +13,8 @@ item_bg = '#A9DBFC' #4
 result_bg = '#2E2E40' #5
 result_words = '#2399E7' #6
 
+query_blocks_bg = '#17171E'
+
 header_div_style = {
     'background-color': top_div_bg,
     'margin':'10px 15px 10px 30px', 
@@ -26,13 +28,13 @@ header_text_style = {
 
 top_div_style = {
     'background-color': top_div_bg,
-    'height': '1400px', 
+    'height': '1540px', 
     #'border':'solid 1px',  
 }
 
 top_frame_style = {
     'width': '97%', 
-    'height': '1300', 
+    'height': '1300px', 
     'padding':'1%',   
     'background-color': top_div_bg,  
     #'border':'solid 1px',        
@@ -397,6 +399,69 @@ result_words_onclick = {
     'border-bottom': 'hidden',
 }
 
+top_tab = {
+    'font-size': '24px',
+    'font-weight':'900',
+    'color': '#2399E7',
+    'background-color': '#192340',
+    'border-color': result_words,
+    'border-top': 'hidden',
+    'border-bottom': 'hidden',
+    'border-radius': '15px 15px 0px 0px',
+}
+
+
+top_tab_onclick = {
+    'font-size': '24px',
+    'font-weight':'900',
+    'color': '#E1EBF9',
+    'background-color': '#33A7ED',
+    'border-color': result_words,
+    # 'border-right': '#2399E7',
+    'border-top': 'hidden',
+    'border-bottom': 'hidden',
+    'border-radius': '15px 15px 0px 0px',
+}
+
 td_style = {
     'width': '20%'
 }
+
+
+query_div = {
+    'display' : 'flex',
+    'flex-flow': 'column nowrap',
+    # 'align-items': '',
+    'align-content': 'center',
+    'justify-content': 'center',
+    'margin': '10px',
+
+    'height': '1300px',
+    # 'width': '90%',
+    'background-color':  inner_frame_bg,
+    'border':'solid white 1px',
+}
+
+query_block_style = {
+    'color': 'white',
+    'font-size': '30px',
+    'background-color':  query_blocks_bg,
+    
+    'margin': '10px',
+    'justify-content': 'center',
+
+    'height': '150px',
+    'border':'solid white 1px',
+}
+
+query_content_style = {
+    'color': 'white',
+    'font-size': '30px',
+    'background-color':  query_blocks_bg,
+
+    'margin': '10px',
+
+    'height': '1000px',
+    'border':'solid white 1px',
+}
+

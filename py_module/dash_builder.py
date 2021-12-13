@@ -52,112 +52,129 @@ class DashBuilder(object):
                 ],style=self_style.header_div_style), # header-div
             
             html.Div([
-
-                html.Div([
-                    html.Div([ # menu-1
-                        html.Button(
-                            ["基本資訊　＞",],
-                            id='01-btn',
-                            n_clicks=0,
-                            title='展開基本資訊選項',
-                            style=self_style.menu_btn,
-                        ),                        
-                    ],  
-                    style=self_style.link_div_style),
-                    # html.Br(),
-                    html.Div([ # menu-2
-                        html.Button(
-                            ["股價條件　＞"],
-                            id='02-btn',
-                            title='展開股價條件選項',
-                            className='menu-btn'
-                        ),                        
-                    ],
-                    style=self_style.link_div_style),
-                    # html.Br(),
-                    html.Div([ # menu-3
-                        html.Button(
-                            ["成交量值　＞"],
-                            id='03-btn',
-                            title='展開成交量值選項',
-                            className='menu-btn'
-                        ),                        
-                    ],
-                    style=self_style.link_div_style),
-                    # html.Br(),
-                    html.Div([ # menu-4
-                        html.Button(
-                            ["法人籌碼　＞"],
-                            id='04-btn',
-                            title='展開法人籌碼選項',
-                            className='menu-btn'
-                        ),                        
-                    ],
-                    style=self_style.link_div_style),
-                    # html.Br(),
-                    html.Div([ # menu-5
-                        html.Button(
-                            ["信用交易　＞"],
-                            id='05-btn',
-                            title='展開信用交易選項',
-                            className='menu-btn'
-                        ),                        
-                    ],
-                    style=self_style.link_div_style),
-                    # html.Br(),
-                    html.Div([ # menu-6
-                        html.Button(
-                            ["公司營收　＞"],
-                            id='06-btn',
-                            title='展開公司營收選項',
-                            className='menu-btn'
-                        ),                        
-                    ],                                
-                    style=self_style.link_div_style),
-                ], style=self_style.menu_style), # menu
-
-                html.Div([
-
-                    html.Div([ # filter-frame
-                        html.Div('請由左方加入篩選類別', style=self_style.frame_text_style),
-                        html.Div([], id="filter-content"),
-                    ],style=self_style.filter_frame),
-                    html.Div([ # condition-frame
-                        html.Div('您的選股條件', style=self_style.frame_text_style),
-                        html.Div([],
-                            id='dynamic-output-container',
-                            style=self_style.dynamic_output_container_style),
+                dcc.Tabs([
+                    dcc.Tab(label='股票篩選', children=[
+                        # 工具1: 篩選股票
                         html.Div([
-                            html.Img(src=self.start_img,
-                                id='selection-btn',
-                                style=self_style.selection_btn,
-                                className='selection-btn'),
-                            html.Img(src=self.clear_img,
-                                id='clear-all-btn',
-                                style=self_style.selection_btn,
-                                className='clear-btn')
-                        ], self_style.selection_btn_div_style),
-                    ], style=self_style.condition_frame),
 
-                    html.Div([
-                        html.Div(['篩選結果'], style=self_style.frame_text_style),
-                        
-                        dcc.Tabs(id='results-tabs', value='dynamic-selection-result-twse', # value是預設顯示值
-                            children=[
-                                dcc.Tab(label='台灣證券交易所 TWSE (上市)', id='dynamic-selection-result-twse', value='dynamic-selection-result-twse', style=self_style.result_words, selected_style=self_style.result_words_onclick),
-                                dcc.Tab(label='櫃買中心 TPEX (上櫃)', id='dynamic-selection-result-tpex', value='dynamic-selection-result-tpex', style=self_style.result_words, selected_style=self_style.result_words_onclick),
-                                dcc.Tab(label='上市 ETF', id='dynamic-selection-result-twse-etf', value='dynamic-selection-result-twse-etf', style=self_style.result_words, selected_style=self_style.result_words_onclick),
-                                dcc.Tab(label='上櫃 ETF', id='dynamic-selection-result-tpex-etf', value='dynamic-selection-result-tpex-etf', style=self_style.result_words, selected_style=self_style.result_words_onclick),
-                        ]),
-                        dcc.Loading(
-                            id='result-content-loading',
-                            type='default',
-                            children=html.Div([],id='result-content', style=self_style.result_content),
-                            color='red',
-                        ),
-                    ], style=self_style.result_frame) # Results
-                ], style=self_style.inner_frame_style), # inner-frame
-            ], style=self_style.top_frame_style), # top-frame
+                            html.Div([
+                                html.Div([ # menu-1
+                                    html.Button(
+                                        ["基本資訊　＞",],
+                                        id='01-btn',
+                                        n_clicks=0,
+                                        title='展開基本資訊選項',
+                                        style=self_style.menu_btn,
+                                    ),                        
+                                ],  
+                                style=self_style.link_div_style),
+                                # html.Br(),
+                                html.Div([ # menu-2
+                                    html.Button(
+                                        ["股價條件　＞"],
+                                        id='02-btn',
+                                        title='展開股價條件選項',
+                                        className='menu-btn'
+                                    ),                        
+                                ],
+                                style=self_style.link_div_style),
+                                # html.Br(),
+                                html.Div([ # menu-3
+                                    html.Button(
+                                        ["成交量值　＞"],
+                                        id='03-btn',
+                                        title='展開成交量值選項',
+                                        className='menu-btn'
+                                    ),                        
+                                ],
+                                style=self_style.link_div_style),
+                                # html.Br(),
+                                html.Div([ # menu-4
+                                    html.Button(
+                                        ["法人籌碼　＞"],
+                                        id='04-btn',
+                                        title='展開法人籌碼選項',
+                                        className='menu-btn'
+                                    ),                        
+                                ],
+                                style=self_style.link_div_style),
+                                # html.Br(),
+                                html.Div([ # menu-5
+                                    html.Button(
+                                        ["信用交易　＞"],
+                                        id='05-btn',
+                                        title='展開信用交易選項',
+                                        className='menu-btn'
+                                    ),                        
+                                ],
+                                style=self_style.link_div_style),
+                                # html.Br(),
+                                html.Div([ # menu-6
+                                    html.Button(
+                                        ["公司營收　＞"],
+                                        id='06-btn',
+                                        title='展開公司營收選項',
+                                        className='menu-btn'
+                                    ),                        
+                                ],                                
+                                style=self_style.link_div_style),
+                            ], style=self_style.menu_style), # menu
+
+                            html.Div([
+
+                                html.Div([ # filter-frame
+                                    html.Div('請由左方加入篩選類別', style=self_style.frame_text_style),
+                                    html.Div([], id="filter-content"),
+                                ],style=self_style.filter_frame),
+                                html.Div([ # condition-frame
+                                    html.Div('您的選股條件', style=self_style.frame_text_style),
+                                    html.Div([],
+                                        id='dynamic-output-container',
+                                        style=self_style.dynamic_output_container_style),
+                                    html.Div([
+                                        html.Img(src=self.start_img,
+                                            id='selection-btn',
+                                            style=self_style.selection_btn,
+                                            className='selection-btn'),
+                                        html.Img(src=self.clear_img,
+                                            id='clear-all-btn',
+                                            style=self_style.selection_btn,
+                                            className='clear-btn')
+                                    ], self_style.selection_btn_div_style),
+                                ], style=self_style.condition_frame),
+
+                                html.Div([
+                                    html.Div(['篩選結果'], style=self_style.frame_text_style),
+                                    
+                                    dcc.Tabs(id='results-tabs', value='dynamic-selection-result-twse', # value是預設顯示值
+                                        children=[
+                                            dcc.Tab(label='台灣證券交易所 TWSE (上市)', id='dynamic-selection-result-twse', value='dynamic-selection-result-twse', style=self_style.result_words, selected_style=self_style.result_words_onclick),
+                                            dcc.Tab(label='櫃買中心 TPEX (上櫃)', id='dynamic-selection-result-tpex', value='dynamic-selection-result-tpex', style=self_style.result_words, selected_style=self_style.result_words_onclick),
+                                            dcc.Tab(label='上市 ETF', id='dynamic-selection-result-twse-etf', value='dynamic-selection-result-twse-etf', style=self_style.result_words, selected_style=self_style.result_words_onclick),
+                                            dcc.Tab(label='上櫃 ETF', id='dynamic-selection-result-tpex-etf', value='dynamic-selection-result-tpex-etf', style=self_style.result_words, selected_style=self_style.result_words_onclick),
+                                    ]),
+                                    dcc.Loading(
+                                        id='result-content-loading',
+                                        type='default',
+                                        children=html.Div([],id='result-content', style=self_style.result_content),
+                                        color='red',
+                                    ),
+                                ], style=self_style.result_frame) # Results
+                            ], style=self_style.inner_frame_style), # inner-frame
+                        ], style=self_style.top_frame_style), # top-frame
+                    ], style=self_style.top_tab, selected_style=self_style.top_tab_onclick),
+
+                    dcc.Tab(label='個股查詢', children=[
+
+                        # 工具2: 個股查詢
+                        html.Div([
+                                html.Div(['123'], style=self_style.query_block_style),
+                                html.Div(['123'], style=self_style.query_content_style),
+                        ], style=self_style.query_div),
+                    ], style=self_style.top_tab, selected_style=self_style.top_tab_onclick),
+                ]),
+            ]),
+
         ], style=self_style.top_div_style) # canvas-div
 
         ### callbacks
