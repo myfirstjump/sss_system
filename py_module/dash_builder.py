@@ -168,7 +168,19 @@ class DashBuilder(object):
 
                         # 工具2: 個股查詢
                         html.Div([
-                                html.Div(['123'], style=self_style.query_block_style),
+                                html.Div([
+                                        dcc.Input(
+                                                id='query_input',
+                                                type='text',
+                                                placeholder='請輸入股票代號或公司名稱',
+                                                style=self_style.query_input_style
+                                            ),
+                                        html.Button(
+                                            children=['查詢'],
+                                            id='query-btn',
+                                            style=self_style.query_btn,
+                                            ),
+                                    ], style=self_style.query_block_style),
                                 html.Div(['123'], style=self_style.query_content_style),
                         ], style=self_style.query_div),
                     ], style=self_style.top_tab, selected_style=self_style.top_tab_onclick),

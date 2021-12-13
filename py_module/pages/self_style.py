@@ -13,7 +13,7 @@ item_bg = '#A9DBFC' #4
 result_bg = '#2E2E40' #5
 result_words = '#2399E7' #6
 
-query_blocks_bg = '#17171E'
+query_blocks_bg = '#212130'
 
 header_div_style = {
     'background-color': top_div_bg,
@@ -439,29 +439,57 @@ query_div = {
     'height': '1300px',
     # 'width': '90%',
     'background-color':  inner_frame_bg,
-    'border':'solid white 1px',
+    # 'border':'solid white 1px',
 }
 
 query_block_style = {
+    
+
     'color': 'white',
     'font-size': '30px',
     'background-color':  query_blocks_bg,
     
+    'display': 'flex',
+    'padding': '20px',
     'margin': '10px',
+
+    'align-content': 'center',
     'justify-content': 'center',
 
-    'height': '150px',
-    'border':'solid white 1px',
+    # 'height': '150px',
+    'border-radius':'5px',
+    # 'border':'solid white 1px',
 }
+
+
 
 query_content_style = {
     'color': 'white',
     'font-size': '30px',
     'background-color':  query_blocks_bg,
 
+    'padding': '10px',
     'margin': '10px',
 
     'height': '1000px',
-    'border':'solid white 1px',
+    'border-radius':'5px',
+    # 'border':'solid white 1px',
 }
 
+query_input_style = {
+
+    'width': '600px',
+    'height': '40px',
+    'margin': '2px',
+
+    'text-align': 'center',
+    'font-size': '30px',
+}
+
+query_btn = {
+    'width': '50px',
+    'height': '40px',
+    'margin': '2px',
+    
+    'border-radius': '10%',
+}
