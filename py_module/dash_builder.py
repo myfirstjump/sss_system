@@ -181,7 +181,7 @@ class DashBuilder(object):
                                             style=self_style.query_btn,
                                             ),
                                     ], style=self_style.query_block_style),
-                                html.Div(['123'], style=self_style.query_content_style),
+                                html.Div([], style=self_style.query_content_style),
                         ], style=self_style.query_div),
                     ], style=self_style.top_tab, selected_style=self_style.top_tab_onclick),
                 ]),
