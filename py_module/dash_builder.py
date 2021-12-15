@@ -1525,7 +1525,9 @@ def generate_table(stock_data, max_rows=5000):
                         'width': '15%'},
                         {'if': {'column_id': '產業別'},
                         'width': '20%'},
-                    ]
+                    ],
+                    filter_action='native',
+                    sort_action='native',
                 )
 
 def stock_classifier(data):
