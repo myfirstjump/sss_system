@@ -1555,7 +1555,7 @@ class DashBuilder(object):
         @self.app.callback(
             Output("download-excel", "data"),
             Input("btn-download", "n_clicks"),
-            State('download_data', 'data')
+            State('download_data', 'data'),
             prevent_initial_call=True,
         )
         def func(n_clicks, download_data):
