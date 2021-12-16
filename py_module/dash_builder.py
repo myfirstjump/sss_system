@@ -1456,10 +1456,10 @@ class DashBuilder(object):
                     children_content = html.Div([
                         html.P('無符合項目', style=return_style)
                     ])
-                    return children_content, pd.DataFrame() #給一個空資料給download_data
+                    return children_content, None #給一個空資料給download_data
                 else:
-                    data = pd.DataFrame.from_records(data)
                     download_data = data
+                    data = pd.DataFrame.from_records(data)
                     df_twse, df_tpex, df_etf_twse, df_etf_tpex = stock_classifier(data)
                     print(df_twse.head(5))
                     # df_twse.to_csv('test_file.csv')
@@ -1527,7 +1527,7 @@ class DashBuilder(object):
                         etf_tpex_children_content = html.Div([
                             html.Button("下載股票篩選結果", id="btn-download"),
                             dcc.Download(id="download-excel"),
-                            df_etf_twse,
+                            df_etf_tpex,
                         ], style=self_style.result_content)
                     
                 if tab_value == 'dynamic-selection-result-twse':
@@ -1550,7 +1550,7 @@ class DashBuilder(object):
                 children_content = html.Div([
                         html.P('', style=self_style.result_content_only_words)
                 ])
-                return children_content, pd.DataFrame()
+                return children_content, None
 
         @self.app.callback(
             Output("download-excel", "data"),
