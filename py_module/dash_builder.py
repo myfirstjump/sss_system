@@ -1133,8 +1133,7 @@ class DashBuilder(object):
         # 3. dynamic-output-container -> dynamic-selection-result
  
         @self.app.callback(
-            Output('result-content', 'children'),
-            Output('result-content', 'style'),
+            Output('result-content-loading', 'children'),
             Input('selection-btn', 'n_clicks'),
             Input('results-tabs', 'value'),
             State({'type': ALL, 'index': '0101'}, 'value'), State({'type': ALL, 'index': '0102'}, 'value'), State({'type': ALL, 'index': '0103'}, 'value'), State({'type': ALL, 'index': '0104'}, 'value'), State({'type': ALL, 'index': '0105'}, 'value'), State({'type': ALL, 'index': '0106'}, 'value'), State({'type': ALL, 'index': '0107'}, 'value'), State({'type': ALL, 'index': '0108'}, 'value'), State({'type': ALL, 'index': '0109'}, 'value'), State({'type': ALL, 'index': '0110'}, 'value'), 
@@ -1448,48 +1447,90 @@ class DashBuilder(object):
                 
                 if len(data) == 0:
                     return_style = self_style.result_content_only_words
-                    return '無符合項目', return_style
+                    children_content = html.Div([
+                        html.P('無符合項目', style=return_style)
+                    ])
+                    return children_content
                 else:
                     data = pd.DataFrame.from_records(data)
                     df_twse, df_tpex, df_etf_twse, df_etf_tpex = stock_classifier(data)
                     print(df_twse.head(5))
                     # df_twse.to_csv('test_file.csv')
                     if df_twse.shape[0] == 0:
-                        df_twse = '無符合項目'
-                        return_twse_style = self_style.result_content_only_words
+                        # df_twse = '無符合項目'
+                        # return_twse_style = self_style.result_content_only_words
+
+                        twse_children_content = html.Div([
+                        html.P('無符合項目', style=self_style.result_content_only_words)
+                        ])
+
                     else:
                         df_twse = generate_table(df_twse)
-                        return_twse_style = self_style.result_content
+                        twse_children_content = html.Div([
+                            html.Button("Download Text", id="btn-download-txt"),
+                            dcc.Download(id="download-text"),
+                            df_twse,
+                        ], style=self_style.result_content)
                     
                     if df_tpex.shape[0] == 0:
-                        df_tpex = '無符合項目'
-                        return_tpex_style = self_style.result_content_only_words
+                        # df_tpex = '無符合項目'
+                        # return_tpex_style = self_style.result_content_only_words
+
+                        tpex_children_content = html.Div([
+                            html.P('無符合項目', style=self_style.result_content_only_words)
+                        ])
                     else:
                         df_tpex = generate_table(df_tpex)
-                        return_tpex_style = self_style.result_content
+                        # return_tpex_style = self_style.result_content
+
+                        tpex_children_content = html.Div([
+                            html.Button("Download Text", id="btn-download-txt"),
+                            dcc.Download(id="download-text"),
+                            df_tpex,
+                        ], style=self_style.result_content)
                     
                     if df_etf_twse.shape[0] == 0:
-                        df_etf_twse = '無符合項目'
-                        return_etf_twse_style = self_style.result_content_only_words
+                        # df_etf_twse = '無符合項目'
+                        # return_etf_twse_style = self_style.result_content_only_words
+
+                        etf_twse_children_content = html.Div([
+                        html.P('無符合項目', style=self_style.result_content_only_words)
+                        ])
                     else:
                         df_etf_twse = generate_table(df_etf_twse)
-                        return_etf_twse_style = self_style.result_content
+                        # return_etf_twse_style = self_style.result_content
+
+                        etf_twse_children_content = html.Div([
+                            html.Button("Download Text", id="btn-download-txt"),
+                            dcc.Download(id="download-text"),
+                            df_etf_twse,
+                        ], style=self_style.result_content)
                     
                     if df_etf_tpex.shape[0] == 0:
-                        df_etf_tpex = '無符合項目'
-                        return_etf_tpex_style = self_style.result_content_only_words
+                        # df_etf_tpex = '無符合項目'
+                        # return_etf_tpex_style = self_style.result_content_only_words
+
+                        etf_tpex_children_content = html.Div([
+                            html.P('無符合項目', style=self_style.result_content_only_words)
+                        ])
                     else:
                         df_etf_tpex = generate_table(df_etf_tpex)
-                        return_etf_tpex_style = self_style.result_content
+                        # return_etf_tpex_style = self_style.result_content
+
+                        etf_tpex_children_content = html.Div([
+                            html.Button("Download Text", id="btn-download-txt"),
+                            dcc.Download(id="download-text"),
+                            df_etf_twse,
+                        ], style=self_style.result_content)
                     
                 if tab_value == 'dynamic-selection-result-twse':
-                    return df_twse, return_twse_style
+                    return twse_children_content
                 elif tab_value == 'dynamic-selection-result-tpex':
-                    return df_tpex, return_tpex_style
+                    return tpex_children_content
                 elif tab_value == 'dynamic-selection-result-twse-etf':
-                    return df_etf_twse, return_etf_twse_style
+                    return etf_twse_children_content
                 else:
-                    return df_etf_tpex, return_etf_tpex_style
+                    return etf_tpex_children_content
 
                 # my_table, _, _, _ = stock_classifier(stock_data)
                 # print(my_table.head(5))
@@ -1499,8 +1540,10 @@ class DashBuilder(object):
                 # return total_query
                 # return ['{}\n'.format(i) for i in range(9999)]
             else:
-                return_style = self_style.result_content
-                return '', return_style
+                children_content = html.Div([
+                        html.P('', style=self_style.result_content_only_words)
+                ])
+                return children_content
 
         self.app.run_server(debug=True, dev_tools_hot_reload=True)#, dev_tools_ui=False, dev_tools_props_check=False)
 
