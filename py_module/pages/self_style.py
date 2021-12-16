@@ -378,7 +378,7 @@ text_color_bold = {
 
 
 result_words = {
-    'font-size': '18px',
+    'font-size': '16px',
     'font-weight':'900',
     'color': result_words,
     'background-color': '#192340',

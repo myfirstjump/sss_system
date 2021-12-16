@@ -48,7 +48,11 @@ class DashBuilder(object):
                         dcc.Store(
                             id='stored_data',
                             storage_type='memory',
-                        )
+                        ),
+                        dcc.Store(
+                            id='download_data',
+                            storage_type='memory',
+                        ),
                 ],style=self_style.header_div_style), # header-div
             
             html.Div([
@@ -1134,6 +1138,7 @@ class DashBuilder(object):
  
         @self.app.callback(
             Output('result-content-loading', 'children'),
+            Output('download_data', 'data'),
             Input('selection-btn', 'n_clicks'),
             Input('results-tabs', 'value'),
             State({'type': ALL, 'index': '0101'}, 'value'), State({'type': ALL, 'index': '0102'}, 'value'), State({'type': ALL, 'index': '0103'}, 'value'), State({'type': ALL, 'index': '0104'}, 'value'), State({'type': ALL, 'index': '0105'}, 'value'), State({'type': ALL, 'index': '0106'}, 'value'), State({'type': ALL, 'index': '0107'}, 'value'), State({'type': ALL, 'index': '0108'}, 'value'), State({'type': ALL, 'index': '0109'}, 'value'), State({'type': ALL, 'index': '0110'}, 'value'), 
@@ -1145,6 +1150,7 @@ class DashBuilder(object):
             State({'type': ALL, 'index': '0501'}, 'value'), State({'type': ALL, 'index': '0502'}, 'value'), State({'type': ALL, 'index': '0503'}, 'value'), State({'type': ALL, 'index': '0504'}, 'value'), State({'type': ALL, 'index': '0505'}, 'value'), State({'type': ALL, 'index': '0506'}, 'value'),
             State({'type': ALL, 'index': '0601'}, 'value'), State({'type': ALL, 'index': '0602'}, 'value'), State({'type': ALL, 'index': '0603'}, 'value'), State({'type': ALL, 'index': '0604'}, 'value'), State({'type': ALL, 'index': '0605'}, 'value'), State({'type': ALL, 'index': '0606'}, 'value'), State({'type': ALL, 'index': '0607'}, 'value'), State({'type': ALL, 'index': '0608'}, 'value'), State({'type': ALL, 'index': '0609'}, 'value'), State({'type': ALL, 'index': '0610'}, 'value'), State({'type': ALL, 'index': '0611'}, 'value'), State({'type': ALL, 'index': '0612'}, 'value'), 
             State('stored_data', 'data'),
+            State('download_data', 'data'),
         )
         def output_result(btn, tab_value, 
         value0101, value0102, value0103, value0104, value0105, value0106, value0107, value0108, value0109, value0110, 
@@ -1155,7 +1161,7 @@ class DashBuilder(object):
         value0401, value0402, value0403, value0404, value0405, value0406, 
         value0501, value0502, value0503, value0504, value0505, value0506, 
         value0601, value0602, value0603, value0604, value0605, value0606, value0607, value0608, value0609, value0610, 
-        value0611, value0612, stored_data):
+        value0611, value0612, stored_data, download_data):
             
             print('selection-btn:', btn)
             value_dict = {
@@ -1450,9 +1456,10 @@ class DashBuilder(object):
                     children_content = html.Div([
                         html.P('無符合項目', style=return_style)
                     ])
-                    return children_content
+                    return children_content, pd.DataFrame() #給一個空資料給download_data
                 else:
                     data = pd.DataFrame.from_records(data)
+                    download_data = data
                     df_twse, df_tpex, df_etf_twse, df_etf_tpex = stock_classifier(data)
                     print(df_twse.head(5))
                     # df_twse.to_csv('test_file.csv')
@@ -1467,8 +1474,8 @@ class DashBuilder(object):
                     else:
                         df_twse = generate_table(df_twse)
                         twse_children_content = html.Div([
-                            html.Button("Download Text", id="btn-download-txt"),
-                            dcc.Download(id="download-text"),
+                            html.Button("下載股票篩選結果", id="btn-download"),
+                            dcc.Download(id="download-excel"),
                             df_twse,
                         ], style=self_style.result_content)
                     
@@ -1484,8 +1491,8 @@ class DashBuilder(object):
                         # return_tpex_style = self_style.result_content
 
                         tpex_children_content = html.Div([
-                            html.Button("Download Text", id="btn-download-txt"),
-                            dcc.Download(id="download-text"),
+                            html.Button("下載股票篩選結果", id="btn-download"),
+                            dcc.Download(id="download-excel"),
                             df_tpex,
                         ], style=self_style.result_content)
                     
@@ -1501,8 +1508,8 @@ class DashBuilder(object):
                         # return_etf_twse_style = self_style.result_content
 
                         etf_twse_children_content = html.Div([
-                            html.Button("Download Text", id="btn-download-txt"),
-                            dcc.Download(id="download-text"),
+                            html.Button("下載股票篩選結果", id="btn-download"),
+                            dcc.Download(id="download-excel"),
                             df_etf_twse,
                         ], style=self_style.result_content)
                     
@@ -1518,19 +1525,19 @@ class DashBuilder(object):
                         # return_etf_tpex_style = self_style.result_content
 
                         etf_tpex_children_content = html.Div([
-                            html.Button("Download Text", id="btn-download-txt"),
-                            dcc.Download(id="download-text"),
+                            html.Button("下載股票篩選結果", id="btn-download"),
+                            dcc.Download(id="download-excel"),
                             df_etf_twse,
                         ], style=self_style.result_content)
                     
                 if tab_value == 'dynamic-selection-result-twse':
-                    return twse_children_content
+                    return twse_children_content, download_data
                 elif tab_value == 'dynamic-selection-result-tpex':
-                    return tpex_children_content
+                    return tpex_children_content, download_data
                 elif tab_value == 'dynamic-selection-result-twse-etf':
-                    return etf_twse_children_content
+                    return etf_twse_children_content, download_data
                 else:
-                    return etf_tpex_children_content
+                    return etf_tpex_children_content, download_data
 
                 # my_table, _, _, _ = stock_classifier(stock_data)
                 # print(my_table.head(5))
@@ -1543,7 +1550,16 @@ class DashBuilder(object):
                 children_content = html.Div([
                         html.P('', style=self_style.result_content_only_words)
                 ])
-                return children_content
+                return children_content, pd.DataFrame()
+
+        @self.app.callback(
+            Output("download-excel", "data"),
+            Input("btn-download", "n_clicks"),
+            State('download_data', 'data')
+            prevent_initial_call=True,
+        )
+        def func(n_clicks, download_data):
+            return dcc.send_data_frame(download_data.to_excel, "股票篩選結果.xlsx", sheet_name="Sheet_name_1")
 
         self.app.run_server(debug=True, dev_tools_hot_reload=True)#, dev_tools_ui=False, dev_tools_props_check=False)
 
