@@ -1560,7 +1560,7 @@ class DashBuilder(object):
         )
         def func(n_clicks, download_data):
             data = pd.DataFrame.from_records(download_data)
-            return dcc.send_data_frame(data.to_excel, "股票篩選結果.xlsx", sheet_name="Sheet_name_1")
+            return dcc.send_data_frame(data.to_csv, "股票篩選結果.csv")
 
         self.app.run_server(debug=True, dev_tools_hot_reload=True)#, dev_tools_ui=False, dev_tools_props_check=False)
 
