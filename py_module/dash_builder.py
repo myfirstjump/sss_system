@@ -1562,7 +1562,7 @@ class DashBuilder(object):
             data = pd.DataFrame.from_records(download_data)
             return dcc.send_data_frame(data.to_csv, "股票篩選結果.csv")
 
-        self.app.run_server(debug=True, dev_tools_hot_reload=True)#, dev_tools_ui=False, dev_tools_props_check=False)
+        self.app.run_server(host='127.0.0.1', debug=True, dev_tools_hot_reload=True)#, dev_tools_ui=False, dev_tools_props_check=False)
 
 def generate_table(stock_data, max_rows=5000):
     return dash_table.DataTable(
