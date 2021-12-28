@@ -4,7 +4,7 @@ import pandas as pd
 import pathlib
 import os
 import base64
-from py_module.pages import self_style
+from pages import self_style
 from py_module.data_reader import DataReader
 from py_module.config import Configuration
 

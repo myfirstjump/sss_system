@@ -12,7 +12,7 @@ import time
 import datetime
 from datetime import timedelta
 
-from py_module.pages import (
+from pages import (
     basic_01,
     price_02,
     volume_03,

@@ -2,7 +2,7 @@ import dash_html_components as html
 import dash_core_components as dcc
 import pandas as pd
 import pathlib
-from py_module.pages import self_style
+from pages import self_style
 
 add_img_path = 'assets/add_img.png'
 delete_img_path = 'assets/delete_img.png'
