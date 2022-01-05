@@ -39,8 +39,8 @@ class DashBuilder(object):
         }
 
         self.arrow_img = 'assets/arrow_img.png'
-        self.clear_img = 'assets/全部取消_未.png'
-        self.start_img = 'assets/開始選股_未點擊.png'
+        self.clear_img = 'assets/all_clear_unclicked.png'
+        self.start_img = 'assets/start_unclicked.png'
 
         self.app.layout = html.Div([
             html.Div([
