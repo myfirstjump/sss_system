@@ -2190,7 +2190,7 @@ def create_0130(output_count):
     '''0130 每股自由現金流 “近一年” 數據 “大於“ ”0元”'''
     new_children = html.Div([
                                         html.Span([
-                                            html.P('每股自由現金流，近', style=self_style.text_normal),
+                                            html.P('每股自由現金流，', style=self_style.text_normal),
                                             html.Div([
                                                 dcc.Dropdown(
                                                 id={'type':'dd1',
@@ -2205,7 +2205,7 @@ def create_0130(output_count):
                                                 clearable=False,
                                                 style=self_style.dropdown_style),
                                             ],style=self_style.dp_div_style),
-                                            html.P('年數據', style=self_style.text_normal),
+                                            html.P('數據', style=self_style.text_normal),
                                             html.Div([
                                                 dcc.Dropdown(
                                                 id={'type':'dd2',
@@ -2228,6 +2228,7 @@ def create_0130(output_count):
                                                 max=999999999,
                                                 value=0,
                                                 placeholder='0',
+                                                required=True,
                                                 style=self_style.input_style),
                                             ], style=self_style.ipt_div_style),
                                             html.P('元', style=self_style.text_normal),
