@@ -755,6 +755,24 @@ def create_query_0129(number, period, interval, larger, amount):
 
     return query, '[區間人數]'
 
+def create_query_0130(numbers, larger, amount):
+
+    '''0130 每股自由現金流 “近一年” 數據 “大於“ ”0元”'''
+    if larger == '1':
+        sign = '>='
+    else:
+        sign = '<'
+    
+    ref_table = basic_info_finDetail_y
+
+    query = '''(SELECT stock_id, AVG(PER_STOCK_CashFlow) [平均每股自由現金流], CAST(NULL AS NVARCHAR(100)) as remark FROM
+    (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY [date] DESC) row_num
+    FROM {}) part_tbl
+    WHERE part_tbl.row_num <= {} AND PER_STOCK_CashFlow {} {}
+    GROUP BY stock_id HAVING COUNT(row_num) = {})
+    '''.format(ref_table, numbers, sign, amount, numbers)
+    return query, '平均每股自由現金流'
+
 def create_query_0201(larger, price):
     '''0201 公司股價[大於][120]元'''
     if larger == '1':

@@ -518,6 +518,24 @@ def create_filters(button_id):
                                         'index': button_id + '-add-0129'
                                     })
                                 ]),
+                                html.Div([
+                                    html.Span([
+                                        html.P('每股自由現金流', style=self_style.text_bold),
+                                        html.P('近一年', style=self_style.text_color_bold),
+                                        html.P('數據', style=self_style.text_normal),
+                                        html.P('大於', style=self_style.text_color_bold),
+                                        html.P('0', style=self_style.text_color_bold),
+                                        html.P('元', style=self_style.text_normal),
+                                    ], style=self_style.item_style),
+                                    html.Button(
+                                        html.Img(src=add_img_path, className='add-img-style'), 
+                                        n_clicks=0, 
+                                        className='btn-style', 
+                                    id={
+                                        'type': 'filter-btn',
+                                        'index': button_id + '-add-0130'
+                                    })
+                                ]),
                             ])   
     return content
 
@@ -2156,6 +2174,63 @@ def create_0129(output_count):
                                                 style=self_style.input_style),
                                             ], style=self_style.ipt_div_style),
                                             html.P('人', style=self_style.text_normal),
+                                        ], style=self_style.output_item_style),
+                                        html.Button(
+                                            html.Img(src=delete_img_path, className='delete-img-style'), 
+                                            n_clicks=0, 
+                                            className='btn-style', 
+                                                id={'type':'output-btn',
+                                                    'index': str(output_count)})
+                                    ])
+
+    return new_children
+
+
+def create_0130(output_count):
+    '''0130 每股自由現金流 “近一年” 數據 “大於“ ”0元”'''
+    new_children = html.Div([
+                                        html.Span([
+                                            html.P('每股自由現金流，近', style=self_style.text_normal),
+                                            html.Div([
+                                                dcc.Dropdown(
+                                                id={'type':'dd1',
+                                                    'index': '0130'},
+                                                options=[
+                                                    {'label': '近一年', 'value': '1'},
+                                                    {'label': '近二年', 'value': '2'},
+                                                    {'label': '近三年', 'value': '3'},
+                                                ],
+                                                value='1',
+                                                placeholder='近一年',
+                                                clearable=False,
+                                                style=self_style.dropdown_style),
+                                            ],style=self_style.dp_div_style),
+                                            html.P('年數據', style=self_style.text_normal),
+                                            html.Div([
+                                                dcc.Dropdown(
+                                                id={'type':'dd2',
+                                                    'index': '0130'},
+                                                options=[
+                                                    {'label': '大於', 'value': '1'},
+                                                    {'label': '小於', 'value': '-1'},
+                                                ],
+                                                value='1',
+                                                placeholder='大於',
+                                                clearable=False,
+                                                style=self_style.dropdown_style),
+                                            ],style=self_style.dp_div_style),
+                                            html.Div([
+                                                dcc.Input(
+                                                id={'type':'ip',
+                                                    'index': '0130'},
+                                                type='number',
+                                                min=-999999999,
+                                                max=999999999,
+                                                value=0,
+                                                placeholder='0',
+                                                style=self_style.input_style),
+                                            ], style=self_style.ipt_div_style),
+                                            html.P('元', style=self_style.text_normal),
                                         ], style=self_style.output_item_style),
                                         html.Button(
                                             html.Img(src=delete_img_path, className='delete-img-style'), 
