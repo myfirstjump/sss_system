@@ -54,11 +54,11 @@ app.layout = html.Div([
                 html.H1('股票篩選器', style=self_style.header_text_style),
                 dcc.Store(
                     id='stored_data',
-                    storage_type='local',
+                    storage_type='session',
                 ),
                 dcc.Store(
                     id='download_data',
-                    storage_type='local',
+                    storage_type='session',
                 ),
         ],style=self_style.header_div_style), # header-div
     
