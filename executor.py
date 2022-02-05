@@ -195,33 +195,30 @@ app.layout = html.Div([
                             ),
                         ]),
                     ],style=self_style.iq_l1),
-                    html.Div([#公司名稱等基本資訊
-                        '2',
-                        html.Div(['l21公司名稱(中文)'], style=self_style.iq_l21),
-                        html.Div(['l22公司代號'], style=self_style.iq_l22),
-                        html.Div(['l23上市上櫃'], style=self_style.iq_l23),
-                        html.Div(['l24公司產業別'], style=self_style.iq_l24),
-                    ],style=self_style.iq_l2),
-                    html.Div([#漲跌等每日基本數據
-                        '3',
-                        html.Div(['l31當日股價'], style=self_style.iq_l31),
-                        html.Div(['l32其他資訊表格'], style=self_style.iq_l32),
-                    ],style=self_style.iq_l3),
-                    html.Div([#基本資料、財務報表、籌碼分析等三個Tabs
-                        '4',
-                        dcc.Tabs(id='iq-tabs', value='dynamic-iq-result-info', # value是預設顯示值
-                                children=[
-                                    dcc.Tab(label='基本資料', id='dynamic-iq-result-info', value='dynamic-iq-result-info', style=self_style.result_words, selected_style=self_style.result_words_onclick),
-                                    dcc.Tab(label='財務報表', id='dynamic-iq-result-financial', value='dynamic-iq-result-financial', style=self_style.result_words, selected_style=self_style.result_words_onclick),
-                                    dcc.Tab(label='籌碼分析', id='dynamic-iq-result-chip', value='dynamic-iq-result-chip', style=self_style.result_words, selected_style=self_style.result_words_onclick),
-                        ]),
-                        dcc.Loading(
-                                id='iq-result-loading',
-                                type='default',
-                                children=html.Div([],id='iq-result-content', style=self_style.result_content),
-                                color='red',
-                        ),
-                    ],style=self_style.iq_l4),
+                    html.Div(
+                        children=[#公司名稱等基本資訊
+                            '2',
+                            html.Div(['l21公司名稱(中文)'], style=self_style.iq_l21),
+                            html.Div(['l22公司代號'], style=self_style.iq_l22),
+                            html.Div(['l23上市上櫃'], style=self_style.iq_l23),
+                            html.Div(['l24公司產業別'], style=self_style.iq_l24),
+                        ],
+                        id='iq-stock-info',
+                        style=self_style.iq_l2
+                    ),
+                    html.Div(
+                        children=[#漲跌等每日基本數據
+                            '3',
+                            html.Div(['l31當日股價'], style=self_style.iq_l31),
+                            html.Div(['l32其他資訊表格'], style=self_style.iq_l32),
+                        ],
+                        id='iq-stock-data1',
+                        style=self_style.iq_l3),
+                    html.Div(
+                        children=[#基本資料、財務報表、籌碼分析等三個Tabs
+                        ],
+                        id='iq-stock-data2',
+                        style=self_style.iq_l4),
                 ], style=self_style.iq_div),
 
             ], style=self_style.top_tab, selected_style=self_style.top_tab_onclick),
@@ -1616,7 +1613,79 @@ def func(n_clicks, download_data):
     data = pd.DataFrame.from_records(download_data)
     return dcc.send_data_frame(data.to_csv, "stock_result_" + datetime.datetime.now().strftime('%Y-%m-%d-%H%M%S') + ".csv")
 
-#Callback 5: Individual Tabs
+#Callback 5: Individual Query Btn
+@app.callback(
+    Output('iq-stock-info', 'children'),
+    Output('iq-stock-data1', 'children'),
+    Output('iq-stock-data2', 'children'),
+    Input('iq-input', 'value'),
+    Input('iq-btn', 'n_clicks'),
+)
+def iq_interaction(input, btn):
+    if btn == None:
+        raise PreventUpdate
+
+    if btn > 0:    
+        temp_result_1 = ['中華電', '2412', '上市', '電信業', '117']
+        temp_result_2 = {
+            '漲跌':['000'], 
+            '漲幅':['000'],
+            '成交量':['000'],
+            '開':['000'],
+            '高':['000'],
+            '低':['000'],
+            '收':['000'],
+        }
+        temp_result_2 = pd.DataFrame.from_dict(temp_result_2)
+
+        children_content_info = [
+            html.Div(
+                [temp_result_1[0]], 
+                style=self_style.iq_l21
+            ),
+            html.Div([temp_result_1[1]], style=self_style.iq_l22),
+            html.Div([temp_result_1[2]], style=self_style.iq_l23),
+            html.Div([temp_result_1[3]], style=self_style.iq_l24),
+        ]
+        children_content_data1 = [
+            html.Div(
+                [temp_result_1[4]], 
+                style=self_style.iq_l31
+            ),
+            dash_table.DataTable(
+                columns = [{"name": i, "id": i} for i in temp_result_2.columns],
+                data=temp_result_2.to_dict('records'),
+                style_cell={'fontSize': '20px', 'height': 'auto', 'whiteSpace': 'normal', 'background-color':'black'},
+                style_cell_conditional=[
+                    {'if': {'column_id': 'Remark'},
+                    'width': '15%'},
+                    {'if': {'column_id': '產業別'},
+                    'width': '20%'},
+                ],
+            ),
+        ]
+        children_content_data2 = [#基本資料、財務報表、籌碼分析等三個Tabs
+            dcc.Tabs(id='iq-tabs', value='dynamic-iq-result-info', # value是預設顯示值
+                    children=[
+                        dcc.Tab(label='基本資料', id='dynamic-iq-result-info', value='dynamic-iq-result-info', style=self_style.result_words, selected_style=self_style.result_words_onclick),
+                        dcc.Tab(label='財務報表', id='dynamic-iq-result-financial', value='dynamic-iq-result-financial', style=self_style.result_words, selected_style=self_style.result_words_onclick),
+                        dcc.Tab(label='籌碼分析', id='dynamic-iq-result-chip', value='dynamic-iq-result-chip', style=self_style.result_words, selected_style=self_style.result_words_onclick),
+            ]),
+            dcc.Loading(
+                    id='iq-result-loading',
+                    type='default',
+                    children=html.Div([],id='iq-result-content', style=self_style.result_content),
+                    color='red',
+            ),
+        ]
+    else:
+        children_content_info = []
+        children_content_data1 = []
+        children_content_data2 = []
+    return children_content_info, children_content_data1, children_content_data2
+    
+
+#Callback 6: Individual Tabs
 @app.callback(
     Output('iq-result-loading', 'children'),
     Input('iq-tabs', 'value'),
