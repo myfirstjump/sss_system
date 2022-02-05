@@ -427,56 +427,32 @@ td_style = {
     'width': '20%'
 }
 
+### Individual Query
 
-query_div = {
-    'display' : 'flex',
-    'flex-flow': 'column nowrap',
-    # 'align-items': '',
-    'align-content': 'center',
-    'justify-content': 'center',
+iq_div = {
+    'display' : 'flex', #必需宣告
+    'flex-flow': 'column nowrap', #方向、是否換行或溢出
+    'flex':'10', #包含flex-grow, flex-shrink, flex-basis
+    
+    'justify-content': 'flex-start', #主軸對稱
+    'align-items': 'stretch', #交錯軸對稱
+    'align-content': 'stretch',
+    
     'margin': '10px',
-
     'height': '1300px',
     # 'width': '90%',
     'background-color':  inner_frame_bg,
-    # 'border':'solid white 1px',
+    'border':'solid white 1px',
 }
 
-query_block_style = {
-    
+iq_l1 = {
 
-    'color': 'white',
-    'font-size': '30px',
-    'background-color':  query_blocks_bg,
-    
-    'display': 'flex',
-    'padding': '20px',
-    'margin': '10px',
 
-    'align-content': 'center',
-    'justify-content': 'center',
-
-    # 'height': '150px',
-    'border-radius':'5px',
-    # 'border':'solid white 1px',
+    'color':'#FFFFFF',
+    'border':'solid white 1px',
 }
 
-
-
-query_content_style = {
-    'color': 'white',
-    'font-size': '30px',
-    'background-color':  query_blocks_bg,
-
-    'padding': '10px',
-    'margin': '10px',
-
-    'height': '1000px',
-    'border-radius':'5px',
-    # 'border':'solid white 1px',
-}
-
-query_input_style = {
+iq_l1_query_input_style = {
 
     'width': '600px',
     'height': '40px',
@@ -486,10 +462,61 @@ query_input_style = {
     'font-size': '30px',
 }
 
-query_btn = {
+iq_l1_query_btn = {
     'width': '50px',
     'height': '40px',
     'margin': '2px',
     
     'border-radius': '10%',
+}
+
+iq_l2 = { #公司名稱等基本資訊
+    'display':'flex',
+    'flex-flow':'row wrap',
+
+    'color':'#FFFFFF',
+    'border':'solid white 1px',
+}
+
+iq_l3 = { #漲跌等每日基本數據
+    'display':'flex',
+    'flex-flow':'row wrap',
+    'color':'#FFFFFF',
+    'border':'solid white 1px',
+}
+
+iq_l4 = {
+    'color':'#FFFFFF',
+    'border':'solid white 1px',
+}
+
+iq_l21 = {
+    
+    'color':'#FFFFFF',
+    'border':'solid white 1px',
+}
+
+iq_l22 = {
+    'color':'#FFFFFF',
+    'border':'solid white 1px',
+}
+
+iq_l23 = {
+    'color':'#FFFFFF',
+    'border':'solid white 1px',
+}
+
+iq_l24 = {
+    'color':'#FFFFFF',
+    'border':'solid white 1px',
+}
+
+iq_l31 = {
+    'color':'#FFFFFF',
+    'border':'solid white 1px',
+}
+
+iq_l32 = {
+    'color':'#FFFFFF',
+    'border':'solid white 1px',
 }

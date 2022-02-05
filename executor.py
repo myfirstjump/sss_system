@@ -177,27 +177,56 @@ app.layout = html.Div([
 
             dcc.Tab(label='個股查詢', children=[
 
-                # 工具2: 個股查詢
+                #1. individual query 個股查詢
                 html.Div([
+                    html.Div([
+                        '1',
                         html.Div([
-                                dcc.Input(
-                                        id='query_input',
-                                        type='text',
-                                        placeholder='請輸入股票代號或公司名稱',
-                                        style=self_style.query_input_style
-                                    ),
-                                html.Button(
-                                    children=['查詢'],
-                                    id='query-btn',
-                                    style=self_style.query_btn,
-                                    ),
-                            ], style=self_style.query_block_style),
-                        html.Div([], style=self_style.query_content_style),
-                ], style=self_style.query_div),
+                            dcc.Input(
+                                id='iq-input',
+                                type='text',
+                                placeholder='請輸入股票代號或公司名稱',
+                                style=self_style.iq_l1_query_input_style,
+                            ),
+                            html.Button(
+                                children=['查詢'],
+                                id='iq-btn',
+                                style=self_style.iq_l1_query_btn,
+                            ),
+                        ]),
+                    ],style=self_style.iq_l1),
+                    html.Div([#公司名稱等基本資訊
+                        '2',
+                        html.Div(['l21公司名稱(中文)'], style=self_style.iq_l21),
+                        html.Div(['l22公司代號'], style=self_style.iq_l22),
+                        html.Div(['l23上市上櫃'], style=self_style.iq_l23),
+                        html.Div(['l24公司產業別'], style=self_style.iq_l24),
+                    ],style=self_style.iq_l2),
+                    html.Div([#漲跌等每日基本數據
+                        '3',
+                        html.Div(['l31當日股價'], style=self_style.iq_l31),
+                        html.Div(['l32其他資訊表格'], style=self_style.iq_l32),
+                    ],style=self_style.iq_l3),
+                    html.Div([#基本資料、財務報表、籌碼分析等三個Tabs
+                        '4',
+                        dcc.Tabs(id='iq-tabs', value='dynamic-iq-result-info', # value是預設顯示值
+                                children=[
+                                    dcc.Tab(label='基本資料', id='dynamic-iq-result-info', value='dynamic-iq-result-info', style=self_style.result_words, selected_style=self_style.result_words_onclick),
+                                    dcc.Tab(label='財務報表', id='dynamic-iq-result-financial', value='dynamic-iq-result-financial', style=self_style.result_words, selected_style=self_style.result_words_onclick),
+                                    dcc.Tab(label='籌碼分析', id='dynamic-iq-result-chip', value='dynamic-iq-result-chip', style=self_style.result_words, selected_style=self_style.result_words_onclick),
+                        ]),
+                        dcc.Loading(
+                                id='iq-result-loading',
+                                type='default',
+                                children=html.Div([],id='iq-result-content', style=self_style.result_content),
+                                color='red',
+                        ),
+                    ],style=self_style.iq_l4),
+                ], style=self_style.iq_div),
+
             ], style=self_style.top_tab, selected_style=self_style.top_tab_onclick),
         ]),
     ]),
-
 ], style=self_style.top_div_style) # canvas-div
 
 ### callbacks
@@ -1576,6 +1605,7 @@ value0611, value0612, stored_data, download_data):
         ])
         return children_content, None
 
+#Callback 4:  
 @app.callback(
     Output("download-excel", "data"),
     Input("btn-download", "n_clicks"),
@@ -1585,6 +1615,40 @@ value0611, value0612, stored_data, download_data):
 def func(n_clicks, download_data):
     data = pd.DataFrame.from_records(download_data)
     return dcc.send_data_frame(data.to_csv, "stock_result_" + datetime.datetime.now().strftime('%Y-%m-%d-%H%M%S') + ".csv")
+
+#Callback 5: Individual Tabs
+@app.callback(
+    Output('iq-result-loading', 'children'),
+    Input('iq-tabs', 'value'),
+)
+def iq_result(tab_value):
+
+    if tab_value == 'dynamic-iq-result-financial':
+        children_content = [
+            'financial表格',
+            dcc.Tabs([
+                dcc.Tab(label='財務比率', children=['獲利能力、經營績效、償債能力、經營能力等4張表格'], style=self_style.result_words, selected_style=self_style.result_words_onclick),
+                dcc.Tab(label='現金&股票股利', children=['現金&股票股利表格'], style=self_style.result_words, selected_style=self_style.result_words_onclick),
+                dcc.Tab(label='每股稅後盈餘(EPS)', children=['每股稅後盈餘(EPS)表格'], style=self_style.result_words, selected_style=self_style.result_words_onclick),
+                dcc.Tab(label='殖利率', children=['殖利率表格'], style=self_style.result_words, selected_style=self_style.result_words_onclick),
+                dcc.Tab(label='本益比(P/E)', children=['本益比(P/E)表格'], style=self_style.result_words, selected_style=self_style.result_words_onclick),
+            ]),
+        ]
+        return children_content
+    elif tab_value == 'dynamic-iq-result-chip':
+        children_content = [
+            'chip表格',
+            dcc.Tabs([
+                dcc.Tab(label='法人持股', children=['法人持股表格'], style=self_style.result_words, selected_style=self_style.result_words_onclick),
+                dcc.Tab(label='融資融券', children=['融資融券、借券表格'], style=self_style.result_words, selected_style=self_style.result_words_onclick),
+                dcc.Tab(label='集保庫存', children=['集保庫存表格'], style=self_style.result_words, selected_style=self_style.result_words_onclick),
+                dcc.Tab(label='董監持股', children=['董監持股表格'], style=self_style.result_words, selected_style=self_style.result_words_onclick),
+            ]),
+        ]
+        return children_content
+    else:
+        children_content = ['info表格']
+        return children_content
 
 
 def generate_table(stock_data, max_rows=5000):
