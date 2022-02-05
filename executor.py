@@ -45,9 +45,13 @@ start_img = 'assets/start_unclicked.png'
 
 config_obj = Configuration()
 reader_obj = DataReader()
+process_obj = DataProcessing()
+
 file_path = os.path.join(config_obj.data_folder, config_obj.taiwan_stock_info)
 print('file_path', file_path)
 stock_data = reader_obj.read_csv_data(file_path)
+stock_data = process_obj.sss_data_preprocessing(stock_data)
+print(stock_data.head(5))
 
 app.layout = html.Div([
     html.Div([
@@ -1621,7 +1625,7 @@ def func(n_clicks, download_data):
     Input('iq-input', 'value'),
     Input('iq-btn', 'n_clicks'),
 )
-def iq_interaction(input, btn):
+def iq_interactive(input, btn):
     if btn == None:
         raise PreventUpdate
 

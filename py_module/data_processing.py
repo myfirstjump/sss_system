@@ -33,6 +33,10 @@ class DataProcessing(object):
         # new_data = self.add_column_to_pd_dataframe(data, '營業額', new_col_6)
         
         return new_data
+    
+    def sss_data_preprocessing(self, data):
+        data = data[['date','industry_category','stock_id','stock_name','type']]
+        return data
 
     def add_column_to_pd_dataframe(self, data, new_column_name, new_column_array):
 
