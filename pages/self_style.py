@@ -82,7 +82,9 @@ condition_frame = {
     'overflow': 'auto',
     'margin': '1%',
     'verticalAlign': "middle",
-    'display': 'inline-block',
+    'display': 'inline-flex',
+    'flex-direction':'column',
+    'justify-content': 'space-between',
     'border-radius':'5px',
     #'border':'solid 1px',
 }
@@ -90,7 +92,7 @@ condition_frame = {
 selection_btn = {
     'width': '47%',
     'border-radius': '10%',
-    'margin': '1%',
+    'margin': '1.5%',
 }
 
 result_frame = { 
@@ -197,8 +199,10 @@ dynamic_output_container_style = {
 
 selection_btn_div_style = {
     'height': '10%',
-    'display':'inline-block',
-    'verticalAlign': 'bottom',
+    'display':'flex',
+    'flex-direction': 'row',
+    'justify-content': 'space-between', #沒有效果，是靠設定2個內容物width 47%、47%、margin 1.5%才剛好塞滿，有space-between的感覺。
+    # 'verticalAlign': 'bottom',
 }
 
 item_style = {
@@ -446,28 +450,21 @@ iq_div = {
 }
 
 iq_l1 = {
-
-
+    'display':'flex',
+    'flex-direction': 'row',
     'color':'#FFFFFF',
     'border':'solid white 1px',
 }
 
-iq_l1_query_input_style = {
-
-    'width': '600px',
-    'height': '40px',
-    'margin': '2px',
-
-    'text-align': 'center',
-    'font-size': '30px',
+iq_l1_dd = {
+    'color':'black', 
+    'width':'95%',
 }
 
 iq_l1_query_btn = {
-    'width': '50px',
-    'height': '40px',
-    'margin': '2px',
-    
-    'border-radius': '10%',
+    'width': '10%',
+    # 'margin': '2px',
+    # 'border-radius': '10%',
 }
 
 iq_l2 = { #公司名稱等基本資訊

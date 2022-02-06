@@ -37,6 +37,15 @@ class DataProcessing(object):
     def sss_data_preprocessing(self, data):
         data = data[['date','industry_category','stock_id','stock_name','type']]
         return data
+    
+    def get_stock_id_and_stock_name_list(self, data):
+        series = data['stock_id'] + " " + data['stock_name']
+        options = []
+        for string, stock_id  in zip(series, data['stock_id']):
+            options.append({'label': string, 'value': stock_id})
+
+        return options
+        
 
     def add_column_to_pd_dataframe(self, data, new_column_name, new_column_array):
 

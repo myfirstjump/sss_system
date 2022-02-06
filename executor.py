@@ -50,8 +50,8 @@ process_obj = DataProcessing()
 file_path = os.path.join(config_obj.data_folder, config_obj.taiwan_stock_info)
 print('file_path', file_path)
 stock_data = reader_obj.read_csv_data(file_path)
-stock_data = process_obj.sss_data_preprocessing(stock_data)
-print(stock_data.head(5))
+stock_data = process_obj.sss_data_preprocessing(stock_data) #產業別篩選使用
+stock_options = process_obj.get_stock_id_and_stock_name_list(stock_data) #個股查詢使用
 
 app.layout = html.Div([
     html.Div([
@@ -184,20 +184,17 @@ app.layout = html.Div([
                 #1. individual query 個股查詢
                 html.Div([
                     html.Div([
-                        '1',
-                        html.Div([
-                            dcc.Input(
-                                id='iq-input',
-                                type='text',
-                                placeholder='請輸入股票代號或公司名稱',
-                                style=self_style.iq_l1_query_input_style,
-                            ),
-                            html.Button(
-                                children=['查詢'],
-                                id='iq-btn',
-                                style=self_style.iq_l1_query_btn,
-                            ),
-                        ]),
+                        dcc.Dropdown(
+                            id='iq-dd',
+                            options=stock_options,
+                            placeholder='請輸入股票代號或公司名稱',
+                            style=self_style.iq_l1_dd,
+                        ),
+                        html.Button(
+                            children=['查詢'],
+                            id='iq-btn',
+                            style=self_style.iq_l1_query_btn,
+                        ),
                     ],style=self_style.iq_l1),
                     html.Div(
                         children=[#公司名稱等基本資訊
@@ -1622,7 +1619,7 @@ def func(n_clicks, download_data):
     Output('iq-stock-info', 'children'),
     Output('iq-stock-data1', 'children'),
     Output('iq-stock-data2', 'children'),
-    Input('iq-input', 'value'),
+    Input('iq-dd', 'value'),
     Input('iq-btn', 'n_clicks'),
 )
 def iq_interactive(input, btn):
