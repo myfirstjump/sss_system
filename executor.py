@@ -198,20 +198,18 @@ app.layout = html.Div([
                     ],style=self_style.iq_l1),
                     html.Div(
                         children=[#公司名稱等基本資訊
-                            '2',
-                            html.Div(['l21公司名稱(中文)'], style=self_style.iq_l21),
-                            html.Div(['l22公司代號'], style=self_style.iq_l22),
-                            html.Div(['l23上市上櫃'], style=self_style.iq_l23),
-                            html.Div(['l24公司產業別'], style=self_style.iq_l24),
+                            html.Div(['公司名稱(中文)'], style=self_style.iq_l21),
+                            html.Div(['公司代號'], style=self_style.iq_l22),
+                            html.Div(['上市上櫃'], style=self_style.iq_l23),
+                            html.Div(['公司產業別'], style=self_style.iq_l24),
                         ],
                         id='iq-stock-info',
                         style=self_style.iq_l2
                     ),
                     html.Div(
                         children=[#漲跌等每日基本數據
-                            '3',
-                            html.Div(['l31當日股價'], style=self_style.iq_l31),
-                            html.Div(['l32其他資訊表格'], style=self_style.iq_l32),
+                            html.Div(['當日股價'], style=self_style.iq_l31),
+                            html.Div(['其他資訊表格'], style=self_style.iq_l32),
                         ],
                         id='iq-stock-data1',
                         style=self_style.iq_l3),
@@ -1629,7 +1627,7 @@ def iq_interactive(input, btn):
     if btn > 0:    
         temp_result_1 = ['中華電', '2412', '上市', '電信業', '117']
         temp_result_2 = {
-            '漲跌':['000'], 
+            '漲跌':['▼ 5'], 
             '漲幅':['000'],
             '成交量':['000'],
             '開':['000'],
@@ -1653,24 +1651,29 @@ def iq_interactive(input, btn):
                 [temp_result_1[4]], 
                 style=self_style.iq_l31
             ),
-            dash_table.DataTable(
-                columns = [{"name": i, "id": i} for i in temp_result_2.columns],
-                data=temp_result_2.to_dict('records'),
-                style_cell={'fontSize': '20px', 'height': 'auto', 'whiteSpace': 'normal', 'background-color':'black'},
-                style_cell_conditional=[
-                    {'if': {'column_id': 'Remark'},
-                    'width': '15%'},
-                    {'if': {'column_id': '產業別'},
-                    'width': '20%'},
+            html.Div(
+                children=[
+                    dash_table.DataTable(
+                        columns = [{"name": i, "id": i} for i in temp_result_2.columns],
+                        data=temp_result_2.to_dict('records'),
+                        style_cell={'fontSize': '30px', 'height': 'auto', 'whiteSpace': 'normal'},
+                        style_cell_conditional=[
+                            # {'if': {'column_id': 'Remark'},
+                            # 'width': '15%'},
+                            # {'if': {'column_id': '產業別'},
+                            # 'width': '20%'},
+                        ],
+                    ),
                 ],
-            ),
+                style=self_style.iq_l32,
+            )
         ]
         children_content_data2 = [#基本資料、財務報表、籌碼分析等三個Tabs
             dcc.Tabs(id='iq-tabs', value='dynamic-iq-result-info', # value是預設顯示值
                     children=[
-                        dcc.Tab(label='基本資料', id='dynamic-iq-result-info', value='dynamic-iq-result-info', style=self_style.result_words, selected_style=self_style.result_words_onclick),
-                        dcc.Tab(label='財務報表', id='dynamic-iq-result-financial', value='dynamic-iq-result-financial', style=self_style.result_words, selected_style=self_style.result_words_onclick),
-                        dcc.Tab(label='籌碼分析', id='dynamic-iq-result-chip', value='dynamic-iq-result-chip', style=self_style.result_words, selected_style=self_style.result_words_onclick),
+                        dcc.Tab(label='基本資料', id='dynamic-iq-result-info', value='dynamic-iq-result-info', style=self_style.iq_tab, selected_style=self_style.iq_tab_onclick),
+                        dcc.Tab(label='財務報表', id='dynamic-iq-result-financial', value='dynamic-iq-result-financial', style=self_style.iq_tab, selected_style=self_style.iq_tab_onclick),
+                        dcc.Tab(label='籌碼分析', id='dynamic-iq-result-chip', value='dynamic-iq-result-chip', style=self_style.iq_tab, selected_style=self_style.iq_tab_onclick),
             ]),
             dcc.Loading(
                     id='iq-result-loading',
@@ -1695,24 +1698,22 @@ def iq_result(tab_value):
 
     if tab_value == 'dynamic-iq-result-financial':
         children_content = [
-            'financial表格',
             dcc.Tabs([
-                dcc.Tab(label='財務比率', children=['獲利能力、經營績效、償債能力、經營能力等4張表格'], style=self_style.result_words, selected_style=self_style.result_words_onclick),
-                dcc.Tab(label='現金&股票股利', children=['現金&股票股利表格'], style=self_style.result_words, selected_style=self_style.result_words_onclick),
-                dcc.Tab(label='每股稅後盈餘(EPS)', children=['每股稅後盈餘(EPS)表格'], style=self_style.result_words, selected_style=self_style.result_words_onclick),
-                dcc.Tab(label='殖利率', children=['殖利率表格'], style=self_style.result_words, selected_style=self_style.result_words_onclick),
-                dcc.Tab(label='本益比(P/E)', children=['本益比(P/E)表格'], style=self_style.result_words, selected_style=self_style.result_words_onclick),
+                dcc.Tab(label='財務比率', children=['獲利能力、經營績效、償債能力、經營能力等4張表格'], style=self_style.iq_tab_l2, selected_style=self_style.iq_tab_l2_onclick),
+                dcc.Tab(label='現金&股票股利', children=['現金&股票股利表格'], style=self_style.iq_tab_l2, selected_style=self_style.iq_tab_l2_onclick),
+                dcc.Tab(label='每股稅後盈餘(EPS)', children=['每股稅後盈餘(EPS)表格'], style=self_style.iq_tab_l2, selected_style=self_style.iq_tab_l2_onclick),
+                dcc.Tab(label='殖利率', children=['殖利率表格'], style=self_style.iq_tab_l2, selected_style=self_style.iq_tab_l2_onclick),
+                dcc.Tab(label='本益比(P/E)', children=['本益比(P/E)表格'], style=self_style.iq_tab_l2, selected_style=self_style.iq_tab_l2_onclick),
             ]),
         ]
         return children_content
     elif tab_value == 'dynamic-iq-result-chip':
         children_content = [
-            'chip表格',
             dcc.Tabs([
-                dcc.Tab(label='法人持股', children=['法人持股表格'], style=self_style.result_words, selected_style=self_style.result_words_onclick),
-                dcc.Tab(label='融資融券', children=['融資融券、借券表格'], style=self_style.result_words, selected_style=self_style.result_words_onclick),
-                dcc.Tab(label='集保庫存', children=['集保庫存表格'], style=self_style.result_words, selected_style=self_style.result_words_onclick),
-                dcc.Tab(label='董監持股', children=['董監持股表格'], style=self_style.result_words, selected_style=self_style.result_words_onclick),
+                dcc.Tab(label='法人持股', children=['法人持股表格'], style=self_style.iq_tab_l2, selected_style=self_style.iq_tab_l2_onclick),
+                dcc.Tab(label='融資融券', children=['融資融券、借券表格'], style=self_style.iq_tab_l2, selected_style=self_style.iq_tab_l2_onclick),
+                dcc.Tab(label='集保庫存', children=['集保庫存表格'], style=self_style.iq_tab_l2, selected_style=self_style.iq_tab_l2_onclick),
+                dcc.Tab(label='董監持股', children=['董監持股表格'], style=self_style.iq_tab_l2, selected_style=self_style.iq_tab_l2_onclick),
             ]),
         ]
         return children_content

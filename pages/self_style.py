@@ -403,12 +403,47 @@ result_words_onclick = {
     'border-bottom': 'hidden',
 }
 
+iq_tab = {
+    'font-size': '32px',
+    # 'font-weight':'900',
+    'color': '#636566',
+    'border': 'hidden',
+    'background-color': '#FFFFFF',
+}
+
+iq_tab_onclick = {
+    'font-size': '32px',
+    'font-weight':'900',
+    'color': '#2399E7',
+    'text-decoration':'underline',
+    'border': 'hidden',
+    'background-color': '#FFFFFF',
+}
+
+iq_tab_l2 = {
+    'font-size': '18px',
+    # 'font-weight':'900',
+    'color': '#636566',
+    'border': 'hidden',
+    'background-color': '#FFFFFF',
+
+}
+
+iq_tab_l2_onclick = {
+    'font-size': '18px',
+    'font-weight':'900',
+    'color': '#2399E7',
+    'text-decoration':'underline',
+    'border': 'hidden',
+    'background-color': '#FFFFFF',
+}
+
 top_tab = {
-    'font-size': '24px',
+    'font-size': '28px',
     'font-weight':'900',
     'color': '#2399E7',
     'background-color': '#192340',
-    'border-color': result_words,
+    'border-color': '#192340',
     'border-top': 'hidden',
     'border-bottom': 'hidden',
     'border-radius': '15px 15px 0px 0px',
@@ -416,11 +451,11 @@ top_tab = {
 
 
 top_tab_onclick = {
-    'font-size': '24px',
+    'font-size': '28px',
     'font-weight':'900',
     'color': '#E1EBF9',
     'background-color': '#33A7ED',
-    'border-color': result_words,
+    'border-color': '#33A7ED',
     # 'border-right': '#2399E7',
     'border-top': 'hidden',
     'border-bottom': 'hidden',
@@ -445,15 +480,17 @@ iq_div = {
     'margin': '10px',
     'height': '1300px',
     # 'width': '90%',
-    'background-color':  inner_frame_bg,
-    'border':'solid white 1px',
+    'background-color':  '#FFFFFF',
+    # 'border':'solid white 1px',
 }
 
 iq_l1 = {
     'display':'flex',
     'flex-direction': 'row',
     'color':'#FFFFFF',
-    'border':'solid white 1px',
+    # 'border':'solid white 1px',
+    'margin': '1%',
+    'font-size': '25px',
 }
 
 iq_l1_dd = {
@@ -470,50 +507,77 @@ iq_l1_query_btn = {
 iq_l2 = { #公司名稱等基本資訊
     'display':'flex',
     'flex-flow':'row wrap',
+    'align-items': 'flex-end', #每個div貼底。
 
-    'color':'#FFFFFF',
-    'border':'solid white 1px',
+    # 'color':'#FFFFFF',
+    'background-color':'#FFFFFF',
+    # 'border':'solid black 1px',
+    'margin': '1%',
+    'font-size': '30px',
 }
 
 iq_l3 = { #漲跌等每日基本數據
     'display':'flex',
     'flex-flow':'row wrap',
-    'color':'#FFFFFF',
-    'border':'solid white 1px',
+    # 'color':'#FFFFFF',
+    'background-color':'#FFFFFF',
+    # 'border':'solid black 1px',
+    'margin': '1%',
+    # 'font-size': '25px',
 }
 
 iq_l4 = {
-    'color':'#FFFFFF',
-    'border':'solid white 1px',
+    # 'color':'#FFFFFF',
+    'background-color':'#FFFFFF',
+    # 'border':'solid black 1px',
+    'margin': '1%',
+    'font-size': '25px',
 }
 
 iq_l21 = {
     
-    'color':'#FFFFFF',
-    'border':'solid white 1px',
+    # 'color':'#FFFFFF',
+    'background-color':'#FFFFFF',
+    'margin': '1%',
+    'font-size': '36px',
+    # 'border':'solid black 1px',
 }
 
 iq_l22 = {
-    'color':'#FFFFFF',
-    'border':'solid white 1px',
+    # 'color':'#FFFFFF',
+    'background-color':'#FFFFFF',
+    'margin': '1%',
+    # 'border':'solid black 1px',
 }
 
 iq_l23 = {
-    'color':'#FFFFFF',
-    'border':'solid white 1px',
+    # 'color':'#FFFFFF',
+    'background-color':'#FFFFFF',
+    'margin': '1%',
+    # 'border':'solid black 1px',
 }
 
 iq_l24 = {
-    'color':'#FFFFFF',
-    'border':'solid white 1px',
+    # 'color':'#FFFFFF',
+    'background-color':'#FFFFFF',
+    'margin': '1%',
+    # 'border':'solid black 1px',
 }
 
 iq_l31 = {
-    'color':'#FFFFFF',
-    'border':'solid white 1px',
+    'width': '15%',
+    # 'color':'#FFFFFF',
+    'font-size': '60px',
+    'verticalAlign':'middle',
+    'text-align': 'center',
+    'background-color':'#FFFFFF',
+    # 'border':'solid black 1px',
 }
 
 iq_l32 = {
-    'color':'#FFFFFF',
-    'border':'solid white 1px',
+    'width': '80%',
+    # 'color':'#FFFFFF',
+    'font-size': '30px',
+    'background-color':'#FFFFFF',
+    # 'border':'solid black 1px',
 }
