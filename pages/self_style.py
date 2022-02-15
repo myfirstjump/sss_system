@@ -519,6 +519,7 @@ iq_l2 = { #公司名稱等基本資訊
 iq_l3 = { #漲跌等每日基本數據
     'display':'flex',
     'flex-flow':'row wrap',
+    'align-items': 'center', #每個div垂直置中。
     # 'color':'#FFFFFF',
     'background-color':'#FFFFFF',
     # 'border':'solid black 1px',

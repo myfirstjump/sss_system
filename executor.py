@@ -1625,7 +1625,7 @@ def iq_interactive(input, btn):
         raise PreventUpdate
 
     if btn > 0:    
-        temp_result_1 = ['中華電', '2412', '上市', '電信業', '117']
+        temp_result_1 = ['中華電', '(2412)', '上市', '電信業', '117']
         temp_result_2 = {
             '漲跌':['▼ 5'], 
             '漲幅':['000'],
