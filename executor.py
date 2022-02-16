@@ -198,18 +198,18 @@ app.layout = html.Div([
                     ],style=self_style.iq_l1),
                     html.Div(
                         children=[#公司名稱等基本資訊
-                            html.Div(['公司名稱(中文)'], style=self_style.iq_l21),
-                            html.Div(['公司代號'], style=self_style.iq_l22),
-                            html.Div(['上市上櫃'], style=self_style.iq_l23),
-                            html.Div(['公司產業別'], style=self_style.iq_l24),
+                            # html.Div(['公司名稱(中文)'], style=self_style.iq_l21),
+                            # html.Div(['公司代號'], style=self_style.iq_l22),
+                            # html.Div(['上市上櫃'], style=self_style.iq_l23),
+                            # html.Div(['公司產業別'], style=self_style.iq_l24),
                         ],
                         id='iq-stock-info',
                         style=self_style.iq_l2
                     ),
                     html.Div(
                         children=[#漲跌等每日基本數據
-                            html.Div(['當日股價'], style=self_style.iq_l31),
-                            html.Div(['其他資訊表格'], style=self_style.iq_l32),
+                            # html.Div(['當日股價'], style=self_style.iq_l31),
+                            # html.Div(['其他資訊表格'], style=self_style.iq_l32),
                         ],
                         id='iq-stock-data1',
                         style=self_style.iq_l3),
