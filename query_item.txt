@@ -101,3 +101,171 @@ select stock_id from TW_STOCK_PRICE_Weekly where stock_id = '2330' ) b on a.stoc
 inner join (
 select stock_id from TW_STOCK_PRICE_Monthly where stock_id = '2330' ) c on b.stock_id = c.stock_id
 inner join STOCK_SKILL_DB.dbo.TW_STOCK_INFO d on c.stock_id = d.stock_id
+
+
+
+/****** SSMS 中 SelectTopNRows 命令的指令碼  ******/
+--財務比率
+
+--------獲利能力
+select date, 每股營業額, 營業毛利率, 營業利益率, 稅後淨利率, 每股稅後淨利, 每股淨值, 股東權益報酬率, 資產報酬率  from (
+SELECT date, PER_STOCK_Margin '每股營業額', Gross_Profit_Margin '營業毛利率', Operating_Profit_Margin '營業利益率', AfterTax_Income_Margin '稅後淨利率'
+,PER_STOCK_AfterTax '每股稅後淨利', PER_STOCK_PRICE '每股淨值',After_Return '股東權益報酬率', Total_Return '資產報酬率'
+,  ROW_NUMBER() over (partition by stock_id order by date desc) desc_DATE 
+  FROM [STOCK_BASICINTO_DB].[dbo].[TW_STOCK_FinancialStatements_Detail] with(nolock)
+  where date >= DATEADD(YEAR, -3, GETDATE())) a
+  where desc_DATE <= 8
+  order by date desc
+
+----------經營績效
+select date, 營收成長率, 營業利益成長率, 稅前淨利成長率, 稅後淨利成長率 from (
+SELECT date, Income_growth '營收成長率', Profit_Growth '營業利益成長率', PreTax_Growth '稅前淨利成長率', null as '稅後淨利成長率'
+,  ROW_NUMBER() over (partition by stock_id order by date desc) desc_DATE 
+  FROM [STOCK_BASICINTO_DB].[dbo].[TW_STOCK_FinancialStatements_Detail] with(nolock)
+  where date >= DATEADD(YEAR, -3, GETDATE())) a
+  where desc_DATE <= 8
+  order by date desc
+
+ 
+----------償債能力
+select date, 流動比率, 速動比率, 負債比率 from (
+SELECT date, Current_Rate '流動比率', Quick_Rate '速動比率', Debt_Rate '負債比率'
+,  ROW_NUMBER() over (partition by stock_id order by date desc) desc_DATE 
+  FROM [STOCK_BASICINTO_DB].[dbo].[TW_STOCK_FinancialStatements_Detail] with(nolock)
+  where date >= DATEADD(YEAR, -3, GETDATE())) a
+  where desc_DATE <= 8
+  order by date desc
+
+
+------------經營能力
+select date, 應收帳款週轉率, 存貨周轉率 from (
+SELECT date, Accounts_Receivable_Turnover_Rate '應收帳款週轉率', Inventory_Turnover '存貨周轉率'
+,  ROW_NUMBER() over (partition by stock_id order by date desc) desc_DATE 
+  FROM [STOCK_BASICINTO_DB].[dbo].[TW_STOCK_FinancialStatements_Detail] with(nolock)
+  where date >= DATEADD(YEAR, -3, GETDATE())) a
+  where desc_DATE <= 8
+  order by date desc
+
+
+--現金&股票股利
+SELECT belong_year '所屬年度', YEAR(CashDividendPaymentDate) '發放年度', CashEarningsDistribution '現金股利(元)', StockEarningsDistribution '股票股利(元)'
+, CashEarningsDistribution+StockEarningsDistribution '股利合計(元)'
+  FROM [STOCK_BASICINTO_DB].[dbo].[TW_STOCK_Dividend] with(nolock)
+
+--每股稅後盈餘(EPS)
+select  年度, Q1, Q2, Q3, Q4, Q1+Q2+Q3+Q4 '合計'
+from
+(
+SELECT YEAR(date) '年度', 
+case 
+when MONTH(date) = 3 then 'Q1'
+when MONTH(date) = 6 then 'Q2'
+when MONTH(date) = 9 then 'Q3'
+when MONTH(date) = 12 then 'Q4'
+end Q, value
+  FROM [STOCK_BASICINTO_DB].[dbo].[TW_STOCK_FinancialStatements] with(nolock)
+  where type = 'EPS'
+  ) as A
+pivot
+(
+max(value)
+for Q in ([Q1], [Q2], [Q3], [Q4])
+) as pv
+
+----殖利率
+select YM, dividend_yield '殖利率(%)' from(
+select *,  ROW_NUMBER() over (partition by stock_id,YM order by date desc) desc_DATE
+from(
+SELECT *, convert(nvarchar(6), date, 112) YM
+  FROM [STOCK_SKILL_DB].[dbo].[TW_STOCK_PER] with(nolock)
+  where stock_id = '2330'
+  ) a
+  ) b
+  where desc_DATE = 1
+
+----本益比(P/E)
+select YM, PER '本益比' from(
+select *,  ROW_NUMBER() over (partition by stock_id,YM order by date desc) desc_DATE
+from(
+SELECT *, convert(nvarchar(6), date, 112) YM
+  FROM [STOCK_SKILL_DB].[dbo].[TW_STOCK_PER] with(nolock)
+  where stock_id = '2330'
+  ) a
+  ) b
+  where desc_DATE = 1
+
+
+
+----------------------------------------------籌碼分析-------------------------
+
+--法人持股
+
+-------外資
+SELECT [date] '日期',sum([buy])/1000 '買進張數',sum([sell])/1000 '賣出張數', sum((buy-sell))/1000 '合計'
+  FROM [STOCK_COUNTER_DB].[dbo].[TW_STOCK_LEGALPERSON_Daily] with(nolock)
+  where name like '%Foreign%'
+  and date >= DATEADD(MONTH, -1, GETDATE())
+  group by date
+  order by date desc
+
+-------投信
+SELECT [date] '日期',sum([buy])/1000 '買進張數',sum([sell])/1000 '賣出張數', sum((buy-sell))/1000 '合計'
+  FROM [STOCK_COUNTER_DB].[dbo].[TW_STOCK_LEGALPERSON_Daily] with(nolock)
+  where name like '%Investment%'
+  and date >= DATEADD(MONTH, -1, GETDATE())
+  group by date
+  order by date desc
+
+-------自營商
+SELECT [date] '日期',sum([buy])/1000 '買進張數',sum([sell])/1000 '賣出張數', sum((buy-sell))/1000 '合計'
+  FROM [STOCK_COUNTER_DB].[dbo].[TW_STOCK_LEGALPERSON_Daily] with(nolock)
+  where name like '%Dealer%'
+  and date >= DATEADD(MONTH, -1, GETDATE())
+  group by date
+  order by date desc
+
+-------三大法人合計
+SELECT [date] '日期',sum([buy])/1000 '買進張數',sum([sell])/1000 '賣出張數', sum((buy-sell))/1000 '合計'
+  FROM [STOCK_COUNTER_DB].[dbo].[TW_STOCK_LEGALPERSON_Daily] with(nolock)
+  where date >= DATEADD(MONTH, -1, GETDATE())
+  group by date
+  order by date desc
+
+------融資融卷
+-----融資
+SELECT date '日期', MarginPurchaseTodayBalance '餘額', MARGIN_SPREAD '增減(張)', MARGIN_ratio '使用率%'
+  FROM [STOCK_COUNTER_DB].[dbo].[TW_STOCK_MARGINTRADE_SHORTSELL_Daily] with(nolock)
+  where date >= DATEADD(MONTH, -1, GETDATE())
+  order by date desc
+
+----融卷
+SELECT date '日期', ShortSaleTodayBalance '餘額', SHORTSELL_SPREAD '增減(張)', SHORTSELL_ratio '使用率%'
+  FROM [STOCK_COUNTER_DB].[dbo].[TW_STOCK_MARGINTRADE_SHORTSELL_Daily] with(nolock)
+  where date >= DATEADD(MONTH, -1, GETDATE())
+  order by date desc
+
+----借卷
+SELECT a.date '日期', a.LOANSHARE '賣出', a.LOANSHARE '餘額', a.LOAD_SPREAD '增減(張)', null as '增減(金額)', b.Trading_Volume '成交量' , b.[close] '收盤價', b.spread_ratio '漲跌(%)'
+FROM [STOCK_COUNTER_DB].[dbo].[TW_STOCK_LOANSHARE_Daily] a with(nolock)
+  inner join [STOCK_SKILL_DB].[dbo].[TW_STOCK_PRICE_Daily] b with(nolock) on a.stock_id = b.stock_id and a.date = b.date
+  where a.date >= DATEADD(MONTH, -1, GETDATE())
+
+------集保庫存
+select a.日期, a.集保張數/1000, (a.集保張數-b.集保張數)/1000 '增減(週)', (a.集保張數-b.集保張數)/(b.集保張數*10) '增減率%' from (
+SELECT date '日期', unit '集保張數',  ROW_NUMBER() over (partition by stock_id order by date desc) desc_DATE
+  FROM [STOCK_COUNTER_DB].[dbo].[TW_STOCK_HOLDRANGE]
+    where date >= DATEADD(YEAR, -1, GETDATE())
+  and stock_id = '1101'
+  and HoldingSharesLevel = 'total') a
+inner join (
+SELECT date '日期', unit '集保張數',  ROW_NUMBER() over (partition by stock_id order by date desc) desc_DATE
+  FROM [STOCK_COUNTER_DB].[dbo].[TW_STOCK_HOLDRANGE]
+    where date >= DATEADD(YEAR, -1, GETDATE())
+  and stock_id = '1101'
+  and HoldingSharesLevel = 'total') b on a.desc_DATE = b.desc_DATE-1
+order by a.日期
+
+----董監持股
+SELECT [ID] '身份別',[Name] '姓名',[Now_share] '持股張數',[share_ratio] '持股比例',[Pledge_number] '質押張數',[Pledge_ratio] '質押比例'
+  FROM [STOCK_BASICINTO_DB].[dbo].[TW_STOCK_Director_Supervisor] with(nolock)
+
