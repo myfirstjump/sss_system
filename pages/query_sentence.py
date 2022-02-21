@@ -1886,3 +1886,56 @@ def create_query_0612(period, direct, percent):
     '''.format(ref_table, ref_table, sign, percent)
 
     return query, '[稅後淨利率成長率]'
+
+
+def create_query_iq_01_01_01():
+
+    return
+
+def create_query_iq_01_01_02():
+
+    return
+
+def create_query_iq_01_01_03():
+
+    return
+
+def create_query_iq_01_01_04():
+
+    return
+
+def create_query_iq_01_02():
+
+    return
+
+def create_query_iq_01_03():
+
+    return
+
+def create_query_iq_01_04():
+
+    return
+
+def create_query_iq_01_05():
+
+    return
+
+def create_query_iq_02_01():
+
+    return
+
+def create_query_iq_02_02_01():
+
+    return
+
+def create_query_iq_02_02_02():
+
+    return
+
+def create_query_iq_02_03():
+
+    return
+
+def create_query_iq_02_04():
+
+    return
