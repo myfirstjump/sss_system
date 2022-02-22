@@ -1652,10 +1652,7 @@ def iq_interactive(stock_string, btn):
             stock_cate = ''
             for i in range(len(data_info_01)):
                 stock_cate = stock_cate + data_info_01[i]['industry_category']
-
-
-        # data_info_01 = pd.DataFrame.from_records(data_info_01)
-        # data_info_02 = pd.DataFrame.from_records(data_info_02)
+        stock_price = data_info_01[0]['price']
 
         temp_result_1 = ['中華電', '(2412)', '上市', '電信業', '117']
         temp_result_2 = {
@@ -1667,27 +1664,27 @@ def iq_interactive(stock_string, btn):
             '低':['000'],
             '收':['000'],
         }
-        temp_result_2 = pd.DataFrame.from_dict(temp_result_2)
+        data_info_02 = pd.DataFrame.from_records(data_info_02)
 
         children_content_info = [
             html.Div(
-                [stock_name], 
+                stock_name, 
                 style=self_style.iq_l21
             ),
-            html.Div([stock_id_string], style=self_style.iq_l22),
-            html.Div([stock_type], style=self_style.iq_l23),
-            html.Div([stock_cate], style=self_style.iq_l24),
+            html.Div(stock_id_string, style=self_style.iq_l22),
+            html.Div(stock_type, style=self_style.iq_l23),
+            html.Div(stock_cate, style=self_style.iq_l24),
         ]
         children_content_data1 = [
             html.Div(
-                [temp_result_1[4]], 
+                stock_price, 
                 style=self_style.iq_l31
             ),
             html.Div(
                 children=[
                     dash_table.DataTable(
-                        columns = [{"name": i, "id": i} for i in temp_result_2.columns],
-                        data=temp_result_2.to_dict('records'),
+                        columns = [{"name": i, "id": i} for i in data_info_02.columns],
+                        data=data_info_02.to_dict('records'),
                         style_cell={'fontSize': '30px', 'height': 'auto', 'whiteSpace': 'normal'},
                         style_cell_conditional=[
                             # {'if': {'column_id': 'Remark'},
