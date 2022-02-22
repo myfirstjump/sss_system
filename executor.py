@@ -1601,7 +1601,7 @@ value0611, value0612, stored_data, download_data):
         ])
         return children_content, None
 
-#Callback 4:  
+#Callback 4:  Data sheet download
 @app.callback(
     Output("download-excel", "data"),
     Input("btn-download", "n_clicks"),
@@ -1620,11 +1620,25 @@ def func(n_clicks, download_data):
     Input('iq-dd', 'value'),
     Input('iq-btn', 'n_clicks'),
 )
-def iq_interactive(input, btn):
+def iq_interactive(stock_string, btn):
     if btn == None:
         raise PreventUpdate
 
-    if btn > 0:    
+    if btn > 0:
+        stock_id = stock_string.split()[0]
+        stock_name = " ".join(stock_string.split()[1:])
+
+        iq_query_info_01 = query_sentence.create_query_info_01(stock_id)
+        data_info_01 = query_sentence.sql_execute(iq_query_info_01)
+        print(data_info_01)
+
+        iq_query_info_02 = query_sentence.create_query_info_01(stock_id)
+        data_info_02 = query_sentence.sql_execute(iq_query_info_02)
+        print(data_info_02)
+
+        # data_info_01 = pd.DataFrame.from_records(data_info_01)
+        # data_info_02 = pd.DataFrame.from_records(data_info_02)
+
         temp_result_1 = ['中華電', '(2412)', '上市', '電信業', '117']
         temp_result_2 = {
             '漲跌':['▼ 5'], 
@@ -1671,7 +1685,10 @@ def iq_interactive(input, btn):
         children_content_data2 = [#基本資料、財務報表、籌碼分析等三個Tabs
             dcc.Tabs(id='iq-tabs', value='dynamic-iq-result-info', # value是預設顯示值
                     children=[
-                        dcc.Tab(label='基本資料', id='dynamic-iq-result-info', value='dynamic-iq-result-info', style=self_style.iq_tab, selected_style=self_style.iq_tab_onclick),
+                        dcc.Tab(label='基本資料', id='dynamic-iq-result-info', value='dynamic-iq-result-info', style=self_style.iq_tab, selected_style=self_style.iq_tab_onclick,
+                            children=[
+                                
+                        ]),
                         dcc.Tab(label='財務報表', id='dynamic-iq-result-financial', value='dynamic-iq-result-financial', style=self_style.iq_tab, selected_style=self_style.iq_tab_onclick),
                         dcc.Tab(label='籌碼分析', id='dynamic-iq-result-chip', value='dynamic-iq-result-chip', style=self_style.iq_tab, selected_style=self_style.iq_tab_onclick),
             ]),
@@ -1697,9 +1714,15 @@ def iq_interactive(input, btn):
 def iq_result(tab_value):
 
     if tab_value == 'dynamic-iq-result-financial':
+
+        # iq_query = query_sentence.create_query_iq_01_01_01()
+        # data = query_sentence.sql_execute(iq_query)
         children_content = [
             dcc.Tabs([
-                dcc.Tab(label='財務比率', children=['獲利能力、經營績效、償債能力、經營能力等4張表格'], style=self_style.iq_tab_l2, selected_style=self_style.iq_tab_l2_onclick),
+                dcc.Tab(label='財務比率', children=[
+                    '獲利能力、經營績效、償債能力、經營能力等4張表格',
+                    
+                    ], style=self_style.iq_tab_l2, selected_style=self_style.iq_tab_l2_onclick),
                 dcc.Tab(label='現金&股票股利', children=['現金&股票股利表格'], style=self_style.iq_tab_l2, selected_style=self_style.iq_tab_l2_onclick),
                 dcc.Tab(label='每股稅後盈餘(EPS)', children=['每股稅後盈餘(EPS)表格'], style=self_style.iq_tab_l2, selected_style=self_style.iq_tab_l2_onclick),
                 dcc.Tab(label='殖利率', children=['殖利率表格'], style=self_style.iq_tab_l2, selected_style=self_style.iq_tab_l2_onclick),
