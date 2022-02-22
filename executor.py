@@ -1628,6 +1628,7 @@ def iq_interactive(stock_string, btn):
         print('[{}] 查詢個股: {}'.format(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'), stock_string))
         stock_id = stock_string
 
+        ### 基本資料
         iq_query_info_01 = query_sentence.create_query_info_01(stock_id)
         data_info_01 = query_sentence.sql_execute(iq_query_info_01) #result: [{'stock_name': '元大台灣50', 'stock_id': '0050', 'type': 'twse', 'industry_category': 'ETF', 'price': 141.85}]
         # [{'stock_name': '台積電', 'stock_id': '2330', 'type': 'twse', 'industry_category': '半導體業', 'price': 627.0}, {'stock_name': '台積電', 'stock_id': '2330', 'type': 'twse', 'industry_category': '電子工業', 'price': 627.0}]
@@ -1654,17 +1655,12 @@ def iq_interactive(stock_string, btn):
                 stock_cate = stock_cate + data_info_01[i]['industry_category']
         stock_price = data_info_01[0]['price']
 
-        temp_result_1 = ['中華電', '(2412)', '上市', '電信業', '117']
-        temp_result_2 = {
-            '漲跌':['▼ 5'], 
-            '漲幅':['000'],
-            '成交量':['000'],
-            '開':['000'],
-            '高':['000'],
-            '低':['000'],
-            '收':['000'],
-        }
         data_info_02 = pd.DataFrame.from_records(data_info_02)
+
+        ### 表格資料
+        iq_query_01_01_01 = query_sentence.create_query_iq_01_01_01(stock_id)
+        data_01_01_01 = query_sentence.sql_execute(iq_query_01_01_01)
+        data_01_01_01 = pd.DataFrame.from_records(data_01_01_01)
 
         children_content_info = [
             html.Div(
@@ -1702,7 +1698,10 @@ def iq_interactive(stock_string, btn):
                     children=[
                         dcc.Tab(label='基本資料', id='dynamic-iq-result-info', value='dynamic-iq-result-info', style=self_style.iq_tab, selected_style=self_style.iq_tab_onclick,
                             children=[
-                                
+                                dash_table.DataTable(
+                                    columns = [{"name": i, "id": i} for i in data_01_01_01.columns],
+                                    data=data_01_01_01.to_dict('records'),
+                                ),
                         ]),
                         dcc.Tab(label='財務報表', id='dynamic-iq-result-financial', value='dynamic-iq-result-financial', style=self_style.iq_tab, selected_style=self_style.iq_tab_onclick),
                         dcc.Tab(label='籌碼分析', id='dynamic-iq-result-chip', value='dynamic-iq-result-chip', style=self_style.iq_tab, selected_style=self_style.iq_tab_onclick),
