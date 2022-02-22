@@ -1625,16 +1625,16 @@ def iq_interactive(stock_string, btn):
         raise PreventUpdate
 
     if btn > 0:
-        stock_id = stock_string.split()[0]
-        stock_name = " ".join(stock_string.split()[1:])
+        # stock_id = stock_string.split()[0]
+        # stock_name = " ".join(stock_string.split()[1:])
 
-        iq_query_info_01 = query_sentence.create_query_info_01(stock_id)
-        data_info_01 = query_sentence.sql_execute(iq_query_info_01)
-        print(data_info_01)
+        # iq_query_info_01 = query_sentence.create_query_info_01(stock_id)
+        # data_info_01 = query_sentence.sql_execute(iq_query_info_01)
+        # print(data_info_01)
 
-        iq_query_info_02 = query_sentence.create_query_info_01(stock_id)
-        data_info_02 = query_sentence.sql_execute(iq_query_info_02)
-        print(data_info_02)
+        # iq_query_info_02 = query_sentence.create_query_info_01(stock_id)
+        # data_info_02 = query_sentence.sql_execute(iq_query_info_02)
+        # print(data_info_02)
 
         # data_info_01 = pd.DataFrame.from_records(data_info_01)
         # data_info_02 = pd.DataFrame.from_records(data_info_02)
