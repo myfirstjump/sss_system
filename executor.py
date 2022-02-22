@@ -1704,7 +1704,7 @@ def iq_interactive(stock_string, btn):
                                 
                             ]
                         ),
-                        dcc.Tab(label='財務報表', id='dynamic-iq-result-financial', value='dynamic-iq-result-financial', style=self_style.iq_tab, selected_style=self_style.iq_tab_onclick
+                        dcc.Tab(label='財務報表', id='dynamic-iq-result-financial', value='dynamic-iq-result-financial', style=self_style.iq_tab, selected_style=self_style.iq_tab_onclick,
                             children = [
                                 dcc.Tabs([
                                     dcc.Tab(label='財務比率', 
@@ -1721,7 +1721,16 @@ def iq_interactive(stock_string, btn):
                                 ]),
                             ]
                         ),
-                        dcc.Tab(label='籌碼分析', id='dynamic-iq-result-chip', value='dynamic-iq-result-chip', style=self_style.iq_tab, selected_style=self_style.iq_tab_onclick),
+                        dcc.Tab(label='籌碼分析', id='dynamic-iq-result-chip', value='dynamic-iq-result-chip', style=self_style.iq_tab, selected_style=self_style.iq_tab_onclick,
+                            children = [
+                                dcc.Tabs([
+                                    dcc.Tab(label='法人持股', children=['法人持股表格'], style=self_style.iq_tab_l2, selected_style=self_style.iq_tab_l2_onclick),
+                                    dcc.Tab(label='融資融券', children=['融資融券、借券表格'], style=self_style.iq_tab_l2, selected_style=self_style.iq_tab_l2_onclick),
+                                    dcc.Tab(label='集保庫存', children=['集保庫存表格'], style=self_style.iq_tab_l2, selected_style=self_style.iq_tab_l2_onclick),
+                                    dcc.Tab(label='董監持股', children=['董監持股表格'], style=self_style.iq_tab_l2, selected_style=self_style.iq_tab_l2_onclick),
+                                ]),
+                            ],
+                        ),
             ]),
             dcc.Loading(
                     id='iq-result-loading',
