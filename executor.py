@@ -1720,43 +1720,43 @@ def iq_interactive(stock_string, btn):
     return children_content_info, children_content_data1, children_content_data2
     
 
-#Callback 6: Individual Tabs
-@app.callback(
-    Output('iq-result-loading', 'children'),
-    Input('iq-tabs', 'value'),
-)
-def iq_result(tab_value):
+# #Callback 6: Individual Tabs
+# @app.callback(
+#     Output('iq-result-loading', 'children'),
+#     Input('iq-tabs', 'value'),
+# )
+# def iq_result(tab_value):
 
-    if tab_value == 'dynamic-iq-result-financial':
+#     if tab_value == 'dynamic-iq-result-financial':
 
-        # iq_query = query_sentence.create_query_iq_01_01_01()
-        # data = query_sentence.sql_execute(iq_query)
-        children_content = [
-            dcc.Tabs([
-                dcc.Tab(label='財務比率', children=[
-                    '獲利能力、經營績效、償債能力、經營能力等4張表格',
+#         # iq_query = query_sentence.create_query_iq_01_01_01()
+#         # data = query_sentence.sql_execute(iq_query)
+#         children_content = [
+#             dcc.Tabs([
+#                 dcc.Tab(label='財務比率', children=[
+#                     '獲利能力、經營績效、償債能力、經營能力等4張表格',
                     
-                    ], style=self_style.iq_tab_l2, selected_style=self_style.iq_tab_l2_onclick),
-                dcc.Tab(label='現金&股票股利', children=['現金&股票股利表格'], style=self_style.iq_tab_l2, selected_style=self_style.iq_tab_l2_onclick),
-                dcc.Tab(label='每股稅後盈餘(EPS)', children=['每股稅後盈餘(EPS)表格'], style=self_style.iq_tab_l2, selected_style=self_style.iq_tab_l2_onclick),
-                dcc.Tab(label='殖利率', children=['殖利率表格'], style=self_style.iq_tab_l2, selected_style=self_style.iq_tab_l2_onclick),
-                dcc.Tab(label='本益比(P/E)', children=['本益比(P/E)表格'], style=self_style.iq_tab_l2, selected_style=self_style.iq_tab_l2_onclick),
-            ]),
-        ]
-        return children_content
-    elif tab_value == 'dynamic-iq-result-chip':
-        children_content = [
-            dcc.Tabs([
-                dcc.Tab(label='法人持股', children=['法人持股表格'], style=self_style.iq_tab_l2, selected_style=self_style.iq_tab_l2_onclick),
-                dcc.Tab(label='融資融券', children=['融資融券、借券表格'], style=self_style.iq_tab_l2, selected_style=self_style.iq_tab_l2_onclick),
-                dcc.Tab(label='集保庫存', children=['集保庫存表格'], style=self_style.iq_tab_l2, selected_style=self_style.iq_tab_l2_onclick),
-                dcc.Tab(label='董監持股', children=['董監持股表格'], style=self_style.iq_tab_l2, selected_style=self_style.iq_tab_l2_onclick),
-            ]),
-        ]
-        return children_content
-    else:
-        children_content = ['info表格']
-        return children_content
+#                     ], style=self_style.iq_tab_l2, selected_style=self_style.iq_tab_l2_onclick),
+#                 dcc.Tab(label='現金&股票股利', children=['現金&股票股利表格'], style=self_style.iq_tab_l2, selected_style=self_style.iq_tab_l2_onclick),
+#                 dcc.Tab(label='每股稅後盈餘(EPS)', children=['每股稅後盈餘(EPS)表格'], style=self_style.iq_tab_l2, selected_style=self_style.iq_tab_l2_onclick),
+#                 dcc.Tab(label='殖利率', children=['殖利率表格'], style=self_style.iq_tab_l2, selected_style=self_style.iq_tab_l2_onclick),
+#                 dcc.Tab(label='本益比(P/E)', children=['本益比(P/E)表格'], style=self_style.iq_tab_l2, selected_style=self_style.iq_tab_l2_onclick),
+#             ]),
+#         ]
+#         return children_content
+#     elif tab_value == 'dynamic-iq-result-chip':
+#         children_content = [
+#             dcc.Tabs([
+#                 dcc.Tab(label='法人持股', children=['法人持股表格'], style=self_style.iq_tab_l2, selected_style=self_style.iq_tab_l2_onclick),
+#                 dcc.Tab(label='融資融券', children=['融資融券、借券表格'], style=self_style.iq_tab_l2, selected_style=self_style.iq_tab_l2_onclick),
+#                 dcc.Tab(label='集保庫存', children=['集保庫存表格'], style=self_style.iq_tab_l2, selected_style=self_style.iq_tab_l2_onclick),
+#                 dcc.Tab(label='董監持股', children=['董監持股表格'], style=self_style.iq_tab_l2, selected_style=self_style.iq_tab_l2_onclick),
+#             ]),
+#         ]
+#         return children_content
+#     else:
+#         children_content = ['info表格']
+#         return children_content
 
 
 def generate_table(stock_data, max_rows=5000):
