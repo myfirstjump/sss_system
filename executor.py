@@ -1630,6 +1630,7 @@ def iq_interactive(stock_string, btn):
         print(stock_id, stock_name)
 
         iq_query_info_01 = query_sentence.create_query_info_01(stock_id)
+        print(iq_query_info_01)
         data_info_01 = query_sentence.sql_execute(iq_query_info_01)
         print(data_info_01)
 
