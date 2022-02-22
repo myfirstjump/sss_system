@@ -1659,8 +1659,11 @@ def iq_interactive(stock_string, btn):
 
         ### 表格資料
         iq_query_01_01_01 = query_sentence.create_query_iq_01_01_01(stock_id)
+        print(iq_query_01_01_01)
         data_01_01_01 = query_sentence.sql_execute(iq_query_01_01_01)
+        print(data_01_01_01)
         data_01_01_01 = pd.DataFrame.from_records(data_01_01_01)
+        print(data_01_01_01)
 
         children_content_info = [
             html.Div(
