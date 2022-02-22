@@ -1625,7 +1625,7 @@ def iq_interactive(stock_string, btn):
         raise PreventUpdate
 
     if btn > 0:
-        print('[{}] 查詢個股: {}'.format(datetime.now().strftime('%Y-%m-%d %H:%M:%S'), stock_string))
+        print('[{}] 查詢個股: {}'.format(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'), stock_string))
         stock_id = stock_string
 
         iq_query_info_01 = query_sentence.create_query_info_01(stock_id)
