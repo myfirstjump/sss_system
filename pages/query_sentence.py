@@ -1914,7 +1914,7 @@ def create_query_iq_01_01_01(stock_id, ):
     where date >= DATEADD(YEAR, -3, GETDATE()) AND stock_id = '{}') a
     where desc_DATE <= 8
     order by date desc
-    '''
+    '''.format(stock_id)
     return query
 
 def create_query_iq_01_01_02():
