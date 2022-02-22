@@ -1899,7 +1899,7 @@ def create_query_info_02(stock_id):
     query = '''
     SELECT 漲跌, 漲幅, 成交量, 開, 高, 低, 收 FROM (
     SELECT stock_id , Trading_Volume '成交量', spread '漲跌', spread_ratio '漲幅', [open] '開', [max] '高', [min] '低', [close] '收', ROW_NUMBER() over (partition by stock_id order by date desc) desc_DATE 
-    from STOCK_SKILL_DB.dbo.TW_STOCK_PRICE_Daily where stock_id = {}) a where desc_DATE = 1
+    from STOCK_SKILL_DB.dbo.TW_STOCK_PRICE_Daily where stock_id = '{}') a where desc_DATE = 1
     '''.format(stock_id)
     return query
 
@@ -1911,7 +1911,7 @@ def create_query_iq_01_01_01(stock_id, ):
     ,PER_STOCK_AfterTax '每股稅後淨利', PER_STOCK_PRICE '每股淨值',After_Return '股東權益報酬率', Total_Return '資產報酬率'
     ,  ROW_NUMBER() over (partition by stock_id order by date desc) desc_DATE 
     FROM [STOCK_BASICINTO_DB].[dbo].[TW_STOCK_FinancialStatements_Detail] with(nolock)
-    where date >= DATEADD(YEAR, -3, GETDATE()) AND stock_id = {}) a
+    where date >= DATEADD(YEAR, -3, GETDATE()) AND stock_id = '{}') a
     where desc_DATE <= 8
     order by date desc
     '''
