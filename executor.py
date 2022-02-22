@@ -1625,21 +1625,34 @@ def iq_interactive(stock_string, btn):
         raise PreventUpdate
 
     if btn > 0:
-        # print(stock_string)
+        print('[{}] 查詢個股: {}'.format(datetime.now().strftime('%Y-%m-%d %H:%M:%S'), stock_string))
         stock_id = stock_string
-        # .split()[0]
-        # stock_name = " ".join(stock_string.split()[1:])
-        print(stock_id)
 
         iq_query_info_01 = query_sentence.create_query_info_01(stock_id)
-        print(iq_query_info_01)
-        data_info_01 = query_sentence.sql_execute(iq_query_info_01) #此結果為 [{'stock_name': '元大台灣50', 'stock_id': '0050', 'type': 'twse', 'industry_category': 'ETF', 'price': 141.85}]
+        data_info_01 = query_sentence.sql_execute(iq_query_info_01) #result: [{'stock_name': '元大台灣50', 'stock_id': '0050', 'type': 'twse', 'industry_category': 'ETF', 'price': 141.85}]
+        # [{'stock_name': '台積電', 'stock_id': '2330', 'type': 'twse', 'industry_category': '半導體業', 'price': 627.0}, {'stock_name': '台積電', 'stock_id': '2330', 'type': 'twse', 'industry_category': '電子工業', 'price': 627.0}]
         print(data_info_01)
 
         iq_query_info_02 = query_sentence.create_query_info_02(stock_id)
-        print(iq_query_info_02)
-        data_info_02 = query_sentence.sql_execute(iq_query_info_02) 
+        data_info_02 = query_sentence.sql_execute(iq_query_info_02)  #result: [{'漲跌': -1.95, '漲幅': -1.3560500695410294, '成交量': 20814, '開': 142.6, '高': 142.65, '低': 140.75, '收': 141.85}]
         print(data_info_02)
+
+        stock_name = data_info_01[0]['stock_name']
+        stock_id_string = '(' + data_info_01[0]['stock_id'] + ')'
+        stock_type_temp = data_info_01[0]['type']
+        if stock_type_temp == 'twse':
+            stock_type = '上市'
+        else:
+            stock_type = '上櫃'
+        
+        if len(data_info_01) == 1:
+
+            stock_cate = data_info_01[0]['industry_category']
+        else:
+            stock_cate = ''
+            for i in range(len(data_info_01)):
+                stock_cate = stock_cate + data_info_01[i]['industry_category']
+
 
         # data_info_01 = pd.DataFrame.from_records(data_info_01)
         # data_info_02 = pd.DataFrame.from_records(data_info_02)
@@ -1658,12 +1671,12 @@ def iq_interactive(stock_string, btn):
 
         children_content_info = [
             html.Div(
-                [temp_result_1[0]], 
+                [stock_name], 
                 style=self_style.iq_l21
             ),
-            html.Div([temp_result_1[1]], style=self_style.iq_l22),
-            html.Div([temp_result_1[2]], style=self_style.iq_l23),
-            html.Div([temp_result_1[3]], style=self_style.iq_l24),
+            html.Div([stock_id_string], style=self_style.iq_l22),
+            html.Div([stock_type], style=self_style.iq_l23),
+            html.Div([stock_cate], style=self_style.iq_l24),
         ]
         children_content_data1 = [
             html.Div(
