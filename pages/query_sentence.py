@@ -1890,7 +1890,7 @@ def create_query_0612(period, direct, percent):
 def create_query_info_01(stock_id):
 
     query = '''
-    SELECT stock_name, stock_id, [type], industry_category, price from STOCK_SKILL_DB.dbo.TW_STOCK_INFO where stock_id = {}
+    SELECT stock_name, stock_id, [type], industry_category, price from STOCK_SKILL_DB.dbo.TW_STOCK_INFO where stock_id = '{}'
     '''.format(stock_id)
     return query
 
