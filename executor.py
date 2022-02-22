@@ -1632,13 +1632,14 @@ def iq_interactive(stock_string, btn):
         print(stock_id)
 
         iq_query_info_01 = query_sentence.create_query_info_01(stock_id)
-        # print(iq_query_info_01)
+        print(iq_query_info_01)
         data_info_01 = query_sentence.sql_execute(iq_query_info_01) #此結果為 [{'stock_name': '元大台灣50', 'stock_id': '0050', 'type': 'twse', 'industry_category': 'ETF', 'price': 141.85}]
-        # print(data_info_01)
+        print(data_info_01)
 
         iq_query_info_02 = query_sentence.create_query_info_02(stock_id)
+        print(iq_query_info_02)
         data_info_02 = query_sentence.sql_execute(iq_query_info_02) 
-        # print(data_info_02)
+        print(data_info_02)
 
         # data_info_01 = pd.DataFrame.from_records(data_info_01)
         # data_info_02 = pd.DataFrame.from_records(data_info_02)
