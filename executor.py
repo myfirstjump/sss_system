@@ -1660,35 +1660,88 @@ def iq_interactive(stock_string, btn):
         ### 表格資料
         # 獲利能力
         iq_query_01_01_01 = query_sentence.create_query_iq_01_01_01(stock_id)
-        print(iq_query_01_01_01)
         data_01_01_01 = query_sentence.sql_execute(iq_query_01_01_01)
-        print(data_01_01_01)
         data_01_01_01 = pd.DataFrame.from_records(data_01_01_01)
-        print(data_01_01_01)
 
         # 經營績效
         iq_query_01_01_02 = query_sentence.create_query_iq_01_01_02(stock_id)
-        print(iq_query_01_01_02)
         data_01_01_02 = query_sentence.sql_execute(iq_query_01_01_02)
-        print(data_01_01_02)
         data_01_01_02 = pd.DataFrame.from_records(data_01_01_02)
-        print(data_01_01_02)
 
         # 償債能力
-        iq_query_01_01_03 = query_sentence.create_query_iq_01_01_02(stock_id)
-        print(iq_query_01_01_03)
+        iq_query_01_01_03 = query_sentence.create_query_iq_01_01_03(stock_id)
         data_01_01_03 = query_sentence.sql_execute(iq_query_01_01_03)
-        print(data_01_01_03)
         data_01_01_03 = pd.DataFrame.from_records(data_01_01_03)
-        print(data_01_01_03)
-    
+
         # 經營能力
-        iq_query_01_01_04 = query_sentence.create_query_iq_01_01_02(stock_id)
-        print(iq_query_01_01_04)
+        iq_query_01_01_04 = query_sentence.create_query_iq_01_01_04(stock_id)
         data_01_01_04 = query_sentence.sql_execute(iq_query_01_01_04)
-        print(data_01_01_04)
         data_01_01_04 = pd.DataFrame.from_records(data_01_01_04)
-        print(data_01_01_04)
+
+        # 現金&股票股利
+        iq_query_01_02 = query_sentence.create_query_iq_01_02(stock_id)
+        data_01_02 = query_sentence.sql_execute(iq_query_01_02)
+        data_01_02 = pd.DataFrame.from_records(data_01_02)    
+
+        # 每股稅後盈餘(EPS)
+        iq_query_01_03 = query_sentence.create_query_iq_01_03(stock_id)
+        data_01_03 = query_sentence.sql_execute(iq_query_01_03)
+        data_01_03 = pd.DataFrame.from_records(data_01_03) 
+
+        # 殖利率
+        iq_query_01_04 = query_sentence.create_query_iq_01_04(stock_id)
+        data_01_04 = query_sentence.sql_execute(iq_query_01_04)
+        data_01_04 = pd.DataFrame.from_records(data_01_04) 
+
+        # 本益比(P/E)
+        iq_query_01_05 = query_sentence.create_query_iq_01_05(stock_id)
+        data_01_05 = query_sentence.sql_execute(iq_query_01_05)
+        data_01_05 = pd.DataFrame.from_records(data_01_05)
+
+        # 法人持股 外資
+        iq_query_02_01_01 = query_sentence.create_query_iq_02_01_01(stock_id)
+        data_02_01_01 = query_sentence.sql_execute(iq_query_02_01_01)
+        data_02_01_01 = pd.DataFrame.from_records(data_02_01_01)
+
+        # 法人持股 投信
+        iq_query_02_01_02 = query_sentence.create_query_iq_02_01_02(stock_id)
+        data_02_01_02 = query_sentence.sql_execute(iq_query_02_01_02)
+        data_02_01_02 = pd.DataFrame.from_records(data_02_01_02)
+
+        # 法人持股 自營商
+        iq_query_02_01_03 = query_sentence.create_query_iq_02_01_03(stock_id)
+        data_02_01_03 = query_sentence.sql_execute(iq_query_02_01_03)
+        data_02_01_03 = pd.DataFrame.from_records(data_02_01_03)
+
+        # 法人持股 三大法人
+        iq_query_02_01_04 = query_sentence.create_query_iq_02_01_04(stock_id)
+        data_02_01_04 = query_sentence.sql_execute(iq_query_02_01_04)
+        data_02_01_04 = pd.DataFrame.from_records(data_02_01_04)
+
+        # 融資融卷 融資
+        iq_query_02_02_01 = query_sentence.create_query_iq_02_02_01(stock_id)
+        data_02_02_01 = query_sentence.sql_execute(iq_query_02_02_01)
+        data_02_02_01 = pd.DataFrame.from_records(data_02_02_01)
+
+        # 融資融卷 融卷
+        iq_query_02_02_02 = query_sentence.create_query_iq_02_02_02(stock_id)
+        data_02_02_02 = query_sentence.sql_execute(iq_query_02_02_02)
+        data_02_02_02= pd.DataFrame.from_records(data_02_02_02)
+
+        # 融資融卷 借卷
+        iq_query_02_02_03 = query_sentence.create_query_iq_02_02_03(stock_id)
+        data_02_02_03 = query_sentence.sql_execute(iq_query_02_02_03)
+        data_02_02_03 = pd.DataFrame.from_records(data_02_02_03)
+
+        # 集保庫存
+        iq_query_02_03 = query_sentence.create_query_iq_02_03(stock_id)
+        data_02_03 = query_sentence.sql_execute(iq_query_02_03)
+        data_02_03 = pd.DataFrame.from_records(data_02_03)
+
+        # 董監持股
+        iq_query_02_04 = query_sentence.create_query_iq_02_04(stock_id)
+        data_02_04 = query_sentence.sql_execute(iq_query_02_04)
+        data_02_04 = pd.DataFrame.from_records(data_02_04)
 
         children_content_info = [
             html.Div(
@@ -1734,37 +1787,130 @@ def iq_interactive(stock_string, btn):
                                 dcc.Tabs([
                                     dcc.Tab(label='財務比率', 
                                         children=[
+                                            html.Div(['獲利能力']),
                                             dash_table.DataTable(
                                                 columns = [{"name": i, "id": i} for i in data_01_01_01.columns],
                                                 data=data_01_01_01.to_dict('records'),
                                             ),
+                                            html.Div(['經營績效']),
                                             dash_table.DataTable(
                                                 columns = [{"name": i, "id": i} for i in data_01_01_02.columns],
                                                 data=data_01_01_02.to_dict('records'),
                                             ), 
+                                            html.Div(['償債能力']),
                                             dash_table.DataTable(
                                                 columns = [{"name": i, "id": i} for i in data_01_01_03.columns],
                                                 data=data_01_01_03.to_dict('records'),
                                             ),
+                                            html.Div(['經營能力']),
                                             dash_table.DataTable(
                                                 columns = [{"name": i, "id": i} for i in data_01_01_04.columns],
                                                 data=data_01_01_04.to_dict('records'),
                                             ),   
                                         ], style=self_style.iq_tab_l2, selected_style=self_style.iq_tab_l2_onclick),
-                                    dcc.Tab(label='現金&股票股利', children=['現金&股票股利表格'], style=self_style.iq_tab_l2, selected_style=self_style.iq_tab_l2_onclick),
-                                    dcc.Tab(label='每股稅後盈餘(EPS)', children=['每股稅後盈餘(EPS)表格'], style=self_style.iq_tab_l2, selected_style=self_style.iq_tab_l2_onclick),
-                                    dcc.Tab(label='殖利率', children=['殖利率表格'], style=self_style.iq_tab_l2, selected_style=self_style.iq_tab_l2_onclick),
-                                    dcc.Tab(label='本益比(P/E)', children=['本益比(P/E)表格'], style=self_style.iq_tab_l2, selected_style=self_style.iq_tab_l2_onclick),
+                                    dcc.Tab(label='現金&股票股利', children=['現金&股票股利表格'], style=self_style.iq_tab_l2, selected_style=self_style.iq_tab_l2_onclick,
+                                        children = [
+                                            # html.Div(['現金&股票股利']),
+                                            dash_table.DataTable(
+                                                columns = [{"name": i, "id": i} for i in data_01_02.columns],
+                                                data=data_01_02.to_dict('records'),
+                                            ),
+                                        ]
+                                    ),
+                                    dcc.Tab(label='每股稅後盈餘(EPS)', children=['每股稅後盈餘(EPS)表格'], style=self_style.iq_tab_l2, selected_style=self_style.iq_tab_l2_onclick,
+                                        children = [
+                                            # html.Div(['每股稅後盈餘(EPS)']),
+                                            dash_table.DataTable(
+                                                columns = [{"name": i, "id": i} for i in data_01_03.columns],
+                                                data=data_01_03.to_dict('records'),
+                                            ),
+                                        ]
+                                    ),
+                                    dcc.Tab(label='殖利率', children=['殖利率表格'], style=self_style.iq_tab_l2, selected_style=self_style.iq_tab_l2_onclick,
+                                        children = [
+                                            # html.Div(['殖利率']),
+                                            dash_table.DataTable(
+                                                columns = [{"name": i, "id": i} for i in data_01_04.columns],
+                                                data=data_01_04.to_dict('records'),
+                                            ),
+                                        ]
+                                    ),
+                                    dcc.Tab(label='本益比(P/E)', children=['本益比(P/E)表格'], style=self_style.iq_tab_l2, selected_style=self_style.iq_tab_l2_onclick,
+                                        children = [
+                                            # html.Div(['本益比(P/E)']),
+                                            dash_table.DataTable(
+                                                columns = [{"name": i, "id": i} for i in data_01_05.columns],
+                                                data=data_01_05.to_dict('records'),
+                                            ),
+                                        ]
+                                    ),
                                 ]),
                             ]
                         ),
                         dcc.Tab(label='籌碼分析', id='dynamic-iq-result-chip', value='dynamic-iq-result-chip', style=self_style.iq_tab, selected_style=self_style.iq_tab_onclick,
                             children = [
                                 dcc.Tabs([
-                                    dcc.Tab(label='法人持股', children=['法人持股表格'], style=self_style.iq_tab_l2, selected_style=self_style.iq_tab_l2_onclick),
-                                    dcc.Tab(label='融資融券', children=['融資融券、借券表格'], style=self_style.iq_tab_l2, selected_style=self_style.iq_tab_l2_onclick),
-                                    dcc.Tab(label='集保庫存', children=['集保庫存表格'], style=self_style.iq_tab_l2, selected_style=self_style.iq_tab_l2_onclick),
-                                    dcc.Tab(label='董監持股', children=['董監持股表格'], style=self_style.iq_tab_l2, selected_style=self_style.iq_tab_l2_onclick),
+                                    dcc.Tab(label='法人持股', children=['法人持股表格'], style=self_style.iq_tab_l2, selected_style=self_style.iq_tab_l2_onclick,
+                                        children = [
+                                            html.Div(['外資']),
+                                            dash_table.DataTable(
+                                                columns = [{"name": i, "id": i} for i in data_02_01_01.columns],
+                                                data=data_02_01_01.to_dict('records'),
+                                            ),
+                                            html.Div(['投信']),
+                                            dash_table.DataTable(
+                                                columns = [{"name": i, "id": i} for i in data_02_01_02.columns],
+                                                data=data_02_01_02.to_dict('records'),
+                                            ),
+                                            html.Div(['自營商']),
+                                            dash_table.DataTable(
+                                                columns = [{"name": i, "id": i} for i in data_02_01_03.columns],
+                                                data=data_02_01_03.to_dict('records'),
+                                            ),
+                                            html.Div(['三大']),
+                                            dash_table.DataTable(
+                                                columns = [{"name": i, "id": i} for i in data_02_01_04.columns],
+                                                data=data_02_01_04.to_dict('records'),
+                                            ),
+                                        ]
+                                    ),
+                                    dcc.Tab(label='融資融券', children=['融資融券、借券表格'], style=self_style.iq_tab_l2, selected_style=self_style.iq_tab_l2_onclick,
+                                        children = [
+                                            html.Div(['融資']),
+                                            dash_table.DataTable(
+                                                columns = [{"name": i, "id": i} for i in data_02_02_01.columns],
+                                                data=data_02_02_01.to_dict('records'),
+                                            ),
+                                            html.Div(['融券']),
+                                            dash_table.DataTable(
+                                                columns = [{"name": i, "id": i} for i in data_02_02_02.columns],
+                                                data=data_02_02_02.to_dict('records'),
+                                            ),
+                                            html.Div(['借券']),
+                                            dash_table.DataTable(
+                                                columns = [{"name": i, "id": i} for i in data_02_02_03.columns],
+                                                data=data_02_02_03.to_dict('records'),
+                                            ),
+                                        ]
+                                    ),
+                                    dcc.Tab(label='集保庫存', children=['集保庫存表格'], style=self_style.iq_tab_l2, selected_style=self_style.iq_tab_l2_onclick,
+                                        children = [
+                                            html.Div(['集保庫存']),
+                                            dash_table.DataTable(
+                                                columns = [{"name": i, "id": i} for i in data_02_03.columns],
+                                                data=data_02_03.to_dict('records'),
+                                            ),
+                                        ]
+                                    ),
+                                    dcc.Tab(label='董監持股', children=['董監持股表格'], style=self_style.iq_tab_l2, selected_style=self_style.iq_tab_l2_onclick,
+                                        children = [
+                                            html.Div(['董監持股']),
+                                            dash_table.DataTable(
+                                                columns = [{"name": i, "id": i} for i in data_02_04.columns],
+                                                data=data_02_04.to_dict('records'),
+                                            ),
+                                        ]
+                                    ),
                                 ]),
                             ],
                         ),

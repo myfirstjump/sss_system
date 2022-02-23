@@ -1959,38 +1959,191 @@ def create_query_iq_01_01_04(stock_id):
 
     return query
 
-def create_query_iq_01_02():
+def create_query_iq_01_02(stock_id):
 
-    return
+    # --現金&股票股利
 
-def create_query_iq_01_03():
+    query = '''
+    SELECT belong_year '所屬年度', YEAR(CashDividendPaymentDate) '發放年度', CashEarningsDistribution '現金股利(元)', StockEarningsDistribution '股票股利(元)'
+    , CashEarningsDistribution+StockEarningsDistribution '股利合計(元)'
+    FROM [STOCK_BASICINTO_DB].[dbo].[TW_STOCK_Dividend] with(nolock) where stock_id = '{}'
+    '''.format(stock_id)
 
-    return
+    return query
 
-def create_query_iq_01_04():
+def create_query_iq_01_03(stock_id):
+    # --每股稅後盈餘(EPS)
+    query = '''
+    select  年度, Q1, Q2, Q3, Q4, Q1+Q2+Q3+Q4 '合計'
+    from
+    (
+    SELECT YEAR(date) '年度', 
+    case 
+    when MONTH(date) = 3 then 'Q1'
+    when MONTH(date) = 6 then 'Q2'
+    when MONTH(date) = 9 then 'Q3'
+    when MONTH(date) = 12 then 'Q4'
+    end Q, value
+    FROM [STOCK_BASICINTO_DB].[dbo].[TW_STOCK_FinancialStatements] with(nolock)
+    where type = 'EPS' AND stock_id = '{}'
+    ) as A
+    pivot
+    (
+    max(value)
+    for Q in ([Q1], [Q2], [Q3], [Q4])
+    ) as pv
+    '''.format(stock_id)
 
-    return
+    
+    return query
 
-def create_query_iq_01_05():
+def create_query_iq_01_04(stock_id):
 
-    return
+    # ----殖利率
+    query = '''
+    select YM, dividend_yield '殖利率(%)' from(
+    select *,  ROW_NUMBER() over (partition by stock_id,YM order by date desc) desc_DATE
+    from(
+    SELECT *, convert(nvarchar(6), date, 112) YM
+    FROM [STOCK_SKILL_DB].[dbo].[TW_STOCK_PER] with(nolock)
+    where stock_id = '{}'
+    ) a
+    ) b
+    where desc_DATE = 1 order by YM
+    '''.format(stock_id)
+    
+    return query
 
-def create_query_iq_02_01():
+def create_query_iq_01_05(stock_id):
 
-    return
+    # ----本益比(P/E)
+    query = '''
+    select YM, PER '本益比' from(
+    select *,  ROW_NUMBER() over (partition by stock_id,YM order by date desc) desc_DATE
+    from(
+    SELECT *, convert(nvarchar(6), date, 112) YM
+    FROM [STOCK_SKILL_DB].[dbo].[TW_STOCK_PER] with(nolock)
+    where stock_id = '{}'
+    ) a
+    ) b
+    where desc_DATE = 1
+    '''.format(stock_id)
+    return query
 
-def create_query_iq_02_02_01():
+def create_query_iq_02_01_01(stock_id):
 
-    return
+    #--法人持股
 
-def create_query_iq_02_02_02():
+    #-------外資 
+    query = '''
 
-    return
+    SELECT [date] '日期',sum([buy])/1000 '買進張數',sum([sell])/1000 '賣出張數', sum((buy-sell))/1000 '合計'
+    FROM [STOCK_COUNTER_DB].[dbo].[TW_STOCK_LEGALPERSON_Daily] with(nolock)
+    where name like '%Foreign%'
+    and date >= DATEADD(MONTH, -1, GETDATE()) and stock_id = '{}'
+    group by date
+    order by date desc'''.format(stock_id)
+    return query
 
-def create_query_iq_02_03():
+def create_query_iq_02_01_02(stock_id):
 
-    return
+    #--法人持股 投信 
+    query = '''
+    SELECT [date] '日期',sum([buy])/1000 '買進張數',sum([sell])/1000 '賣出張數', sum((buy-sell))/1000 '合計'
+    FROM [STOCK_COUNTER_DB].[dbo].[TW_STOCK_LEGALPERSON_Daily] with(nolock)
+    where name like '%Investment%'
+    and date >= DATEADD(MONTH, -1, GETDATE()) and stock_id = '{}'
+    group by date
+    order by date desc'''.format(stock_id)
+    return query
 
-def create_query_iq_02_04():
+def create_query_iq_02_01_03(stock_id):
 
-    return
+    #--法人持股 自營商
+    query = '''
+    SELECT [date] '日期',sum([buy])/1000 '買進張數',sum([sell])/1000 '賣出張數', sum((buy-sell))/1000 '合計'
+    FROM [STOCK_COUNTER_DB].[dbo].[TW_STOCK_LEGALPERSON_Daily] with(nolock)
+    where name like '%Dealer%'
+    and date >= DATEADD(MONTH, -1, GETDATE()) and stock_id = '{}'
+    group by date
+    order by date desc
+    '''.format(stock_id)
+
+    return query
+
+def create_query_iq_02_01_04(stock_id):
+
+    #--法人持股 三大法人
+    query = '''
+    SELECT [date] '日期',sum([buy])/1000 '買進張數',sum([sell])/1000 '賣出張數', sum((buy-sell))/1000 '合計'
+    FROM [STOCK_COUNTER_DB].[dbo].[TW_STOCK_LEGALPERSON_Daily] with(nolock)
+    where date >= DATEADD(MONTH, -1, GETDATE()) and stock_id = '{}'
+    group by date
+    order by date desc
+    '''.format(stock_id)
+
+    return query
+
+def create_query_iq_02_02_01(stock_id):
+
+    #------融資融卷
+    #-----融資
+    query = '''
+    SELECT date '日期', MarginPurchaseTodayBalance '餘額', MARGIN_SPREAD '增減(張)', MARGIN_ratio '使用率%'
+    FROM [STOCK_COUNTER_DB].[dbo].[TW_STOCK_MARGINTRADE_SHORTSELL_Daily] with(nolock)
+    where date >= DATEADD(MONTH, -1, GETDATE()) AND stock_id = '{}'
+    order by date desc
+    '''.format(stock_id)
+
+
+    return query
+
+def create_query_iq_02_02_02(stock_id):
+
+    # ----融卷
+    query = '''
+    SELECT date '日期', ShortSaleTodayBalance '餘額', SHORTSELL_SPREAD '增減(張)', SHORTSELL_ratio '使用率%'
+    FROM [STOCK_COUNTER_DB].[dbo].[TW_STOCK_MARGINTRADE_SHORTSELL_Daily] with(nolock)
+    where date >= DATEADD(MONTH, -1, GETDATE()) AND stock_id = '{}'
+    order by date desc
+    '''.format(stock_id)
+
+    return query
+
+def create_query_iq_02_02_03(stock_id):
+
+    # ----借卷
+    query = '''
+    SELECT a.date '日期', a.LOANSHARE '賣出', a.LOANSHARE '餘額', a.LOAD_SPREAD '增減(張)', null as '增減(金額)', b.Trading_Volume '成交量' , b.[close] '收盤價', b.spread_ratio '漲跌(%)'
+    FROM [STOCK_COUNTER_DB].[dbo].[TW_STOCK_LOANSHARE_Daily] a with(nolock)
+    inner join [STOCK_SKILL_DB].[dbo].[TW_STOCK_PRICE_Daily] b with(nolock) on a.stock_id = b.stock_id and a.date = b.date
+    where a.date >= DATEADD(MONTH, -1, GETDATE()) AND stock_id = '{}'
+    '''.format(stock_id)
+    return query
+
+def create_query_iq_02_03(stock_id):
+    # 集保庫存
+    query = '''
+    select a.日期, a.集保張數/1000 '集保張數', (a.集保張數-b.集保張數)/1000 '增減(週)', (a.集保張數-b.集保張數)/(b.集保張數*10) '增減率%' from (
+    SELECT date '日期', unit '集保張數',  ROW_NUMBER() over (partition by stock_id order by date desc) desc_DATE
+    FROM [STOCK_COUNTER_DB].[dbo].[TW_STOCK_HOLDRANGE]
+        where date >= DATEADD(YEAR, -1, GETDATE())
+    and stock_id = '{}'
+    and HoldingSharesLevel = 'total') a
+    inner join (
+    SELECT date '日期', unit '集保張數',  ROW_NUMBER() over (partition by stock_id order by date desc) desc_DATE
+    FROM [STOCK_COUNTER_DB].[dbo].[TW_STOCK_HOLDRANGE]
+        where date >= DATEADD(YEAR, -1, GETDATE())
+    and stock_id = '{}'
+    and HoldingSharesLevel = 'total') b on a.desc_DATE = b.desc_DATE-1
+    order by a.日期
+    '''.format(stock_id, stock_id)
+    return query
+
+def create_query_iq_02_04(stock_id):
+
+    query = '''
+    SELECT [ID] '身份別',[Name] '姓名',[Now_share] '持股張數',[share_ratio] '持股比例',[Pledge_number] '質押張數',[Pledge_ratio] '質押比例'
+    FROM [STOCK_BASICINTO_DB].[dbo].[TW_STOCK_Director_Supervisor] with(nolock) WHERE stock_id = '{}'
+    '''.format(stock_id)
+    return query
