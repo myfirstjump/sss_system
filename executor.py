@@ -1782,71 +1782,71 @@ def iq_interactive(stock_string, btn):
                                 
                             ]
                         ),
-                        dcc.Tab(label='財務報表', id='dynamic-iq-result-financial', value='dynamic-iq-result-financial', style=self_style.iq_tab, selected_style=self_style.iq_tab_onclick,
-                            children = [
-                                dcc.Tabs([
-                                    dcc.Tab(label='財務比率', 
-                                        children=[
-                                            html.Div(['獲利能力']),
-                                            dash_table.DataTable(
-                                                columns = [{"name": i, "id": i} for i in data_01_01_01.columns],
-                                                data=data_01_01_01.to_dict('records'),
-                                            ),
-                                            html.Div(['經營績效']),
-                                            dash_table.DataTable(
-                                                columns = [{"name": i, "id": i} for i in data_01_01_02.columns],
-                                                data=data_01_01_02.to_dict('records'),
-                                            ), 
-                                            html.Div(['償債能力']),
-                                            dash_table.DataTable(
-                                                columns = [{"name": i, "id": i} for i in data_01_01_03.columns],
-                                                data=data_01_01_03.to_dict('records'),
-                                            ),
-                                            html.Div(['經營能力']),
-                                            dash_table.DataTable(
-                                                columns = [{"name": i, "id": i} for i in data_01_01_04.columns],
-                                                data=data_01_01_04.to_dict('records'),
-                                            ),   
-                                        ], style=self_style.iq_tab_l2, selected_style=self_style.iq_tab_l2_onclick),
-                                    dcc.Tab(label='現金&股票股利', style=self_style.iq_tab_l2, selected_style=self_style.iq_tab_l2_onclick,
-                                        children = [
-                                            # html.Div(['現金&股票股利']),
-                                            dash_table.DataTable(
-                                                columns = [{"name": i, "id": i} for i in data_01_02.columns],
-                                                data=data_01_02.to_dict('records'),
-                                            ),
-                                        ]
-                                    ),
-                                    dcc.Tab(label='每股稅後盈餘(EPS)', style=self_style.iq_tab_l2, selected_style=self_style.iq_tab_l2_onclick,
-                                        children = [
-                                            # html.Div(['每股稅後盈餘(EPS)']),
-                                            dash_table.DataTable(
-                                                columns = [{"name": i, "id": i} for i in data_01_03.columns],
-                                                data=data_01_03.to_dict('records'),
-                                            ),
-                                        ]
-                                    ),
-                                    dcc.Tab(label='殖利率', style=self_style.iq_tab_l2, selected_style=self_style.iq_tab_l2_onclick,
-                                        children = [
-                                            # html.Div(['殖利率']),
-                                            dash_table.DataTable(
-                                                columns = [{"name": i, "id": i} for i in data_01_04.columns],
-                                                data=data_01_04.to_dict('records'),
-                                            ),
-                                        ]
-                                    ),
-                                    dcc.Tab(label='本益比(P/E)', style=self_style.iq_tab_l2, selected_style=self_style.iq_tab_l2_onclick,
-                                        children = [
-                                            # html.Div(['本益比(P/E)']),
-                                            dash_table.DataTable(
-                                                columns = [{"name": i, "id": i} for i in data_01_05.columns],
-                                                data=data_01_05.to_dict('records'),
-                                            ),
-                                        ]
-                                    ),
-                                ]),
-                            ]
-                        ),
+                        # dcc.Tab(label='財務報表', id='dynamic-iq-result-financial', value='dynamic-iq-result-financial', style=self_style.iq_tab, selected_style=self_style.iq_tab_onclick,
+                        #     children = [
+                        #         dcc.Tabs([
+                        #             dcc.Tab(label='財務比率', 
+                        #                 children=[
+                        #                     html.Div(['獲利能力']),
+                        #                     dash_table.DataTable(
+                        #                         columns = [{"name": i, "id": i} for i in data_01_01_01.columns],
+                        #                         data=data_01_01_01.to_dict('records'),
+                        #                     ),
+                        #                     html.Div(['經營績效']),
+                        #                     dash_table.DataTable(
+                        #                         columns = [{"name": i, "id": i} for i in data_01_01_02.columns],
+                        #                         data=data_01_01_02.to_dict('records'),
+                        #                     ), 
+                        #                     html.Div(['償債能力']),
+                        #                     dash_table.DataTable(
+                        #                         columns = [{"name": i, "id": i} for i in data_01_01_03.columns],
+                        #                         data=data_01_01_03.to_dict('records'),
+                        #                     ),
+                        #                     html.Div(['經營能力']),
+                        #                     dash_table.DataTable(
+                        #                         columns = [{"name": i, "id": i} for i in data_01_01_04.columns],
+                        #                         data=data_01_01_04.to_dict('records'),
+                        #                     ),   
+                        #                 ], style=self_style.iq_tab_l2, selected_style=self_style.iq_tab_l2_onclick),
+                        #             dcc.Tab(label='現金&股票股利', style=self_style.iq_tab_l2, selected_style=self_style.iq_tab_l2_onclick,
+                        #                 children = [
+                        #                     # html.Div(['現金&股票股利']),
+                        #                     dash_table.DataTable(
+                        #                         columns = [{"name": i, "id": i} for i in data_01_02.columns],
+                        #                         data=data_01_02.to_dict('records'),
+                        #                     ),
+                        #                 ]
+                        #             ),
+                        #             dcc.Tab(label='每股稅後盈餘(EPS)', style=self_style.iq_tab_l2, selected_style=self_style.iq_tab_l2_onclick,
+                        #                 children = [
+                        #                     # html.Div(['每股稅後盈餘(EPS)']),
+                        #                     dash_table.DataTable(
+                        #                         columns = [{"name": i, "id": i} for i in data_01_03.columns],
+                        #                         data=data_01_03.to_dict('records'),
+                        #                     ),
+                        #                 ]
+                        #             ),
+                        #             dcc.Tab(label='殖利率', style=self_style.iq_tab_l2, selected_style=self_style.iq_tab_l2_onclick,
+                        #                 children = [
+                        #                     # html.Div(['殖利率']),
+                        #                     dash_table.DataTable(
+                        #                         columns = [{"name": i, "id": i} for i in data_01_04.columns],
+                        #                         data=data_01_04.to_dict('records'),
+                        #                     ),
+                        #                 ]
+                        #             ),
+                        #             dcc.Tab(label='本益比(P/E)', style=self_style.iq_tab_l2, selected_style=self_style.iq_tab_l2_onclick,
+                        #                 children = [
+                        #                     # html.Div(['本益比(P/E)']),
+                        #                     dash_table.DataTable(
+                        #                         columns = [{"name": i, "id": i} for i in data_01_05.columns],
+                        #                         data=data_01_05.to_dict('records'),
+                        #                     ),
+                        #                 ]
+                        #             ),
+                        #         ]),
+                        #     ]
+                        # ),
                         dcc.Tab(label='籌碼分析', id='dynamic-iq-result-chip', value='dynamic-iq-result-chip', style=self_style.iq_tab, selected_style=self_style.iq_tab_onclick,
                             children = [
                                 dcc.Tabs([
