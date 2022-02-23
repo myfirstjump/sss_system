@@ -1867,7 +1867,7 @@ def iq_interactive(stock_string, btn):
                                             columns = [{"name": i, "id": i} for i in data_02_01_03.columns],
                                             data=data_02_01_03.to_dict('records'),
                                         ),
-                                        html.Div(['三大']),
+                                        html.Div(['三大法人']),
                                         dash_table.DataTable(
                                             columns = [{"name": i, "id": i} for i in data_02_01_04.columns],
                                             data=data_02_01_04.to_dict('records'),
