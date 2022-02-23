@@ -2117,7 +2117,7 @@ def create_query_iq_02_02_03(stock_id):
     SELECT a.date '日期', a.LOANSHARE '賣出', a.LOANSHARE '餘額', a.LOAD_SPREAD '增減(張)', null as '增減(金額)', b.Trading_Volume '成交量' , b.[close] '收盤價', b.spread_ratio '漲跌(%)'
     FROM [STOCK_COUNTER_DB].[dbo].[TW_STOCK_LOANSHARE_Daily] a with(nolock)
     inner join [STOCK_SKILL_DB].[dbo].[TW_STOCK_PRICE_Daily] b with(nolock) on a.stock_id = b.stock_id and a.date = b.date
-    where a.date >= DATEADD(MONTH, -1, GETDATE()) AND stock_id = '{}'
+    where a.date >= DATEADD(MONTH, -1, GETDATE()) AND a.stock_id = '{}'
     '''.format(stock_id)
     return query
 
