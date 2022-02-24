@@ -58,6 +58,7 @@ class DataProcessing(object):
         dataframe['date'] = dataframe['date'].dt.to_period('Q')
         # dataframe['date'] = dataframe['date'].apply(lambda x: x.strftime('%Y-%m-%d'))
         dataframe.set_index('date', inplace=True)
+        dataframe.index = dataframe.index.to_series().astype(str)
         print(dataframe)
         data_transposed = dataframe.T
         data_transposed.reset_index(inplace=True) # dash datatable不會顯示index，所以將index轉成column
