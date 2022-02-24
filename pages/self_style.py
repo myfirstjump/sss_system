@@ -582,3 +582,8 @@ iq_l32 = {
     'background-color':'#FFFFFF',
     # 'border':'solid black 1px',
 }
+
+tabs_content = {
+    'border':'solid black 1px',
+    'margin': '2%',
+}
