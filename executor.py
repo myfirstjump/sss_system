@@ -1632,11 +1632,11 @@ def iq_interactive(stock_string, btn):
         iq_query_info_01 = query_sentence.create_query_info_01(stock_id)
         data_info_01 = query_sentence.sql_execute(iq_query_info_01) #result: [{'stock_name': '元大台灣50', 'stock_id': '0050', 'type': 'twse', 'industry_category': 'ETF', 'price': 141.85}]
         # [{'stock_name': '台積電', 'stock_id': '2330', 'type': 'twse', 'industry_category': '半導體業', 'price': 627.0}, {'stock_name': '台積電', 'stock_id': '2330', 'type': 'twse', 'industry_category': '電子工業', 'price': 627.0}]
-        print(data_info_01)
+        # print(data_info_01)
 
         iq_query_info_02 = query_sentence.create_query_info_02(stock_id)
         data_info_02 = query_sentence.sql_execute(iq_query_info_02)  #result: [{'漲跌': -1.95, '漲幅': -1.3560500695410294, '成交量': 20814, '開': 142.6, '高': 142.65, '低': 140.75, '收': 141.85}]
-        print(data_info_02)
+        # print(data_info_02)
 
         stock_name = data_info_01[0]['stock_name']
         stock_id_string = '(' + data_info_01[0]['stock_id'] + ')'
@@ -1663,6 +1663,7 @@ def iq_interactive(stock_string, btn):
         data_01_01_01 = query_sentence.sql_execute(iq_query_01_01_01)
         data_01_01_01 = pd.DataFrame.from_records(data_01_01_01)
         data_01_01_01 = process_obj.iq_table_adjust(data_01_01_01)
+        print(data_01_01_01)
 
         # 經營績效
         iq_query_01_01_02 = query_sentence.create_query_iq_01_01_02(stock_id)
