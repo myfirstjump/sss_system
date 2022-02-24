@@ -189,6 +189,7 @@ app.layout = html.Div([
                             options=stock_options,
                             placeholder='請輸入股票代號或公司名稱',
                             style=self_style.iq_l1_dd,
+                            required=True,
                         ),
                         html.Button(
                             children=['查詢'],
@@ -1621,7 +1622,7 @@ def func(n_clicks, download_data):
     Input('iq-btn', 'n_clicks'),
 )
 def iq_interactive(stock_string, btn):
-    if btn == None:
+    if btn == None or stock_string == None:
         raise PreventUpdate
 
     if btn > 0:
