@@ -1792,7 +1792,7 @@ def iq_interactive(stock_string, btn):
                                 [
                                     dcc.Tab(label='財務比率', style=self_style.iq_tab_l2, selected_style=self_style.iq_tab_l2_onclick,
                                         children=[
-                                            html.Div(['獲利能力']),
+                                            html.Div(['獲利能力'], style=self_style.tab_content_title),
                                             dash_table.DataTable(
                                                 columns = [{"name": i, "id": i} for i in data_01_01_01.columns],
                                                 data=data_01_01_01.to_dict('records'),
