@@ -55,6 +55,7 @@ class DataProcessing(object):
     
     def iq_table_adjust(self, dataframe):
         dataframe.set_index('date')
+        print(dataframe)
         data_transposed = dataframe.T
         return data_transposed
     
