@@ -595,5 +595,5 @@ tabs_content = {
 }
 
 tab_content_title = {
-    'text-align': 'middle',
+    'text-align': 'center',
 }
