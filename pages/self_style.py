@@ -586,4 +586,5 @@ iq_l32 = {
 tabs_content = {
     'border':'solid black 1px',
     'margin': '3%',
+    'overflow': 'auto',
 }
