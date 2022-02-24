@@ -588,7 +588,11 @@ tabs_content = {
     'border':'solid black 1px',
     'margin': '3%',
     'overflow': 'auto',
-    'display': 'flex',
-    'flex-direction': 'column',
-    'align-items': 'stretch',
+    # 'display': 'flex',
+    # 'flex-direction': 'column',
+    # 'align-items': 'stretch',
+}
+
+tab_content_title = {
+    'position': 'center',
 }
