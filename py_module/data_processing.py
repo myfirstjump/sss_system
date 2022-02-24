@@ -53,7 +53,7 @@ class DataProcessing(object):
 
         return data
     
-    def iq_table_adjust(dataframe):
+    def iq_table_adjust(self, dataframe):
 
         data_transposed = dataframe.T
         return data_transposed
