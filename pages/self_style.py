@@ -481,6 +481,7 @@ iq_div = {
     'height': '1300px',
     # 'width': '90%',
     'background-color':  '#FFFFFF',
+    'overflow': 'auto',
     # 'border':'solid white 1px',
 }
 
@@ -594,5 +595,5 @@ tabs_content = {
 }
 
 tab_content_title = {
-    'position': 'center',
+    'text-align': 'middle',
 }
