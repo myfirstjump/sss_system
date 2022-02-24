@@ -2001,7 +2001,7 @@ def create_query_iq_01_04(stock_id):
 
     # ----殖利率
     query = '''
-    select YM, dividend_yield '殖利率(%)' from(
+    select YM '年度/月', dividend_yield '殖利率(%)' from(
     select *,  ROW_NUMBER() over (partition by stock_id,YM order by date desc) desc_DATE
     from(
     SELECT *, convert(nvarchar(6), date, 112) YM
@@ -2018,7 +2018,7 @@ def create_query_iq_01_05(stock_id):
 
     # ----本益比(P/E)
     query = '''
-    select YM, PER '本益比' from(
+    select YM '年度/月', PER '本益比' from(
     select *,  ROW_NUMBER() over (partition by stock_id,YM order by date desc) desc_DATE
     from(
     SELECT *, convert(nvarchar(6), date, 112) YM

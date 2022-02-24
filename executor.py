@@ -1797,17 +1797,17 @@ def iq_interactive(stock_string, btn):
                                                 columns = [{"name": i, "id": i} for i in data_01_01_01.columns],
                                                 data=data_01_01_01.to_dict('records'),
                                             ),
-                                            html.Div(['經營績效']),
+                                            html.Div(['經營績效'], style=self_style.tab_content_title),
                                             dash_table.DataTable(
                                                 columns = [{"name": i, "id": i} for i in data_01_01_02.columns],
                                                 data=data_01_01_02.to_dict('records'),
                                             ), 
-                                            html.Div(['償債能力']),
+                                            html.Div(['償債能力'], style=self_style.tab_content_title),
                                             dash_table.DataTable(
                                                 columns = [{"name": i, "id": i} for i in data_01_01_03.columns],
                                                 data=data_01_01_03.to_dict('records'),
                                             ),
-                                            html.Div(['經營能力']),
+                                            html.Div(['經營能力'], style=self_style.tab_content_title),
                                             dash_table.DataTable(
                                                 columns = [{"name": i, "id": i} for i in data_01_01_04.columns],
                                                 data=data_01_01_04.to_dict('records'),
@@ -1859,22 +1859,22 @@ def iq_interactive(stock_string, btn):
                             dcc.Tabs([
                                 dcc.Tab(label='法人持股', style=self_style.iq_tab_l2, selected_style=self_style.iq_tab_l2_onclick,
                                     children = [
-                                        html.Div(['外資']),
+                                        html.Div(['外資'], style=self_style.tab_content_title),
                                         dash_table.DataTable(
                                             columns = [{"name": i, "id": i} for i in data_02_01_01.columns],
                                             data=data_02_01_01.to_dict('records'),
                                         ),
-                                        html.Div(['投信']),
+                                        html.Div(['投信'], style=self_style.tab_content_title),
                                         dash_table.DataTable(
                                             columns = [{"name": i, "id": i} for i in data_02_01_02.columns],
                                             data=data_02_01_02.to_dict('records'),
                                         ),
-                                        html.Div(['自營商']),
+                                        html.Div(['自營商'], style=self_style.tab_content_title),
                                         dash_table.DataTable(
                                             columns = [{"name": i, "id": i} for i in data_02_01_03.columns],
                                             data=data_02_01_03.to_dict('records'),
                                         ),
-                                        html.Div(['三大法人']),
+                                        html.Div(['三大法人'], style=self_style.tab_content_title),
                                         dash_table.DataTable(
                                             columns = [{"name": i, "id": i} for i in data_02_01_04.columns],
                                             data=data_02_01_04.to_dict('records'),
@@ -1883,17 +1883,17 @@ def iq_interactive(stock_string, btn):
                                 ),
                                 dcc.Tab(label='融資融券', style=self_style.iq_tab_l2, selected_style=self_style.iq_tab_l2_onclick,
                                     children = [
-                                        html.Div(['融資']),
+                                        html.Div(['融資'], style=self_style.tab_content_title),
                                         dash_table.DataTable(
                                             columns = [{"name": i, "id": i} for i in data_02_02_01.columns],
                                             data=data_02_02_01.to_dict('records'),
                                         ),
-                                        html.Div(['融券']),
+                                        html.Div(['融券'], style=self_style.tab_content_title),
                                         dash_table.DataTable(
                                             columns = [{"name": i, "id": i} for i in data_02_02_02.columns],
                                             data=data_02_02_02.to_dict('records'),
                                         ),
-                                        html.Div(['借券']),
+                                        html.Div(['借券'], style=self_style.tab_content_title),
                                         dash_table.DataTable(
                                             columns = [{"name": i, "id": i} for i in data_02_02_03.columns],
                                             data=data_02_02_03.to_dict('records'),
@@ -1902,7 +1902,7 @@ def iq_interactive(stock_string, btn):
                                 ),
                                 dcc.Tab(label='集保庫存', style=self_style.iq_tab_l2, selected_style=self_style.iq_tab_l2_onclick,
                                     children = [
-                                        html.Div(['集保庫存']),
+                                        html.Div(['集保庫存'], style=self_style.tab_content_title),
                                         dash_table.DataTable(
                                             columns = [{"name": i, "id": i} for i in data_02_03.columns],
                                             data=data_02_03.to_dict('records'),
@@ -1911,7 +1911,7 @@ def iq_interactive(stock_string, btn):
                                 ),
                                 dcc.Tab(label='董監持股', style=self_style.iq_tab_l2, selected_style=self_style.iq_tab_l2_onclick,
                                     children = [
-                                        html.Div(['董監持股']),
+                                        html.Div(['董監持股'], style=self_style.tab_content_title),
                                         dash_table.DataTable(
                                             columns = [{"name": i, "id": i} for i in data_02_04.columns],
                                             data=data_02_04.to_dict('records'),
