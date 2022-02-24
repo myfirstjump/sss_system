@@ -590,5 +590,5 @@ tabs_content = {
     'overflow': 'auto',
     'display': 'flex',
     'flex-direction': 'column',
-    'align-items': 'center',
+    'align-items': 'stretch',
 }
