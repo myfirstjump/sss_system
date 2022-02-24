@@ -189,7 +189,6 @@ app.layout = html.Div([
                             options=stock_options,
                             placeholder='請輸入股票代號或公司名稱',
                             style=self_style.iq_l1_dd,
-                            required=True,
                         ),
                         html.Button(
                             children=['查詢'],
