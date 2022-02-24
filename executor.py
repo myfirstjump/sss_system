@@ -1661,6 +1661,7 @@ def iq_interactive(stock_string, btn):
         # 獲利能力
         iq_query_01_01_01 = query_sentence.create_query_iq_01_01_01(stock_id)
         data_01_01_01 = query_sentence.sql_execute(iq_query_01_01_01)
+        print(data_01_01_01)
         data_01_01_01 = pd.DataFrame.from_records(data_01_01_01)
         print(data_01_01_01)
         data_01_01_01 = process_obj.iq_table_adjust(data_01_01_01)
