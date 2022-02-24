@@ -59,6 +59,7 @@ class DataProcessing(object):
         dataframe.set_index('date', inplace=True)
         print(dataframe)
         data_transposed = dataframe.T
+        data_transposed.reset_index() # dash datatable不會顯示index，所以將index轉成column
         print(data_transposed.index)
         print(data_transposed.columns)
         return data_transposed
