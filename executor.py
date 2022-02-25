@@ -1660,7 +1660,6 @@ def iq_interactive(stock_string, btn):
         iq_query_info_02 = query_sentence.create_query_info_02(stock_id)
         data_info_02 = query_sentence.sql_execute(iq_query_info_02)  #result: [{'漲跌': -1.95, '漲幅': -1.3560500695410294, '成交量': 20814, '開': 142.6, '高': 142.65, '低': 140.75, '收': 141.85}]
         data_info_02 = pd.DataFrame.from_records(data_info_02)
-        print(data_info_02)
         data_info_02 = process_obj.iq_info_adjust(data_info_02)
         # print(data_info_02)
 
@@ -1724,7 +1723,9 @@ def iq_interactive(stock_string, btn):
         # 法人持股 外資
         iq_query_02_01_01 = query_sentence.create_query_iq_02_01_01(stock_id)
         data_02_01_01 = query_sentence.sql_execute(iq_query_02_01_01)
+        print('Query完:', data_02_01_01)
         data_02_01_01 = pd.DataFrame.from_records(data_02_01_01)
+        print('Pandas:', data_02_01_01)
 
         # 法人持股 投信
         iq_query_02_01_02 = query_sentence.create_query_iq_02_01_02(stock_id)

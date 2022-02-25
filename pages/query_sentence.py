@@ -2026,7 +2026,7 @@ def create_query_iq_01_05(stock_id):
     where stock_id = '{}'
     ) a
     ) b
-    where desc_DATE = 1
+    where desc_DATE = 1 ORDER BY YM DESC
     '''.format(stock_id)
     return query
 
