@@ -1777,7 +1777,7 @@ def iq_interactive(stock_string, btn):
                         columns = [{"name": i, "id": i} for i in data_info_02.columns],
                         data=data_info_02.to_dict('records'),
                         style_cell={'fontSize': '30px', 'height': 'auto', 'whiteSpace': 'normal'},
-                        style_cell_conditional=[
+                        style_data_conditional=[
                             {
                                 'if':{
                                     'column_id': '漲幅',
