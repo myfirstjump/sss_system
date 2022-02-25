@@ -74,7 +74,7 @@ class DataProcessing(object):
 
         return data
 
-    def iq_table_adjust(self, dataframe):
+    def iq_table_01_01_adjust(self, dataframe):
         
         if len(dataframe) == 0:
             return pd.DataFrame()
@@ -89,4 +89,11 @@ class DataProcessing(object):
             # print(data_transposed.index)
             # print(data_transposed.columns)
         return data_transposed
+    
+    def iq_table_01_02_adjust(self, data):
+
+        data = np.round(data, 2)
+
+        return data
+
     

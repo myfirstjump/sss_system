@@ -1677,31 +1677,32 @@ def iq_interactive(stock_string, btn):
         data_01_01_01 = query_sentence.sql_execute(iq_query_01_01_01)
         data_01_01_01 = pd.DataFrame.from_records(data_01_01_01)
         print('SQL Query Results: ', data_01_01_01)
-        data_01_01_01 = process_obj.iq_table_adjust(data_01_01_01)
+        data_01_01_01 = process_obj.iq_table_01_01_adjust(data_01_01_01)
         print('DataFrame Processing Results: ', data_01_01_01)
 
         # 經營績效
         iq_query_01_01_02 = query_sentence.create_query_iq_01_01_02(stock_id)
         data_01_01_02 = query_sentence.sql_execute(iq_query_01_01_02)
         data_01_01_02 = pd.DataFrame.from_records(data_01_01_02)
-        data_01_01_02 = process_obj.iq_table_adjust(data_01_01_02)
+        data_01_01_02 = process_obj.iq_table_01_01_adjust(data_01_01_02)
 
         # 償債能力
         iq_query_01_01_03 = query_sentence.create_query_iq_01_01_03(stock_id)
         data_01_01_03 = query_sentence.sql_execute(iq_query_01_01_03)
         data_01_01_03 = pd.DataFrame.from_records(data_01_01_03)
-        data_01_01_03 = process_obj.iq_table_adjust(data_01_01_03)
+        data_01_01_03 = process_obj.iq_table_01_01_adjust(data_01_01_03)
 
         # 經營能力
         iq_query_01_01_04 = query_sentence.create_query_iq_01_01_04(stock_id)
         data_01_01_04 = query_sentence.sql_execute(iq_query_01_01_04)
         data_01_01_04 = pd.DataFrame.from_records(data_01_01_04)
-        data_01_01_04 = process_obj.iq_table_adjust(data_01_01_04)
+        data_01_01_04 = process_obj.iq_table_01_01_adjust(data_01_01_04)
 
         # 現金&股票股利
         iq_query_01_02 = query_sentence.create_query_iq_01_02(stock_id)
         data_01_02 = query_sentence.sql_execute(iq_query_01_02)
-        data_01_02 = pd.DataFrame.from_records(data_01_02)    
+        data_01_02 = pd.DataFrame.from_records(data_01_02)
+        data_01_02 = process_obj.iq_table_01_02_adjust(data_01_02)
 
         # 每股稅後盈餘(EPS)
         iq_query_01_03 = query_sentence.create_query_iq_01_03(stock_id)
