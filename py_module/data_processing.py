@@ -90,7 +90,7 @@ class DataProcessing(object):
             # print(data_transposed.columns)
         return data_transposed
     
-    def iq_table_01_02_adjust(self, data):
+    def iq_table_round_adjust(self, data):
 
         data = np.round(data, 2)
 
