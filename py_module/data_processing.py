@@ -62,7 +62,12 @@ class DataProcessing(object):
         else:
             pass
         
-        data.iloc[0,1] = str(np.round(data.iloc[0,1], 2)) + '%' #漲幅
+        if data.iloc[0,1] > 0: # 漲幅
+            data.iloc[0,1] = '+' + str(np.round(data.iloc[0,1], 2)) + '%' 
+        elif data.iloc[0,1] < 0:
+            data.iloc[0,1] = str(np.round(data.iloc[0,1], 2)) + '%' 
+        else:
+            data.iloc[0,1] = str(np.round(data.iloc[0,1], 2)) + '%' 
 
         data.iloc[0,2] = "{:,}".format(data.iloc[0,2]) + '張' #成交量
         

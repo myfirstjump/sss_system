@@ -1795,14 +1795,14 @@ def iq_interactive(stock_string, btn):
                             {
                                 'if':{
                                     'column_id': '漲幅',
-                                    'filter_query': '{漲幅} contains "-"',
+                                    'filter_query': '{漲幅} contains "+"',
                                 },
                                 'color': 'red',
                             },
                             {
                                 'if':{
                                     'column_id': '漲幅',
-                                    'filter_query': '{漲幅} < 0',
+                                    'filter_query': '{漲幅} contains "-"',
                                 },
                                 'color': 'green',
                             },
@@ -1863,6 +1863,9 @@ def iq_interactive(stock_string, btn):
                                             dash_table.DataTable(
                                                 columns = [{"name": i, "id": i} for i in data_01_01_04.columns],
                                                 data=data_01_01_04.to_dict('records'),
+                                                style_cell={
+                                                    'minWidth': '180px', 'width': '180px', 'maxWidth': '180px',
+                                                },
                                             ),
                                         ]),
                                     dcc.Tab(label='現金&股票股利', style=self_style.iq_tab_l2, selected_style=self_style.iq_tab_l2_onclick,
@@ -1871,6 +1874,9 @@ def iq_interactive(stock_string, btn):
                                             dash_table.DataTable(
                                                 columns = [{"name": i, "id": i} for i in data_01_02.columns],
                                                 data=data_01_02.to_dict('records'),
+                                                style_cell={
+                                                    'minWidth': '180px', 'width': '180px', 'maxWidth': '180px',
+                                                },
                                             ),
                                         ]
                                     ),
@@ -1880,6 +1886,9 @@ def iq_interactive(stock_string, btn):
                                             dash_table.DataTable(
                                                 columns = [{"name": i, "id": i} for i in data_01_03.columns],
                                                 data=data_01_03.to_dict('records'),
+                                                style_cell={
+                                                    'minWidth': '180px', 'width': '180px', 'maxWidth': '180px',
+                                                },
                                             ),
                                         ]
                                     ),
@@ -1889,6 +1898,9 @@ def iq_interactive(stock_string, btn):
                                             dash_table.DataTable(
                                                 columns = [{"name": i, "id": i} for i in data_01_04.columns],
                                                 data=data_01_04.to_dict('records'),
+                                                style_cell={
+                                                    'minWidth': '180px', 'width': '180px', 'maxWidth': '180px',
+                                                },
                                             ),
                                         ]
                                     ),
@@ -1898,6 +1910,9 @@ def iq_interactive(stock_string, btn):
                                             dash_table.DataTable(
                                                 columns = [{"name": i, "id": i} for i in data_01_05.columns],
                                                 data=data_01_05.to_dict('records'),
+                                                style_cell={
+                                                    'minWidth': '180px', 'width': '180px', 'maxWidth': '180px',
+                                                },
                                             ),
                                         ]
                                     ),
