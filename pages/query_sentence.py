@@ -2136,7 +2136,7 @@ def create_query_iq_02_03(stock_id):
         where date >= DATEADD(YEAR, -1, GETDATE())
     and stock_id = '{}'
     and HoldingSharesLevel = 'total') b on a.desc_DATE = b.desc_DATE-1
-    order by a.日期
+    order by a.日期 DESC
     '''.format(stock_id, stock_id)
     return query
 
