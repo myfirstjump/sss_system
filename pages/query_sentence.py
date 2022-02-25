@@ -2075,7 +2075,7 @@ def create_query_iq_02_01_04(stock_id):
 
     #--法人持股 三大法人
     query = '''
-    SELECT [date] '日期',sum([buy])/1000 '買進張數(法)',sum([sell])/1000 '賣出張數(法)', sum((buy-sell))/1000 '合計(法)'
+    SELECT [date] '日期',sum([buy])/1000 '買進張數',sum([sell])/1000 '賣出張數', sum((buy-sell))/1000 '合計'
     FROM [STOCK_COUNTER_DB].[dbo].[TW_STOCK_LEGALPERSON_Daily] with(nolock)
     where date >= DATEADD(MONTH, -1, GETDATE()) and stock_id = '{}'
     group by date
