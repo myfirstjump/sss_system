@@ -130,7 +130,7 @@ class DataProcessing(object):
         if len(dataframe) == 0:
             return pd.DataFrame()
         else:
-            dataframe['年度'] = dataframe['年度'].apply(lambda x: x.strftime('%Y'))
+            dataframe['年度'] = dataframe['年度'].apply(lambda x: str(x))
             return dataframe
 
     def iq_table_02_03_adjust(self, dataframe): # 集保
