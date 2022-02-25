@@ -1653,7 +1653,10 @@ def iq_interactive(stock_string, btn):
         else:
             stock_cate = ''
             for i in range(len(data_info_01)):
-                stock_cate = stock_cate + data_info_01[i]['industry_category']
+                if i > 0:
+                    stock_cate = stock_cate + '、' + data_info_01[i]['industry_category']
+                else:
+                    stock_cate = stock_cate + data_info_01[i]['industry_category']
         stock_price = data_info_01[0]['price']
 
         data_info_02 = pd.DataFrame.from_records(data_info_02)
