@@ -1655,6 +1655,8 @@ def iq_interactive(stock_string, btn):
                     stock_cate = stock_cate + data_info_01[i]['industry_category']
         stock_price = data_info_01[0]['price']
 
+        
+
         iq_query_info_02 = query_sentence.create_query_info_02(stock_id)
         data_info_02 = query_sentence.sql_execute(iq_query_info_02)  #result: [{'漲跌': -1.95, '漲幅': -1.3560500695410294, '成交量': 20814, '開': 142.6, '高': 142.65, '低': 140.75, '收': 141.85}]
         data_info_02 = pd.DataFrame.from_records(data_info_02)
@@ -1662,7 +1664,12 @@ def iq_interactive(stock_string, btn):
         data_info_02 = process_obj.iq_info_adjust(data_info_02)
         # print(data_info_02)
 
-        
+        if '▲' in data_info_02[0,0]:
+            self_style.iq_l31['color'] = 'red'
+        elif '▼' in data_info_02[0,0]:
+            self_style.iq_l31['color'] = 'green'
+        else:
+            pass
 
         ### 表格資料
         # 獲利能力
