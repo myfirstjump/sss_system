@@ -1767,7 +1767,8 @@ def iq_interactive(stock_string, btn):
         iq_query_02_03 = query_sentence.create_query_iq_02_03(stock_id)
         data_02_03 = query_sentence.sql_execute(iq_query_02_03)
         data_02_03 = pd.DataFrame.from_records(data_02_03)
-
+        data_02_03 = process_obj.iq_table_02_03_adjust(data_02_03)
+        
         # 董監持股
         iq_query_02_04 = query_sentence.create_query_iq_02_04(stock_id)
         data_02_04 = query_sentence.sql_execute(iq_query_02_04)

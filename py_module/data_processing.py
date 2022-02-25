@@ -124,3 +124,11 @@ class DataProcessing(object):
         df.reset_index(inplace=True)
 
         return df
+
+    def iq_table_02_03_adjust(self, dataframe): # 集保
+        
+        if len(dataframe) == 0:
+            return pd.DataFrame()
+        else:
+            dataframe['date'] = dataframe['date'].apply(lambda x: x.strftime('%Y/%m/%d')) # 為了後面轉為column name，所以先轉成字串
+            return dataframe
