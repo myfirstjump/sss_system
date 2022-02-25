@@ -1780,6 +1780,20 @@ def iq_interactive(stock_string, btn):
                         style_data_conditional=[
                             {
                                 'if':{
+                                    'column_id': '漲跌',
+                                    'filter_query': '"▲" in {漲跌}',
+                                },
+                                'color': 'red',
+                            },
+                            {
+                                'if':{
+                                    'column_id': '漲跌',
+                                    'filter_query': '"▼" in {漲跌}',
+                                },
+                                'color': 'red',
+                            },
+                            {
+                                'if':{
                                     'column_id': '漲幅',
                                     'filter_query': '{漲幅} > 0',
                                 },
