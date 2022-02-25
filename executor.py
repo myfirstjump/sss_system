@@ -1762,6 +1762,7 @@ def iq_interactive(stock_string, btn):
             html.Div(stock_type, style=self_style.iq_l23),
             html.Div(stock_cate, style=self_style.iq_l24),
         ]
+        print('{} content info done.'.format(stock_string))
         children_content_data1 = [
             html.Div(
                 stock_price, 
@@ -1784,6 +1785,7 @@ def iq_interactive(stock_string, btn):
                 style=self_style.iq_l32,
             )
         ]
+        print('{} content data1 done.'.format(stock_string))
         children_content_data2 = [#基本資料、財務報表、籌碼分析等三個Tabs
             dcc.Tabs(id='iq-tabs', value='dynamic-iq-result-info', # value是預設顯示值
                 children=[
@@ -1931,6 +1933,7 @@ def iq_interactive(stock_string, btn):
                 ]
             ),
         ]
+        print('{} content data2 done.'.format(stock_string))
     else:
         children_content_info = []
         children_content_data1 = []
