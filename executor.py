@@ -1723,9 +1723,9 @@ def iq_interactive(stock_string, btn):
         # 法人持股 外資
         iq_query_02_01_01 = query_sentence.create_query_iq_02_01_01(stock_id)
         data_02_01_01 = query_sentence.sql_execute(iq_query_02_01_01)
-        print('Query完:', data_02_01_01)
+        # print('Query完:', data_02_01_01)
         data_02_01_01 = pd.DataFrame.from_records(data_02_01_01)
-        print('Pandas:', data_02_01_01)
+        # print('Pandas:', data_02_01_01)
 
         # 法人持股 投信
         iq_query_02_01_02 = query_sentence.create_query_iq_02_01_02(stock_id)
@@ -1959,7 +1959,7 @@ def iq_interactive(stock_string, btn):
                                 dcc.Tab(label='法人持股', style=self_style.iq_tab_l2, selected_style=self_style.iq_tab_l2_onclick,
                                     children = [
                                         dash_table.DataTable(
-                                            columns = [{"name": i, "id": i} for i in data_02_01_01.columns],
+                                            columns = [{"name": [legal, i], "id": i} for legal, i in zip(["外資","外資","外資","投信","投信","投信","自營商","自營商","自營商","三大法人合計","三大法人合計","三大法人合計",], data_02_01_01.columns]),
                                             data=data_02_01.to_dict('records'),
                                         ),
                                     ]

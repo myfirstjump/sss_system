@@ -111,6 +111,7 @@ class DataProcessing(object):
         df4.set_index('日期', inplace=True)
 
         df = pd.concat([df1, df2, df3, df4], axis=1)
+        df.reset_index(inplace=True)
 
         return df
 
