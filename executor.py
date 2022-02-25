@@ -1853,7 +1853,7 @@ def iq_interactive(stock_string, btn):
                                         children=[
                                             html.Div(['獲利能力'], style=self_style.tab_content_title),
                                             dash_table.DataTable(
-                                                columns = [{"name": i, "id": i} for i in data_01_01_01.columns],
+                                                columns = [{"name": i, "id": i, "type": 'numeric', "format":Format().group(True)} for i in data_01_01_01.columns],
                                                 data=data_01_01_01.to_dict('records'),
                                                 style_cell={
                                                     'minWidth': '180px', 'width': '180px', 'maxWidth': '180px',
@@ -1877,7 +1877,7 @@ def iq_interactive(stock_string, btn):
                                             html.Br(),
                                             html.Div(['償債能力'], style=self_style.tab_content_title),
                                             dash_table.DataTable(
-                                                columns = [{"name": i, "id": i} for i in data_01_01_03.columns],
+                                                columns = [{"name": i, "id": i, "type": 'numeric', "format":Format().group(True)} for i in data_01_01_03.columns],
                                                 data=data_01_01_03.to_dict('records'),
                                                 style_cell={
                                                     'minWidth': '180px', 'width': '180px', 'maxWidth': '180px',
@@ -1889,7 +1889,7 @@ def iq_interactive(stock_string, btn):
                                             html.Br(),
                                             html.Div(['經營能力'], style=self_style.tab_content_title),
                                             dash_table.DataTable(
-                                                columns = [{"name": i, "id": i} for i in data_01_01_04.columns],
+                                                columns = [{"name": i, "id": i, "type": 'numeric', "format":Format().group(True)} for i in data_01_01_04.columns],
                                                 data=data_01_01_04.to_dict('records'),
                                                 style_cell={
                                                     'minWidth': '180px', 'width': '180px', 'maxWidth': '180px',
@@ -1903,7 +1903,7 @@ def iq_interactive(stock_string, btn):
                                         children = [
                                             # html.Div(['現金&股票股利']),
                                             dash_table.DataTable(
-                                                columns = [{"name": i, "id": i} for i in data_01_02.columns],
+                                                columns = [{"name": i, "id": i, "type": 'numeric', "format":Format().group(True)} for i in data_01_02.columns],
                                                 data=data_01_02.to_dict('records'),
                                                 style_cell={
                                                     'minWidth': '180px', 'width': '180px', 'maxWidth': '180px',
@@ -1924,7 +1924,7 @@ def iq_interactive(stock_string, btn):
                                         children = [
                                             # html.Div(['每股稅後盈餘(EPS)']),
                                             dash_table.DataTable(
-                                                columns = [{"name": i, "id": i} for i in data_01_03.columns],
+                                                columns = [{"name": i, "id": i, "type": 'numeric', "format":Format().group(True)} for i in data_01_03.columns],
                                                 data=data_01_03.to_dict('records'),
                                                 style_cell={
                                                     'minWidth': '180px', 'width': '180px', 'maxWidth': '180px',
@@ -1939,7 +1939,7 @@ def iq_interactive(stock_string, btn):
                                         children = [
                                             # html.Div(['殖利率']),
                                             dash_table.DataTable(
-                                                columns = [{"name": i, "id": i} for i in data_01_04.columns],
+                                                columns = [{"name": i, "id": i, "type": 'numeric', "format":Format().group(True)} for i in data_01_04.columns],
                                                 data=data_01_04.to_dict('records'),
                                                 style_cell={
                                                     'minWidth': '180px', 'width': '180px', 'maxWidth': '180px', 'textAlign':'left',
@@ -1957,7 +1957,7 @@ def iq_interactive(stock_string, btn):
                                         children = [
                                             # html.Div(['本益比(P/E)']),
                                             dash_table.DataTable(
-                                                columns = [{"name": i, "id": i} for i in data_01_05.columns],
+                                                columns = [{"name": i, "id": i, "type": 'numeric', "format":Format().group(True)} for i in data_01_05.columns],
                                                 data=data_01_05.to_dict('records'),
                                                 style_cell={
                                                     'minWidth': '180px', 'width': '180px', 'maxWidth': '180px', 'textAlign':'left',
@@ -1982,7 +1982,7 @@ def iq_interactive(stock_string, btn):
                                 dcc.Tab(label='法人持股', style=self_style.iq_tab_l2, selected_style=self_style.iq_tab_l2_onclick,
                                     children = [
                                         dash_table.DataTable(
-                                            columns = [{"name": [legal, i], "id": i} for legal, i in zip(["","外資","外資","外資","投信","投信","投信","自營商","自營商","自營商","三大法人合計","三大法人合計","三大法人合計",], data_02_01.columns)],
+                                            columns = [{"name": [legal, i], "id": i, "type": 'numeric', "format":Format().group(True)} for legal, i in zip(["","外資","外資","外資","投信","投信","投信","自營商","自營商","自營商","三大法人合計","三大法人合計","三大法人合計",], data_02_01.columns)],
                                             data=data_02_01.to_dict('records'),
                                             merge_duplicate_headers=True,
                                             style_header={
@@ -1994,7 +1994,7 @@ def iq_interactive(stock_string, btn):
                                 dcc.Tab(label='融資融券', style=self_style.iq_tab_l2, selected_style=self_style.iq_tab_l2_onclick,
                                     children = [
                                         dash_table.DataTable(
-                                            columns = [{"name": [margin, i], "id": i} for margin, i in zip(["","融資","融資","融資","融券","融券","融券",], data_02_02.columns)],
+                                            columns = [{"name": [margin, i], "id": i, "type": 'numeric', "format":Format().group(True)} for margin, i in zip(["","融資","融資","融資","融券","融券","融券",], data_02_02.columns)],
                                             data=data_02_02.to_dict('records'),
                                             merge_duplicate_headers=True,
                                             style_header={
@@ -2004,7 +2004,7 @@ def iq_interactive(stock_string, btn):
                                         html.Br(),
                                         html.Div(['借券'], style=self_style.tab_content_title),
                                         dash_table.DataTable(
-                                            columns = [{"name": i, "id": i} for i in data_02_02_03.columns],
+                                            columns = [{"name": i, "id": i, "type": 'numeric', "format":Format().group(True)} for i in data_02_02_03.columns],
                                             data=data_02_02_03.to_dict('records'),
                                             style_header={
                                                     'textAlign':'center',
@@ -2015,7 +2015,7 @@ def iq_interactive(stock_string, btn):
                                 dcc.Tab(label='集保庫存', style=self_style.iq_tab_l2, selected_style=self_style.iq_tab_l2_onclick,
                                     children = [
                                         dash_table.DataTable(
-                                            columns = [{"name": i, "id": i} for i in data_02_03.columns],
+                                            columns = [{"name": i, "id": i, "type": 'numeric', "format":Format().group(True)} for i in data_02_03.columns],
                                             data=data_02_03.to_dict('records'),
                                             style_header={
                                                     'textAlign':'center',
@@ -2027,7 +2027,7 @@ def iq_interactive(stock_string, btn):
                                     children = [
                                         
                                         dash_table.DataTable(
-                                            columns = [{"name": i, "id": i} for i in data_02_04.columns],
+                                            columns = [{"name": i, "id": i, "type": 'numeric', "format":Format().group(True)} for i in data_02_04.columns],
                                             data=data_02_04.to_dict('records'),
                                             style_header={
                                                     'textAlign':'center',
