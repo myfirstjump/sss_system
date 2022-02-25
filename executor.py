@@ -1941,7 +1941,7 @@ def iq_interactive(stock_string, btn):
                                                 columns = [{"name": i, "id": i} for i in data_01_04.columns],
                                                 data=data_01_04.to_dict('records'),
                                                 style_cell={
-                                                    'minWidth': '180px', 'width': '180px', 'maxWidth': '180px',
+                                                    'minWidth': '180px', 'width': '180px', 'maxWidth': '180px', 'textAlign':'left',
                                                 },
                                                 style_header_conditional=[
                                                     {
@@ -1949,9 +1949,6 @@ def iq_interactive(stock_string, btn):
                                                         'color': 'orange'
                                                     } for c in ['殖利率(%)']
                                                 ],
-                                                style_cell={
-                                                    'textAlign':'left',
-                                                }
                                             ),
                                         ]
                                     ),
@@ -1962,7 +1959,7 @@ def iq_interactive(stock_string, btn):
                                                 columns = [{"name": i, "id": i} for i in data_01_05.columns],
                                                 data=data_01_05.to_dict('records'),
                                                 style_cell={
-                                                    'minWidth': '180px', 'width': '180px', 'maxWidth': '180px',
+                                                    'minWidth': '180px', 'width': '180px', 'maxWidth': '180px', 'textAlign':'left',
                                                 },
                                                 style_header_conditional=[
                                                     {
@@ -1970,9 +1967,6 @@ def iq_interactive(stock_string, btn):
                                                         'color': 'orange'
                                                     } for c in ['本益比']
                                                 ],
-                                                style_cell={
-                                                    'textAlign':'left',
-                                                }
                                             ),
                                         ]
                                     ),
