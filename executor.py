@@ -184,11 +184,11 @@ app.layout = html.Div([
                 #1. individual query 個股查詢
                 html.Div([
                     html.Div([
-                        html.Div([]),
+                        html.Div([], style=self_style.iq_l1_blank,),
                         dcc.Dropdown(
                             id='iq-dd',
                             options=stock_options,
-                            placeholder='請輸入股票代號或公司名稱',
+                            placeholder='股票代號/公司名稱',
                             style=self_style.iq_l1_dd,
                         ),
                         html.Button(

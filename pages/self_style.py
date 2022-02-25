@@ -497,10 +497,16 @@ iq_l1 = {
 
 iq_l1_dd = {
     'color':'black', 
-    'width':'30%',
+    'width':'50%',
 }
 
 iq_l1_query_btn = {
+    'width': '10%',
+    # 'margin': '2px',
+    # 'border-radius': '10%',
+}
+
+iq_l1_blank = {
     'width': '10%',
     # 'margin': '2px',
     # 'border-radius': '10%',
