@@ -1966,7 +1966,7 @@ def create_query_iq_01_02(stock_id):
     query = '''
     SELECT belong_year '所屬年度', YEAR(CashDividendPaymentDate) '發放年度', CashEarningsDistribution '現金股利(元)', StockEarningsDistribution '股票股利(元)'
     , CashEarningsDistribution+StockEarningsDistribution '股利合計(元)'
-    FROM [STOCK_BASICINTO_DB].[dbo].[TW_STOCK_Dividend] with(nolock) where stock_id = '{}'
+    FROM [STOCK_BASICINTO_DB].[dbo].[TW_STOCK_Dividend] with(nolock) where stock_id = '{}' ORDER BY date DESC
     '''.format(stock_id)
 
     return query
