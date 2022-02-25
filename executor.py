@@ -1756,7 +1756,7 @@ def iq_interactive(stock_string, btn):
         data_02_02_02= pd.DataFrame.from_records(data_02_02_02)
         data_02_02_02 = process_obj.iq_table_round_adjust(data_02_02_02)
 
-        data_02_02 = process_obj.iq_legal_table_concat(data_02_02_01, data_02_02_02)
+        data_02_02 = process_obj.iq_margin_table_concat(data_02_02_01, data_02_02_02)
 
         # 融資融卷 借卷
         iq_query_02_02_03 = query_sentence.create_query_iq_02_02_03(stock_id)
