@@ -488,6 +488,7 @@ iq_div = {
 iq_l1 = {
     'display':'flex',
     'flex-direction': 'row',
+    'justify-content': 'space-between',
     'color':'#FFFFFF',
     # 'border':'solid white 1px',
     'margin': '1%',
@@ -496,7 +497,7 @@ iq_l1 = {
 
 iq_l1_dd = {
     'color':'black', 
-    'width':'95%',
+    'width':'30%',
 }
 
 iq_l1_query_btn = {

@@ -184,6 +184,7 @@ app.layout = html.Div([
                 #1. individual query 個股查詢
                 html.Div([
                     html.Div([
+                        html.Div([]),
                         dcc.Dropdown(
                             id='iq-dd',
                             options=stock_options,
