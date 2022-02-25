@@ -102,8 +102,10 @@ class DataProcessing(object):
         df2['date'] = df2['date'].apply(lambda x: x.strftime('%Y-%m-%d'))
         df3['date'] = df3['date'].apply(lambda x: x.strftime('%Y-%m-%d'))
         df4['date'] = df4['date'].apply(lambda x: x.strftime('%Y-%m-%d'))
+        print(df1)
 
         df1.set_index('date', inplace=True)
+        print(df1)
         df2.set_index('date', inplace=True)
         df3.set_index('date', inplace=True)
         df4.set_index('date', inplace=True)
