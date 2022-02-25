@@ -55,6 +55,9 @@ class DataProcessing(object):
     
     def iq_info_adjust(self, data):
 
+        print("data['漲跌']", data['漲跌'])
+        print("data['漲幅']", data['漲幅'])
+
         if data['漲跌'] > 0:
             data['漲跌'] = '▲' + data['漲跌']
         elif data['漲跌'] < 0:
