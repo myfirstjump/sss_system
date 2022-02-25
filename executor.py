@@ -1857,6 +1857,9 @@ def iq_interactive(stock_string, btn):
                                                 style_cell={
                                                     'minWidth': '180px', 'width': '180px', 'maxWidth': '180px',
                                                 },
+                                                style_header={
+                                                    'textAlign':'center',
+                                                }
                                             ),
                                             html.Br(),
                                             html.Div(['經營績效'], style=self_style.tab_content_title),
