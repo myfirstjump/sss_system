@@ -1869,6 +1869,9 @@ def iq_interactive(stock_string, btn):
                                                 style_cell={
                                                     'minWidth': '180px', 'width': '180px', 'maxWidth': '180px',
                                                 },
+                                                style_header={
+                                                    'textAlign':'center',
+                                                }
                                             ), 
                                             html.Br(),
                                             html.Div(['償債能力'], style=self_style.tab_content_title),
@@ -1878,6 +1881,9 @@ def iq_interactive(stock_string, btn):
                                                 style_cell={
                                                     'minWidth': '180px', 'width': '180px', 'maxWidth': '180px',
                                                 },
+                                                style_header={
+                                                    'textAlign':'center',
+                                                }
                                             ),
                                             html.Br(),
                                             html.Div(['經營能力'], style=self_style.tab_content_title),
@@ -1887,6 +1893,9 @@ def iq_interactive(stock_string, btn):
                                                 style_cell={
                                                     'minWidth': '180px', 'width': '180px', 'maxWidth': '180px',
                                                 },
+                                                style_header={
+                                                    'textAlign':'center',
+                                                }
                                             ),
                                         ]),
                                     dcc.Tab(label='現金&股票股利', style=self_style.iq_tab_l2, selected_style=self_style.iq_tab_l2_onclick,
@@ -1904,6 +1913,9 @@ def iq_interactive(stock_string, btn):
                                                         'color': 'orange'
                                                     } for c in ['現金股利(元)','股票股利(元)','股利合計(元)']
                                                 ],
+                                                style_header={
+                                                    'textAlign':'center',
+                                                }
                                             ),
                                         ]
                                     ),
@@ -1916,6 +1928,9 @@ def iq_interactive(stock_string, btn):
                                                 style_cell={
                                                     'minWidth': '180px', 'width': '180px', 'maxWidth': '180px',
                                                 },
+                                                style_header={
+                                                    'textAlign':'center',
+                                                }
                                             ),
                                         ]
                                     ),
@@ -1934,6 +1949,9 @@ def iq_interactive(stock_string, btn):
                                                         'color': 'orange'
                                                     } for c in ['殖利率(%)']
                                                 ],
+                                                style_cell={
+                                                    'textAlign':'left',
+                                                }
                                             ),
                                         ]
                                     ),
@@ -1952,6 +1970,9 @@ def iq_interactive(stock_string, btn):
                                                         'color': 'orange'
                                                     } for c in ['本益比']
                                                 ],
+                                                style_cell={
+                                                    'textAlign':'left',
+                                                }
                                             ),
                                         ]
                                     ),
