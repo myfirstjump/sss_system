@@ -11,6 +11,7 @@ import dash_html_components as html
 from dash.dependencies import Output, Input, State, ALL
 from dash.exceptions import PreventUpdate
 import dash_table
+from dash_table.Format import Format, Group
 import plotly.express as px
 import pandas as pd
 import json
@@ -1864,7 +1865,7 @@ def iq_interactive(stock_string, btn):
                                             html.Br(),
                                             html.Div(['經營績效'], style=self_style.tab_content_title),
                                             dash_table.DataTable(
-                                                columns = [{"name": i, "id": i} for i in data_01_01_02.columns],
+                                                columns = [{"name": i, "id": i, format=Format().group(True)} for i in data_01_01_02.columns],
                                                 data=data_01_01_02.to_dict('records'),
                                                 style_cell={
                                                     'minWidth': '180px', 'width': '180px', 'maxWidth': '180px',
@@ -2000,6 +2001,7 @@ def iq_interactive(stock_string, btn):
                                                     'textAlign':'center',
                                             }
                                         ),
+                                        html.Br(),
                                         html.Div(['借券'], style=self_style.tab_content_title),
                                         dash_table.DataTable(
                                             columns = [{"name": i, "id": i} for i in data_02_02_03.columns],
