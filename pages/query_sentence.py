@@ -2089,7 +2089,7 @@ def create_query_iq_02_02_01(stock_id):
     #------融資融卷
     #-----融資
     query = '''
-    SELECT date '日期 ', MarginPurchaseTodayBalance '餘額 ', MARGIN_SPREAD '增減(張) ', MARGIN_ratio '使用率% '
+    SELECT date '日期', MarginPurchaseTodayBalance '餘額 ', MARGIN_SPREAD '增減(張) ', MARGIN_ratio '使用率% '
     FROM [STOCK_COUNTER_DB].[dbo].[TW_STOCK_MARGINTRADE_SHORTSELL_Daily] with(nolock)
     where date >= DATEADD(MONTH, -1, GETDATE()) AND stock_id = '{}'
     order by date desc
