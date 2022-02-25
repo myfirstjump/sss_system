@@ -507,7 +507,7 @@ iq_l1_query_btn = {
 }
 
 iq_l1_blank = {
-    'width': '40%',
+    'width': '35%',
     # 'margin': '2px',
     # 'border-radius': '10%',
 }
