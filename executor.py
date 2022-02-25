@@ -1781,14 +1781,14 @@ def iq_interactive(stock_string, btn):
                             {
                                 'if':{
                                     'column_id': '漲跌',
-                                    'filter_query': '"▲" in {漲跌}',
+                                    'filter_query': '{漲跌} contains "▲"',
                                 },
                                 'color': 'red',
                             },
                             {
                                 'if':{
                                     'column_id': '漲跌',
-                                    'filter_query': '"▼" in {漲跌}',
+                                    'filter_query': '{漲跌} contains "▼"',
                                 },
                                 'color': 'red',
                             },
