@@ -1778,6 +1778,21 @@ def iq_interactive(stock_string, btn):
                         data=data_info_02.to_dict('records'),
                         style_cell={'fontSize': '30px', 'height': 'auto', 'whiteSpace': 'normal'},
                         style_cell_conditional=[
+                            {
+                                'if':{
+                                    'column_id': '漲幅',
+                                    'filter_query': '{漲幅} > 0',
+                                },
+                                'color': 'red',
+                            },
+                            {
+                                'if':{
+                                    'column_id': '漲幅',
+                                    'filter_query': '{漲幅} > 0',
+                                },
+                                'color': 'green',
+                            },
+
                             # {'if': {'column_id': 'Remark'},
                             # 'width': '15%'},
                             # {'if': {'column_id': '產業別'},
