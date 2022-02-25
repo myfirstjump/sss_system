@@ -1790,7 +1790,7 @@ def iq_interactive(stock_string, btn):
                                     'column_id': '漲跌',
                                     'filter_query': '{漲跌} contains "▼"',
                                 },
-                                'color': 'red',
+                                'color': 'green',
                             },
                             {
                                 'if':{

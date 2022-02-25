@@ -61,7 +61,7 @@ class DataProcessing(object):
         if data.iloc[0,0] > 0:
             data.iloc[0,0] = '▲' + str(data.iloc[0,0])
         elif data.iloc[0,0] < 0:
-            data.iloc[0,0] = '▼' + str(data.iloc[0,0])
+            data.iloc[0,0] = '▼' + str(np.abs(data.iloc[0,0]))
         else:
             pass
         
