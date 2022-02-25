@@ -130,5 +130,5 @@ class DataProcessing(object):
         if len(dataframe) == 0:
             return pd.DataFrame()
         else:
-            dataframe['date'] = dataframe['date'].apply(lambda x: x.strftime('%Y/%m/%d')) # 為了後面轉為column name，所以先轉成字串
+            dataframe['日期'] = dataframe['日期'].apply(lambda x: x.strftime('%Y/%m/%d')) # 為了後面轉為column name，所以先轉成字串
             return dataframe
