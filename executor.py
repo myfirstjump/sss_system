@@ -1795,7 +1795,7 @@ def iq_interactive(stock_string, btn):
                             {
                                 'if':{
                                     'column_id': '漲幅',
-                                    'filter_query': '{漲幅} > 0',
+                                    'filter_query': '{漲幅} contains "-"',
                                 },
                                 'color': 'red',
                             },
@@ -1837,16 +1837,19 @@ def iq_interactive(stock_string, btn):
                                                 columns = [{"name": i, "id": i} for i in data_01_01_01.columns],
                                                 data=data_01_01_01.to_dict('records'),
                                             ),
+                                            html.Br(),
                                             html.Div(['經營績效'], style=self_style.tab_content_title),
                                             dash_table.DataTable(
-                                                columns = [{"name": i, "id": i, 'format': dash_table.Format(nully='N/A')} for i in data_01_01_02.columns],
+                                                columns = [{"name": i, "id": i} for i in data_01_01_02.columns],
                                                 data=data_01_01_02.to_dict('records'),
                                             ), 
+                                            html.Br(),
                                             html.Div(['償債能力'], style=self_style.tab_content_title),
                                             dash_table.DataTable(
                                                 columns = [{"name": i, "id": i} for i in data_01_01_03.columns],
                                                 data=data_01_01_03.to_dict('records'),
                                             ),
+                                            html.Br(),
                                             html.Div(['經營能力'], style=self_style.tab_content_title),
                                             dash_table.DataTable(
                                                 columns = [{"name": i, "id": i} for i in data_01_01_04.columns],

@@ -55,19 +55,16 @@ class DataProcessing(object):
     
     def iq_info_adjust(self, data):
 
-        print("data['漲跌']", data['漲跌'])
-        print("data['漲幅']", data['漲幅'])
-
-        if data.iloc[0,0] > 0:
+        if data.iloc[0,0] > 0: # 漲跌
             data.iloc[0,0] = '▲' + str(data.iloc[0,0])
         elif data.iloc[0,0] < 0:
             data.iloc[0,0] = '▼' + str(np.abs(data.iloc[0,0]))
         else:
             pass
         
-        data.iloc[0,1] = np.round(data.iloc[0,1], 2)
+        data.iloc[0,1] = str(np.round(data.iloc[0,1], 2)) + '%' #漲幅
 
-        data.iloc[0,3] = "{:,}".format(data.iloc[0,3]) + '張'
+        data.iloc[0,2] = "{:,}".format(data.iloc[0,2]) + '張' #成交量
         
 
         return data
