@@ -1742,6 +1742,9 @@ def iq_interactive(stock_string, btn):
         data_02_01_04 = query_sentence.sql_execute(iq_query_02_01_04)
         data_02_01_04 = pd.DataFrame.from_records(data_02_01_04)
 
+        data_02_01 = process_obj.iq_legal_table_concat(data_02_01_01, data_02_01_02, data_02_01_03, data_02_01_04)
+        print(data_02_01)
+
         # 融資融卷 融資
         iq_query_02_02_01 = query_sentence.create_query_iq_02_02_01(stock_id)
         data_02_02_01 = query_sentence.sql_execute(iq_query_02_02_01)
@@ -1955,25 +1958,9 @@ def iq_interactive(stock_string, btn):
                             dcc.Tabs([
                                 dcc.Tab(label='法人持股', style=self_style.iq_tab_l2, selected_style=self_style.iq_tab_l2_onclick,
                                     children = [
-                                        html.Div(['外資'], style=self_style.tab_content_title),
                                         dash_table.DataTable(
                                             columns = [{"name": i, "id": i} for i in data_02_01_01.columns],
-                                            data=data_02_01_01.to_dict('records'),
-                                        ),
-                                        html.Div(['投信'], style=self_style.tab_content_title),
-                                        dash_table.DataTable(
-                                            columns = [{"name": i, "id": i} for i in data_02_01_02.columns],
-                                            data=data_02_01_02.to_dict('records'),
-                                        ),
-                                        html.Div(['自營商'], style=self_style.tab_content_title),
-                                        dash_table.DataTable(
-                                            columns = [{"name": i, "id": i} for i in data_02_01_03.columns],
-                                            data=data_02_01_03.to_dict('records'),
-                                        ),
-                                        html.Div(['三大法人'], style=self_style.tab_content_title),
-                                        dash_table.DataTable(
-                                            columns = [{"name": i, "id": i} for i in data_02_01_04.columns],
-                                            data=data_02_01_04.to_dict('records'),
+                                            data=data_02_01.to_dict('records'),
                                         ),
                                     ]
                                 ),

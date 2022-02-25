@@ -96,4 +96,20 @@ class DataProcessing(object):
 
         return data
 
+    def iq_legal_table_concat(self, df1, df2, df3, df4):
+
+        df1['date'] = df1['date'].apply(lambda x: x.strftime('%Y-%m-%d'))
+        df2['date'] = df2['date'].apply(lambda x: x.strftime('%Y-%m-%d'))
+        df3['date'] = df3['date'].apply(lambda x: x.strftime('%Y-%m-%d'))
+        df4['date'] = df4['date'].apply(lambda x: x.strftime('%Y-%m-%d'))
+
+        df1.set_index('date', inplace=True)
+        df2.set_index('date', inplace=True)
+        df3.set_index('date', inplace=True)
+        df4.set_index('date', inplace=True)
+
+        df = pd.concat([df1, df2, df3, df4], axis=1)
+
+        return df
+
     
