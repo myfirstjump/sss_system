@@ -60,7 +60,7 @@ class DataProcessing(object):
         elif data.iloc[0,0] < 0:
             data.iloc[0,0] = '▼' + str(np.abs(data.iloc[0,0]))
         else:
-            pass
+            data.iloc[0,0] = str(data.iloc[0,0])
         
         if data.iloc[0,1] > 0: # 漲幅
             data.iloc[0,1] = '+' + str(np.round(data.iloc[0,1], 2)) + '%' 
