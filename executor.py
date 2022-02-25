@@ -1709,6 +1709,8 @@ def iq_interactive(stock_string, btn):
         data_01_03 = query_sentence.sql_execute(iq_query_01_03)
         data_01_03 = pd.DataFrame.from_records(data_01_03)
         data_01_03 = process_obj.iq_table_round_adjust(data_01_03)
+        data_01_03 = process_obj.iq_table_01_03_adjust(data_01_03)
+        
 
         # 殖利率
         iq_query_01_04 = query_sentence.create_query_iq_01_04(stock_id)

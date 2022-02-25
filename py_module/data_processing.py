@@ -125,6 +125,14 @@ class DataProcessing(object):
 
         return df
 
+    def iq_table_01_03_adjust(self, dataframe): # 集保
+        
+        if len(dataframe) == 0:
+            return pd.DataFrame()
+        else:
+            dataframe['年度'] = dataframe['年度'].apply(lambda x: x.strftime('%Y'))
+            return dataframe
+
     def iq_table_02_03_adjust(self, dataframe): # 集保
         
         if len(dataframe) == 0:
