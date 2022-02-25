@@ -1635,10 +1635,6 @@ def iq_interactive(stock_string, btn):
         # [{'stock_name': '台積電', 'stock_id': '2330', 'type': 'twse', 'industry_category': '半導體業', 'price': 627.0}, {'stock_name': '台積電', 'stock_id': '2330', 'type': 'twse', 'industry_category': '電子工業', 'price': 627.0}]
         # print(data_info_01)
 
-        iq_query_info_02 = query_sentence.create_query_info_02(stock_id)
-        data_info_02 = query_sentence.sql_execute(iq_query_info_02)  #result: [{'漲跌': -1.95, '漲幅': -1.3560500695410294, '成交量': 20814, '開': 142.6, '高': 142.65, '低': 140.75, '收': 141.85}]
-        # print(data_info_02)
-
         stock_name = data_info_01[0]['stock_name']
         stock_id_string = '(' + data_info_01[0]['stock_id'] + ')'
         stock_type_temp = data_info_01[0]['type']
@@ -1658,6 +1654,11 @@ def iq_interactive(stock_string, btn):
                 else:
                     stock_cate = stock_cate + data_info_01[i]['industry_category']
         stock_price = data_info_01[0]['price']
+
+        iq_query_info_02 = query_sentence.create_query_info_02(stock_id)
+        data_info_02 = query_sentence.sql_execute(iq_query_info_02)  #result: [{'漲跌': -1.95, '漲幅': -1.3560500695410294, '成交量': 20814, '開': 142.6, '高': 142.65, '低': 140.75, '收': 141.85}]
+        data_info_02 = process_obj.iq_info_adjust(data_info_02)
+        # print(data_info_02)
 
         data_info_02 = pd.DataFrame.from_records(data_info_02)
 

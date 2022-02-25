@@ -53,6 +53,20 @@ class DataProcessing(object):
 
         return data
     
+    def iq_info_adjust(self, data):
+
+        if data['漲跌'] > 0:
+            data['漲跌'] = '▲' + data['漲跌']
+        elif data['漲跌'] < 0:
+            data['漲跌'] = '▼' + data['漲跌']
+        else:
+            pass
+        
+        data['漲幅'] = np.round(data['漲幅'], 2)
+
+
+        return dataframe
+
     def iq_table_adjust(self, dataframe):
         
         if len(dataframe) == 0:
