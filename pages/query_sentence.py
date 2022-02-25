@@ -2004,7 +2004,7 @@ def create_query_iq_01_04(stock_id):
     select YM '年度/月', dividend_yield '殖利率(%)' from(
     select *,  ROW_NUMBER() over (partition by stock_id,YM order by date desc) desc_DATE
     from(
-    SELECT *, convert(nvarchar(6), date, 111) YM
+    SELECT *, convert(nvarchar(7), date, 111) YM
     FROM [STOCK_SKILL_DB].[dbo].[TW_STOCK_PER] with(nolock)
     where stock_id = '{}'
     ) a
@@ -2021,7 +2021,7 @@ def create_query_iq_01_05(stock_id):
     select YM '年度/月', PER '本益比' from(
     select *,  ROW_NUMBER() over (partition by stock_id,YM order by date desc) desc_DATE
     from(
-    SELECT *, convert(nvarchar(6), date, 111) YM
+    SELECT *, convert(nvarchar(7), date, 111) YM
     FROM [STOCK_SKILL_DB].[dbo].[TW_STOCK_PER] with(nolock)
     where stock_id = '{}'
     ) a
