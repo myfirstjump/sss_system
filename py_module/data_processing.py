@@ -92,7 +92,7 @@ class DataProcessing(object):
     
     def iq_table_01_02_adjust(self, data):
 
-        data = np.round(data, 2)
+        data = np.round(data, 3)
 
         return data
 

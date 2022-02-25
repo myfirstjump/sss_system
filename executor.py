@@ -1676,9 +1676,9 @@ def iq_interactive(stock_string, btn):
         iq_query_01_01_01 = query_sentence.create_query_iq_01_01_01(stock_id)
         data_01_01_01 = query_sentence.sql_execute(iq_query_01_01_01)
         data_01_01_01 = pd.DataFrame.from_records(data_01_01_01)
-        print('SQL Query Results: ', data_01_01_01)
+        # print('SQL Query Results: ', data_01_01_01)
         data_01_01_01 = process_obj.iq_table_01_01_adjust(data_01_01_01)
-        print('DataFrame Processing Results: ', data_01_01_01)
+        # print('DataFrame Processing Results: ', data_01_01_01)
 
         # 經營績效
         iq_query_01_01_02 = query_sentence.create_query_iq_01_01_02(stock_id)
