@@ -1788,7 +1788,7 @@ def iq_interactive(stock_string, btn):
                             {
                                 'if':{
                                     'column_id': '漲幅',
-                                    'filter_query': '{漲幅} > 0',
+                                    'filter_query': '{漲幅} < 0',
                                 },
                                 'color': 'green',
                             },
