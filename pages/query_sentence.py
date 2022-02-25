@@ -750,9 +750,9 @@ def create_query_0129(number, period, interval, larger, amount):
 
 
     query = '''
-        (SELECT stock_id, SUM(people) [區間人數], CAST(NULL AS NVARCHAR(100)) as remark FROM {} WITH(NOLOCK)
+        (SELECT stock_id, MIN(people) [區間人數], CAST(NULL AS NVARCHAR(100)) as remark FROM {} WITH(NOLOCK)
         WHERE [date] > (GETDATE()-({}*({}-1)+1)) AND HoldingSharesLevel = '{}'
-        GROUP BY stock_id HAVING [people] {} {}
+        GROUP BY stock_id HAVING MIN([people]) {} {})
         '''.format(ref_table, period_base, number, interval, sign, amount)
 
     return query, '[區間人數]'
