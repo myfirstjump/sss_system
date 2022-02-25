@@ -1839,7 +1839,7 @@ def iq_interactive(stock_string, btn):
                                             ),
                                             html.Div(['經營績效'], style=self_style.tab_content_title),
                                             dash_table.DataTable(
-                                                columns = [{"name": i, "id": i} for i in data_01_01_02.columns],
+                                                columns = [{"name": i, "id": i, 'format': Format(nully='N/A')} for i in data_01_01_02.columns],
                                                 data=data_01_01_02.to_dict('records'),
                                             ), 
                                             html.Div(['償債能力'], style=self_style.tab_content_title),
