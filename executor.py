@@ -1885,6 +1885,12 @@ def iq_interactive(stock_string, btn):
                                                 style_cell={
                                                     'minWidth': '180px', 'width': '180px', 'maxWidth': '180px',
                                                 },
+                                                style_header_conditional=[
+                                                    {
+                                                        'if': {'column_id': c},
+                                                        'color': 'orange'
+                                                    } for c in ['現金股利(元)','股票股利(元)','股利合計(元)']
+                                                ],
                                             ),
                                         ]
                                     ),
