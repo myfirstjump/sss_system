@@ -1714,6 +1714,7 @@ def iq_interactive(stock_string, btn):
         iq_query_01_04 = query_sentence.create_query_iq_01_04(stock_id)
         data_01_04 = query_sentence.sql_execute(iq_query_01_04)
         data_01_04 = pd.DataFrame.from_records(data_01_04) 
+        data_01_04 = process_obj.iq_table_round_adjust(data_01_04)
 
         # 本益比(P/E)
         iq_query_01_05 = query_sentence.create_query_iq_01_05(stock_id)
@@ -1916,6 +1917,12 @@ def iq_interactive(stock_string, btn):
                                                 style_cell={
                                                     'minWidth': '180px', 'width': '180px', 'maxWidth': '180px',
                                                 },
+                                                style_header_conditional=[
+                                                    {
+                                                        'if': {'column_id': c},
+                                                        'color': 'orange'
+                                                    } for c in ['殖利率(%)']
+                                                ],
                                             ),
                                         ]
                                     ),
@@ -1928,6 +1935,12 @@ def iq_interactive(stock_string, btn):
                                                 style_cell={
                                                     'minWidth': '180px', 'width': '180px', 'maxWidth': '180px',
                                                 },
+                                                style_header_conditional=[
+                                                    {
+                                                        'if': {'column_id': c},
+                                                        'color': 'orange'
+                                                    } for c in ['本益比']
+                                                ],
                                             ),
                                         ]
                                     ),
