@@ -102,10 +102,8 @@ class DataProcessing(object):
         df2['日期'] = df2['日期'].apply(lambda x: x.strftime('%Y-%m-%d'))
         df3['日期'] = df3['日期'].apply(lambda x: x.strftime('%Y-%m-%d'))
         df4['日期'] = df4['日期'].apply(lambda x: x.strftime('%Y-%m-%d'))
-        print(df1)
 
         df1.set_index('日期', inplace=True)
-        print(df1)
         df2.set_index('日期', inplace=True)
         df3.set_index('日期', inplace=True)
         df4.set_index('日期', inplace=True)
@@ -115,4 +113,14 @@ class DataProcessing(object):
 
         return df
 
-    
+    def iq_margin_table_concat(self, df1, df2):
+
+        df1['日期'] = df1['日期'].apply(lambda x: x.strftime('%Y-%m-%d'))
+        df2['日期'] = df2['日期'].apply(lambda x: x.strftime('%Y-%m-%d'))
+        df1.set_index('日期', inplace=True)
+        df2.set_index('日期', inplace=True)
+
+        df = pd.concat([df1, df2,], axis=1)
+        df.reset_index(inplace=True)
+
+        return df

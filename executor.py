@@ -1743,17 +1743,20 @@ def iq_interactive(stock_string, btn):
         data_02_01_04 = pd.DataFrame.from_records(data_02_01_04)
 
         data_02_01 = process_obj.iq_legal_table_concat(data_02_01_01, data_02_01_02, data_02_01_03, data_02_01_04)
-        print(data_02_01)
 
         # 融資融卷 融資
         iq_query_02_02_01 = query_sentence.create_query_iq_02_02_01(stock_id)
         data_02_02_01 = query_sentence.sql_execute(iq_query_02_02_01)
         data_02_02_01 = pd.DataFrame.from_records(data_02_02_01)
+        data_02_02_01 = process_obj.iq_table_round_adjust(data_02_02_01)
 
         # 融資融卷 融卷
         iq_query_02_02_02 = query_sentence.create_query_iq_02_02_02(stock_id)
         data_02_02_02 = query_sentence.sql_execute(iq_query_02_02_02)
         data_02_02_02= pd.DataFrame.from_records(data_02_02_02)
+        data_02_02_02 = process_obj.iq_table_round_adjust(data_02_02_02)
+
+        data_02_02 = process_obj.iq_legal_table_concat(data_02_02_01, data_02_02_02)
 
         # 融資融卷 借卷
         iq_query_02_02_03 = query_sentence.create_query_iq_02_02_03(stock_id)
@@ -1967,15 +1970,10 @@ def iq_interactive(stock_string, btn):
                                 ),
                                 dcc.Tab(label='融資融券', style=self_style.iq_tab_l2, selected_style=self_style.iq_tab_l2_onclick,
                                     children = [
-                                        html.Div(['融資'], style=self_style.tab_content_title),
                                         dash_table.DataTable(
-                                            columns = [{"name": i, "id": i} for i in data_02_02_01.columns],
-                                            data=data_02_02_01.to_dict('records'),
-                                        ),
-                                        html.Div(['融券'], style=self_style.tab_content_title),
-                                        dash_table.DataTable(
-                                            columns = [{"name": i, "id": i} for i in data_02_02_02.columns],
-                                            data=data_02_02_02.to_dict('records'),
+                                            columns = [{"name": [margin, i], "id": i} for margin, i in zip(["","融資","融資","融資","融券","融券","融券",], data_02_02.columns)],
+                                            data=data_02_02.to_dict('records'),
+                                            merge_duplicate_headers=True,
                                         ),
                                         html.Div(['借券'], style=self_style.tab_content_title),
                                         dash_table.DataTable(
