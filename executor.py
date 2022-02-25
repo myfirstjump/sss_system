@@ -1984,6 +1984,9 @@ def iq_interactive(stock_string, btn):
                                             columns = [{"name": [legal, i], "id": i} for legal, i in zip(["","外資","外資","外資","投信","投信","投信","自營商","自營商","自營商","三大法人合計","三大法人合計","三大法人合計",], data_02_01.columns)],
                                             data=data_02_01.to_dict('records'),
                                             merge_duplicate_headers=True,
+                                            style_header={
+                                                    'textAlign':'center',
+                                            }
                                         ),
                                     ]
                                 ),
@@ -1993,11 +1996,17 @@ def iq_interactive(stock_string, btn):
                                             columns = [{"name": [margin, i], "id": i} for margin, i in zip(["","融資","融資","融資","融券","融券","融券",], data_02_02.columns)],
                                             data=data_02_02.to_dict('records'),
                                             merge_duplicate_headers=True,
+                                            style_header={
+                                                    'textAlign':'center',
+                                            }
                                         ),
                                         html.Div(['借券'], style=self_style.tab_content_title),
                                         dash_table.DataTable(
                                             columns = [{"name": i, "id": i} for i in data_02_02_03.columns],
                                             data=data_02_02_03.to_dict('records'),
+                                            style_header={
+                                                    'textAlign':'center',
+                                            }
                                         ),
                                     ]
                                 ),
@@ -2006,6 +2015,9 @@ def iq_interactive(stock_string, btn):
                                         dash_table.DataTable(
                                             columns = [{"name": i, "id": i} for i in data_02_03.columns],
                                             data=data_02_03.to_dict('records'),
+                                            style_header={
+                                                    'textAlign':'center',
+                                            }
                                         ),
                                     ]
                                 ),
@@ -2015,6 +2027,9 @@ def iq_interactive(stock_string, btn):
                                         dash_table.DataTable(
                                             columns = [{"name": i, "id": i} for i in data_02_04.columns],
                                             data=data_02_04.to_dict('records'),
+                                            style_header={
+                                                    'textAlign':'center',
+                                            }
                                         ),
                                     ]
                                 ),
