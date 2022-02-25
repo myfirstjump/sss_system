@@ -59,9 +59,9 @@ class DataProcessing(object):
         print("data['漲幅']", data['漲幅'])
 
         if data.iloc[0,0] > 0:
-            data.iloc[0,0] = '▲' + data.iloc[0,0]
+            data.iloc[0,0] = '▲' + str(data.iloc[0,0])
         elif data.iloc[0,0] < 0:
-            data.iloc[0,0] = '▼' + data.iloc[0,0]
+            data.iloc[0,0] = '▼' + str(data.iloc[0,0])
         else:
             pass
         
