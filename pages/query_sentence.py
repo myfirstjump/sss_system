@@ -368,7 +368,7 @@ def create_query_0114(number, period, direct, percent):
 def create_query_0115(period, direct, percent):
 
     """0115 (季/年)存貨週轉率(成長/衰退)(10)%"""
-    """BUG: 此寫法只抓最後一筆，會抓到下市的公司以前資料"""
+    """ATTENTION!!: 此寫法只抓最後一筆，會抓到下市的公司以前資料"""
 
 
     if direct == '1':
@@ -737,9 +737,9 @@ def create_query_0129(number, period, interval, larger, amount):
 
     '''0129 集保庫存(3)(週/月)內，(1-999股)區間者均(大於/小於)(100)人'''
     if larger == '1':
-        sign = 'MIN'
+        sign = '>'
     else:
-        sign = 'MAX'
+        sign = '<'
         
     if period == 'm':
         ref_table = counter_holdrange_m
@@ -750,9 +750,9 @@ def create_query_0129(number, period, interval, larger, amount):
 
 
     query = '''
-        (SELECT stock_id, people [區間人數], CAST(NULL AS NVARCHAR(100)) as remark FROM {} WITH(NOLOCK)
+        (SELECT stock_id, SUM(people) [區間人數], CAST(NULL AS NVARCHAR(100)) as remark FROM {} WITH(NOLOCK)
         WHERE [date] > (GETDATE()-({}*({}-1)+1)) AND HoldingSharesLevel = '{}'
-        GROUP BY stock_id HAVING {}([people]) > {})
+        GROUP BY stock_id HAVING [people] {} {}
         '''.format(ref_table, period_base, number, interval, sign, amount)
 
     return query, '[區間人數]'
@@ -1991,7 +1991,7 @@ def create_query_iq_01_03(stock_id):
     (
     max(value)
     for Q in ([Q1], [Q2], [Q3], [Q4])
-    ) as pv
+    ) as pv ORDER BY '年度' DESC
     '''.format(stock_id)
 
     
