@@ -1959,7 +1959,7 @@ def iq_interactive(stock_string, btn):
                                 dcc.Tab(label='法人持股', style=self_style.iq_tab_l2, selected_style=self_style.iq_tab_l2_onclick,
                                     children = [
                                         dash_table.DataTable(
-                                            columns = [{"name": [legal, i], "id": i} for legal, i in zip(["外資","外資","外資","投信","投信","投信","自營商","自營商","自營商","三大法人合計","三大法人合計","三大法人合計",], data_02_01_01.columns]),
+                                            columns = [{"name": [legal, i], "id": i} for legal, i in zip(["外資","外資","外資","投信","投信","投信","自營商","自營商","自營商","三大法人合計","三大法人合計","三大法人合計",], data_02_01_01.columns)],
                                             data=data_02_01.to_dict('records'),
                                         ),
                                     ]
