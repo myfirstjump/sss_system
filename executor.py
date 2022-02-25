@@ -1993,7 +1993,7 @@ def iq_interactive(stock_string, btn):
                                 ),
                                 dcc.Tab(label='董監持股', style=self_style.iq_tab_l2, selected_style=self_style.iq_tab_l2_onclick,
                                     children = [
-                                        html.Div(['董監持股'], style=self_style.tab_content_title),
+                                        
                                         dash_table.DataTable(
                                             columns = [{"name": i, "id": i} for i in data_02_04.columns],
                                             data=data_02_04.to_dict('records'),
@@ -2016,29 +2016,29 @@ def iq_interactive(stock_string, btn):
 
 def generate_table(stock_data, max_rows=5000):
     return dash_table.DataTable(
-                    columns = [{"name": i, "id": i} for i in stock_data.columns],
-                    data=stock_data.to_dict('records'),
-                    fixed_rows={'headers': True}, #固定表頭
-                     
-                    #style_header : header, style_data : data, style_cell : cells & header一起調整
-                    style_header={
-                        'backgroundColor': 'grey',
-                        'fontWeight': 'bold',
-                    }, 
-                    style_data={}, 
-                    style_cell={'fontSize': '20px', 'height': 'auto', 'whiteSpace': 'normal'}, 
-                    style_table={'overflowX': 'auto', 'minWidth': '100%'},
-                    # style_as_list_view=True, #移除column分隔線
-                    # fill_width = False,
-                    style_cell_conditional=[
-                        {'if': {'column_id': 'Remark'},
-                        'width': '15%'},
-                        {'if': {'column_id': '產業別'},
-                        'width': '20%'},
-                    ],
-                    filter_action='native',
-                    sort_action='native',
-                )
+                columns = [{"name": i, "id": i} for i in stock_data.columns],
+                data=stock_data.to_dict('records'),
+                fixed_rows={'headers': True}, #固定表頭
+                    
+                #style_header : header, style_data : data, style_cell : cells & header一起調整
+                style_header={
+                    'backgroundColor': 'grey',
+                    'fontWeight': 'bold',
+                }, 
+                style_data={}, 
+                style_cell={'fontSize': '20px', 'height': 'auto', 'whiteSpace': 'normal'}, 
+                style_table={'overflowX': 'auto', 'minWidth': '100%'},
+                # style_as_list_view=True, #移除column分隔線
+                # fill_width = False,
+                style_cell_conditional=[
+                    {'if': {'column_id': 'Remark'},
+                    'width': '15%'},
+                    {'if': {'column_id': '產業別'},
+                    'width': '20%'},
+                ],
+                filter_action='native',
+                sort_action='native',
+            )
 
 def stock_classifier(data):
     
