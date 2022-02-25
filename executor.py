@@ -1664,9 +1664,9 @@ def iq_interactive(stock_string, btn):
         data_info_02 = process_obj.iq_info_adjust(data_info_02)
         # print(data_info_02)
 
-        if '▲' in data_info_02[0,0]:
+        if '▲' in data_info_02.iloc[0,0]:
             self_style.iq_l31['color'] = 'red'
-        elif '▼' in data_info_02[0,0]:
+        elif '▼' in data_info_02.iloc[0,0]:
             self_style.iq_l31['color'] = 'green'
         else:
             pass
