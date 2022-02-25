@@ -67,6 +67,8 @@ class DataProcessing(object):
         
         data.iloc[0,1] = np.round(data.iloc[0,1], 2)
 
+        data.iloc[0,3] = "{:,}".format(data.iloc[0,0]) + '張'
+        
 
         return data
 
