@@ -68,7 +68,7 @@ class DataProcessing(object):
         data.iloc[0,1] = np.round(data.iloc[0,1], 2)
 
 
-        return dataframe
+        return data
 
     def iq_table_adjust(self, dataframe):
         
