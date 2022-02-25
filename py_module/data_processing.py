@@ -58,14 +58,14 @@ class DataProcessing(object):
         print("data['漲跌']", data['漲跌'])
         print("data['漲幅']", data['漲幅'])
 
-        if data['漲跌'] > 0:
-            data['漲跌'] = '▲' + data['漲跌']
-        elif data['漲跌'] < 0:
-            data['漲跌'] = '▼' + data['漲跌']
+        if data.iloc[0,0] > 0:
+            data.iloc[0,0] = '▲' + data.iloc[0,0]
+        elif data.iloc[0,0] < 0:
+            data.iloc[0,0] = '▼' + data.iloc[0,0]
         else:
             pass
         
-        data['漲幅'] = np.round(data['漲幅'], 2)
+        data.iloc[0,1] = np.round(data.iloc[0,1], 2)
 
 
         return dataframe
