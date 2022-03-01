@@ -1671,9 +1671,6 @@ def iq_interactive(stock_string, btn):
         else:
             pass
 
-        iq_query_info_03 = query_sentence.create_query_info_03(stock_id)
-        data_info_03 = query_sentence.sql_execute(iq_query_info_03)[0]
-
         ### 表格資料
         # 獲利能力
         iq_query_01_01_01 = query_sentence.create_query_iq_01_01_01(stock_id)
@@ -1847,76 +1844,7 @@ def iq_interactive(stock_string, btn):
                 children=[
                     dcc.Tab(label='基本資料', id='dynamic-iq-result-info', value='dynamic-iq-result-info', style=self_style.iq_tab, selected_style=self_style.iq_tab_onclick,
                         children=[
-                            html.Table([
-                                html.Tr([
-                                    html.Th('公司名稱'),
-                                    html.Td(data_info_03['NAME'], colSpan=3),
-                                ]),
-                                html.Tr([
-                                    html.Th('個股分類'),
-                                    html.Td(data_info_03['Category'], colSpan=3),
-                                ]),
-                                html.Tr([
-                                    html.Th('掛牌類別'), html.Td(data_info_03['TYPE']),
-                                    html.Th('證券類別'), html.Td(data_info_03['STOCK_CATEGORY']),
-                                ]),
-                                html.Tr([
-                                    html.Th('類 股'), html.Td(data_info_03['CLASS']),
-                                    html.Th('掛牌日期'), html.Td(data_info_03['List_date']),
-                                ]),
-                                html.Tr([
-                                    html.Th('董事長'), html.Td(data_info_03['President']),
-                                    html.Th('總經理'), html.Td(''),
-                                ]),
-                                html.Tr([
-                                    html.Th('發言人'), html.Td(data_info_03['Spokesman']),
-                                    html.Th('代理發言人'), html.Td(data_info_03['Spokesman_2nd']),
-                                ]),
-                                html.Tr([
-                                    html.Th('資本額(仟元)'),
-                                    html.Td(data_info_03['Capital'], colSpan=3),
-                                ]),
-                                html.Tr([
-                                    html.Th('普通股股本'), html.Td(data_info_03['Share_Capital']),
-                                    html.Th('特別股股本'), html.Td(data_info_03['Specail_Share_Capital']),
-                                ]),
-                                html.Tr([
-                                    html.Th('經營業務內容'),
-                                    html.Td(data_info_03['Business'], colSpan=3),
-                                ]),
-                                html.Tr([
-                                    html.Th('公司地址'),
-                                    html.Td(data_info_03['ADDRESS'], colSpan=3),
-                                ]),
-                                html.Tr([
-                                    html.Th('公司電話'), html.Td(data_info_03['PHONE']),
-                                    html.Th('傳 真'), html.Td(data_info_03['Fax']),
-                                ]),
-                                html.Tr([
-                                    html.Th('公司網址'), html.Td(data_info_03['WEBSITE']),
-                                    html.Th('email'), html.Td(data_info_03['Email']),
-                                ]),
-                                html.Tr([
-                                    html.Th('英文全稱'), html.Td(data_info_03['EN_NAME']),
-                                    html.Th('英文簡稱'), html.Td(data_info_03['Brief_EN_NAME']),
-                                ]),
-                                html.Tr([
-                                    html.Th('英文地址'),
-                                    html.Td(data_info_03['EN_ADDRESS'], colSpan=3),
-                                ]),
-                                html.Tr([
-                                    html.Th('股票過戶機構'),
-                                    html.Td(data_info_03['Transfer_Agency'], colSpan=3),
-                                ]),
-                                html.Tr([
-                                    html.Th('過戶機構地址'),
-                                    html.Td(data_info_03['Agency_ADDRESS'], colSpan=3),
-                                ]),
-                                html.Tr([
-                                    html.Th('過戶機構電話'),
-                                    html.Td(data_info_03['Agency_PHONE'], colSpan=3),
-                                ]),
-                            ])
+                            
                         ]
                     ),
                     dcc.Tab(label='財務報表', id='dynamic-iq-result-financial', value='dynamic-iq-result-financial', style=self_style.iq_tab, selected_style=self_style.iq_tab_onclick,

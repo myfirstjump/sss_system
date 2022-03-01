@@ -1894,12 +1894,19 @@ def create_query_info_01(stock_id):
     '''.format(stock_id)
     return query
 
-def create_query_info_02(stock_id):
 
+def create_query_info_02(stock_id):
     query = '''
     SELECT 漲跌, 漲幅, 成交量, 開, 高, 低, 收 FROM (
     SELECT stock_id , Trading_Volume '成交量', spread '漲跌', spread_ratio '漲幅', [open] '開', [max] '高', [min] '低', [close] '收', ROW_NUMBER() over (partition by stock_id order by date desc) desc_DATE 
     from STOCK_SKILL_DB.dbo.TW_STOCK_PRICE_Daily where stock_id = '{}') a where desc_DATE = 1
+    '''.format(stock_id)
+    return query
+
+def create_query_info_03(stock_id):
+
+    query = '''
+    SELECT * FROM  [STOCK_BASICINTO_DB].[dbo].[TW_STOCK_Company_BASICINFO] with(nolock) WHERE stock_id = '{}'
     '''.format(stock_id)
     return query
 
