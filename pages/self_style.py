@@ -606,10 +606,10 @@ tab_content_title = {
 }
 
 info_th = {
-    'border': '1px solid',
+    'border': '1px solid black',
     'width': '180px',
     'background-color': '#faebdb',
-    'color': '#febc82',
+    'color': ' #ff7802',
 }
 
 info_td = {
