@@ -609,3 +609,8 @@ info_th = {
     'border': '1px solid',
     'width': '120px',
 }
+
+info_td = {
+    'border': '1px solid',
+    'width': '480px',
+}
