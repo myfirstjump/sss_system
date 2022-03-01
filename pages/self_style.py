@@ -608,6 +608,8 @@ tab_content_title = {
 info_th = {
     'border': '1px solid',
     'width': '180px',
+    'background-color': '#faebdb',
+    'color': '#febc82',
 }
 
 info_td = {
