@@ -1917,7 +1917,7 @@ def iq_interactive(stock_string, btn):
                                     html.Td(data_info_03['Agency_PHONE'], colSpan=3, style=self_style.info_td),
                                 ]),
                             ],
-                            style={'border':'1px solid'})
+                            style={'border':'1px solid', 'margin-left': 'auto', 'margin-right': 'auto'})
                         ]
                     ),
                     dcc.Tab(label='財務報表', id='dynamic-iq-result-financial', value='dynamic-iq-result-financial', style=self_style.iq_tab, selected_style=self_style.iq_tab_onclick,
