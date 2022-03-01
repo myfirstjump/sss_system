@@ -607,7 +607,7 @@ tab_content_title = {
 
 info_th = {
     'border': '1px solid',
-    'width': '120px',
+    'width': '180px',
 }
 
 info_td = {
