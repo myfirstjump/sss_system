@@ -1849,71 +1849,71 @@ def iq_interactive(stock_string, btn):
                         children=[
                             html.Table([
                                 html.Tr([
-                                    html.Th('公司名稱'),
+                                    html.Th('公司名稱', style=self_style.info_th),
                                     html.Td(data_info_03['NAME'], colSpan=3),
                                 ]),
                                 html.Tr([
-                                    html.Th('個股分類'),
+                                    html.Th('個股分類', style=self_style.info_th),
                                     html.Td(data_info_03['Category'], colSpan=3),
                                 ]),
                                 html.Tr([
-                                    html.Th('掛牌類別'), html.Td(data_info_03['TYPE']),
-                                    html.Th('證券類別'), html.Td(data_info_03['STOCK_CATEGORY']),
+                                    html.Th('掛牌類別', style=self_style.info_th), html.Td(data_info_03['TYPE']),
+                                    html.Th('證券類別', style=self_style.info_th), html.Td(data_info_03['STOCK_CATEGORY']),
                                 ]),
                                 html.Tr([
-                                    html.Th('類 股'), html.Td(data_info_03['CLASS']),
-                                    html.Th('掛牌日期'), html.Td(data_info_03['List_date']),
+                                    html.Th('類 股', style=self_style.info_th), html.Td(data_info_03['CLASS']),
+                                    html.Th('掛牌日期', style=self_style.info_th), html.Td(data_info_03['List_date']),
                                 ]),
                                 html.Tr([
-                                    html.Th('董事長'), html.Td(data_info_03['President']),
-                                    html.Th('總經理'), html.Td(''),
+                                    html.Th('董事長', style=self_style.info_th), html.Td(data_info_03['President']),
+                                    html.Th('總經理', style=self_style.info_th), html.Td(''),
                                 ]),
                                 html.Tr([
-                                    html.Th('發言人'), html.Td(data_info_03['Spokesman']),
-                                    html.Th('代理發言人'), html.Td(data_info_03['Spokesman_2nd']),
+                                    html.Th('發言人', style=self_style.info_th), html.Td(data_info_03['Spokesman']),
+                                    html.Th('代理發言人', style=self_style.info_th), html.Td(data_info_03['Spokesman_2nd']),
                                 ]),
                                 html.Tr([
-                                    html.Th('資本額(仟元)'),
+                                    html.Th('資本額(仟元)', style=self_style.info_th),
                                     html.Td(data_info_03['Capital'], colSpan=3),
                                 ]),
                                 html.Tr([
-                                    html.Th('普通股股本'), html.Td(data_info_03['Share_Capital']),
-                                    html.Th('特別股股本'), html.Td(data_info_03['Specail_Share_Capital']),
+                                    html.Th('普通股股本', style=self_style.info_th), html.Td(data_info_03['Share_Capital']),
+                                    html.Th('特別股股本', style=self_style.info_th), html.Td(data_info_03['Specail_Share_Capital']),
                                 ]),
                                 html.Tr([
-                                    html.Th('經營業務內容'),
+                                    html.Th('經營業務內容', style=self_style.info_th),
                                     html.Td(data_info_03['Business'], colSpan=3),
                                 ]),
                                 html.Tr([
-                                    html.Th('公司地址'),
+                                    html.Th('公司地址', style=self_style.info_th),
                                     html.Td(data_info_03['ADDRESS'], colSpan=3),
                                 ]),
                                 html.Tr([
-                                    html.Th('公司電話'), html.Td(data_info_03['PHONE']),
-                                    html.Th('傳 真'), html.Td(data_info_03['Fax']),
+                                    html.Th('公司電話', style=self_style.info_th), html.Td(data_info_03['PHONE']),
+                                    html.Th('傳 真', style=self_style.info_th), html.Td(data_info_03['Fax']),
                                 ]),
                                 html.Tr([
-                                    html.Th('公司網址'), html.Td(data_info_03['WEBSITE']),
-                                    html.Th('email'), html.Td(data_info_03['Email']),
+                                    html.Th('公司網址', style=self_style.info_th), html.Td(data_info_03['WEBSITE']),
+                                    html.Th('email', style=self_style.info_th), html.Td(data_info_03['Email']),
                                 ]),
                                 html.Tr([
-                                    html.Th('英文全稱'), html.Td(data_info_03['EN_NAME']),
-                                    html.Th('英文簡稱'), html.Td(data_info_03['Brief_EN_NAME']),
+                                    html.Th('英文全稱', style=self_style.info_th), html.Td(data_info_03['EN_NAME']),
+                                    html.Th('英文簡稱', style=self_style.info_th), html.Td(data_info_03['Brief_EN_NAME']),
                                 ]),
                                 html.Tr([
-                                    html.Th('英文地址'),
+                                    html.Th('英文地址', style=self_style.info_th),
                                     html.Td(data_info_03['EN_ADDRESS'], colSpan=3),
                                 ]),
                                 html.Tr([
-                                    html.Th('股票過戶機構'),
+                                    html.Th('股票過戶機構', style=self_style.info_th),
                                     html.Td(data_info_03['Transfer_Agency'], colSpan=3),
                                 ]),
                                 html.Tr([
-                                    html.Th('過戶機構地址'),
+                                    html.Th('過戶機構地址', style=self_style.info_th),
                                     html.Td(data_info_03['Agency_ADDRESS'], colSpan=3),
                                 ]),
                                 html.Tr([
-                                    html.Th('過戶機構電話'),
+                                    html.Th('過戶機構電話', style=self_style.info_th),
                                     html.Td(data_info_03['Agency_PHONE'], colSpan=3),
                                 ]),
                             ],

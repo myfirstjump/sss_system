@@ -604,3 +604,8 @@ tabs_content = {
 tab_content_title = {
     'text-align': 'center',
 }
+
+info_th = {
+    'border': '1px solid',
+    'width': '120px',
+}
