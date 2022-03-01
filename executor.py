@@ -1916,7 +1916,8 @@ def iq_interactive(stock_string, btn):
                                     html.Th('過戶機構電話'),
                                     html.Td(data_info_03['Agency_PHONE'], colSpan=3),
                                 ]),
-                            ])
+                            ],
+                            style={'border':'1px solid'})
                         ]
                     ),
                     dcc.Tab(label='財務報表', id='dynamic-iq-result-financial', value='dynamic-iq-result-financial', style=self_style.iq_tab, selected_style=self_style.iq_tab_onclick,
