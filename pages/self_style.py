@@ -404,38 +404,73 @@ result_words_onclick = {
 }
 
 iq_tab = {
-    'font-size': '32px',
-    # 'font-weight':'900',
-    'color': '#636566',
-    'border': 'hidden',
-    'background-color': '#FFFFFF',
+    # 'font-size': '32px',
+    # # 'font-weight':'900',
+    # 'color': '#636566',
+    # 'border': 'hidden',
+    # 'background-color': '#FFFFFF',
+
+    'font-size': '16px',
+    'font-weight':'900',
+    'color': result_words,
+    'background-color': '#192340',
+    'border-color': result_words,
+    # 'border-right': '#2399E7',
+    'border-top': 'hidden',
+    'border-bottom': 'hidden',
 }
 
 iq_tab_onclick = {
-    'font-size': '32px',
+    # 'font-size': '32px',
+    # 'font-weight':'900',
+    # 'color': '#2399E7',
+    # 'text-decoration':'underline',
+    # 'border': 'hidden',
+    # 'background-color': '#FFFFFF',
+    'font-size': '18px',
     'font-weight':'900',
-    'color': '#2399E7',
-    'text-decoration':'underline',
-    'border': 'hidden',
-    'background-color': '#FFFFFF',
+    'color': '#E1EBF9',
+    'background-color': '#33A7ED',
+    'border-color': result_words,
+    # 'border-right': '#2399E7',
+    'border-top': 'hidden',
+    'border-bottom': 'hidden',
 }
 
 iq_tab_l2 = {
-    'font-size': '18px',
-    # 'font-weight':'900',
-    'color': '#636566',
-    'border': 'hidden',
-    'background-color': '#FFFFFF',
+    # 'font-size': '18px',
+    # # 'font-weight':'900',
+    # 'color': '#636566',
+    # 'border': 'hidden',
+    # 'background-color': '#FFFFFF',
+
+    'font-size': '16px',
+    'font-weight':'900',
+    'color': result_words,
+    'background-color': '#192340',
+    'border-color': result_words,
+    # 'border-right': '#2399E7',
+    'border-top': 'hidden',
+    'border-bottom': 'hidden',
 
 }
 
 iq_tab_l2_onclick = {
+    # 'font-size': '18px',
+    # 'font-weight':'900',
+    # 'color': '#2399E7',
+    # 'text-decoration':'underline',
+    # 'border': 'hidden',
+    # 'background-color': '#FFFFFF',
+
     'font-size': '18px',
     'font-weight':'900',
-    'color': '#2399E7',
-    'text-decoration':'underline',
-    'border': 'hidden',
-    'background-color': '#FFFFFF',
+    'color': '#E1EBF9',
+    'background-color': '#33A7ED',
+    'border-color': result_words,
+    # 'border-right': '#2399E7',
+    'border-top': 'hidden',
+    'border-bottom': 'hidden',
 }
 
 top_tab = {

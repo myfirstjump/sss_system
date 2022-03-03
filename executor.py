@@ -1785,7 +1785,7 @@ def iq_interactive(stock_string, btn, stored_stock_id):
                     dash_table.DataTable(
                         columns = [{"name": i, "id": i} for i in data_info_02.columns],
                         data=data_info_02.to_dict('records'),
-                        style_cell={'fontSize': '30px', 'height': 'auto', 'whiteSpace': 'normal', 'color':'#C1DEF4'},
+                        style_cell={'fontSize': '30px', 'height': 'auto', 'whiteSpace': 'normal', 'background-color':'#C1DEF4'},
                         style_data_conditional=[
                             {
                                 'if':{
