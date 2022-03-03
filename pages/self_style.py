@@ -619,4 +619,5 @@ info_td = {
 
 iq_inner_dd = {
     'margin':'right',
+    'width': '180px',
 }
