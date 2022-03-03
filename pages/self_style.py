@@ -617,8 +617,12 @@ info_td = {
     'width': '480px',
 }
 
+iq_inner_div = {
+    'dispaly': 'flex',
+    'flex-direction': 'column'
+}
+
 iq_inner_dd = {
-    'position':'relative',
-    'right': '20px',
+    'align-self':'flex-end',
     'width': '180px',
 }
