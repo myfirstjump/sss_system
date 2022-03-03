@@ -480,7 +480,8 @@ iq_div = {
     'margin': '10px',
     'height': '1300px',
     # 'width': '90%',
-    'background-color':  '#FFFFFF',
+    'background-color':  bg_code,
+    'color': '#FFFFFF',
     'overflow': 'auto',
     # 'border':'solid white 1px',
 }
@@ -489,7 +490,8 @@ iq_l1 = {
     'display':'flex',
     'flex-direction': 'row',
     'justify-content': 'space-between',
-    'color':'#FFFFFF',
+    'background-color':  bg_code,
+    'color': '#FFFFFF',
     # 'border':'solid white 1px',
     'margin': '1%',
     'font-size': '25px',
@@ -517,8 +519,8 @@ iq_l2 = { #公司名稱等基本資訊
     'flex-flow':'row wrap',
     'align-items': 'flex-end', #每個div貼底。
 
-    # 'color':'#FFFFFF',
-    'background-color':'#FFFFFF',
+    'background-color':  bg_code,
+    'color': '#FFFFFF',
     # 'border':'solid black 1px',
     'margin': '1%',
     'font-size': '30px',
@@ -528,16 +530,16 @@ iq_l3 = { #漲跌等每日基本數據
     'display':'flex',
     'flex-flow':'row wrap',
     'align-items': 'center', #每個div垂直置中。
-    # 'color':'#FFFFFF',
-    'background-color':'#FFFFFF',
+    'background-color':  bg_code,
+    'color': '#FFFFFF',
     # 'border':'solid black 1px',
     'margin': '1%',
     # 'font-size': '25px',
 }
 
 iq_l4 = {
-    # 'color':'#FFFFFF',
-    'background-color':'#FFFFFF',
+    'background-color':  bg_code,
+    'color': '#FFFFFF',
     # 'border':'solid black 1px',
     'margin': '1%',
     'font-size': '25px',
@@ -545,41 +547,42 @@ iq_l4 = {
 
 iq_l21 = {
     
-    # 'color':'#FFFFFF',
-    'background-color':'#FFFFFF',
+    'background-color':  bg_code,
+    'color': '#FFFFFF',
     'margin': '1%',
     'font-size': '36px',
     # 'border':'solid black 1px',
 }
 
 iq_l22 = {
-    # 'color':'#FFFFFF',
-    'background-color':'#FFFFFF',
+    'background-color':  bg_code,
+    'color': '#FFFFFF',
     'margin': '1%',
     # 'border':'solid black 1px',
 }
 
 iq_l23 = {
-    # 'color':'#FFFFFF',
-    'background-color':'#FFFFFF',
+    'background-color':  bg_code,
+    'color': '#FFFFFF',
     'margin': '1%',
     # 'border':'solid black 1px',
 }
 
 iq_l24 = {
-    # 'color':'#FFFFFF',
-    'background-color':'#FFFFFF',
+    'background-color':  bg_code,
+    'color': '#FFFFFF',
     'margin': '1%',
     # 'border':'solid black 1px',
 }
 
 iq_l31 = {
     'width': '15%',
-    # 'color':'#FFFFFF',
+    
     'font-size': '60px',
     'verticalAlign':'middle',
     'text-align': 'center',
-    'background-color':'#FFFFFF',
+    'background-color':  bg_code,
+    'color': '#FFFFFF',
     # 'border':'solid black 1px',
 }
 
@@ -587,7 +590,8 @@ iq_l32 = {
     'width': '80%',
     # 'color':'#FFFFFF',
     'font-size': '30px',
-    'background-color':'#FFFFFF',
+    'background-color':  bg_code,
+    'color': '#FFFFFF',
     # 'border':'solid black 1px',
 }
 
