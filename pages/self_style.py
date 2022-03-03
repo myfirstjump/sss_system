@@ -623,6 +623,6 @@ iq_inner_div = {
 }
 
 iq_inner_dd = {
-    'align-self':'flex-end',
+    'margin-left':'auto',
     'width': '180px',
 }
