@@ -1912,28 +1912,26 @@ def iq_interactive(stock_string, btn, stored_stock_id):
                                     dcc.Tab(label='財務比率', style=self_style.iq_tab_l2, selected_style=self_style.iq_tab_l2_onclick,
                                         children=[
                                             html.Div([
-                                                html.Div([
-                                                    dcc.Dropdown(
-                                                        id='iq-inner-dd',
-                                                        options=[
-                                                                {'label': '近8季', 'value': 8},
-                                                                {'label': '近9~16季', 'value': 16},
-                                                                {'label': '近17~24季', 'value': 24},
-                                                                {'label': '近25~32季', 'value': 32},                                                     
-                                                            ],
-                                                        value=8,
-                                                        placeholder='近8季',
-                                                        style=self_style.iq_inner_dd,
-                                                        clearable=False,
-                                                    ),
-                                                ]),
+                                                dcc.Dropdown(
+                                                    id='iq-inner-dd',
+                                                    options=[
+                                                            {'label': '近8季', 'value': 8},
+                                                            {'label': '近9~16季', 'value': 16},
+                                                            {'label': '近17~24季', 'value': 24},
+                                                            {'label': '近25~32季', 'value': 32},                                                     
+                                                        ],
+                                                    value=8,
+                                                    placeholder='近8季',
+                                                    style=self_style.iq_inner_dd,
+                                                    clearable=False,
+                                                ),
                                                 dcc.Loading(
                                                     id='iq-table1-content',
                                                     type='default',
                                                     children=html.Div([]),
                                                     color='red',
                                                 ),
-                                            ])
+                                            ], style=self_style.iq_inner_div)
                                         ]),
                                     dcc.Tab(label='現金&股票股利', style=self_style.iq_tab_l2, selected_style=self_style.iq_tab_l2_onclick,
                                         children = [
