@@ -1820,6 +1820,7 @@ def iq_interactive(stock_string, btn, stored_stock_id):
                             # 'width': '15%'},
                             # {'if': {'column_id': '產業別'},
                             # 'width': '20%'},
+                        style={'color':'#C1DEF4'}
                         ],
                     ),
                 ],
