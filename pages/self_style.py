@@ -616,3 +616,7 @@ info_td = {
     'border': '1px solid',
     'width': '480px',
 }
+
+iq_inner_dd = {
+    'margin':'right',
+}

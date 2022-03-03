@@ -1910,7 +1910,7 @@ def create_query_info_03(stock_id):
     '''.format(stock_id)
     return query
 
-def create_query_iq_01_01_01(stock_id, ):
+def create_query_iq_01_01_01(stock_id, recent_period):
 
     query = '''
     select date, 每股營業額, 營業毛利率, 營業利益率, 稅後淨利率, 每股稅後淨利, 每股淨值, 股東權益報酬率, 資產報酬率  from (
@@ -1918,51 +1918,51 @@ def create_query_iq_01_01_01(stock_id, ):
     ,PER_STOCK_AfterTax '每股稅後淨利', PER_STOCK_PRICE '每股淨值',After_Return '股東權益報酬率', Total_Return '資產報酬率'
     ,  ROW_NUMBER() over (partition by stock_id order by date desc) desc_DATE 
     FROM [STOCK_BASICINTO_DB].[dbo].[TW_STOCK_FinancialStatements_Detail] with(nolock)
-    where date >= DATEADD(YEAR, -3, GETDATE()) AND stock_id = '{}') a
+    where date >= DATEADD(QUARTER, -{}, GETDATE()) AND stock_id = '{}') a
     where desc_DATE <= 8
     order by date desc
-    '''.format(stock_id)
+    '''.format(recent_period, stock_id, )
     return query
 
-def create_query_iq_01_01_02(stock_id):
+def create_query_iq_01_01_02(stock_id, recent_period):
 
     query = '''
     select date, 營收成長率, 營業利益成長率, 稅前淨利成長率, 稅後淨利成長率 from (
     SELECT date, Income_growth '營收成長率', Profit_Growth '營業利益成長率', PreTax_Growth '稅前淨利成長率', null as '稅後淨利成長率'
     ,  ROW_NUMBER() over (partition by stock_id order by date desc) desc_DATE 
     FROM [STOCK_BASICINTO_DB].[dbo].[TW_STOCK_FinancialStatements_Detail] with(nolock)
-    where date >= DATEADD(YEAR, -3, GETDATE()) AND stock_id='{}') a
+    where date < DATEADD(YEAR, -{}, GETDATE()) AND date >= DATEADD(YEAR, -{}, GETDATE()) AND stock_id='{}') a
     where desc_DATE <= 8
     order by date desc
-    '''.format(stock_id)
+    '''.format(recent_period[0], recent_period[1], stock_id)
 
     return query
 
-def create_query_iq_01_01_03(stock_id):
+def create_query_iq_01_01_03(stock_id, recent_period):
 
     query = '''
     select date, 流動比率, 速動比率, 負債比率 from (
     SELECT date, Current_Rate '流動比率', Quick_Rate '速動比率', Debt_Rate '負債比率'
     ,  ROW_NUMBER() over (partition by stock_id order by date desc) desc_DATE 
     FROM [STOCK_BASICINTO_DB].[dbo].[TW_STOCK_FinancialStatements_Detail] with(nolock)
-    where date >= DATEADD(YEAR, -3, GETDATE()) AND stock_id='{}') a
+    where date < DATEADD(YEAR, -{}, GETDATE()) AND date >= DATEADD(YEAR, -{}, GETDATE()) AND stock_id='{}') a
     where desc_DATE <= 8
     order by date desc
-    '''.format(stock_id)
+    '''.format(recent_period[0], recent_period[1], stock_id)
 
     return query
 
-def create_query_iq_01_01_04(stock_id):
+def create_query_iq_01_01_04(stock_id, recent_period):
 
     query = '''
     select date, 應收帳款週轉率, 存貨周轉率 from (
     SELECT date, Accounts_Receivable_Turnover_Rate '應收帳款週轉率', Inventory_Turnover '存貨周轉率'
     ,  ROW_NUMBER() over (partition by stock_id order by date desc) desc_DATE 
     FROM [STOCK_BASICINTO_DB].[dbo].[TW_STOCK_FinancialStatements_Detail] with(nolock)
-    where date >= DATEADD(YEAR, -3, GETDATE()) AND stock_id='{}') a
+    where date < DATEADD(YEAR, -{}, GETDATE()) AND date >= DATEADD(YEAR, -{}, GETDATE()) AND stock_id='{}') a
     where desc_DATE <= 8
     order by date desc
-  '''.format(stock_id)
+  '''.format(recent_period[0], recent_period[1], stock_id)
 
     return query
 

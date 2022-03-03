@@ -183,6 +183,11 @@ app.layout = html.Div([
             dcc.Tab(label='個股查詢', children=[
 
                 #1. individual query 個股查詢
+
+                dcc.Store(
+                    id='stored_stock_id',
+                    storage_type='session',
+                ),
                 html.Div([
                     html.Div([
                         html.Div([], style=self_style.iq_l1_blank,),
@@ -1619,16 +1624,19 @@ def func(n_clicks, download_data):
     Output('iq-stock-info', 'children'),
     Output('iq-stock-data1', 'children'),
     Output('iq-stock-data2', 'children'),
+    Output('stored_stock_id', 'data')
     Input('iq-dd', 'value'),
     Input('iq-btn', 'n_clicks'),
+    State('stored_stock_id', 'data'),
 )
-def iq_interactive(stock_string, btn):
+def iq_interactive(stock_string, btn, stored_stock_id):
     if btn == None or stock_string == None:
         raise PreventUpdate
 
     if btn > 0:
         print('[{}] 查詢個股: {}'.format(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'), stock_string))
         stock_id = stock_string
+        stored_stock_id['id'] = stock_id
 
         ### 基本資料
         iq_query_info_01 = query_sentence.create_query_info_01(stock_id)
@@ -1675,31 +1683,7 @@ def iq_interactive(stock_string, btn):
         data_info_03 = query_sentence.sql_execute(iq_query_info_03)[0]
 
         ### 表格資料
-        # 獲利能力
-        iq_query_01_01_01 = query_sentence.create_query_iq_01_01_01(stock_id)
-        data_01_01_01 = query_sentence.sql_execute(iq_query_01_01_01)
-        data_01_01_01 = pd.DataFrame.from_records(data_01_01_01)
-        # print('SQL Query Results: ', data_01_01_01)
-        data_01_01_01 = process_obj.iq_table_01_01_adjust(data_01_01_01)
-        # print('DataFrame Processing Results: ', data_01_01_01)
-
-        # 經營績效
-        iq_query_01_01_02 = query_sentence.create_query_iq_01_01_02(stock_id)
-        data_01_01_02 = query_sentence.sql_execute(iq_query_01_01_02)
-        data_01_01_02 = pd.DataFrame.from_records(data_01_01_02)
-        data_01_01_02 = process_obj.iq_table_01_01_adjust(data_01_01_02)
-
-        # 償債能力
-        iq_query_01_01_03 = query_sentence.create_query_iq_01_01_03(stock_id)
-        data_01_01_03 = query_sentence.sql_execute(iq_query_01_01_03)
-        data_01_01_03 = pd.DataFrame.from_records(data_01_01_03)
-        data_01_01_03 = process_obj.iq_table_01_01_adjust(data_01_01_03)
-
-        # 經營能力
-        iq_query_01_01_04 = query_sentence.create_query_iq_01_01_04(stock_id)
-        data_01_01_04 = query_sentence.sql_execute(iq_query_01_01_04)
-        data_01_01_04 = pd.DataFrame.from_records(data_01_01_04)
-        data_01_01_04 = process_obj.iq_table_01_01_adjust(data_01_01_04)
+        
 
         # 現金&股票股利
         iq_query_01_02 = query_sentence.create_query_iq_01_02(stock_id)
@@ -1926,53 +1910,21 @@ def iq_interactive(stock_string, btn):
                                 [
                                     dcc.Tab(label='財務比率', style=self_style.iq_tab_l2, selected_style=self_style.iq_tab_l2_onclick,
                                         children=[
-                                            html.Div(['獲利能力'], style=self_style.tab_content_title),
-                                            dash_table.DataTable(
-                                                columns = [{"name": i, "id": i, "type": 'numeric', "format":Format().group(True)} for i in data_01_01_01.columns],
-                                                data=data_01_01_01.to_dict('records'),
-                                                style_cell={
-                                                    'minWidth': '180px', 'width': '180px', 'maxWidth': '180px',
-                                                },
-                                                style_header={
-                                                    'textAlign':'center',
-                                                }
+                                            html.Div(
+                                                dcc.Dropdown(
+                                                id='iq-inner-dd',
+                                                options=[
+                                                        {'label': '近8季', 'value': 8},
+                                                        {'label': '近9~16季', 'value': [9, 16]},
+                                                        {'label': '近17~24季', 'value': [17, 24]},
+                                                        {'label': '近25~32季', 'value': [25, 32]},                                                     
+                                                    ],
+                                                value=8,
+                                                placeholder='近8季',
+                                                style=self_style.iq_inner_dd,
                                             ),
-                                            html.Br(),
-                                            html.Div(['經營績效'], style=self_style.tab_content_title),
-                                            dash_table.DataTable(
-                                                columns = [{"name": i, "id": i, "type": 'numeric', "format":Format().group(True)} for i in data_01_01_02.columns],
-                                                data=data_01_01_02.to_dict('records'),
-                                                style_cell={
-                                                    'minWidth': '180px', 'width': '180px', 'maxWidth': '180px',
-                                                },
-                                                style_header={
-                                                    'textAlign':'center',
-                                                }
-                                            ), 
-                                            html.Br(),
-                                            html.Div(['償債能力'], style=self_style.tab_content_title),
-                                            dash_table.DataTable(
-                                                columns = [{"name": i, "id": i, "type": 'numeric', "format":Format().group(True)} for i in data_01_01_03.columns],
-                                                data=data_01_01_03.to_dict('records'),
-                                                style_cell={
-                                                    'minWidth': '180px', 'width': '180px', 'maxWidth': '180px',
-                                                },
-                                                style_header={
-                                                    'textAlign':'center',
-                                                }
-                                            ),
-                                            html.Br(),
-                                            html.Div(['經營能力'], style=self_style.tab_content_title),
-                                            dash_table.DataTable(
-                                                columns = [{"name": i, "id": i, "type": 'numeric', "format":Format().group(True)} for i in data_01_01_04.columns],
-                                                data=data_01_01_04.to_dict('records'),
-                                                style_cell={
-                                                    'minWidth': '180px', 'width': '180px', 'maxWidth': '180px',
-                                                },
-                                                style_header={
-                                                    'textAlign':'center',
-                                                }
-                                            ),
+                                            html.Div(id='iq-table1-content'),
+                                            )
                                         ]),
                                     dcc.Tab(label='現金&股票股利', style=self_style.iq_tab_l2, selected_style=self_style.iq_tab_l2_onclick,
                                         children = [
@@ -2122,7 +2074,96 @@ def iq_interactive(stock_string, btn):
         children_content_info = []
         children_content_data1 = []
         children_content_data2 = []
-    return children_content_info, children_content_data1, children_content_data2
+    return children_content_info, children_content_data1, children_content_data2, stored_stock_id
+
+#Callback 6:  indivisual query tab dropdown selection
+@app.callback(
+    Output("iq-table1-content", "children"),
+    Input("iq-inner-dd", "value"),
+    State('stored_stock_id', 'stored_stock_id'),
+)
+def func(recent_period, stored_stock_id):
+
+    stock_id = stored_stock_id['id']
+    # 獲利能力
+    iq_query_01_01_01 = query_sentence.create_query_iq_01_01_01(stock_id, recent_period)
+    data_01_01_01 = query_sentence.sql_execute(iq_query_01_01_01)
+    data_01_01_01 = pd.DataFrame.from_records(data_01_01_01)
+    # print('SQL Query Results: ', data_01_01_01)
+    data_01_01_01 = process_obj.iq_table_01_01_adjust(data_01_01_01)
+    # print('DataFrame Processing Results: ', data_01_01_01)
+
+    # 經營績效
+    iq_query_01_01_02 = query_sentence.create_query_iq_01_01_02(stock_id, recent_period)
+    data_01_01_02 = query_sentence.sql_execute(iq_query_01_01_02)
+    data_01_01_02 = pd.DataFrame.from_records(data_01_01_02)
+    data_01_01_02 = process_obj.iq_table_01_01_adjust(data_01_01_02)
+
+    # 償債能力
+    iq_query_01_01_03 = query_sentence.create_query_iq_01_01_03(stock_id, recent_period)
+    data_01_01_03 = query_sentence.sql_execute(iq_query_01_01_03)
+    data_01_01_03 = pd.DataFrame.from_records(data_01_01_03)
+    data_01_01_03 = process_obj.iq_table_01_01_adjust(data_01_01_03)
+
+    # 經營能力
+    iq_query_01_01_04 = query_sentence.create_query_iq_01_01_04(stock_id, recent_period)
+    data_01_01_04 = query_sentence.sql_execute(iq_query_01_01_04)
+    data_01_01_04 = pd.DataFrame.from_records(data_01_01_04)
+    data_01_01_04 = process_obj.iq_table_01_01_adjust(data_01_01_04)
+
+
+    children_content = [
+        
+        html.Div(['獲利能力'], style=self_style.tab_content_title),
+        dash_table.DataTable(
+            columns = [{"name": i, "id": i, "type": 'numeric', "format":Format().group(True)} for i in data_01_01_01.columns],
+            data=data_01_01_01.to_dict('records'),
+            style_cell={
+                'minWidth': '180px', 'width': '180px', 'maxWidth': '180px',
+            },
+            style_header={
+                'textAlign':'center',
+            }
+        ),
+        html.Br(),
+        html.Div(['經營績效'], style=self_style.tab_content_title),
+        dash_table.DataTable(
+            columns = [{"name": i, "id": i, "type": 'numeric', "format":Format().group(True)} for i in data_01_01_02.columns],
+            data=data_01_01_02.to_dict('records'),
+            style_cell={
+                'minWidth': '180px', 'width': '180px', 'maxWidth': '180px',
+            },
+            style_header={
+                'textAlign':'center',
+            }
+        ), 
+        html.Br(),
+        html.Div(['償債能力'], style=self_style.tab_content_title),
+        dash_table.DataTable(
+            columns = [{"name": i, "id": i, "type": 'numeric', "format":Format().group(True)} for i in data_01_01_03.columns],
+            data=data_01_01_03.to_dict('records'),
+            style_cell={
+                'minWidth': '180px', 'width': '180px', 'maxWidth': '180px',
+            },
+            style_header={
+                'textAlign':'center',
+            }
+        ),
+        html.Br(),
+        html.Div(['經營能力'], style=self_style.tab_content_title),
+        dash_table.DataTable(
+            columns = [{"name": i, "id": i, "type": 'numeric', "format":Format().group(True)} for i in data_01_01_04.columns],
+            data=data_01_01_04.to_dict('records'),
+            style_cell={
+                'minWidth': '180px', 'width': '180px', 'maxWidth': '180px',
+            },
+            style_header={
+                'textAlign':'center',
+            }
+        ),
+    ]
+
+    return children_content
 
 def generate_table(stock_data, max_rows=5000):
     return dash_table.DataTable(
