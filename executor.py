@@ -1832,6 +1832,7 @@ def iq_interactive(stock_string, btn, stored_stock_id):
                 children=[
                     dcc.Tab(label='基本資料', id='dynamic-iq-result-info', value='dynamic-iq-result-info', style=self_style.iq_tab, selected_style=self_style.iq_tab_onclick,
                         children=[
+                            html.Br(),
                             html.Table([
                                 html.Tr([
                                     html.Th('公司名稱', style=self_style.info_th),
@@ -1902,7 +1903,7 @@ def iq_interactive(stock_string, btn, stored_stock_id):
                                     html.Td(data_info_03['Agency_PHONE'], colSpan=3, style=self_style.info_td),
                                 ]),
                             ],
-                            style={'border':'1px solid', 'margin-left': 'auto', 'margin-right': 'auto', 'border-collapse': 'collapse', })
+                            style={'color':'#FFFFFF' ,'border':'1px solid', 'margin-left': 'auto', 'margin-right': 'auto', 'border-collapse': 'collapse', })
                         ]
                     ),
                     dcc.Tab(label='財務報表', id='dynamic-iq-result-financial', value='dynamic-iq-result-financial', style=self_style.iq_tab, selected_style=self_style.iq_tab_onclick,
@@ -2073,7 +2074,8 @@ def iq_interactive(stock_string, btn, stored_stock_id):
                             content_style=self_style.tabs_content), # content_style: 控制Tabs中Tab的children的style。   style: 控制Tabs本身。
                         ],
                     ),
-                ]
+                ],
+                style={'color': '#FFFFFF'}
             ),
         ]
         print('{} content data2 done.'.format(stock_string))

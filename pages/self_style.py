@@ -588,7 +588,7 @@ iq_l31 = {
 
 iq_l32 = {
     'width': '80%',
-    # 'color':'#FFFFFF',
+    'color':'#FFFFFF',
     'font-size': '30px',
     'background-color':  top_div_bg,
     'color': '#FFFFFF',
