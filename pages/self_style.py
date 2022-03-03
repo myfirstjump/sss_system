@@ -480,7 +480,7 @@ iq_div = {
     'margin': '10px',
     'height': '1300px',
     # 'width': '90%',
-    'background-color':  bg_code,
+    'background-color':  top_div_bg,
     'color': '#FFFFFF',
     'overflow': 'auto',
     # 'border':'solid white 1px',
@@ -490,7 +490,7 @@ iq_l1 = {
     'display':'flex',
     'flex-direction': 'row',
     'justify-content': 'space-between',
-    'background-color':  bg_code,
+    'background-color':  top_div_bg,
     'color': '#FFFFFF',
     # 'border':'solid white 1px',
     'margin': '1%',
@@ -519,7 +519,7 @@ iq_l2 = { #公司名稱等基本資訊
     'flex-flow':'row wrap',
     'align-items': 'flex-end', #每個div貼底。
 
-    'background-color':  bg_code,
+    'background-color':  top_div_bg,
     'color': '#FFFFFF',
     # 'border':'solid black 1px',
     'margin': '1%',
@@ -530,7 +530,7 @@ iq_l3 = { #漲跌等每日基本數據
     'display':'flex',
     'flex-flow':'row wrap',
     'align-items': 'center', #每個div垂直置中。
-    'background-color':  bg_code,
+    'background-color':  top_div_bg,
     'color': '#FFFFFF',
     # 'border':'solid black 1px',
     'margin': '1%',
@@ -538,7 +538,7 @@ iq_l3 = { #漲跌等每日基本數據
 }
 
 iq_l4 = {
-    'background-color':  bg_code,
+    'background-color':  top_div_bg,
     'color': '#FFFFFF',
     # 'border':'solid black 1px',
     'margin': '1%',
@@ -547,7 +547,7 @@ iq_l4 = {
 
 iq_l21 = {
     
-    'background-color':  bg_code,
+    'background-color':  top_div_bg,
     'color': '#FFFFFF',
     'margin': '1%',
     'font-size': '36px',
@@ -555,21 +555,21 @@ iq_l21 = {
 }
 
 iq_l22 = {
-    'background-color':  bg_code,
+    'background-color':  top_div_bg,
     'color': '#FFFFFF',
     'margin': '1%',
     # 'border':'solid black 1px',
 }
 
 iq_l23 = {
-    'background-color':  bg_code,
+    'background-color':  top_div_bg,
     'color': '#FFFFFF',
     'margin': '1%',
     # 'border':'solid black 1px',
 }
 
 iq_l24 = {
-    'background-color':  bg_code,
+    'background-color':  top_div_bg,
     'color': '#FFFFFF',
     'margin': '1%',
     # 'border':'solid black 1px',
@@ -581,7 +581,7 @@ iq_l31 = {
     'font-size': '60px',
     'verticalAlign':'middle',
     'text-align': 'center',
-    'background-color':  bg_code,
+    'background-color':  top_div_bg,
     'color': '#FFFFFF',
     # 'border':'solid black 1px',
 }
@@ -590,7 +590,7 @@ iq_l32 = {
     'width': '80%',
     # 'color':'#FFFFFF',
     'font-size': '30px',
-    'background-color':  bg_code,
+    'background-color':  top_div_bg,
     'color': '#FFFFFF',
     # 'border':'solid black 1px',
 }
