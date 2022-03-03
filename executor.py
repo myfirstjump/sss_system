@@ -1915,12 +1915,12 @@ def iq_interactive(stock_string, btn, stored_stock_id):
                                                 dcc.Dropdown(
                                                     id='iq-inner-dd',
                                                     options=[
-                                                            {'label': '近8季', 'value': 8},
+                                                            {'label': '近8季', 'value': [0, 8]},
                                                             {'label': '近9~16季', 'value': [9, 16]},
                                                             {'label': '近17~24季', 'value': [17, 24]},
                                                             {'label': '近25~32季', 'value': [25, 32]},                                                     
                                                         ],
-                                                    value=8,
+                                                    value=[0, 8],
                                                     placeholder='近8季',
                                                     style=self_style.iq_inner_dd,
                                                 ),

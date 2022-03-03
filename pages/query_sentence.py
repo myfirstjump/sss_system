@@ -1918,10 +1918,10 @@ def create_query_iq_01_01_01(stock_id, recent_period):
     ,PER_STOCK_AfterTax '每股稅後淨利', PER_STOCK_PRICE '每股淨值',After_Return '股東權益報酬率', Total_Return '資產報酬率'
     ,  ROW_NUMBER() over (partition by stock_id order by date desc) desc_DATE 
     FROM [STOCK_BASICINTO_DB].[dbo].[TW_STOCK_FinancialStatements_Detail] with(nolock)
-    where date >= DATEADD(QUARTER, -{}, GETDATE()) AND stock_id = '{}') a
+    where date < DATEADD(YEAR, -{}, GETDATE()) AND date >= DATEADD(YEAR, -{}, GETDATE()) AND stock_id='{}') a
     where desc_DATE <= 8
     order by date desc
-    '''.format(recent_period, stock_id, )
+    '''.format(recent_period[0], recent_period[1], stock_id)
     return query
 
 def create_query_iq_01_01_02(stock_id, recent_period):
