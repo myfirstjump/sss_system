@@ -172,7 +172,7 @@ app.layout = html.Div([
                             dcc.Loading(
                                 id='result-content-loading',
                                 type='default',
-                                children=html.Div([],id='result-content', style=self_style.result_content),
+                                children=html.Div([], style=self_style.result_content),
                                 color='red',
                             ),
                         ], style=self_style.result_frame) # Results
@@ -1913,18 +1913,23 @@ def iq_interactive(stock_string, btn, stored_stock_id):
                                         children=[
                                             html.Div(
                                                 dcc.Dropdown(
-                                                id='iq-inner-dd',
-                                                options=[
-                                                        {'label': '近8季', 'value': 8},
-                                                        {'label': '近9~16季', 'value': [9, 16]},
-                                                        {'label': '近17~24季', 'value': [17, 24]},
-                                                        {'label': '近25~32季', 'value': [25, 32]},                                                     
-                                                    ],
-                                                value=8,
-                                                placeholder='近8季',
-                                                style=self_style.iq_inner_dd,
-                                            ),
-                                            html.Div([], id='iq-table1-content'),
+                                                    id='iq-inner-dd',
+                                                    options=[
+                                                            {'label': '近8季', 'value': 8},
+                                                            {'label': '近9~16季', 'value': [9, 16]},
+                                                            {'label': '近17~24季', 'value': [17, 24]},
+                                                            {'label': '近25~32季', 'value': [25, 32]},                                                     
+                                                        ],
+                                                    value=8,
+                                                    placeholder='近8季',
+                                                    style=self_style.iq_inner_dd,
+                                                ),
+                                                dcc.Loading(
+                                                    id='iq-table1-content',
+                                                    type='default',
+                                                    children=html.Div([]),
+                                                    color='red',
+                                                ),
                                             )
                                         ]),
                                     dcc.Tab(label='現金&股票股利', style=self_style.iq_tab_l2, selected_style=self_style.iq_tab_l2_onclick,
@@ -2113,56 +2118,57 @@ def func(recent_period, data):
     data_01_01_04 = process_obj.iq_table_01_01_adjust(data_01_01_04)
 
 
-    children_content = [
-        
-        html.Div(['獲利能力'], style=self_style.tab_content_title),
-        dash_table.DataTable(
-            columns = [{"name": i, "id": i, "type": 'numeric', "format":Format().group(True)} for i in data_01_01_01.columns],
-            data=data_01_01_01.to_dict('records'),
-            style_cell={
-                'minWidth': '180px', 'width': '180px', 'maxWidth': '180px',
-            },
-            style_header={
-                'textAlign':'center',
-            }
-        ),
-        html.Br(),
-        html.Div(['經營績效'], style=self_style.tab_content_title),
-        dash_table.DataTable(
-            columns = [{"name": i, "id": i, "type": 'numeric', "format":Format().group(True)} for i in data_01_01_02.columns],
-            data=data_01_01_02.to_dict('records'),
-            style_cell={
-                'minWidth': '180px', 'width': '180px', 'maxWidth': '180px',
-            },
-            style_header={
-                'textAlign':'center',
-            }
-        ), 
-        html.Br(),
-        html.Div(['償債能力'], style=self_style.tab_content_title),
-        dash_table.DataTable(
-            columns = [{"name": i, "id": i, "type": 'numeric', "format":Format().group(True)} for i in data_01_01_03.columns],
-            data=data_01_01_03.to_dict('records'),
-            style_cell={
-                'minWidth': '180px', 'width': '180px', 'maxWidth': '180px',
-            },
-            style_header={
-                'textAlign':'center',
-            }
-        ),
-        html.Br(),
-        html.Div(['經營能力'], style=self_style.tab_content_title),
-        dash_table.DataTable(
-            columns = [{"name": i, "id": i, "type": 'numeric', "format":Format().group(True)} for i in data_01_01_04.columns],
-            data=data_01_01_04.to_dict('records'),
-            style_cell={
-                'minWidth': '180px', 'width': '180px', 'maxWidth': '180px',
-            },
-            style_header={
-                'textAlign':'center',
-            }
-        ),
-    ]
+    children_content = html.Div(
+                        [
+                            html.Div(['獲利能力'], style=self_style.tab_content_title),
+                            dash_table.DataTable(
+                                columns = [{"name": i, "id": i, "type": 'numeric', "format":Format().group(True)} for i in data_01_01_01.columns],
+                                data=data_01_01_01.to_dict('records'),
+                                style_cell={
+                                    'minWidth': '180px', 'width': '180px', 'maxWidth': '180px',
+                                },
+                                style_header={
+                                    'textAlign':'center',
+                                }
+                            ),
+                            html.Br(),
+                            html.Div(['經營績效'], style=self_style.tab_content_title),
+                            dash_table.DataTable(
+                                columns = [{"name": i, "id": i, "type": 'numeric', "format":Format().group(True)} for i in data_01_01_02.columns],
+                                data=data_01_01_02.to_dict('records'),
+                                style_cell={
+                                    'minWidth': '180px', 'width': '180px', 'maxWidth': '180px',
+                                },
+                                style_header={
+                                    'textAlign':'center',
+                                }
+                            ), 
+                            html.Br(),
+                            html.Div(['償債能力'], style=self_style.tab_content_title),
+                            dash_table.DataTable(
+                                columns = [{"name": i, "id": i, "type": 'numeric', "format":Format().group(True)} for i in data_01_01_03.columns],
+                                data=data_01_01_03.to_dict('records'),
+                                style_cell={
+                                    'minWidth': '180px', 'width': '180px', 'maxWidth': '180px',
+                                },
+                                style_header={
+                                    'textAlign':'center',
+                                }
+                            ),
+                            html.Br(),
+                            html.Div(['經營能力'], style=self_style.tab_content_title),
+                            dash_table.DataTable(
+                                columns = [{"name": i, "id": i, "type": 'numeric', "format":Format().group(True)} for i in data_01_01_04.columns],
+                                data=data_01_01_04.to_dict('records'),
+                                style_cell={
+                                    'minWidth': '180px', 'width': '180px', 'maxWidth': '180px',
+                                },
+                                style_header={
+                                    'textAlign':'center',
+                                }
+                            ),
+                        ]
+                        )
 
     return children_content
 
