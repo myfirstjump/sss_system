@@ -1628,6 +1628,7 @@ def func(n_clicks, download_data):
     Input('iq-dd', 'value'),
     Input('iq-btn', 'n_clicks'),
     State('stored_stock_id', 'data'),
+    prevent_initial_call=True,
 )
 def iq_interactive(stock_string, btn, stored_stock_id):
     if btn == None or stock_string == None:
