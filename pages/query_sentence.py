@@ -1921,7 +1921,7 @@ def create_query_iq_01_01_01(stock_id, recent_period):
     where date < DATEADD(YEAR, -{}, GETDATE()) AND date >= DATEADD(YEAR, -{}, GETDATE()) AND stock_id='{}') a
     where desc_DATE <= 8
     order by date desc
-    '''.format(recent_period[0], recent_period[1], stock_id)
+    '''.format(recent_period - 8, recent_period, stock_id)
     return query
 
 def create_query_iq_01_01_02(stock_id, recent_period):
@@ -1934,7 +1934,7 @@ def create_query_iq_01_01_02(stock_id, recent_period):
     where date < DATEADD(YEAR, -{}, GETDATE()) AND date >= DATEADD(YEAR, -{}, GETDATE()) AND stock_id='{}') a
     where desc_DATE <= 8
     order by date desc
-    '''.format(recent_period[0], recent_period[1], stock_id)
+    '''.format(recent_period - 8, recent_period[1], stock_id)
 
     return query
 
@@ -1948,7 +1948,7 @@ def create_query_iq_01_01_03(stock_id, recent_period):
     where date < DATEADD(YEAR, -{}, GETDATE()) AND date >= DATEADD(YEAR, -{}, GETDATE()) AND stock_id='{}') a
     where desc_DATE <= 8
     order by date desc
-    '''.format(recent_period[0], recent_period[1], stock_id)
+    '''.format(recent_period - 8, recent_period[1], stock_id)
 
     return query
 
@@ -1962,7 +1962,7 @@ def create_query_iq_01_01_04(stock_id, recent_period):
     where date < DATEADD(YEAR, -{}, GETDATE()) AND date >= DATEADD(YEAR, -{}, GETDATE()) AND stock_id='{}') a
     where desc_DATE <= 8
     order by date desc
-  '''.format(recent_period[0], recent_period[1], stock_id)
+  '''.format(recent_period - 8, recent_period[1], stock_id)
 
     return query
 
