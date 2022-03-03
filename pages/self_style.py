@@ -410,7 +410,7 @@ iq_tab = {
     # 'border': 'hidden',
     # 'background-color': '#FFFFFF',
 
-    'font-size': '16px',
+    'font-size': '32px',
     'font-weight':'900',
     'color': result_words,
     'background-color': '#192340',
@@ -427,7 +427,7 @@ iq_tab_onclick = {
     # 'text-decoration':'underline',
     # 'border': 'hidden',
     # 'background-color': '#FFFFFF',
-    'font-size': '18px',
+    'font-size': '32px',
     'font-weight':'900',
     'color': '#E1EBF9',
     'background-color': '#33A7ED',
@@ -647,7 +647,7 @@ tab_content_title = {
 info_th = {
     'border': '1px solid black',
     'width': '180px',
-    'background-color': '#faebdb',
+    # 'background-color': '#faebdb',
     'color': ' #ff7802',
 }
 

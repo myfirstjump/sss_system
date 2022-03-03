@@ -2025,7 +2025,10 @@ def iq_interactive(stock_string, btn, stored_stock_id):
                                             merge_duplicate_headers=True,
                                             style_header={
                                                     'textAlign':'center',
-                                            }
+                                            },
+                                            style_cell={
+                                                 'color':'black',
+                                            },
                                         ),
                                     ]
                                 ),
@@ -2037,7 +2040,10 @@ def iq_interactive(stock_string, btn, stored_stock_id):
                                             merge_duplicate_headers=True,
                                             style_header={
                                                     'textAlign':'center',
-                                            }
+                                            },
+                                            style_cell={
+                                                 'color':'black',
+                                            },
                                         ),
                                         html.Br(),
                                         html.Div(['借券'], style=self_style.tab_content_title),
@@ -2046,7 +2052,10 @@ def iq_interactive(stock_string, btn, stored_stock_id):
                                             data=data_02_02_03.to_dict('records'),
                                             style_header={
                                                     'textAlign':'center',
-                                            }
+                                            },
+                                            style_cell={
+                                                 'color':'black',
+                                            },
                                         ),
                                     ]
                                 ),
@@ -2057,7 +2066,10 @@ def iq_interactive(stock_string, btn, stored_stock_id):
                                             data=data_02_03.to_dict('records'),
                                             style_header={
                                                     'textAlign':'center',
-                                            }
+                                            },
+                                            style_cell={
+                                                 'color':'black',
+                                            },
                                         ),
                                     ]
                                 ),
@@ -2069,7 +2081,10 @@ def iq_interactive(stock_string, btn, stored_stock_id):
                                             data=data_02_04.to_dict('records'),
                                             style_header={
                                                     'textAlign':'center',
-                                            }
+                                            },
+                                            style_cell={
+                                                 'color':'black',
+                                            },
                                         ),
                                     ]
                                 ),
@@ -2131,7 +2146,7 @@ def return_tables(recent_period, data):
                                 columns = [{"name": i, "id": i, "type": 'numeric', "format":Format().group(True)} for i in data_01_01_01.columns],
                                 data=data_01_01_01.to_dict('records'),
                                 style_cell={
-                                    'minWidth': '180px', 'width': '180px', 'maxWidth': '180px',
+                                    'minWidth': '180px', 'width': '180px', 'maxWidth': '180px', 'color':'black',
                                 },
                                 style_header={
                                     'textAlign':'center',
@@ -2143,7 +2158,7 @@ def return_tables(recent_period, data):
                                 columns = [{"name": i, "id": i, "type": 'numeric', "format":Format().group(True)} for i in data_01_01_02.columns],
                                 data=data_01_01_02.to_dict('records'),
                                 style_cell={
-                                    'minWidth': '180px', 'width': '180px', 'maxWidth': '180px',
+                                    'minWidth': '180px', 'width': '180px', 'maxWidth': '180px', 'color':'black',
                                 },
                                 style_header={
                                     'textAlign':'center',
@@ -2155,7 +2170,7 @@ def return_tables(recent_period, data):
                                 columns = [{"name": i, "id": i, "type": 'numeric', "format":Format().group(True)} for i in data_01_01_03.columns],
                                 data=data_01_01_03.to_dict('records'),
                                 style_cell={
-                                    'minWidth': '180px', 'width': '180px', 'maxWidth': '180px',
+                                    'minWidth': '180px', 'width': '180px', 'maxWidth': '180px', 'color':'black',
                                 },
                                 style_header={
                                     'textAlign':'center',
@@ -2167,7 +2182,7 @@ def return_tables(recent_period, data):
                                 columns = [{"name": i, "id": i, "type": 'numeric', "format":Format().group(True)} for i in data_01_01_04.columns],
                                 data=data_01_01_04.to_dict('records'),
                                 style_cell={
-                                    'minWidth': '180px', 'width': '180px', 'maxWidth': '180px',
+                                    'minWidth': '180px', 'width': '180px', 'maxWidth': '180px', 'color':'black',
                                 },
                                 style_header={
                                     'textAlign':'center',
