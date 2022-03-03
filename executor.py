@@ -1924,7 +1924,7 @@ def iq_interactive(stock_string, btn, stored_stock_id):
                                                 placeholder='近8季',
                                                 style=self_style.iq_inner_dd,
                                             ),
-                                            html.Div(id='iq-table1-content'),
+                                            html.Div([], id='iq-table1-content'),
                                             )
                                         ]),
                                     dcc.Tab(label='現金&股票股利', style=self_style.iq_tab_l2, selected_style=self_style.iq_tab_l2_onclick,
