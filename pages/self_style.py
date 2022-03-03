@@ -647,6 +647,7 @@ tab_content_title = {
 info_th = {
     # 'border': '1px solid black',
     'width': '180px',
+    'text-weight': 'normal',
     # 'background-color': '#faebdb',
     'color': ' #ff7802',
 }
