@@ -2080,6 +2080,7 @@ def iq_interactive(stock_string, btn, stored_stock_id):
         children_content_info = []
         children_content_data1 = []
         children_content_data2 = []
+        stored_stock_id = None
     return children_content_info, children_content_data1, children_content_data2, stored_stock_id
 
 #Callback 6:  indivisual query tab dropdown selection
@@ -2088,7 +2089,7 @@ def iq_interactive(stock_string, btn, stored_stock_id):
     Input("iq-inner-dd", "value"),
     State('stored_stock_id', 'data'),
 )
-def func(recent_period, data):
+def return_tables(recent_period, data):
 
     stock_id = data['id']
     # 獲利能力
@@ -2118,8 +2119,7 @@ def func(recent_period, data):
     data_01_01_04 = process_obj.iq_table_01_01_adjust(data_01_01_04)
 
 
-    children_content = html.Div(
-                        [
+    children_content = html.Div([
                             html.Div(['獲利能力'], style=self_style.tab_content_title),
                             dash_table.DataTable(
                                 columns = [{"name": i, "id": i, "type": 'numeric', "format":Format().group(True)} for i in data_01_01_01.columns],
@@ -2167,8 +2167,7 @@ def func(recent_period, data):
                                     'textAlign':'center',
                                 }
                             ),
-                        ]
-                        )
+                        ])
 
     return children_content
 
