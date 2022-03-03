@@ -1624,7 +1624,7 @@ def func(n_clicks, download_data):
     Output('iq-stock-info', 'children'),
     Output('iq-stock-data1', 'children'),
     Output('iq-stock-data2', 'children'),
-    Output('stored_stock_id', 'data')
+    Output('stored_stock_id', 'data'),
     Input('iq-dd', 'value'),
     Input('iq-btn', 'n_clicks'),
     State('stored_stock_id', 'data'),
@@ -2080,11 +2080,11 @@ def iq_interactive(stock_string, btn, stored_stock_id):
 @app.callback(
     Output("iq-table1-content", "children"),
     Input("iq-inner-dd", "value"),
-    State('stored_stock_id', 'stored_stock_id'),
+    State('stored_stock_id', 'data'),
 )
-def func(recent_period, stored_stock_id):
+def func(recent_period, data):
 
-    stock_id = stored_stock_id['id']
+    stock_id = data['id']
     # 獲利能力
     iq_query_01_01_01 = query_sentence.create_query_iq_01_01_01(stock_id, recent_period)
     data_01_01_01 = query_sentence.sql_execute(iq_query_01_01_01)
