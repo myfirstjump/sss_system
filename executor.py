@@ -1911,7 +1911,7 @@ def iq_interactive(stock_string, btn, stored_stock_id):
                                 [
                                     dcc.Tab(label='財務比率', style=self_style.iq_tab_l2, selected_style=self_style.iq_tab_l2_onclick,
                                         children=[
-                                            html.Div(
+                                            html.Div([
                                                 dcc.Dropdown(
                                                     id='iq-inner-dd',
                                                     options=[
@@ -1930,7 +1930,7 @@ def iq_interactive(stock_string, btn, stored_stock_id):
                                                     children=html.Div([]),
                                                     color='red',
                                                 ),
-                                            )
+                                            ])
                                         ]),
                                     dcc.Tab(label='現金&股票股利', style=self_style.iq_tab_l2, selected_style=self_style.iq_tab_l2_onclick,
                                         children = [
