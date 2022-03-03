@@ -618,7 +618,7 @@ info_td = {
 }
 
 iq_inner_dd = {
-    'position':'absolute',
+    'position':'relative',
     'right': '20px',
     'width': '180px',
 }
