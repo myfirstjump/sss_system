@@ -1785,7 +1785,7 @@ def iq_interactive(stock_string, btn, stored_stock_id):
                     dash_table.DataTable(
                         columns = [{"name": i, "id": i} for i in data_info_02.columns],
                         data=data_info_02.to_dict('records'),
-                        style_cell={'fontSize': '30px', 'height': 'auto', 'whiteSpace': 'normal', 'background-color':'#C1DEF4'},
+                        style_cell={'fontSize': '30px', 'height': 'auto', 'whiteSpace': 'normal', 'background-color':'#212130'},
                         style_data_conditional=[
                             {
                                 'if':{
@@ -1909,6 +1909,7 @@ def iq_interactive(stock_string, btn, stored_stock_id):
                     ),
                     dcc.Tab(label='財務報表', id='dynamic-iq-result-financial', value='dynamic-iq-result-financial', style=self_style.iq_tab, selected_style=self_style.iq_tab_onclick,
                         children = [
+                            html.Br(),
                             dcc.Tabs(
                                 [
                                     dcc.Tab(label='財務比率', style=self_style.iq_tab_l2, selected_style=self_style.iq_tab_l2_onclick,
@@ -1942,7 +1943,7 @@ def iq_interactive(stock_string, btn, stored_stock_id):
                                                 columns = [{"name": i, "id": i, "type": 'numeric', "format":Format().group(True)} for i in data_01_02.columns],
                                                 data=data_01_02.to_dict('records'),
                                                 style_cell={
-                                                    'minWidth': '180px', 'width': '180px', 'maxWidth': '180px',
+                                                    'minWidth': '180px', 'width': '180px', 'maxWidth': '180px', 'color':'black',
                                                 },
                                                 style_header_conditional=[
                                                     {
@@ -1963,7 +1964,7 @@ def iq_interactive(stock_string, btn, stored_stock_id):
                                                 columns = [{"name": i, "id": i, "type": 'numeric', "format":Format().group(True)} for i in data_01_03.columns],
                                                 data=data_01_03.to_dict('records'),
                                                 style_cell={
-                                                    'minWidth': '180px', 'width': '180px', 'maxWidth': '180px',
+                                                    'minWidth': '180px', 'width': '180px', 'maxWidth': '180px', 'color':'black',
                                                 },
                                                 style_header={
                                                     'textAlign':'center',
@@ -1978,7 +1979,7 @@ def iq_interactive(stock_string, btn, stored_stock_id):
                                                 columns = [{"name": i, "id": i, "type": 'numeric', "format":Format().group(True)} for i in data_01_04.columns],
                                                 data=data_01_04.to_dict('records'),
                                                 style_cell={
-                                                    'minWidth': '180px', 'width': '180px', 'maxWidth': '180px', 'textAlign':'left',
+                                                    'minWidth': '180px', 'width': '180px', 'maxWidth': '180px', 'textAlign':'left', 'color':'black',
                                                 },
                                                 style_header_conditional=[
                                                     {
@@ -1996,7 +1997,7 @@ def iq_interactive(stock_string, btn, stored_stock_id):
                                                 columns = [{"name": i, "id": i, "type": 'numeric', "format":Format().group(True)} for i in data_01_05.columns],
                                                 data=data_01_05.to_dict('records'),
                                                 style_cell={
-                                                    'minWidth': '180px', 'width': '180px', 'maxWidth': '180px', 'textAlign':'left',
+                                                    'minWidth': '180px', 'width': '180px', 'maxWidth': '180px', 'textAlign':'left', 'color':'black',
                                                 },
                                                 style_header_conditional=[
                                                     {
@@ -2014,6 +2015,7 @@ def iq_interactive(stock_string, btn, stored_stock_id):
                     ),
                     dcc.Tab(label='籌碼分析', id='dynamic-iq-result-chip', value='dynamic-iq-result-chip', style=self_style.iq_tab, selected_style=self_style.iq_tab_onclick,
                         children = [
+                            html.Br(),
                             dcc.Tabs([
                                 dcc.Tab(label='法人持股', style=self_style.iq_tab_l2, selected_style=self_style.iq_tab_l2_onclick,
                                     children = [
