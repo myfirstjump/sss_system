@@ -662,6 +662,7 @@ iq_inner_div = {
 }
 
 iq_inner_dd = {
+    'color':'black', 
     'margin-left':'auto',
     'width': '180px',
 }
