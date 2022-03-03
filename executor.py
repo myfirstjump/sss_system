@@ -1637,7 +1637,7 @@ def iq_interactive(stock_string, btn, stored_stock_id):
     if btn > 0:
         print('[{}] 查詢個股: {}'.format(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'), stock_string))
         stock_id = stock_string
-        stored_stock_id['id'] = stock_id or None
+        stored_stock_id = stored_stock_id or {'id': stock_id}
 
         ### 基本資料
         iq_query_info_01 = query_sentence.create_query_info_01(stock_id)
