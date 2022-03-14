@@ -98,18 +98,23 @@ class DataProcessing(object):
 
     def iq_legal_table_concat(self, df1, df2, df3, df4):
 
-        df1['日期'] = df1['日期'].apply(lambda x: x.strftime('%Y-%m-%d'))
-        df2['日期'] = df2['日期'].apply(lambda x: x.strftime('%Y-%m-%d'))
-        df3['日期'] = df3['日期'].apply(lambda x: x.strftime('%Y-%m-%d'))
-        df4['日期'] = df4['日期'].apply(lambda x: x.strftime('%Y-%m-%d'))
+        try:
+            df1['日期'] = df1['日期'].apply(lambda x: x.strftime('%Y-%m-%d'))
+            df2['日期'] = df2['日期'].apply(lambda x: x.strftime('%Y-%m-%d'))
+            df3['日期'] = df3['日期'].apply(lambda x: x.strftime('%Y-%m-%d'))
+            df4['日期'] = df4['日期'].apply(lambda x: x.strftime('%Y-%m-%d'))
 
-        df1.set_index('日期', inplace=True)
-        df2.set_index('日期', inplace=True)
-        df3.set_index('日期', inplace=True)
-        df4.set_index('日期', inplace=True)
+            df1.set_index('日期', inplace=True)
+            df2.set_index('日期', inplace=True)
+            df3.set_index('日期', inplace=True)
+            df4.set_index('日期', inplace=True)
 
-        df = pd.concat([df1, df2, df3, df4], axis=1)
-        df.reset_index(inplace=True)
+            df = pd.concat([df1, df2, df3, df4], axis=1)
+            df.reset_index(inplace=True)
+
+        except:
+            #TBD: logging: df若為空值須紀錄
+            df = pd.concat([df1, df2, df3, df4], axis=1)
 
         return df
 
@@ -126,7 +131,7 @@ class DataProcessing(object):
             df.reset_index(inplace=True)
         
         except:
-            #logging: df可能為空值
+            #TBD: logging: df若為空值須紀錄
             df = pd.concat([df1, df2,], axis=1)
 
         return df
