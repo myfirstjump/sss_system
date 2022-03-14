@@ -599,7 +599,7 @@ iq_l4 = {
 iq_l21 = {
     
     'background-color':  top_div_bg,
-    'color': '#FFFFFF',
+    'color': 'orange',
     'margin': '1%',
     'font-size': '36px',
     # 'border':'solid black 1px',
@@ -607,22 +607,24 @@ iq_l21 = {
 
 iq_l22 = {
     'background-color':  top_div_bg,
-    'color': '#FFFFFF',
+    'color': 'orange',
     'margin': '1%',
     # 'border':'solid black 1px',
 }
 
 iq_l23 = {
     'background-color':  top_div_bg,
-    'color': '#FFFFFF',
+    'color': 'orange',
     'margin': '1%',
+    'font-size': '28px',
     # 'border':'solid black 1px',
 }
 
 iq_l24 = {
     'background-color':  top_div_bg,
-    'color': '#FFFFFF',
+    'color': 'orange',
     'margin': '1%',
+    'font-size': '28px',
     # 'border':'solid black 1px',
 }
 
