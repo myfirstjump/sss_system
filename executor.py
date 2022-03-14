@@ -1972,6 +1972,7 @@ def iq_interactive(stock_string, btn, stored_stock_id):
                                     dcc.Tab(label='每股稅後盈餘(EPS)', style=self_style.iq_tab_l2, selected_style=self_style.iq_tab_l2_onclick,
                                         children = [
                                             # html.Div(['每股稅後盈餘(EPS)']),
+                                            html.Br(),
                                             dash_table.DataTable(
                                                 columns = [{"name": i, "id": i, "type": 'numeric', "format":Format().group(True)} for i in data_01_03.columns],
                                                 data=data_01_03.to_dict('records'),
