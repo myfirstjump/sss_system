@@ -432,7 +432,7 @@ iq_tab = {
     # 'border': 'hidden',
     # 'background-color': '#FFFFFF',
 
-    'font-size': '32px',
+    'font-size': '16px',
     'font-weight':'900',
     'color': result_words,
     'background-color': '#192340',
@@ -449,7 +449,7 @@ iq_tab_onclick = {
     # 'text-decoration':'underline',
     # 'border': 'hidden',
     # 'background-color': '#FFFFFF',
-    'font-size': '32px',
+    'font-size': '18px',
     'font-weight':'900',
     'color': '#E1EBF9',
     'background-color': '#33A7ED',
@@ -466,7 +466,7 @@ iq_tab_l2 = {
     # 'border': 'hidden',
     # 'background-color': '#FFFFFF',
 
-    'font-size': '20px',
+    'font-size': '16px',
     'font-weight':'900',
     'color': result_words,
     'background-color': '#192340',
@@ -484,7 +484,7 @@ iq_tab_l2_onclick = {
     # 'border': 'hidden',
     # 'background-color': '#FFFFFF',
 
-    'font-size': '20px',
+    'font-size': '18px',
     'font-weight':'900',
     'color': '#E1EBF9',
     'background-color': '#33A7ED',
@@ -674,11 +674,13 @@ info_th = {
     'text-weight': 'normal',
     # 'background-color': '#faebdb',
     'color': ' #ff7802',
+    'font-size':'16px',
 }
 
 info_td = {
     'border': '1px solid',
     'width': '480px',
+    'font-size':'16px',
 }
 
 iq_inner_div = {
