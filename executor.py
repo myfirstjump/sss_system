@@ -1556,7 +1556,9 @@ value0611, value0612, stored_data, download_data):
                 # return_tpex_style = self_style.result_content
 
                 tpex_children_content = html.Div([
-                    html.Button("下載股票篩選結果", id="btn-download", className='download-btn'),
+                    html.Div([
+                        html.Button("下載股票篩選結果", id="btn-download", className='download-btn'),
+                    ], style=self_style.download_style),
                     dcc.Download(id="download-excel"),
                     df_tpex,
                 ], style=self_style.result_content)
@@ -1573,7 +1575,9 @@ value0611, value0612, stored_data, download_data):
                 # return_etf_twse_style = self_style.result_content
 
                 etf_twse_children_content = html.Div([
-                    html.Button("下載股票篩選結果", id="btn-download", className='download-btn'),
+                    html.Div([
+                        html.Button("下載股票篩選結果", id="btn-download", className='download-btn'),
+                    ], style=self_style.download_style),
                     dcc.Download(id="download-excel"),
                     df_etf_twse,
                 ], style=self_style.result_content)
@@ -1590,7 +1594,9 @@ value0611, value0612, stored_data, download_data):
                 # return_etf_tpex_style = self_style.result_content
 
                 etf_tpex_children_content = html.Div([
-                    html.Button("下載股票篩選結果", id="btn-download", className='download-btn'),
+                    html.Div([
+                        html.Button("下載股票篩選結果", id="btn-download", className='download-btn'),
+                    ], style=self_style.download_style),
                     dcc.Download(id="download-excel"),
                     df_etf_tpex,
                 ], style=self_style.result_content)
