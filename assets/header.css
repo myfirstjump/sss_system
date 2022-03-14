@@ -78,7 +78,7 @@
 
 .clear-btn:hover {
     background-color: #f44336;
-  color: white;
+    color: white;
 }
 
 .download-btn {
@@ -99,7 +99,28 @@
 
 .download-btn:hover {
     background-color: #e7e7e7;
-  color: black;
+    color: black;
+}
+
+.query-btn {
+    color: white;
+    
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 20px;
+    
+    transition-duration: 0.4s;
+    cursor: pointer;
+
+    width: 15%;
+    background-color: #008CBA; 
+    border: 2px solid #008CBA;
+}
+
+.query-btn:hover {
+    background-color: #212130;
+    color: white;
 }
 
 /* .custom-tab {

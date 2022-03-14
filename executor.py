@@ -207,6 +207,7 @@ app.layout = html.Div([
                             children=['查詢'],
                             id='iq-btn',
                             style=self_style.iq_l1_query_btn,
+                            className='query-btn',
                         ),
                     ],style=self_style.iq_l1),
                     html.Div(
