@@ -1626,7 +1626,7 @@ value0611, value0612, stored_data, download_data):
 )
 def func(n_clicks, download_data):
     data = pd.DataFrame.from_records(download_data)
-    return dcc.send_data_frame(data.to_csv, "stock_result_" + datetime.datetime.now().strftime('%Y-%m-%d-%H%M%S') + ".csv")
+    return dcc.send_data_frame(data.to_excel, "stock_result_" + datetime.datetime.now().strftime('%Y-%m-%d-%H%M%S') + ".xlsx")
 
 #Callback 5: Individual Query Btn
 @app.callback(
