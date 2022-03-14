@@ -590,7 +590,7 @@ iq_l3 = { #漲跌等每日基本數據
     'background-color':  top_div_bg,
     'color': '#FFFFFF',
     # 'border':'solid black 1px',
-    'margin': '1%',
+    # 'margin': '1%',
     # 'font-size': '25px',
 }
 
@@ -598,7 +598,7 @@ iq_l4 = {
     'background-color':  top_div_bg,
     'color': '#FFFFFF',
     # 'border':'solid black 1px',
-    'margin': '1%',
+    # 'margin': '1%',
     'font-size': '25px',
 }
 

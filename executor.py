@@ -223,6 +223,8 @@ app.layout = html.Div([
                         id='iq-stock-info',
                         style=self_style.iq_l2
                     ),
+                    html.Br(),
+                    html.Br(),
                     html.Div(
                         children=[#漲跌等每日基本數據
                             # html.Div(['當日股價'], style=self_style.iq_l31),
