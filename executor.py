@@ -1961,10 +1961,10 @@ def iq_interactive(stock_string, btn, stored_stock_id):
                                                 ],
                                                 style_header={
                                                     'textAlign':'center',
-                                                }
+                                                },
                                                 style_table={
                                                      'margin':'0.5%',
-                                                }
+                                                },
                                             ),
                                         ]
                                     ),
@@ -1982,7 +1982,7 @@ def iq_interactive(stock_string, btn, stored_stock_id):
                                                 },
                                                 style_table={
                                                      'margin':'0.5%',
-                                                }
+                                                },
                                             ),
                                         ]
                                     ),
