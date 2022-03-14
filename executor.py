@@ -1949,7 +1949,7 @@ def iq_interactive(stock_string, btn, stored_stock_id):
                                                 columns = [{"name": i, "id": i, "type": 'numeric', "format":Format().group(True)} for i in data_01_02.columns],
                                                 data=data_01_02.to_dict('records'),
                                                 style_cell={
-                                                    'minWidth': '180px', 'width': '180px', 'maxWidth': '180px', 'color':'black',
+                                                    'minWidth': '180px', 'width': '180px', 'maxWidth': '180px', 'color':'white', 'background-color': '#212130',
                                                 },
                                                 style_header_conditional=[
                                                     {
@@ -1970,7 +1970,7 @@ def iq_interactive(stock_string, btn, stored_stock_id):
                                                 columns = [{"name": i, "id": i, "type": 'numeric', "format":Format().group(True)} for i in data_01_03.columns],
                                                 data=data_01_03.to_dict('records'),
                                                 style_cell={
-                                                    'minWidth': '180px', 'width': '180px', 'maxWidth': '180px', 'color':'black',
+                                                    'minWidth': '180px', 'width': '180px', 'maxWidth': '180px', 'color':'white', 'background-color': '#212130',
                                                 },
                                                 style_header={
                                                     'textAlign':'center',
@@ -1985,7 +1985,7 @@ def iq_interactive(stock_string, btn, stored_stock_id):
                                                 columns = [{"name": i, "id": i, "type": 'numeric', "format":Format().group(True)} for i in data_01_04.columns],
                                                 data=data_01_04.to_dict('records'),
                                                 style_cell={
-                                                    'minWidth': '180px', 'width': '180px', 'maxWidth': '180px', 'textAlign':'left', 'color':'black',
+                                                    'minWidth': '180px', 'width': '180px', 'maxWidth': '180px', 'textAlign':'left', 'color':'white', 'background-color': '#212130',
                                                 },
                                                 style_header_conditional=[
                                                     {
@@ -2003,7 +2003,7 @@ def iq_interactive(stock_string, btn, stored_stock_id):
                                                 columns = [{"name": i, "id": i, "type": 'numeric', "format":Format().group(True)} for i in data_01_05.columns],
                                                 data=data_01_05.to_dict('records'),
                                                 style_cell={
-                                                    'minWidth': '180px', 'width': '180px', 'maxWidth': '180px', 'textAlign':'left', 'color':'black',
+                                                    'minWidth': '180px', 'width': '180px', 'maxWidth': '180px', 'textAlign':'left', 'color':'white', 'background-color': '#212130',
                                                 },
                                                 style_header_conditional=[
                                                     {

@@ -58,7 +58,7 @@
 
 .selection-btn:hover {
     background-color: #008CBA;
-    color: black;
+    color: white;
 }
 
 .clear-btn {
@@ -80,7 +80,7 @@
 
 .clear-btn:hover {
     background-color: #f44336;
-  color: black;
+  color: white;
 }
 
 
