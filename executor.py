@@ -1972,7 +1972,7 @@ def iq_interactive(stock_string, btn, stored_stock_id):
                                                 columns = [{"name": i, "id": i, "type": 'numeric', "format":Format().group(True)} for i in data_01_03.columns],
                                                 data=data_01_03.to_dict('records'),
                                                 style_cell={
-                                                    'minWidth': '180px', 'width': '180px', 'maxWidth': '180px', 'color':'white', 'background-color': '#212130', 'margin': '0',
+                                                    'minWidth': '180px', 'width': '180px', 'maxWidth': '180px', 'color':'white', 'background-color': '#212130', 'margin': '0', 'display': 'block',
                                                 },
                                                 style_header={
                                                     'textAlign':'center',
