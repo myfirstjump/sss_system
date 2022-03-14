@@ -665,7 +665,9 @@ tabs_content = {
 }
 
 tab_content_title = {
-    'text-align': 'center',
+    # 'text-align': 'center',
+    'text-weight': 'bold',
+    'color': '#FFB433',
 }
 
 info_th = {

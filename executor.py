@@ -234,6 +234,8 @@ app.layout = html.Div([
                     html.Br(),
                     html.Br(),
                     html.Br(),
+                    html.Br(),
+                    
                     html.Div(
                         children=[#基本資料、財務報表、籌碼分析等三個Tabs
                         ],
@@ -2166,7 +2168,7 @@ def return_tables(recent_period, data):
 
 
     children_content = html.Div([
-                            html.Div(['獲利能力'], style=self_style.tab_content_title),
+                            html.Div(['◎獲利能力'], style=self_style.tab_content_title),
                             dash_table.DataTable(
                                 columns = [{"name": i, "id": i, "type": 'numeric', "format":Format().group(True)} for i in data_01_01_01.columns],
                                 data=data_01_01_01.to_dict('records'),
@@ -2178,7 +2180,7 @@ def return_tables(recent_period, data):
                                 }
                             ),
                             html.Br(),
-                            html.Div(['經營績效'], style=self_style.tab_content_title),
+                            html.Div(['◎經營績效'], style=self_style.tab_content_title),
                             dash_table.DataTable(
                                 columns = [{"name": i, "id": i, "type": 'numeric', "format":Format().group(True)} for i in data_01_01_02.columns],
                                 data=data_01_01_02.to_dict('records'),
@@ -2190,7 +2192,7 @@ def return_tables(recent_period, data):
                                 }
                             ), 
                             html.Br(),
-                            html.Div(['償債能力'], style=self_style.tab_content_title),
+                            html.Div(['◎償債能力'], style=self_style.tab_content_title),
                             dash_table.DataTable(
                                 columns = [{"name": i, "id": i, "type": 'numeric', "format":Format().group(True)} for i in data_01_01_03.columns],
                                 data=data_01_01_03.to_dict('records'),
@@ -2202,7 +2204,7 @@ def return_tables(recent_period, data):
                                 }
                             ),
                             html.Br(),
-                            html.Div(['經營能力'], style=self_style.tab_content_title),
+                            html.Div(['◎經營能力'], style=self_style.tab_content_title),
                             dash_table.DataTable(
                                 columns = [{"name": i, "id": i, "type": 'numeric', "format":Format().group(True)} for i in data_01_01_04.columns],
                                 data=data_01_01_04.to_dict('records'),
