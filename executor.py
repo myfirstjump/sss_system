@@ -1855,7 +1855,7 @@ def iq_interactive(stock_string, btn, stored_stock_id):
         children_content_data2 = [#基本資料、財務報表、籌碼分析等三個Tabs
             dcc.Tabs(id='iq-tabs', value='dynamic-iq-result-info', # value是預設顯示值
                 children=[
-                    dcc.Tab(label='基本資料', id='dynamic-iq-result-info', value='dynamic-iq-result-info', style=self_style.iq_tab, selected_style=self_style.iq_tab_onclick,
+                    dcc.Tab(label='基本資料', id='dynamic-iq-result-info', value='dynamic-iq-result-info', style=self_style.result_words, selected_style=self_style.result_words_onclick,
                         children=[
                             html.Br(),
                             html.Br(),
@@ -1933,11 +1933,11 @@ def iq_interactive(stock_string, btn, stored_stock_id):
                             style={'color':'#FFFFFF' ,'border':'1px solid', 'margin-left': 'auto', 'margin-right': 'auto', 'border-collapse': 'collapse', 'font-size':'16px', })
                         ]
                     ),
-                    dcc.Tab(label='財務報表', id='dynamic-iq-result-financial', value='dynamic-iq-result-financial', style=self_style.iq_tab, selected_style=self_style.iq_tab_onclick,
+                    dcc.Tab(label='財務報表', id='dynamic-iq-result-financial', value='dynamic-iq-result-financial', style=self_style.result_words, selected_style=self_style.result_words_onclick,
                         children = [
                             dcc.Tabs(
                                 [
-                                    dcc.Tab(label='財務比率', style=self_style.iq_tab_l2, selected_style=self_style.iq_tab_l2_onclick,
+                                    dcc.Tab(label='財務比率', style=self_style.result_words, selected_style=self_style.result_words_onclick,
                                         children=[
                                             html.Div([
                                                 dcc.Dropdown(
@@ -1961,7 +1961,7 @@ def iq_interactive(stock_string, btn, stored_stock_id):
                                                 ),
                                             ], style=self_style.iq_inner_div)
                                         ]),
-                                    dcc.Tab(label='現金&股票股利', style=self_style.iq_tab_l2, selected_style=self_style.iq_tab_l2_onclick,
+                                    dcc.Tab(label='現金&股票股利', style=self_style.result_words, selected_style=self_style.result_words_onclick,
                                         children = [
                                             # html.Div(['現金&股票股利']),
                                             dash_table.DataTable(
@@ -1982,7 +1982,7 @@ def iq_interactive(stock_string, btn, stored_stock_id):
                                             ),
                                         ]
                                     ),
-                                    dcc.Tab(label='每股稅後盈餘(EPS)', style=self_style.iq_tab_l2, selected_style=self_style.iq_tab_l2_onclick,
+                                    dcc.Tab(label='每股稅後盈餘(EPS)', style=self_style.result_words, selected_style=self_style.result_words_onclick,
                                         children = [
                                             # html.Div(['每股稅後盈餘(EPS)']),
                                             html.Br(),
@@ -1998,7 +1998,7 @@ def iq_interactive(stock_string, btn, stored_stock_id):
                                             ),
                                         ]
                                     ),
-                                    dcc.Tab(label='殖利率', style=self_style.iq_tab_l2, selected_style=self_style.iq_tab_l2_onclick,
+                                    dcc.Tab(label='殖利率', style=self_style.result_words, selected_style=self_style.result_words_onclick,
                                         children = [
                                             # html.Div(['殖利率']),
                                             dash_table.DataTable(
@@ -2016,7 +2016,7 @@ def iq_interactive(stock_string, btn, stored_stock_id):
                                             ),
                                         ]
                                     ),
-                                    dcc.Tab(label='本益比(P/E)', style=self_style.iq_tab_l2, selected_style=self_style.iq_tab_l2_onclick,
+                                    dcc.Tab(label='本益比(P/E)', style=self_style.result_words, selected_style=self_style.result_words_onclick,
                                         children = [
                                             # html.Div(['本益比(P/E)']),
                                             dash_table.DataTable(
@@ -2039,10 +2039,10 @@ def iq_interactive(stock_string, btn, stored_stock_id):
                             ),
                         ]
                     ),
-                    dcc.Tab(label='籌碼分析', id='dynamic-iq-result-chip', value='dynamic-iq-result-chip', style=self_style.iq_tab, selected_style=self_style.iq_tab_onclick,
+                    dcc.Tab(label='籌碼分析', id='dynamic-iq-result-chip', value='dynamic-iq-result-chip', style=self_style.result_words, selected_style=self_style.result_words_onclick,
                         children = [
                             dcc.Tabs([
-                                dcc.Tab(label='法人持股', style=self_style.iq_tab_l2, selected_style=self_style.iq_tab_l2_onclick,
+                                dcc.Tab(label='法人持股', style=self_style.result_words, selected_style=self_style.result_words_onclick,
                                     children = [
                                         dash_table.DataTable(
                                             columns = [{"name": [legal, i], "id": i, "type": 'numeric', "format":Format().group(True)} for legal, i in zip(["","外資","外資","外資","投信","投信","投信","自營商","自營商","自營商","三大法人合計","三大法人合計","三大法人合計",], data_02_01.columns)],
@@ -2057,7 +2057,7 @@ def iq_interactive(stock_string, btn, stored_stock_id):
                                         ),
                                     ]
                                 ),
-                                dcc.Tab(label='融資融券', style=self_style.iq_tab_l2, selected_style=self_style.iq_tab_l2_onclick,
+                                dcc.Tab(label='融資融券', style=self_style.result_words, selected_style=self_style.result_words_onclick,
                                     children = [
                                         dash_table.DataTable(
                                             columns = [{"name": [margin, i], "id": i, "type": 'numeric', "format":Format().group(True)} for margin, i in zip(["","融資","融資","融資","融券","融券","融券",], data_02_02.columns)],
@@ -2084,7 +2084,7 @@ def iq_interactive(stock_string, btn, stored_stock_id):
                                         ),
                                     ]
                                 ),
-                                dcc.Tab(label='集保庫存', style=self_style.iq_tab_l2, selected_style=self_style.iq_tab_l2_onclick,
+                                dcc.Tab(label='集保庫存', style=self_style.result_words, selected_style=self_style.result_words_onclick,
                                     children = [
                                         dash_table.DataTable(
                                             columns = [{"name": i, "id": i, "type": 'numeric', "format":Format().group(True)} for i in data_02_03.columns],
@@ -2098,7 +2098,7 @@ def iq_interactive(stock_string, btn, stored_stock_id):
                                         ),
                                     ]
                                 ),
-                                dcc.Tab(label='董監持股', style=self_style.iq_tab_l2, selected_style=self_style.iq_tab_l2_onclick,
+                                dcc.Tab(label='董監持股', style=self_style.result_words, selected_style=self_style.result_words_onclick,
                                     children = [
                                         
                                         dash_table.DataTable(
