@@ -224,7 +224,6 @@ app.layout = html.Div([
                         style=self_style.iq_l2
                     ),
                     html.Br(),
-                    html.Br(),
                     html.Div(
                         children=[#漲跌等每日基本數據
                             # html.Div(['當日股價'], style=self_style.iq_l31),
@@ -232,6 +231,8 @@ app.layout = html.Div([
                         ],
                         id='iq-stock-data1',
                         style=self_style.iq_l3),
+                    html.Br(),
+                    html.Br(),
                     html.Div(
                         children=[#基本資料、財務報表、籌碼分析等三個Tabs
                         ],
@@ -1857,6 +1858,8 @@ def iq_interactive(stock_string, btn, stored_stock_id):
                     dcc.Tab(label='基本資料', id='dynamic-iq-result-info', value='dynamic-iq-result-info', style=self_style.iq_tab, selected_style=self_style.iq_tab_onclick,
                         children=[
                             html.Br(),
+                            html.Br(),
+                            html.Br(),
                             html.Table([
                                 html.Tr([
                                     html.Th('公司名稱', style=self_style.info_th),
@@ -1932,7 +1935,6 @@ def iq_interactive(stock_string, btn, stored_stock_id):
                     ),
                     dcc.Tab(label='財務報表', id='dynamic-iq-result-financial', value='dynamic-iq-result-financial', style=self_style.iq_tab, selected_style=self_style.iq_tab_onclick,
                         children = [
-                            html.Br(),
                             dcc.Tabs(
                                 [
                                     dcc.Tab(label='財務比率', style=self_style.iq_tab_l2, selected_style=self_style.iq_tab_l2_onclick,
@@ -2039,7 +2041,6 @@ def iq_interactive(stock_string, btn, stored_stock_id):
                     ),
                     dcc.Tab(label='籌碼分析', id='dynamic-iq-result-chip', value='dynamic-iq-result-chip', style=self_style.iq_tab, selected_style=self_style.iq_tab_onclick,
                         children = [
-                            html.Br(),
                             dcc.Tabs([
                                 dcc.Tab(label='法人持股', style=self_style.iq_tab_l2, selected_style=self_style.iq_tab_l2_onclick,
                                     children = [
