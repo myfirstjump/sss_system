@@ -673,7 +673,7 @@ info_th = {
     'width': '180px',
     'text-weight': 'normal',
     # 'background-color': '#faebdb',
-    'color': ' #ff7802',
+    'color': ' #FFB433',
     'font-size':'16px',
 }
 
