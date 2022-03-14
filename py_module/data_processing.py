@@ -85,7 +85,7 @@ class DataProcessing(object):
             dataframe.index = dataframe.index.to_series().astype(str) # 為了後面轉為column name，所以先轉成字串
             data_transposed = dataframe.T
             data_transposed.reset_index(inplace=True) # dash datatable不會顯示index在網頁上，所以將index轉成一個column
-            data_transposed.rename(columns={"index":""}, inplace=True)
+            data_transposed.rename(columns={"index":" "}, inplace=True)
             # print(data_transposed.index)
             # print(data_transposed.columns)
         return data_transposed

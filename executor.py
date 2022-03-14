@@ -1981,6 +1981,7 @@ def iq_interactive(stock_string, btn, stored_stock_id):
                                                 ],
                                                 style_header={
                                                     'textAlign':'center',
+                                                    'font-weight':'bold',
                                                 },
                                             ),
                                         ]
@@ -1996,6 +1997,7 @@ def iq_interactive(stock_string, btn, stored_stock_id):
                                                 },
                                                 style_header={
                                                     'textAlign':'center',
+                                                    'font-weight':'bold',
                                                 },
                                             ),
                                         ]
@@ -2015,6 +2017,10 @@ def iq_interactive(stock_string, btn, stored_stock_id):
                                                         'color': 'orange'
                                                     } for c in ['殖利率(%)']
                                                 ],
+                                                style_header={
+                                                    # 'textAlign':'center',
+                                                    'font-weight':'bold',
+                                                },
                                             ),
                                         ]
                                     ),
@@ -2033,6 +2039,10 @@ def iq_interactive(stock_string, btn, stored_stock_id):
                                                         'color': 'orange'
                                                     } for c in ['本益比']
                                                 ],
+                                                style_header={
+                                                    # 'textAlign':'center',
+                                                    'font-weight':'bold',
+                                                },
                                             ),
                                         ]
                                     ),
@@ -2052,6 +2062,7 @@ def iq_interactive(stock_string, btn, stored_stock_id):
                                             merge_duplicate_headers=True,
                                             style_header={
                                                     'textAlign':'center',
+                                                    'font-weight':'bold',
                                             },
                                             style_cell={
                                                 'color':'white', 'background-color': '#212130', 'font-size':'16px',
@@ -2067,6 +2078,7 @@ def iq_interactive(stock_string, btn, stored_stock_id):
                                             merge_duplicate_headers=True,
                                             style_header={
                                                 'textAlign':'center',
+                                                'font-weight':'bold',
                                             },
                                             style_cell={
                                                 'color':'white', 'background-color': '#212130', 'font-size':'16px',
@@ -2079,6 +2091,7 @@ def iq_interactive(stock_string, btn, stored_stock_id):
                                             data=data_02_02_03.to_dict('records'),
                                             style_header={
                                                 'textAlign':'center',
+                                                'font-weight':'bold',
                                             },
                                             style_cell={
                                                 'color':'white', 'background-color': '#212130', 'font-size':'16px',
@@ -2093,6 +2106,7 @@ def iq_interactive(stock_string, btn, stored_stock_id):
                                             data=data_02_03.to_dict('records'),
                                             style_header={
                                                 'textAlign':'center',
+                                                'font-weight':'bold',
                                             },
                                             style_cell={
                                                 'color':'white', 'background-color': '#212130', 'font-size':'16px',
@@ -2108,6 +2122,7 @@ def iq_interactive(stock_string, btn, stored_stock_id):
                                             data=data_02_04.to_dict('records'),
                                             style_header={
                                                 'textAlign':'center',
+                                                'font-weight':'bold',
                                             },
                                             style_cell={
                                                 'color':'white', 'background-color': '#212130', 'font-size':'16px',
@@ -2177,7 +2192,12 @@ def return_tables(recent_period, data):
                                 },
                                 style_header={
                                     'textAlign':'center',
-                                }
+                                    'font-weight':'bold',
+                                },
+                                style_cell_conditional=[
+                                    {'if': {'column_id': ' '},
+                                    'font-weight':'bold'},
+                                ],
                             ),
                             html.Br(),
                             html.Div(['◎經營績效'], style=self_style.tab_content_title),
@@ -2189,6 +2209,7 @@ def return_tables(recent_period, data):
                                 },
                                 style_header={
                                     'textAlign':'center',
+                                    'font-weight':'bold',
                                 }
                             ), 
                             html.Br(),
@@ -2201,6 +2222,7 @@ def return_tables(recent_period, data):
                                 },
                                 style_header={
                                     'textAlign':'center',
+                                    'font-weight':'bold',
                                 }
                             ),
                             html.Br(),
