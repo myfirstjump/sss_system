@@ -1973,12 +1973,12 @@ def iq_interactive(stock_string, btn, stored_stock_id):
                                                 style_cell={
                                                     'minWidth': '180px', 'width': '180px', 'maxWidth': '180px', 'color':'white', 'background-color': '#212130', 'font-size':'16px',
                                                 },
-                                                style_header_conditional=[
-                                                    {
-                                                        'if': {'column_id': c},
-                                                        'color': 'orange'
-                                                    } for c in ['現金股利(元)','股票股利(元)','股利合計(元)']
-                                                ],
+                                                # style_header_conditional=[
+                                                #     {
+                                                #         'if': {'column_id': c},
+                                                #         'color': 'orange'
+                                                #     } for c in ['現金股利(元)','股票股利(元)','股利合計(元)']
+                                                # ],
                                                 style_header={
                                                     'textAlign':'center',
                                                     'font-weight':'bold',
@@ -2011,12 +2011,12 @@ def iq_interactive(stock_string, btn, stored_stock_id):
                                                 style_cell={
                                                     'minWidth': '180px', 'width': '180px', 'maxWidth': '180px', 'textAlign':'left', 'color':'white', 'background-color': '#212130', 'font-size':'16px',
                                                 },
-                                                style_header_conditional=[
-                                                    {
-                                                        'if': {'column_id': c},
-                                                        'color': 'orange'
-                                                    } for c in ['殖利率(%)']
-                                                ],
+                                                # style_header_conditional=[
+                                                #     {
+                                                #         'if': {'column_id': c},
+                                                #         'color': 'orange'
+                                                #     } for c in ['殖利率(%)']
+                                                # ],
                                                 style_header={
                                                     # 'textAlign':'center',
                                                     'font-weight':'bold',
@@ -2033,12 +2033,12 @@ def iq_interactive(stock_string, btn, stored_stock_id):
                                                 style_cell={
                                                     'minWidth': '180px', 'width': '180px', 'maxWidth': '180px', 'textAlign':'left', 'color':'white', 'background-color': '#212130', 'font-size':'16px',
                                                 },
-                                                style_header_conditional=[
-                                                    {
-                                                        'if': {'column_id': c},
-                                                        'color': 'orange'
-                                                    } for c in ['本益比']
-                                                ],
+                                                # style_header_conditional=[
+                                                #     {
+                                                #         'if': {'column_id': c},
+                                                #         'color': 'orange'
+                                                #     } for c in ['本益比']
+                                                # ],
                                                 style_header={
                                                     # 'textAlign':'center',
                                                     'font-weight':'bold',
@@ -2200,6 +2200,8 @@ def return_tables(recent_period, data):
                                 ],
                             ),
                             html.Br(),
+                            html.Br(),
+                            html.Br(),
                             html.Div(['◎經營績效'], style=self_style.tab_content_title),
                             dash_table.DataTable(
                                 columns = [{"name": i, "id": i, "type": 'numeric', "format":Format().group(True)} for i in data_01_01_02.columns],
@@ -2210,8 +2212,14 @@ def return_tables(recent_period, data):
                                 style_header={
                                     'textAlign':'center',
                                     'font-weight':'bold',
-                                }
+                                },
+                                style_cell_conditional=[
+                                    {'if': {'column_id': ' '},
+                                    'font-weight':'bold'},
+                                ],
                             ), 
+                            html.Br(),
+                            html.Br(),
                             html.Br(),
                             html.Div(['◎償債能力'], style=self_style.tab_content_title),
                             dash_table.DataTable(
@@ -2223,8 +2231,14 @@ def return_tables(recent_period, data):
                                 style_header={
                                     'textAlign':'center',
                                     'font-weight':'bold',
-                                }
+                                },
+                                style_cell_conditional=[
+                                    {'if': {'column_id': ' '},
+                                    'font-weight':'bold'},
+                                ],
                             ),
+                            html.Br(),
+                            html.Br(),
                             html.Br(),
                             html.Div(['◎經營能力'], style=self_style.tab_content_title),
                             dash_table.DataTable(
@@ -2236,7 +2250,11 @@ def return_tables(recent_period, data):
                                 style_header={
                                     'textAlign':'center',
                                     'font-weight':'bold',
-                                }
+                                },
+                                style_cell_conditional=[
+                                    {'if': {'column_id': ' '},
+                                    'font-weight':'bold'},
+                                ],
                             ),
                         ])
 
