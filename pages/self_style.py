@@ -144,6 +144,11 @@ result_div_etf = {
     'margin': '0.4%',
 }
 
+download_style = {
+    'position':'absolute',
+    'right':'0px',
+}
+
 result_content = {
     'margin': '2%',
     'font-size': '28px',

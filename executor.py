@@ -1536,7 +1536,7 @@ value0611, value0612, stored_data, download_data):
             else:
                 df_twse = generate_table(df_twse)
                 twse_children_content = html.Div([
-                    html.Button("下載股票篩選結果", id="btn-download"),
+                    html.Button("下載股票篩選結果", id="btn-download", style=self_style.download_style),
                     dcc.Download(id="download-excel"),
                     df_twse,
                 ], style=self_style.result_content)
