@@ -1963,6 +1963,7 @@ def iq_interactive(stock_string, btn, stored_stock_id):
                                                     'textAlign':'center',
                                                 },
                                                 style_table={
+                                                    'float':'left',
                                                      'padding-left':'0.5%',
                                                      'padding-right':'0.5px',
                                                 },
@@ -1983,7 +1984,8 @@ def iq_interactive(stock_string, btn, stored_stock_id):
                                                     'textAlign':'center',
                                                 },
                                                 style_table={
-                                                     'padding-left':'0.5px',
+                                                    'float':'none',
+                                                     'padding-left':'0.5%',
                                                      'padding-right':'0.5px',
                                                 },
                                             ),

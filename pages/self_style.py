@@ -469,10 +469,6 @@ iq_tab_l2 = {
     # 'border-right': '#2399E7',
     'border-top': 'hidden',
     'border-bottom': 'hidden',
-
-
-    'display':'flex',
-    'flex-direciton':'column',
 }
 
 iq_tab_l2_onclick = {
