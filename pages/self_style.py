@@ -145,7 +145,7 @@ result_div_etf = {
 }
 
 download_style = {
-    'position':'absolute',
+    'position':'relative',
     'right':'0px',
 }
 
