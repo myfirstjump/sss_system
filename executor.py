@@ -1925,7 +1925,7 @@ def iq_interactive(stock_string, btn, stored_stock_id):
                                     html.Td(data_info_03['Agency_PHONE'], colSpan=3, style=self_style.info_td),
                                 ]),
                             ],
-                            style={'color':'#FFFFFF' ,'border':'1px solid', 'margin-left': 'auto', 'margin-right': 'auto', 'border-collapse': 'collapse', })
+                            style={'color':'#FFFFFF' ,'border':'1px solid', 'margin-left': 'auto', 'margin-right': 'auto', 'border-collapse': 'collapse', 'font-size':'16px', })
                         ]
                     ),
                     dcc.Tab(label='財務報表', id='dynamic-iq-result-financial', value='dynamic-iq-result-financial', style=self_style.iq_tab, selected_style=self_style.iq_tab_onclick,
@@ -1964,7 +1964,7 @@ def iq_interactive(stock_string, btn, stored_stock_id):
                                                 columns = [{"name": i, "id": i, "type": 'numeric', "format":Format().group(True)} for i in data_01_02.columns],
                                                 data=data_01_02.to_dict('records'),
                                                 style_cell={
-                                                    'minWidth': '180px', 'width': '180px', 'maxWidth': '180px', 'color':'white', 'background-color': '#212130',
+                                                    'minWidth': '180px', 'width': '180px', 'maxWidth': '180px', 'color':'white', 'background-color': '#212130', 'font-size':'16px',
                                                 },
                                                 style_header_conditional=[
                                                     {
@@ -1986,7 +1986,7 @@ def iq_interactive(stock_string, btn, stored_stock_id):
                                                 columns = [{"name": i, "id": i, "type": 'numeric', "format":Format().group(True)} for i in data_01_03.columns],
                                                 data=data_01_03.to_dict('records'),
                                                 style_cell={
-                                                    'minWidth': '180px', 'width': '180px', 'maxWidth': '180px', 'color':'white', 'background-color': '#212130',
+                                                    'minWidth': '180px', 'width': '180px', 'maxWidth': '180px', 'color':'white', 'background-color': '#212130', 'font-size':'16px',
                                                 },
                                                 style_header={
                                                     'textAlign':'center',
@@ -2001,7 +2001,7 @@ def iq_interactive(stock_string, btn, stored_stock_id):
                                                 columns = [{"name": i, "id": i, "type": 'numeric', "format":Format().group(True)} for i in data_01_04.columns],
                                                 data=data_01_04.to_dict('records'),
                                                 style_cell={
-                                                    'minWidth': '180px', 'width': '180px', 'maxWidth': '180px', 'textAlign':'left', 'color':'white', 'background-color': '#212130',
+                                                    'minWidth': '180px', 'width': '180px', 'maxWidth': '180px', 'textAlign':'left', 'color':'white', 'background-color': '#212130', 'font-size':'16px',
                                                 },
                                                 style_header_conditional=[
                                                     {
@@ -2019,7 +2019,7 @@ def iq_interactive(stock_string, btn, stored_stock_id):
                                                 columns = [{"name": i, "id": i, "type": 'numeric', "format":Format().group(True)} for i in data_01_05.columns],
                                                 data=data_01_05.to_dict('records'),
                                                 style_cell={
-                                                    'minWidth': '180px', 'width': '180px', 'maxWidth': '180px', 'textAlign':'left', 'color':'white', 'background-color': '#212130',
+                                                    'minWidth': '180px', 'width': '180px', 'maxWidth': '180px', 'textAlign':'left', 'color':'white', 'background-color': '#212130', 'font-size':'16px',
                                                 },
                                                 style_header_conditional=[
                                                     {
@@ -2049,7 +2049,7 @@ def iq_interactive(stock_string, btn, stored_stock_id):
                                                     'textAlign':'center',
                                             },
                                             style_cell={
-                                                'color':'white', 'background-color': '#212130',
+                                                'color':'white', 'background-color': '#212130', 'font-size':'16px',
                                             },
                                         ),
                                     ]
@@ -2064,7 +2064,7 @@ def iq_interactive(stock_string, btn, stored_stock_id):
                                                 'textAlign':'center',
                                             },
                                             style_cell={
-                                                'color':'white', 'background-color': '#212130',
+                                                'color':'white', 'background-color': '#212130', 'font-size':'16px',
                                             },
                                         ),
                                         html.Br(),
@@ -2076,7 +2076,7 @@ def iq_interactive(stock_string, btn, stored_stock_id):
                                                 'textAlign':'center',
                                             },
                                             style_cell={
-                                                'color':'white', 'background-color': '#212130',
+                                                'color':'white', 'background-color': '#212130', 'font-size':'16px',
                                             },
                                         ),
                                     ]
@@ -2090,7 +2090,7 @@ def iq_interactive(stock_string, btn, stored_stock_id):
                                                 'textAlign':'center',
                                             },
                                             style_cell={
-                                                'color':'white', 'background-color': '#212130',
+                                                'color':'white', 'background-color': '#212130', 'font-size':'16px',
                                             },
                                         ),
                                     ]
@@ -2105,7 +2105,7 @@ def iq_interactive(stock_string, btn, stored_stock_id):
                                                 'textAlign':'center',
                                             },
                                             style_cell={
-                                                'color':'white', 'background-color': '#212130',
+                                                'color':'white', 'background-color': '#212130', 'font-size':'16px',
                                             },
                                         ),
                                     ]
@@ -2168,7 +2168,7 @@ def return_tables(recent_period, data):
                                 columns = [{"name": i, "id": i, "type": 'numeric', "format":Format().group(True)} for i in data_01_01_01.columns],
                                 data=data_01_01_01.to_dict('records'),
                                 style_cell={
-                                    'minWidth': '180px', 'width': '180px', 'maxWidth': '180px', 'color':'white', 'background-color': '#212130',
+                                    'minWidth': '180px', 'width': '180px', 'maxWidth': '180px', 'color':'white', 'background-color': '#212130', 'font-size':'16px',
                                 },
                                 style_header={
                                     'textAlign':'center',
@@ -2180,7 +2180,7 @@ def return_tables(recent_period, data):
                                 columns = [{"name": i, "id": i, "type": 'numeric', "format":Format().group(True)} for i in data_01_01_02.columns],
                                 data=data_01_01_02.to_dict('records'),
                                 style_cell={
-                                    'minWidth': '180px', 'width': '180px', 'maxWidth': '180px', 'color':'white', 'background-color': '#212130',
+                                    'minWidth': '180px', 'width': '180px', 'maxWidth': '180px', 'color':'white', 'background-color': '#212130', 'font-size':'16px',
                                 },
                                 style_header={
                                     'textAlign':'center',
@@ -2192,7 +2192,7 @@ def return_tables(recent_period, data):
                                 columns = [{"name": i, "id": i, "type": 'numeric', "format":Format().group(True)} for i in data_01_01_03.columns],
                                 data=data_01_01_03.to_dict('records'),
                                 style_cell={
-                                    'minWidth': '180px', 'width': '180px', 'maxWidth': '180px', 'color':'white', 'background-color': '#212130',
+                                    'minWidth': '180px', 'width': '180px', 'maxWidth': '180px', 'color':'white', 'background-color': '#212130', 'font-size':'16px',
                                 },
                                 style_header={
                                     'textAlign':'center',
@@ -2204,7 +2204,7 @@ def return_tables(recent_period, data):
                                 columns = [{"name": i, "id": i, "type": 'numeric', "format":Format().group(True)} for i in data_01_01_04.columns],
                                 data=data_01_01_04.to_dict('records'),
                                 style_cell={
-                                    'minWidth': '180px', 'width': '180px', 'maxWidth': '180px', 'color':'white', 'background-color': '#212130',
+                                    'minWidth': '180px', 'width': '180px', 'maxWidth': '180px', 'color':'white', 'background-color': '#212130', 'font-size':'16px',
                                 },
                                 style_header={
                                     'textAlign':'center',
