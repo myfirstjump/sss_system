@@ -145,8 +145,8 @@ result_div_etf = {
 }
 
 download_style = {
-    'position':'relative',
-    'right':'0px',
+    'display':'flex',
+    'flex-direction':'row-reverse',
 }
 
 result_content = {
