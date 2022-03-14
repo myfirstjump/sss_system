@@ -113,9 +113,9 @@
     transition-duration: 0.4s;
     cursor: pointer;
 
-    width: 15%;
-    background-color: #008CBA; 
-    border: 2px solid #008CBA;
+    /* width: 15%; */
+    background-color: #008CBA; /* Peter: #3388FF */
+    border: 2px solid #008CBA; /* Peter: #3388FF */
 }
 
 .query-btn:hover {

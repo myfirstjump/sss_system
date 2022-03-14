@@ -545,7 +545,7 @@ iq_div = {
 iq_l1 = {
     'display':'flex',
     'flex-direction': 'row',
-    'justify-content': 'space-between',
+    'justify-content': 'center',
     'background-color':  top_div_bg,
     'color': '#FFFFFF',
     # 'border':'solid white 1px',
@@ -555,19 +555,20 @@ iq_l1 = {
 
 iq_l1_dd = {
     'color':'black', 
-    'width':'50%',
+    'width':'25%',
+    # 'border':'solid white 1px',
 }
 
 iq_l1_query_btn = {
     'width': '10%',
     # 'margin': '2px',
-    # 'border-radius': '10%',
+    # 'border':'solid white 1px',
 }
 
 iq_l1_blank = {
-    'width': '35%',
+    'width': '10%',
     # 'margin': '2px',
-    # 'border-radius': '10%',
+    # 'border':'solid white 1px',
 }
 
 iq_l2 = { #公司名稱等基本資訊

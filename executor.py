@@ -198,12 +198,13 @@ app.layout = html.Div([
                     html.Div([
                         html.Div([], style=self_style.iq_l1_blank,),
                         html.Div([], style=self_style.iq_l1_blank,),
-                        dcc.Dropdown(
-                            id='iq-dd',
-                            options=stock_options,
-                            placeholder='股票代號/公司名稱',
-                            style=self_style.iq_l1_dd,
-                        ),
+                        html.Div([
+                            dcc.Dropdown(
+                                id='iq-dd',
+                                options=stock_options,
+                                placeholder='股票代號/公司名稱',
+                            ),
+                        ], style=self_style.iq_l1_dd,),
                         html.Button(
                             children=['查詢'],
                             id='iq-btn',
