@@ -666,7 +666,7 @@ tabs_content = {
 
 tab_content_title = {
     # 'text-align': 'center',
-    'text-weight': 'bold',
+    'font-weight': 'bold',
     'color': '#FFB433',
     'font-size':'18px',
 }
@@ -674,7 +674,7 @@ tab_content_title = {
 info_th = {
     # 'border': '1px solid black',
     'width': '180px',
-    'text-weight': 'normal',
+    'font-weight': 'normal',
     # 'background-color': '#faebdb',
     'color': ' #FFB433',
     'font-size':'16px',
