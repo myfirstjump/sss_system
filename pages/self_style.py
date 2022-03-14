@@ -668,6 +668,7 @@ tab_content_title = {
     # 'text-align': 'center',
     'text-weight': 'bold',
     'color': '#FFB433',
+    'font-size':'18px',
 }
 
 info_th = {
