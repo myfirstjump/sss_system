@@ -233,6 +233,7 @@ app.layout = html.Div([
                         style=self_style.iq_l3),
                     html.Br(),
                     html.Br(),
+                    html.Br(),
                     html.Div(
                         children=[#基本資料、財務報表、籌碼分析等三個Tabs
                         ],
@@ -1698,7 +1699,7 @@ def iq_interactive(stock_string, btn, stored_stock_id):
         if '▲' in data_info_02.iloc[0,0]: # 獲取漲跌資訊，調整CSS
             self_style.iq_l31['color'] = 'red'
         elif '▼' in data_info_02.iloc[0,0]:
-            self_style.iq_l31['color'] = 'green'
+            self_style.iq_l31['color'] = '#37E52B'
         else:
             pass
 
@@ -1823,7 +1824,7 @@ def iq_interactive(stock_string, btn, stored_stock_id):
                                     'column_id': '漲跌',
                                     'filter_query': '{漲跌} contains "▼"',
                                 },
-                                'color': 'green',
+                                'color': '#37E52B', #light green
                             },
                             {
                                 'if':{
@@ -1837,7 +1838,7 @@ def iq_interactive(stock_string, btn, stored_stock_id):
                                     'column_id': '漲幅',
                                     'filter_query': '{漲幅} contains "-"',
                                 },
-                                'color': 'green',
+                                'color': '#37E52B', #light green
                             },
 
                             # {'if': {'column_id': 'Remark'},
@@ -1985,7 +1986,6 @@ def iq_interactive(stock_string, btn, stored_stock_id):
                                     dcc.Tab(label='每股稅後盈餘(EPS)', style=self_style.result_words, selected_style=self_style.result_words_onclick,
                                         children = [
                                             # html.Div(['每股稅後盈餘(EPS)']),
-                                            html.Br(),
                                             dash_table.DataTable(
                                                 columns = [{"name": i, "id": i, "type": 'numeric', "format":Format().group(True)} for i in data_01_03.columns],
                                                 data=data_01_03.to_dict('records'),
