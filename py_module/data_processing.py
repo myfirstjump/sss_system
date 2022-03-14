@@ -115,13 +115,19 @@ class DataProcessing(object):
 
     def iq_margin_table_concat(self, df1, df2):
 
-        df1['日期'] = df1['日期'].apply(lambda x: x.strftime('%Y-%m-%d'))
-        df2['日期'] = df2['日期'].apply(lambda x: x.strftime('%Y-%m-%d'))
-        df1.set_index('日期', inplace=True)
-        df2.set_index('日期', inplace=True)
+        try:
 
-        df = pd.concat([df1, df2,], axis=1)
-        df.reset_index(inplace=True)
+            df1['日期'] = df1['日期'].apply(lambda x: x.strftime('%Y-%m-%d'))
+            df2['日期'] = df2['日期'].apply(lambda x: x.strftime('%Y-%m-%d'))
+            df1.set_index('日期', inplace=True)
+            df2.set_index('日期', inplace=True)
+
+            df = pd.concat([df1, df2,], axis=1)
+            df.reset_index(inplace=True)
+        
+        except:
+            #logging: df可能為空值
+            df = pd.concat([df1, df2,], axis=1)
 
         return df
 
