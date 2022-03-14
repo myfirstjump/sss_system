@@ -2033,7 +2033,7 @@ def iq_interactive(stock_string, btn, stored_stock_id):
                                                     'textAlign':'center',
                                             },
                                             style_cell={
-                                                 'color':'black',
+                                                'color':'white', 'background-color': '#212130',
                                             },
                                         ),
                                     ]
@@ -2045,10 +2045,10 @@ def iq_interactive(stock_string, btn, stored_stock_id):
                                             data=data_02_02.to_dict('records'),
                                             merge_duplicate_headers=True,
                                             style_header={
-                                                    'textAlign':'center',
+                                                'textAlign':'center',
                                             },
                                             style_cell={
-                                                  'color':'white', 'background-color': '#212130',
+                                                'color':'white', 'background-color': '#212130',
                                             },
                                         ),
                                         html.Br(),
@@ -2057,10 +2057,10 @@ def iq_interactive(stock_string, btn, stored_stock_id):
                                             columns = [{"name": i, "id": i, "type": 'numeric', "format":Format().group(True)} for i in data_02_02_03.columns],
                                             data=data_02_02_03.to_dict('records'),
                                             style_header={
-                                                    'textAlign':'center',
+                                                'textAlign':'center',
                                             },
                                             style_cell={
-                                                  'color':'white', 'background-color': '#212130',
+                                                'color':'white', 'background-color': '#212130',
                                             },
                                         ),
                                     ]
@@ -2071,10 +2071,10 @@ def iq_interactive(stock_string, btn, stored_stock_id):
                                             columns = [{"name": i, "id": i, "type": 'numeric', "format":Format().group(True)} for i in data_02_03.columns],
                                             data=data_02_03.to_dict('records'),
                                             style_header={
-                                                    'textAlign':'center',
+                                                'textAlign':'center',
                                             },
                                             style_cell={
-                                                  'color':'white', 'background-color': '#212130',
+                                                'color':'white', 'background-color': '#212130',
                                             },
                                         ),
                                     ]
@@ -2086,10 +2086,10 @@ def iq_interactive(stock_string, btn, stored_stock_id):
                                             columns = [{"name": i, "id": i, "type": 'numeric', "format":Format().group(True)} for i in data_02_04.columns],
                                             data=data_02_04.to_dict('records'),
                                             style_header={
-                                                    'textAlign':'center',
+                                                'textAlign':'center',
                                             },
                                             style_cell={
-                                                  'color':'white', 'background-color': '#212130',
+                                                'color':'white', 'background-color': '#212130',
                                             },
                                         ),
                                     ]
