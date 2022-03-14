@@ -1978,8 +1978,8 @@ def iq_interactive(stock_string, btn, stored_stock_id):
                                                     'textAlign':'center',
                                                 },
                                                 style_table={
-                                                     'padding':'5%',
-                                                     'margin':'5%',
+                                                    #  'padding':'5%',
+                                                     'margin':'1%',
                                                 }
                                             ),
                                         ]
