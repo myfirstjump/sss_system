@@ -197,6 +197,7 @@ app.layout = html.Div([
                 html.Div([
                     html.Div([
                         html.Div([], style=self_style.iq_l1_blank,),
+                        html.Div([], style=self_style.iq_l1_blank,),
                         dcc.Dropdown(
                             id='iq-dd',
                             options=stock_options,
@@ -209,6 +210,7 @@ app.layout = html.Div([
                             style=self_style.iq_l1_query_btn,
                             className='query-btn',
                         ),
+                        html.Div([], style=self_style.iq_l1_blank,),
                     ],style=self_style.iq_l1),
                     html.Div(
                         children=[#公司名稱等基本資訊
