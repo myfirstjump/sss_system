@@ -138,44 +138,50 @@ app.layout = html.Div([
 
                     html.Div([
 
-                        html.Div([ # filter-frame
-                            html.Div('請由左方加入篩選類別', style=self_style.frame_text_style),
-                            html.Div([], id="filter-content"),
-                        ],style=self_style.filter_frame),
-                        html.Div([ # condition-frame
-                            html.Div('您的選股條件', style=self_style.frame_text_style),
-                            html.Div([],
-                                id='dynamic-output-container',
-                                style=self_style.dynamic_output_container_style),
-                            html.Div([
-                                html.Img(src=start_img,
-                                    id='selection-btn',
-                                    style=self_style.selection_btn,
-                                    className='selection-btn'),
-                                html.Img(src=clear_img,
-                                    id='clear-all-btn',
-                                    style=self_style.selection_btn,
-                                    className='clear-btn')
-                            ], self_style.selection_btn_div_style),
-                        ], style=self_style.condition_frame),
+                        html.Div([
+                            html.Div([ # filter-frame
+                                html.Div('請由左方加入篩選類別', style=self_style.frame_text_style),
+                                html.Div([], id="filter-content"),
+                            ],style=self_style.filter_frame),
+
+                            html.Div([ # condition-frame
+                                html.Div('您的選股條件', style=self_style.frame_text_style),
+                                html.Div([],
+                                    id='dynamic-output-container',
+                                    style=self_style.dynamic_output_container_style),
+                                html.Div([
+                                    html.Button(['開始選股'],
+                                        id='selection-btn',
+                                        style=self_style.selection_btn,
+                                        className='selection-btn'),
+                                    html.Button(['全部清除'],
+                                        id='clear-all-btn',
+                                        style=self_style.selection_btn,
+                                        className='clear-btn')
+                                ], self_style.selection_btn_div_style),
+                            ], style=self_style.condition_frame),
+                        ], style=self_style.cs_l21),
 
                         html.Div([
-                            html.Div(['篩選結果'], style=self_style.frame_text_style),
+                            html.Div([
+                                html.Div(['篩選結果'], style=self_style.frame_text_style),
+                                
+                                dcc.Tabs(id='results-tabs', value='dynamic-selection-result-twse', # value是預設顯示值
+                                    children=[
+                                        dcc.Tab(label='台灣證券交易所 TWSE (上市)', id='dynamic-selection-result-twse', value='dynamic-selection-result-twse', style=self_style.result_words, selected_style=self_style.result_words_onclick),
+                                        dcc.Tab(label='櫃買中心 TPEX (上櫃)', id='dynamic-selection-result-tpex', value='dynamic-selection-result-tpex', style=self_style.result_words, selected_style=self_style.result_words_onclick),
+                                        dcc.Tab(label='上市 ETF', id='dynamic-selection-result-twse-etf', value='dynamic-selection-result-twse-etf', style=self_style.result_words, selected_style=self_style.result_words_onclick),
+                                        dcc.Tab(label='上櫃 ETF', id='dynamic-selection-result-tpex-etf', value='dynamic-selection-result-tpex-etf', style=self_style.result_words, selected_style=self_style.result_words_onclick),
+                                ]),
+                                dcc.Loading(
+                                    id='result-content-loading',
+                                    type='default',
+                                    children=html.Div([], style=self_style.result_content),
+                                    color='red',
+                                ),
+                            ], style=self_style.result_frame) # Results
+                        ], style=self_style.cs_l22),
                             
-                            dcc.Tabs(id='results-tabs', value='dynamic-selection-result-twse', # value是預設顯示值
-                                children=[
-                                    dcc.Tab(label='台灣證券交易所 TWSE (上市)', id='dynamic-selection-result-twse', value='dynamic-selection-result-twse', style=self_style.result_words, selected_style=self_style.result_words_onclick),
-                                    dcc.Tab(label='櫃買中心 TPEX (上櫃)', id='dynamic-selection-result-tpex', value='dynamic-selection-result-tpex', style=self_style.result_words, selected_style=self_style.result_words_onclick),
-                                    dcc.Tab(label='上市 ETF', id='dynamic-selection-result-twse-etf', value='dynamic-selection-result-twse-etf', style=self_style.result_words, selected_style=self_style.result_words_onclick),
-                                    dcc.Tab(label='上櫃 ETF', id='dynamic-selection-result-tpex-etf', value='dynamic-selection-result-tpex-etf', style=self_style.result_words, selected_style=self_style.result_words_onclick),
-                            ]),
-                            dcc.Loading(
-                                id='result-content-loading',
-                                type='default',
-                                children=html.Div([], style=self_style.result_content),
-                                color='red',
-                            ),
-                        ], style=self_style.result_frame) # Results
                     ], style=self_style.inner_frame_style), # inner-frame
                 ], style=self_style.top_frame_style), # top-frame
             ], style=self_style.top_tab, selected_style=self_style.top_tab_onclick),
@@ -2214,7 +2220,7 @@ def generate_table(stock_data, max_rows=5000):
                     {'if': {'column_id': '產業別'},
                     'width': '20%'},
                 ],
-                filter_action='native',
+                # filter_action='native',
                 sort_action='native',
             )
 

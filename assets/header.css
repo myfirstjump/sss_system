@@ -36,12 +36,51 @@
 
 
 /* start & clear */
+.selection-btn {
+
+    color: white;
+    padding: 16px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 20px;
+    margin: 4px 2px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+
+    width: 47%;
+    /* border-radius: 3%; */
+
+    background-color: #212130; 
+    color: white; 
+    border: 2px solid #008CBA;
+}
+
 .selection-btn:hover {
-    background-color: rgb(22, 22, 133);
+    background-color: #008CBA;
+    color: black;
+}
+
+.clear-btn {
+    color: white;
+    padding: 16px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 20px;
+    margin: 4px 2px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+
+    width: 47%;
+    background-color: #212130; 
+    color: white; 
+    border: 2px solid #f44336;
 }
 
 .clear-btn:hover {
-    background-color: #EA5716;
+    background-color: #f44336;
+  color: black;
 }
 
 

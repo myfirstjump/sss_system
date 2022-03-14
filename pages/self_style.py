@@ -33,10 +33,10 @@ top_div_style = {
 }
 
 top_frame_style = {
-    'width': '97%', 
+    # 'width': '97%', 
     'height': '1300px', 
-    'padding':'1%',   
-    'background-color': top_div_bg,  
+    'margin':'1%',   
+    'background-color': top_div_bg,
     #'border':'solid 1px',        
 }
 
@@ -50,25 +50,42 @@ menu_style = {
     # 'margin':'1%', 
     'display':'inline-block',
     'verticalAlign':'middle',
-    #'border':'solid 1px',
+    # 'border':'solid 1px',
 }
 
 inner_frame_style = {
     'background-color': inner_frame_bg,
-    'width': '85%', 
+    'width': '90%', 
     'height': '1300px',
-    'margin': '1%',
+    # 'margin': '1%',
     'display':'inline-block',
     'verticalAlign':'middle',
-    #'border':'solid 1px',
+    # 'border':'solid 1px',
+}
+
+cs_l21 = { #包住filter和condition兩個frames的外框
+    'display': 'flex',
+    'flex-wrap': 'nowrap',
+    'justify-content': 'space-around',
+    'height': '45%',
+    'padding': '0.5%',
+}
+
+cs_l22 = { #包住filter和condition兩個frames的外框
+    'display': 'flex',
+    'flex-wrap': 'nowrap',
+    'justify-content': 'space-around',
+    'height': '45%',
+    'padding': '0.5%',
+    'padding-top': '0px',
 }
 
 filter_frame = {
     'background-color': filter_condition_bg, 
-    'width': '37%', 
-    'height': '45%', 
+    'width': '44%', 
+    # 'height': '45%', 
     'overflow': 'auto',
-    'margin': '1%',
+    # 'margin': '1%',
     'verticalAlign':'middle',
     'display':'inline-block',
     'border-radius':'5px',
@@ -77,10 +94,10 @@ filter_frame = {
 
 condition_frame = {
     'background-color': filter_condition_bg, #E9D9D9
-    'width': '57%', 
-    'height': '45%',
+    'width': '55%', 
+    # 'height': '45%',
     'overflow': 'auto',
-    'margin': '1%',
+    # 'margin-right': '0.5%',
     'verticalAlign': "middle",
     'display': 'inline-flex',
     'flex-direction':'column',
@@ -91,16 +108,16 @@ condition_frame = {
 
 selection_btn = {
     'width': '47%',
-    'border-radius': '10%',
+    # 'border-radius': '10%',
     'margin': '1.5%',
 }
 
 result_frame = { 
     'background-color': filter_condition_bg, 
-    'width': '96%', 
-    'height': '50%',
+    'width': '99.5%', 
+    # 'height': '50%',
     'border-radius':'8px', 
-    'margin':'1%',
+    # 'margin':'1%',
     'display':'inline-block',
     #'border':'solid 1px',  
 }
@@ -154,6 +171,7 @@ menu_btn = {
     'height': '100%',
     'font-size': '20px',
     'verticalAlign':'middle',
+
 }
 
 menu_btn_onclick = {
@@ -200,8 +218,7 @@ dynamic_output_container_style = {
 selection_btn_div_style = {
     'height': '10%',
     'display':'flex',
-    'flex-direction': 'row',
-    'justify-content': 'space-between', #沒有效果，是靠設定2個內容物width 47%、47%、margin 1.5%才剛好塞滿，有space-between的感覺。
+    'justify-content': 'space-around', #沒有效果，是靠設定2個內容物width 47%、47%、margin 1.5%才剛好塞滿，有space-between的感覺。
     # 'verticalAlign': 'bottom',
 }
 
