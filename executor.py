@@ -2213,7 +2213,7 @@ def return_tables(recent_period, data):
                                 },
                                 style_header={
                                     'textAlign':'center',
-                                    'text-weigth':'bold',
+                                    'text-weight':'bold',
                                 }
                             ),
                         ])
