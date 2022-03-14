@@ -1977,10 +1977,7 @@ def iq_interactive(stock_string, btn, stored_stock_id):
                                                 style_header={
                                                     'textAlign':'center',
                                                 },
-                                                css={
-                                                    'display': 'block',
-                                                    'margin': '0',
-                                                }
+                                                css=[{'rule': 'display','selector': 'block',}, {'rule': 'margin','selector': '0',}, ]
                                             ),
                                         ]
                                     ),
