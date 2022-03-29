@@ -1642,6 +1642,7 @@ value0611, value0612, stored_data, download_data):
 )
 def func(n_clicks, download_data):
     data = pd.DataFrame.from_records(download_data)
+    data = download_data_arrangement(data)
     return dcc.send_data_frame(data.to_excel, "stock_result_" + datetime.datetime.now().strftime('%Y-%m-%d-%H%M') + ".xlsx", index=False)
 
 #Callback 5: Individual Query Btn
@@ -2308,6 +2309,18 @@ def stock_classifier(data):
     df_etf_tpex = df_etf_tpex.drop(['type'], axis=1)
 
     return df_twse, df_tpex, df_etf_twse, df_etf_tpex
+
+def download_data_arrangement(data):
+    
+    data = data.rename(columns={'stock_id':'股票代碼', 'stock_name': '公司', 'price':'股價', 'spread_ratio':'漲跌幅%', 'industry_category':'產業別', 'type':'種類'})
+    
+    data = data.drop_duplicates(subset=['股票代碼', '產業別'])
+    data['產業別'] = data.groupby(['股票代碼'])['產業別'].transform(lambda x: ','.join(x))
+    data = data.drop_duplicates(subset=['股票代碼'])
+    
+    data = round(data, 2)
+
+    return data
 
 if __name__ == "__main__":
     app.run_server(host='127.0.0.1', debug=True, dev_tools_hot_reload=True)
