@@ -379,14 +379,14 @@ def Crawl_PCHOME(grab_time = datetime.now()):
 if __name__ == '__main__':
     logging.basicConfig(
     level = logging.DEBUG,
-    filename = 'C:\\stock_schedule\\log\\{}.log'.format(datetime.now().strftime('%Y%m%d')),
+    filename = '.\\log\\{}.log'.format(datetime.now().strftime('%Y%m%d')),
     filemode = 'a',
     format = '%(asctime)s - %(pathname)s[line:%(lineno)d] - %(levelname)s: %(message)s')
 
     token = 'YGP4rPfKWCRVXe9hw4SISPbp1IITfbgCaWt5yirxT8C'
     logging.debug("Crawl Begin!")
     dt = datetime.now()+ timedelta(days=0)
-    conn = pymssql.connect(host='localhost', user = 'stock_search', password='1qazZAQ!', database='STOCK_SKILL_DB')
+    conn = pymssql.connect(host='localhost', user = 'crawler', password='!QAZ@WSX', database='STOCK_SKILL_DB')
     cursor = conn.cursor(as_dict=True)
     try:  
         Crawl_STOCK_LOANSHARE()

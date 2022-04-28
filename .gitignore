@@ -6,7 +6,7 @@ bin-release/
 
 # Other files and folders
 .settings/
-/schedule_scripts/log
+/schedule_scripts/*
 
 # Executables
 *.swf
