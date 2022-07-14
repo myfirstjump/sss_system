@@ -4,6 +4,7 @@ from py_module.config import Configuration
 from py_module.data_reader import DataReader
 from py_module.dash_builder import DashBuilder
 from py_module.data_processing import DataProcessing
+from py_module.data_plot import DataPlot
 
 import dash
 import dash_core_components as dcc
@@ -13,6 +14,7 @@ from dash.exceptions import PreventUpdate
 import dash_table
 from dash_table.Format import Format, Group
 import plotly.express as px
+import plotly.graph_objs as go
 import pandas as pd
 import json
 import ast
@@ -28,7 +30,7 @@ from pages import (
     credit_05,
     revenue_06,
     self_style,
-    query_sentence
+    query_sentence,
 )
 
 from flask import Flask
@@ -47,6 +49,7 @@ start_img = 'assets/start_unclicked.png'
 config_obj = Configuration()
 reader_obj = DataReader()
 process_obj = DataProcessing()
+plot_obj = DataPlot()
 
 file_path = os.path.join(config_obj.data_folder, config_obj.taiwan_stock_info)
 print('file_path', file_path)
@@ -138,44 +141,50 @@ app.layout = html.Div([
 
                     html.Div([
 
-                        html.Div([ # filter-frame
-                            html.Div('請由左方加入篩選類別', style=self_style.frame_text_style),
-                            html.Div([], id="filter-content"),
-                        ],style=self_style.filter_frame),
-                        html.Div([ # condition-frame
-                            html.Div('您的選股條件', style=self_style.frame_text_style),
-                            html.Div([],
-                                id='dynamic-output-container',
-                                style=self_style.dynamic_output_container_style),
-                            html.Div([
-                                html.Img(src=start_img,
-                                    id='selection-btn',
-                                    style=self_style.selection_btn,
-                                    className='selection-btn'),
-                                html.Img(src=clear_img,
-                                    id='clear-all-btn',
-                                    style=self_style.selection_btn,
-                                    className='clear-btn')
-                            ], self_style.selection_btn_div_style),
-                        ], style=self_style.condition_frame),
+                        html.Div([
+                            html.Div([ # filter-frame
+                                html.Div('請由左方加入篩選類別', style=self_style.frame_text_style),
+                                html.Div([], id="filter-content"),
+                            ],style=self_style.filter_frame),
+
+                            html.Div([ # condition-frame
+                                html.Div('您的選股條件', style=self_style.frame_text_style),
+                                html.Div([],
+                                    id='dynamic-output-container',
+                                    style=self_style.dynamic_output_container_style),
+                                html.Div([
+                                    html.Button(['開始選股'],
+                                        id='selection-btn',
+                                        style=self_style.selection_btn,
+                                        className='selection-btn'),
+                                    html.Button(['全部清除'],
+                                        id='clear-all-btn',
+                                        style=self_style.selection_btn,
+                                        className='clear-btn')
+                                ], self_style.selection_btn_div_style),
+                            ], style=self_style.condition_frame),
+                        ], style=self_style.cs_l21),
 
                         html.Div([
-                            html.Div(['篩選結果'], style=self_style.frame_text_style),
+                            html.Div([
+                                html.Div(['篩選結果'], style=self_style.frame_text_style),
+                                
+                                dcc.Tabs(id='results-tabs', value='dynamic-selection-result-twse', # value是預設顯示值
+                                    children=[
+                                        dcc.Tab(label='台灣證券交易所 TWSE (上市)', id='dynamic-selection-result-twse', value='dynamic-selection-result-twse', style=self_style.result_words, selected_style=self_style.result_words_onclick),
+                                        dcc.Tab(label='櫃買中心 TPEX (上櫃)', id='dynamic-selection-result-tpex', value='dynamic-selection-result-tpex', style=self_style.result_words, selected_style=self_style.result_words_onclick),
+                                        dcc.Tab(label='上市 ETF', id='dynamic-selection-result-twse-etf', value='dynamic-selection-result-twse-etf', style=self_style.result_words, selected_style=self_style.result_words_onclick),
+                                        dcc.Tab(label='上櫃 ETF', id='dynamic-selection-result-tpex-etf', value='dynamic-selection-result-tpex-etf', style=self_style.result_words, selected_style=self_style.result_words_onclick),
+                                ]),
+                                dcc.Loading(
+                                    id='result-content-loading',
+                                    type='default',
+                                    children=html.Div([], style=self_style.result_content),
+                                    color='red',
+                                ),
+                            ], style=self_style.result_frame) # Results
+                        ], style=self_style.cs_l22),
                             
-                            dcc.Tabs(id='results-tabs', value='dynamic-selection-result-twse', # value是預設顯示值
-                                children=[
-                                    dcc.Tab(label='台灣證券交易所 TWSE (上市)', id='dynamic-selection-result-twse', value='dynamic-selection-result-twse', style=self_style.result_words, selected_style=self_style.result_words_onclick),
-                                    dcc.Tab(label='櫃買中心 TPEX (上櫃)', id='dynamic-selection-result-tpex', value='dynamic-selection-result-tpex', style=self_style.result_words, selected_style=self_style.result_words_onclick),
-                                    dcc.Tab(label='上市 ETF', id='dynamic-selection-result-twse-etf', value='dynamic-selection-result-twse-etf', style=self_style.result_words, selected_style=self_style.result_words_onclick),
-                                    dcc.Tab(label='上櫃 ETF', id='dynamic-selection-result-tpex-etf', value='dynamic-selection-result-tpex-etf', style=self_style.result_words, selected_style=self_style.result_words_onclick),
-                            ]),
-                            dcc.Loading(
-                                id='result-content-loading',
-                                type='default',
-                                children=html.Div([],id='result-content', style=self_style.result_content),
-                                color='red',
-                            ),
-                        ], style=self_style.result_frame) # Results
                     ], style=self_style.inner_frame_style), # inner-frame
                 ], style=self_style.top_frame_style), # top-frame
             ], style=self_style.top_tab, selected_style=self_style.top_tab_onclick),
@@ -183,20 +192,29 @@ app.layout = html.Div([
             dcc.Tab(label='個股查詢', children=[
 
                 #1. individual query 個股查詢
+
+                dcc.Store(
+                    id='stored_stock_id',
+                    storage_type='session',
+                ),
                 html.Div([
                     html.Div([
                         html.Div([], style=self_style.iq_l1_blank,),
-                        dcc.Dropdown(
-                            id='iq-dd',
-                            options=stock_options,
-                            placeholder='股票代號/公司名稱',
-                            style=self_style.iq_l1_dd,
-                        ),
+                        html.Div([], style=self_style.iq_l1_blank,),
+                        html.Div([
+                            dcc.Dropdown(
+                                id='iq-dd',
+                                options=stock_options,
+                                placeholder='股票代號/公司名稱',
+                            ),
+                        ], style=self_style.iq_l1_dd,),
                         html.Button(
                             children=['查詢'],
                             id='iq-btn',
                             style=self_style.iq_l1_query_btn,
+                            className='query-btn',
                         ),
+                        html.Div([], style=self_style.iq_l1_blank,),
                     ],style=self_style.iq_l1),
                     html.Div(
                         children=[#公司名稱等基本資訊
@@ -208,6 +226,7 @@ app.layout = html.Div([
                         id='iq-stock-info',
                         style=self_style.iq_l2
                     ),
+                    html.Br(),
                     html.Div(
                         children=[#漲跌等每日基本數據
                             # html.Div(['當日股價'], style=self_style.iq_l31),
@@ -215,6 +234,11 @@ app.layout = html.Div([
                         ],
                         id='iq-stock-data1',
                         style=self_style.iq_l3),
+                    html.Br(),
+                    html.Br(),
+                    html.Br(),
+                    html.Br(),
+                    
                     html.Div(
                         children=[#基本資料、財務報表、籌碼分析等三個Tabs
                         ],
@@ -1525,7 +1549,10 @@ value0611, value0612, stored_data, download_data):
             else:
                 df_twse = generate_table(df_twse)
                 twse_children_content = html.Div([
-                    html.Button("下載股票篩選結果", id="btn-download"),
+                    html.Div([
+                        html.Button("下載股票篩選結果", id="btn-download", className='download-btn'),
+                    ], style=self_style.download_style),
+                    
                     dcc.Download(id="download-excel"),
                     df_twse,
                 ], style=self_style.result_content)
@@ -1542,7 +1569,9 @@ value0611, value0612, stored_data, download_data):
                 # return_tpex_style = self_style.result_content
 
                 tpex_children_content = html.Div([
-                    html.Button("下載股票篩選結果", id="btn-download"),
+                    html.Div([
+                        html.Button("下載股票篩選結果", id="btn-download", className='download-btn'),
+                    ], style=self_style.download_style),
                     dcc.Download(id="download-excel"),
                     df_tpex,
                 ], style=self_style.result_content)
@@ -1559,7 +1588,9 @@ value0611, value0612, stored_data, download_data):
                 # return_etf_twse_style = self_style.result_content
 
                 etf_twse_children_content = html.Div([
-                    html.Button("下載股票篩選結果", id="btn-download"),
+                    html.Div([
+                        html.Button("下載股票篩選結果", id="btn-download", className='download-btn'),
+                    ], style=self_style.download_style),
                     dcc.Download(id="download-excel"),
                     df_etf_twse,
                 ], style=self_style.result_content)
@@ -1576,7 +1607,9 @@ value0611, value0612, stored_data, download_data):
                 # return_etf_tpex_style = self_style.result_content
 
                 etf_tpex_children_content = html.Div([
-                    html.Button("下載股票篩選結果", id="btn-download"),
+                    html.Div([
+                        html.Button("下載股票篩選結果", id="btn-download", className='download-btn'),
+                    ], style=self_style.download_style),
                     dcc.Download(id="download-excel"),
                     df_etf_tpex,
                 ], style=self_style.result_content)
@@ -1612,23 +1645,28 @@ value0611, value0612, stored_data, download_data):
 )
 def func(n_clicks, download_data):
     data = pd.DataFrame.from_records(download_data)
-    return dcc.send_data_frame(data.to_csv, "stock_result_" + datetime.datetime.now().strftime('%Y-%m-%d-%H%M%S') + ".csv")
+    data = download_data_arrangement(data)
+    return dcc.send_data_frame(data.to_excel, "stock_result_" + datetime.datetime.now().strftime('%Y-%m-%d-%H%M') + ".xlsx", index=False)
 
 #Callback 5: Individual Query Btn
 @app.callback(
     Output('iq-stock-info', 'children'),
     Output('iq-stock-data1', 'children'),
     Output('iq-stock-data2', 'children'),
+    Output('stored_stock_id', 'data'),
     Input('iq-dd', 'value'),
     Input('iq-btn', 'n_clicks'),
+    State('stored_stock_id', 'data'),
+    prevent_initial_call=True,
 )
-def iq_interactive(stock_string, btn):
+def iq_interactive(stock_string, btn, stored_stock_id):
     if btn == None or stock_string == None:
         raise PreventUpdate
 
     if btn > 0:
         print('[{}] 查詢個股: {}'.format(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'), stock_string))
         stock_id = stock_string
+        stored_stock_id = stored_stock_id or {'id': stock_id}
 
         ### 基本資料
         iq_query_info_01 = query_sentence.create_query_info_01(stock_id)
@@ -1667,42 +1705,23 @@ def iq_interactive(stock_string, btn):
         if '▲' in data_info_02.iloc[0,0]: # 獲取漲跌資訊，調整CSS
             self_style.iq_l31['color'] = 'red'
         elif '▼' in data_info_02.iloc[0,0]:
-            self_style.iq_l31['color'] = 'green'
+            self_style.iq_l31['color'] = '#37E52B'
         else:
             pass
 
+        iq_query_info_03 = query_sentence.create_query_info_03(stock_id)
+        data_info_03 = query_sentence.sql_execute(iq_query_info_03)[0]
+
         ### 表格資料
-        # 獲利能力
-        iq_query_01_01_01 = query_sentence.create_query_iq_01_01_01(stock_id)
-        data_01_01_01 = query_sentence.sql_execute(iq_query_01_01_01)
-        data_01_01_01 = pd.DataFrame.from_records(data_01_01_01)
-        # print('SQL Query Results: ', data_01_01_01)
-        data_01_01_01 = process_obj.iq_table_01_01_adjust(data_01_01_01)
-        # print('DataFrame Processing Results: ', data_01_01_01)
-
-        # 經營績效
-        iq_query_01_01_02 = query_sentence.create_query_iq_01_01_02(stock_id)
-        data_01_01_02 = query_sentence.sql_execute(iq_query_01_01_02)
-        data_01_01_02 = pd.DataFrame.from_records(data_01_01_02)
-        data_01_01_02 = process_obj.iq_table_01_01_adjust(data_01_01_02)
-
-        # 償債能力
-        iq_query_01_01_03 = query_sentence.create_query_iq_01_01_03(stock_id)
-        data_01_01_03 = query_sentence.sql_execute(iq_query_01_01_03)
-        data_01_01_03 = pd.DataFrame.from_records(data_01_01_03)
-        data_01_01_03 = process_obj.iq_table_01_01_adjust(data_01_01_03)
-
-        # 經營能力
-        iq_query_01_01_04 = query_sentence.create_query_iq_01_01_04(stock_id)
-        data_01_01_04 = query_sentence.sql_execute(iq_query_01_01_04)
-        data_01_01_04 = pd.DataFrame.from_records(data_01_01_04)
-        data_01_01_04 = process_obj.iq_table_01_01_adjust(data_01_01_04)
+        
 
         # 現金&股票股利
         iq_query_01_02 = query_sentence.create_query_iq_01_02(stock_id)
         data_01_02 = query_sentence.sql_execute(iq_query_01_02)
         data_01_02 = pd.DataFrame.from_records(data_01_02)
         data_01_02 = process_obj.iq_table_round_adjust(data_01_02)
+        
+        fig_01_02 = plot_obj.plot_01_02(data_01_02)
 
         # 每股稅後盈餘(EPS)
         iq_query_01_03 = query_sentence.create_query_iq_01_03(stock_id)
@@ -1710,6 +1729,11 @@ def iq_interactive(stock_string, btn):
         data_01_03 = pd.DataFrame.from_records(data_01_03)
         data_01_03 = process_obj.iq_table_round_adjust(data_01_03)
         data_01_03 = process_obj.iq_table_01_03_adjust(data_01_03)
+
+        fig_query_01_03 = query_sentence.create_query_fig_01_03(stock_id)
+        fig_data_01_03 = query_sentence.sql_execute(fig_query_01_03)
+        fig_data_01_03 = pd.DataFrame.from_records(fig_data_01_03)
+        fig_01_03 = plot_obj.plot_01_03(fig_data_01_03)
         
 
         # 殖利率
@@ -1717,11 +1741,15 @@ def iq_interactive(stock_string, btn):
         data_01_04 = query_sentence.sql_execute(iq_query_01_04)
         data_01_04 = pd.DataFrame.from_records(data_01_04) 
         data_01_04 = process_obj.iq_table_round_adjust(data_01_04)
+    
+        fig_01_04 = plot_obj.plot_01_04(data_01_04)
 
         # 本益比(P/E)
         iq_query_01_05 = query_sentence.create_query_iq_01_05(stock_id)
         data_01_05 = query_sentence.sql_execute(iq_query_01_05)
         data_01_05 = pd.DataFrame.from_records(data_01_05)
+        # print(data_01_05)
+        fig_01_05 = plot_obj.plot_01_05(data_01_05)
 
         # 法人持股 外資
         iq_query_02_01_01 = query_sentence.create_query_iq_02_01_01(stock_id)
@@ -1766,6 +1794,8 @@ def iq_interactive(stock_string, btn):
         data_02_02_03 = query_sentence.sql_execute(iq_query_02_02_03)
         data_02_02_03 = pd.DataFrame.from_records(data_02_02_03)
 
+        data_02_02_03 = process_obj.iq_table_round_adjust(data_02_02_03)
+
         # 集保庫存
         iq_query_02_03 = query_sentence.create_query_iq_02_03(stock_id)
         data_02_03 = query_sentence.sql_execute(iq_query_02_03)
@@ -1797,7 +1827,7 @@ def iq_interactive(stock_string, btn):
                     dash_table.DataTable(
                         columns = [{"name": i, "id": i} for i in data_info_02.columns],
                         data=data_info_02.to_dict('records'),
-                        style_cell={'fontSize': '30px', 'height': 'auto', 'whiteSpace': 'normal'},
+                        style_cell={'fontSize': '24px', 'height': 'auto', 'whiteSpace': 'normal', 'background-color':'#212130'},
                         style_data_conditional=[
                             {
                                 'if':{
@@ -1811,7 +1841,7 @@ def iq_interactive(stock_string, btn):
                                     'column_id': '漲跌',
                                     'filter_query': '{漲跌} contains "▼"',
                                 },
-                                'color': 'green',
+                                'color': '#37E52B', #light green
                             },
                             {
                                 'if':{
@@ -1825,151 +1855,216 @@ def iq_interactive(stock_string, btn):
                                     'column_id': '漲幅',
                                     'filter_query': '{漲幅} contains "-"',
                                 },
-                                'color': 'green',
+                                'color': '#37E52B', #light green
                             },
 
                             # {'if': {'column_id': 'Remark'},
                             # 'width': '15%'},
                             # {'if': {'column_id': '產業別'},
                             # 'width': '20%'},
+                        
                         ],
                     ),
                 ],
                 style=self_style.iq_l32,
             )
         ]
+        
         print('{} content data1 done.'.format(stock_string))
         children_content_data2 = [#基本資料、財務報表、籌碼分析等三個Tabs
             dcc.Tabs(id='iq-tabs', value='dynamic-iq-result-info', # value是預設顯示值
                 children=[
-                    dcc.Tab(label='基本資料', id='dynamic-iq-result-info', value='dynamic-iq-result-info', style=self_style.iq_tab, selected_style=self_style.iq_tab_onclick,
+                    dcc.Tab(label='基本資料', id='dynamic-iq-result-info', value='dynamic-iq-result-info', style=self_style.result_words, selected_style=self_style.result_words_onclick,
                         children=[
-                            
+                            html.Br(),
+                            html.Br(),
+                            html.Br(),
+                            html.Table([
+                                html.Tr([
+                                    html.Th('公司名稱', style=self_style.info_th),
+                                    html.Td(data_info_03['NAME'], colSpan=3, style=self_style.info_td),
+                                ]),
+                                html.Tr([
+                                    html.Th('個股分類', style=self_style.info_th),
+                                    html.Td(data_info_03['Category'], colSpan=3, style=self_style.info_td),
+                                ]),
+                                html.Tr([
+                                    html.Th('掛牌類別', style=self_style.info_th), html.Td(data_info_03['TYPE'], style=self_style.info_td),
+                                    html.Th('證券類別', style=self_style.info_th), html.Td(data_info_03['STOCK_CATEGORY'], style=self_style.info_td),
+                                ]),
+                                html.Tr([
+                                    html.Th('類 股', style=self_style.info_th), html.Td(data_info_03['CLASS'], style=self_style.info_td),
+                                    html.Th('掛牌日期', style=self_style.info_th), html.Td(data_info_03['List_date'], style=self_style.info_td),
+                                ]),
+                                html.Tr([
+                                    html.Th('董事長', style=self_style.info_th), html.Td(data_info_03['President'], style=self_style.info_td),
+                                    html.Th('總經理', style=self_style.info_th), html.Td('', style=self_style.info_td),
+                                ]),
+                                html.Tr([
+                                    html.Th('發言人', style=self_style.info_th), html.Td(data_info_03['Spokesman'], style=self_style.info_td),
+                                    html.Th('代理發言人', style=self_style.info_th), html.Td(data_info_03['Spokesman_2nd'], style=self_style.info_td),
+                                ]),
+                                html.Tr([
+                                    html.Th('資本額(仟元)', style=self_style.info_th),
+                                    html.Td(data_info_03['Capital'], colSpan=3, style=self_style.info_td),
+                                ]),
+                                html.Tr([
+                                    html.Th('普通股股本', style=self_style.info_th), html.Td(data_info_03['Share_Capital'], style=self_style.info_td),
+                                    html.Th('特別股股本', style=self_style.info_th), html.Td(data_info_03['Specail_Share_Capital'], style=self_style.info_td),
+                                ]),
+                                html.Tr([
+                                    html.Th('經營業務內容', style=self_style.info_th),
+                                    html.Td(data_info_03['Business'], colSpan=3, style=self_style.info_td),
+                                ]),
+                                html.Tr([
+                                    html.Th('公司地址', style=self_style.info_th),
+                                    html.Td(data_info_03['ADDRESS'], colSpan=3, style=self_style.info_td),
+                                ]),
+                                html.Tr([
+                                    html.Th('公司電話', style=self_style.info_th), html.Td(data_info_03['PHONE'], style=self_style.info_td),
+                                    html.Th('傳 真', style=self_style.info_th), html.Td(data_info_03['Fax'], style=self_style.info_td),
+                                ]),
+                                html.Tr([
+                                    html.Th('公司網址', style=self_style.info_th), html.Td(data_info_03['WEBSITE'], style=self_style.info_td),
+                                    html.Th('email', style=self_style.info_th), html.Td(data_info_03['Email'], style=self_style.info_td),
+                                ]),
+                                html.Tr([
+                                    html.Th('英文全稱', style=self_style.info_th), html.Td(data_info_03['EN_NAME'], style=self_style.info_td),
+                                    html.Th('英文簡稱', style=self_style.info_th), html.Td(data_info_03['Brief_EN_NAME'], style=self_style.info_td),
+                                ]),
+                                html.Tr([
+                                    html.Th('英文地址', style=self_style.info_th),
+                                    html.Td(data_info_03['EN_ADDRESS'], colSpan=3, style=self_style.info_td),
+                                ]),
+                                html.Tr([
+                                    html.Th('股票過戶機構', style=self_style.info_th),
+                                    html.Td(data_info_03['Transfer_Agency'], colSpan=3, style=self_style.info_td),
+                                ]),
+                                html.Tr([
+                                    html.Th('過戶機構地址', style=self_style.info_th),
+                                    html.Td(data_info_03['Agency_ADDRESS'], colSpan=3, style=self_style.info_td),
+                                ]),
+                                html.Tr([
+                                    html.Th('過戶機構電話', style=self_style.info_th),
+                                    html.Td(data_info_03['Agency_PHONE'], colSpan=3, style=self_style.info_td),
+                                ]),
+                            ],
+                            style={'color':'#FFFFFF' ,'border':'1px solid', 'margin-left': 'auto', 'margin-right': 'auto', 'border-collapse': 'collapse', 'font-size':'16px', })
                         ]
                     ),
-                    dcc.Tab(label='財務報表', id='dynamic-iq-result-financial', value='dynamic-iq-result-financial', style=self_style.iq_tab, selected_style=self_style.iq_tab_onclick,
+                    dcc.Tab(label='財務報表', id='dynamic-iq-result-financial', value='dynamic-iq-result-financial', style=self_style.result_words, selected_style=self_style.result_words_onclick,
                         children = [
                             dcc.Tabs(
                                 [
-                                    dcc.Tab(label='財務比率', style=self_style.iq_tab_l2, selected_style=self_style.iq_tab_l2_onclick,
+                                    dcc.Tab(label='財務比率', style=self_style.result_words, selected_style=self_style.result_words_onclick,
                                         children=[
-                                            html.Div(['獲利能力'], style=self_style.tab_content_title),
-                                            dash_table.DataTable(
-                                                columns = [{"name": i, "id": i, "type": 'numeric', "format":Format().group(True)} for i in data_01_01_01.columns],
-                                                data=data_01_01_01.to_dict('records'),
-                                                style_cell={
-                                                    'minWidth': '180px', 'width': '180px', 'maxWidth': '180px',
-                                                },
-                                                style_header={
-                                                    'textAlign':'center',
-                                                }
-                                            ),
-                                            html.Br(),
-                                            html.Div(['經營績效'], style=self_style.tab_content_title),
-                                            dash_table.DataTable(
-                                                columns = [{"name": i, "id": i, "type": 'numeric', "format":Format().group(True)} for i in data_01_01_02.columns],
-                                                data=data_01_01_02.to_dict('records'),
-                                                style_cell={
-                                                    'minWidth': '180px', 'width': '180px', 'maxWidth': '180px',
-                                                },
-                                                style_header={
-                                                    'textAlign':'center',
-                                                }
-                                            ), 
-                                            html.Br(),
-                                            html.Div(['償債能力'], style=self_style.tab_content_title),
-                                            dash_table.DataTable(
-                                                columns = [{"name": i, "id": i, "type": 'numeric', "format":Format().group(True)} for i in data_01_01_03.columns],
-                                                data=data_01_01_03.to_dict('records'),
-                                                style_cell={
-                                                    'minWidth': '180px', 'width': '180px', 'maxWidth': '180px',
-                                                },
-                                                style_header={
-                                                    'textAlign':'center',
-                                                }
-                                            ),
-                                            html.Br(),
-                                            html.Div(['經營能力'], style=self_style.tab_content_title),
-                                            dash_table.DataTable(
-                                                columns = [{"name": i, "id": i, "type": 'numeric', "format":Format().group(True)} for i in data_01_01_04.columns],
-                                                data=data_01_01_04.to_dict('records'),
-                                                style_cell={
-                                                    'minWidth': '180px', 'width': '180px', 'maxWidth': '180px',
-                                                },
-                                                style_header={
-                                                    'textAlign':'center',
-                                                }
-                                            ),
+                                            html.Div([
+                                                dcc.Dropdown(
+                                                    id='iq-inner-dd',
+                                                    options=[
+                                                            {'label': '近8季', 'value': 8},
+                                                            {'label': '近9~16季', 'value': 16},
+                                                            {'label': '近17~24季', 'value': 24},
+                                                            {'label': '近25~32季', 'value': 32},                                                     
+                                                        ],
+                                                    value=8,
+                                                    placeholder='近8季',
+                                                    style=self_style.iq_inner_dd,
+                                                    clearable=False,
+                                                ),
+                                                dcc.Loading(
+                                                    id='iq-table1-content',
+                                                    type='default',
+                                                    children=html.Div([]),
+                                                    color='red',
+                                                ),
+                                            ], style=self_style.iq_inner_div)
                                         ]),
-                                    dcc.Tab(label='現金&股票股利', style=self_style.iq_tab_l2, selected_style=self_style.iq_tab_l2_onclick,
+                                    dcc.Tab(label='現金&股票股利', style=self_style.result_words, selected_style=self_style.result_words_onclick,
                                         children = [
                                             # html.Div(['現金&股票股利']),
+                                            
+                                            
+                                            dcc.Graph(figure=fig_01_02),
                                             dash_table.DataTable(
-                                                columns = [{"name": i, "id": i, "type": 'numeric', "format":Format().group(True)} for i in data_01_02.columns],
+                                                columns = [{"name": i, "id": i} for i in data_01_02.columns],
                                                 data=data_01_02.to_dict('records'),
                                                 style_cell={
-                                                    'minWidth': '180px', 'width': '180px', 'maxWidth': '180px',
+                                                    'minWidth': '180px', 'width': '180px', 'maxWidth': '180px', 'color':'white', 'background-color': '#212130', 'font-size':'16px',
                                                 },
-                                                style_header_conditional=[
-                                                    {
-                                                        'if': {'column_id': c},
-                                                        'color': 'orange'
-                                                    } for c in ['現金股利(元)','股票股利(元)','股利合計(元)']
-                                                ],
+                                                # style_header_conditional=[
+                                                #     {
+                                                #         'if': {'column_id': c},
+                                                #         'color': 'orange'
+                                                #     } for c in ['現金股利(元)','股票股利(元)','股利合計(元)']
+                                                # ],
                                                 style_header={
                                                     'textAlign':'center',
-                                                }
+                                                    'font-weight':'bold',
+                                                },
                                             ),
                                         ]
                                     ),
-                                    dcc.Tab(label='每股稅後盈餘(EPS)', style=self_style.iq_tab_l2, selected_style=self_style.iq_tab_l2_onclick,
+                                    dcc.Tab(label='每股稅後盈餘(EPS)', style=self_style.result_words, selected_style=self_style.result_words_onclick,
                                         children = [
                                             # html.Div(['每股稅後盈餘(EPS)']),
+                                            dcc.Graph(figure=fig_01_03),
                                             dash_table.DataTable(
                                                 columns = [{"name": i, "id": i, "type": 'numeric', "format":Format().group(True)} for i in data_01_03.columns],
                                                 data=data_01_03.to_dict('records'),
                                                 style_cell={
-                                                    'minWidth': '180px', 'width': '180px', 'maxWidth': '180px',
+                                                    'minWidth': '180px', 'width': '180px', 'maxWidth': '180px', 'color':'white', 'background-color': '#212130', 'font-size':'16px',
                                                 },
                                                 style_header={
                                                     'textAlign':'center',
-                                                }
+                                                    'font-weight':'bold',
+                                                },
                                             ),
                                         ]
                                     ),
-                                    dcc.Tab(label='殖利率', style=self_style.iq_tab_l2, selected_style=self_style.iq_tab_l2_onclick,
+                                    dcc.Tab(label='殖利率', style=self_style.result_words, selected_style=self_style.result_words_onclick,
                                         children = [
                                             # html.Div(['殖利率']),
+                                            dcc.Graph(figure=fig_01_04),
                                             dash_table.DataTable(
                                                 columns = [{"name": i, "id": i, "type": 'numeric', "format":Format().group(True)} for i in data_01_04.columns],
                                                 data=data_01_04.to_dict('records'),
                                                 style_cell={
-                                                    'minWidth': '180px', 'width': '180px', 'maxWidth': '180px', 'textAlign':'left',
+                                                    'minWidth': '180px', 'width': '180px', 'maxWidth': '180px', 'textAlign':'left', 'color':'white', 'background-color': '#212130', 'font-size':'16px',
                                                 },
-                                                style_header_conditional=[
-                                                    {
-                                                        'if': {'column_id': c},
-                                                        'color': 'orange'
-                                                    } for c in ['殖利率(%)']
-                                                ],
+                                                # style_header_conditional=[
+                                                #     {
+                                                #         'if': {'column_id': c},
+                                                #         'color': 'orange'
+                                                #     } for c in ['殖利率(%)']
+                                                # ],
+                                                style_header={
+                                                    # 'textAlign':'center',
+                                                    'font-weight':'bold',
+                                                },
                                             ),
                                         ]
                                     ),
-                                    dcc.Tab(label='本益比(P/E)', style=self_style.iq_tab_l2, selected_style=self_style.iq_tab_l2_onclick,
+                                    dcc.Tab(label='本益比(P/E)', style=self_style.result_words, selected_style=self_style.result_words_onclick,
                                         children = [
                                             # html.Div(['本益比(P/E)']),
+                                            dcc.Graph(figure=fig_01_05),
                                             dash_table.DataTable(
                                                 columns = [{"name": i, "id": i, "type": 'numeric', "format":Format().group(True)} for i in data_01_05.columns],
                                                 data=data_01_05.to_dict('records'),
                                                 style_cell={
-                                                    'minWidth': '180px', 'width': '180px', 'maxWidth': '180px', 'textAlign':'left',
+                                                    'minWidth': '180px', 'width': '180px', 'maxWidth': '180px', 'textAlign':'left', 'color':'white', 'background-color': '#212130', 'font-size':'16px',
                                                 },
-                                                style_header_conditional=[
-                                                    {
-                                                        'if': {'column_id': c},
-                                                        'color': 'orange'
-                                                    } for c in ['本益比']
-                                                ],
+                                                # style_header_conditional=[
+                                                #     {
+                                                #         'if': {'column_id': c},
+                                                #         'color': 'orange'
+                                                #     } for c in ['本益比']
+                                                # ],
+                                                style_header={
+                                                    # 'textAlign':'center',
+                                                    'font-weight':'bold',
+                                                },
                                             ),
                                         ]
                                     ),
@@ -1978,10 +2073,10 @@ def iq_interactive(stock_string, btn):
                             ),
                         ]
                     ),
-                    dcc.Tab(label='籌碼分析', id='dynamic-iq-result-chip', value='dynamic-iq-result-chip', style=self_style.iq_tab, selected_style=self_style.iq_tab_onclick,
+                    dcc.Tab(label='籌碼分析', id='dynamic-iq-result-chip', value='dynamic-iq-result-chip', style=self_style.result_words, selected_style=self_style.result_words_onclick,
                         children = [
                             dcc.Tabs([
-                                dcc.Tab(label='法人持股', style=self_style.iq_tab_l2, selected_style=self_style.iq_tab_l2_onclick,
+                                dcc.Tab(label='法人持股', style=self_style.result_words, selected_style=self_style.result_words_onclick,
                                     children = [
                                         dash_table.DataTable(
                                             columns = [{"name": [legal, i], "id": i, "type": 'numeric', "format":Format().group(True)} for legal, i in zip(["","外資","外資","外資","投信","投信","投信","自營商","自營商","自營商","三大法人合計","三大法人合計","三大法人合計",], data_02_01.columns)],
@@ -1989,19 +2084,27 @@ def iq_interactive(stock_string, btn):
                                             merge_duplicate_headers=True,
                                             style_header={
                                                     'textAlign':'center',
-                                            }
+                                                    'font-weight':'bold',
+                                            },
+                                            style_cell={
+                                                'color':'white', 'background-color': '#212130', 'font-size':'16px',
+                                            },
                                         ),
                                     ]
                                 ),
-                                dcc.Tab(label='融資融券', style=self_style.iq_tab_l2, selected_style=self_style.iq_tab_l2_onclick,
+                                dcc.Tab(label='融資融券', style=self_style.result_words, selected_style=self_style.result_words_onclick,
                                     children = [
                                         dash_table.DataTable(
                                             columns = [{"name": [margin, i], "id": i, "type": 'numeric', "format":Format().group(True)} for margin, i in zip(["","融資","融資","融資","融券","融券","融券",], data_02_02.columns)],
                                             data=data_02_02.to_dict('records'),
                                             merge_duplicate_headers=True,
                                             style_header={
-                                                    'textAlign':'center',
-                                            }
+                                                'textAlign':'center',
+                                                'font-weight':'bold',
+                                            },
+                                            style_cell={
+                                                'color':'white', 'background-color': '#212130', 'font-size':'16px',
+                                            },
                                         ),
                                         html.Br(),
                                         html.Div(['借券'], style=self_style.tab_content_title),
@@ -2009,31 +2112,43 @@ def iq_interactive(stock_string, btn):
                                             columns = [{"name": i, "id": i, "type": 'numeric', "format":Format().group(True)} for i in data_02_02_03.columns],
                                             data=data_02_02_03.to_dict('records'),
                                             style_header={
-                                                    'textAlign':'center',
-                                            }
+                                                'textAlign':'center',
+                                                'font-weight':'bold',
+                                            },
+                                            style_cell={
+                                                'color':'white', 'background-color': '#212130', 'font-size':'16px',
+                                            },
                                         ),
                                     ]
                                 ),
-                                dcc.Tab(label='集保庫存', style=self_style.iq_tab_l2, selected_style=self_style.iq_tab_l2_onclick,
+                                dcc.Tab(label='集保庫存', style=self_style.result_words, selected_style=self_style.result_words_onclick,
                                     children = [
                                         dash_table.DataTable(
                                             columns = [{"name": i, "id": i, "type": 'numeric', "format":Format().group(True)} for i in data_02_03.columns],
                                             data=data_02_03.to_dict('records'),
                                             style_header={
-                                                    'textAlign':'center',
-                                            }
+                                                'textAlign':'center',
+                                                'font-weight':'bold',
+                                            },
+                                            style_cell={
+                                                'color':'white', 'background-color': '#212130', 'font-size':'16px',
+                                            },
                                         ),
                                     ]
                                 ),
-                                dcc.Tab(label='董監持股', style=self_style.iq_tab_l2, selected_style=self_style.iq_tab_l2_onclick,
+                                dcc.Tab(label='董監持股', style=self_style.result_words, selected_style=self_style.result_words_onclick,
                                     children = [
                                         
                                         dash_table.DataTable(
                                             columns = [{"name": i, "id": i, "type": 'numeric', "format":Format().group(True)} for i in data_02_04.columns],
                                             data=data_02_04.to_dict('records'),
                                             style_header={
-                                                    'textAlign':'center',
-                                            }
+                                                'textAlign':'center',
+                                                'font-weight':'bold',
+                                            },
+                                            style_cell={
+                                                'color':'white', 'background-color': '#212130', 'font-size':'16px',
+                                            },
                                         ),
                                     ]
                                 ),
@@ -2041,7 +2156,8 @@ def iq_interactive(stock_string, btn):
                             content_style=self_style.tabs_content), # content_style: 控制Tabs中Tab的children的style。   style: 控制Tabs本身。
                         ],
                     ),
-                ]
+                ],
+                style={'color': '#FFFFFF'}
             ),
         ]
         print('{} content data2 done.'.format(stock_string))
@@ -2049,7 +2165,122 @@ def iq_interactive(stock_string, btn):
         children_content_info = []
         children_content_data1 = []
         children_content_data2 = []
-    return children_content_info, children_content_data1, children_content_data2
+        stored_stock_id = None
+    return children_content_info, children_content_data1, children_content_data2, stored_stock_id
+
+#Callback 6:  indivisual query tab dropdown selection
+@app.callback(
+    Output("iq-table1-content", "children"),
+    Input("iq-inner-dd", "value"),
+    State('stored_stock_id', 'data'),
+)
+def return_tables(recent_period, data):
+
+    stock_id = data['id']
+    # 獲利能力
+    iq_query_01_01_01 = query_sentence.create_query_iq_01_01_01(stock_id, recent_period)
+    data_01_01_01 = query_sentence.sql_execute(iq_query_01_01_01)
+    data_01_01_01 = pd.DataFrame.from_records(data_01_01_01)
+    # print('SQL Query Results: ', data_01_01_01)
+    data_01_01_01 = process_obj.iq_table_01_01_adjust(data_01_01_01)
+    # print('DataFrame Processing Results: ', data_01_01_01)
+
+    # 經營績效
+    iq_query_01_01_02 = query_sentence.create_query_iq_01_01_02(stock_id, recent_period)
+    data_01_01_02 = query_sentence.sql_execute(iq_query_01_01_02)
+    data_01_01_02 = pd.DataFrame.from_records(data_01_01_02)
+    data_01_01_02 = process_obj.iq_table_01_01_adjust(data_01_01_02)
+
+    # 償債能力
+    iq_query_01_01_03 = query_sentence.create_query_iq_01_01_03(stock_id, recent_period)
+    data_01_01_03 = query_sentence.sql_execute(iq_query_01_01_03)
+    data_01_01_03 = pd.DataFrame.from_records(data_01_01_03)
+    data_01_01_03 = process_obj.iq_table_01_01_adjust(data_01_01_03)
+
+    # 經營能力
+    iq_query_01_01_04 = query_sentence.create_query_iq_01_01_04(stock_id, recent_period)
+    data_01_01_04 = query_sentence.sql_execute(iq_query_01_01_04)
+    data_01_01_04 = pd.DataFrame.from_records(data_01_01_04)
+    data_01_01_04 = process_obj.iq_table_01_01_adjust(data_01_01_04)
+
+
+    children_content = html.Div([
+                            html.Div(['◎獲利能力'], style=self_style.tab_content_title),
+                            dash_table.DataTable(
+                                columns = [{"name": i, "id": i, "type": 'numeric', "format":Format().group(True)} for i in data_01_01_01.columns],
+                                data=data_01_01_01.to_dict('records'),
+                                style_cell={
+                                    'minWidth': '180px', 'width': '180px', 'maxWidth': '180px', 'color':'white', 'background-color': '#212130', 'font-size':'16px',
+                                },
+                                style_header={
+                                    'textAlign':'center',
+                                    'font-weight':'bold',
+                                },
+                                style_cell_conditional=[
+                                    {'if': {'column_id': ' '},
+                                    'font-weight':'bold'},
+                                ],
+                            ),
+                            html.Br(),
+                            html.Br(),
+                            html.Br(),
+                            html.Div(['◎經營績效'], style=self_style.tab_content_title),
+                            dash_table.DataTable(
+                                columns = [{"name": i, "id": i, "type": 'numeric', "format":Format().group(True)} for i in data_01_01_02.columns],
+                                data=data_01_01_02.to_dict('records'),
+                                style_cell={
+                                    'minWidth': '180px', 'width': '180px', 'maxWidth': '180px', 'color':'white', 'background-color': '#212130', 'font-size':'16px',
+                                },
+                                style_header={
+                                    'textAlign':'center',
+                                    'font-weight':'bold',
+                                },
+                                style_cell_conditional=[
+                                    {'if': {'column_id': ' '},
+                                    'font-weight':'bold'},
+                                ],
+                            ), 
+                            html.Br(),
+                            html.Br(),
+                            html.Br(),
+                            html.Div(['◎償債能力'], style=self_style.tab_content_title),
+                            dash_table.DataTable(
+                                columns = [{"name": i, "id": i, "type": 'numeric', "format":Format().group(True)} for i in data_01_01_03.columns],
+                                data=data_01_01_03.to_dict('records'),
+                                style_cell={
+                                    'minWidth': '180px', 'width': '180px', 'maxWidth': '180px', 'color':'white', 'background-color': '#212130', 'font-size':'16px',
+                                },
+                                style_header={
+                                    'textAlign':'center',
+                                    'font-weight':'bold',
+                                },
+                                style_cell_conditional=[
+                                    {'if': {'column_id': ' '},
+                                    'font-weight':'bold'},
+                                ],
+                            ),
+                            html.Br(),
+                            html.Br(),
+                            html.Br(),
+                            html.Div(['◎經營能力'], style=self_style.tab_content_title),
+                            dash_table.DataTable(
+                                columns = [{"name": i, "id": i, "type": 'numeric', "format":Format().group(True)} for i in data_01_01_04.columns],
+                                data=data_01_01_04.to_dict('records'),
+                                style_cell={
+                                    'minWidth': '180px', 'width': '180px', 'maxWidth': '180px', 'color':'white', 'background-color': '#212130', 'font-size':'16px',
+                                },
+                                style_header={
+                                    'textAlign':'center',
+                                    'font-weight':'bold',
+                                },
+                                style_cell_conditional=[
+                                    {'if': {'column_id': ' '},
+                                    'font-weight':'bold'},
+                                ],
+                            ),
+                        ])
+
+    return children_content
 
 def generate_table(stock_data, max_rows=5000):
     return dash_table.DataTable(
@@ -2073,7 +2304,7 @@ def generate_table(stock_data, max_rows=5000):
                     {'if': {'column_id': '產業別'},
                     'width': '20%'},
                 ],
-                filter_action='native',
+                # filter_action='native',
                 sort_action='native',
             )
 
@@ -2099,6 +2330,18 @@ def stock_classifier(data):
     df_etf_tpex = df_etf_tpex.drop(['type'], axis=1)
 
     return df_twse, df_tpex, df_etf_twse, df_etf_tpex
+
+def download_data_arrangement(data):
+    
+    data = data.rename(columns={'stock_id':'股票代碼', 'stock_name': '公司', 'price':'股價', 'spread_ratio':'漲跌幅%', 'industry_category':'產業別', 'type':'種類'})
+    
+    data = data.drop_duplicates(subset=['股票代碼', '產業別'])
+    data['產業別'] = data.groupby(['股票代碼'])['產業別'].transform(lambda x: ','.join(x))
+    data = data.drop_duplicates(subset=['股票代碼'])
+    
+    data = round(data, 2)
+
+    return data
 
 if __name__ == "__main__":
     app.run_server(host='127.0.0.1', debug=True, dev_tools_hot_reload=True)

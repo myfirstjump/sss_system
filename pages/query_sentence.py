@@ -59,9 +59,9 @@ def query_combine(query_dict, col_name_dict):
     for num, query in query_dict.items():
         align_code = ascii_lowercase[num]
         if align_code == 'a':
-            combined_query = combined_query + " {} {} inner join ".format(query, align_code)
+            combined_query = combined_query + " {} {} INNER JOIN ".format(query, align_code)
         else:
-            combined_query = combined_query + query + " {} on {}.stock_id = {}.stock_id inner join ".format(align_code, ascii_lowercase[num-1], align_code)
+            combined_query = combined_query + query + " {} on {}.stock_id = {}.stock_id INNER JOIN ".format(align_code, ascii_lowercase[num-1], align_code)
     combined_query = combined_query + "{} {} on {}.stock_id = {}.stock_id".format(skill_info, ascii_lowercase[query_number], ascii_lowercase[query_number-1], ascii_lowercase[query_number])    
         
     if query_number == 0: # 例外處理
@@ -191,7 +191,7 @@ def create_query_0108(numbers, larger, percent):
     FROM
     (SELECT t1.*,  ROW_NUMBER() OVER(PARTITION BY t1.stock_id ORDER BY t1.[date] DESC) row_num,
     CASE
-    WHEN t1.After_Return > 0 and t2.After_Return < 0 then 1
+    WHEN t1.After_Return > 0 and t2.After_Return < 0 THEN 1
     ELSE 0
     END each_remark
     FROM {} t1 WITH(NOLOCK)
@@ -260,7 +260,7 @@ def create_query_0111(numbers, period, larger, amount):
 
     query = '''(SELECT stock_id, AVG(value) [平均EPS], CAST(NULL AS NVARCHAR(100)) as remark FROM
     (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY [date] DESC) row_num
-    FROM (SELECT * FROM {} WITH(NOLOCK) where [type]='EPS') t1) part_tbl
+    FROM (SELECT * FROM {} WITH(NOLOCK) WHERE [type]='EPS') t1) part_tbl
     WHERE part_tbl.row_num <= {}
     GROUP BY stock_id HAVING AVG(value) {} {})
     '''.format(ref_table, numbers, sign, amount)
@@ -672,12 +672,12 @@ def create_query_0126(number, all_avg, larger, percent):
 
     if all_avg == '1':
         query = '''
-        (select stock_id, AVG(dividend_yield) [平均殖利率], CAST(NULL AS NVARCHAR(100)) as remark FROM {} WITH(NOLOCK) where [date] > (GETDATE()-({}*365)) 
+        (SELECT stock_id, AVG(dividend_yield) [平均殖利率], CAST(NULL AS NVARCHAR(100)) as remark FROM {} WITH(NOLOCK) WHERE [date] > (GETDATE()-({}*365)) 
         GROUP BY stock_id HAVING MIN(dividend_yield) {} {})
         '''.format(ref_table, number, sign, percent)
     else:
         query = '''
-        (select stock_id, AVG(dividend_yield) [平均殖利率], CAST(NULL AS NVARCHAR(100)) as remark FROM {} WITH(NOLOCK) where [date] > (GETDATE()-({}*365)) group by stock_id
+        (SELECT stock_id, AVG(dividend_yield) [平均殖利率], CAST(NULL AS NVARCHAR(100)) as remark FROM {} WITH(NOLOCK) WHERE [date] > (GETDATE()-({}*365)) group by stock_id
         HAVING AVG(dividend_yield) {} {})
         '''.format(ref_table, number, sign, percent)
 
@@ -697,7 +697,7 @@ def create_query_0127(larger, times):
     query = '''
     (SELECT stock_id, PER [本益比], CAST(NULL AS NVARCHAR(100)) as remark FROM
     (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY [date] DESC) row_num
-    FROM (SELECT * FROM {} WITH(NOLOCK) where [date] > (GETDATE()-(10)))t1 ) part_tbl
+    FROM (SELECT * FROM {} WITH(NOLOCK) WHERE [date] > (GETDATE()-(10)))t1 ) part_tbl
     WHERE row_num <= 1 AND PER {} {})
     '''.format(ref_table, sign, times)
 
@@ -718,14 +718,14 @@ def create_query_0128(number, period, interval, amount, unit):
     if unit == '1':
         # (C-B) + (B-A) = C-A 即人數差計算
         query = '''
-        (select stock_id, SUM([people] - [last_period_people]) [集保區間增加], CAST(NULL AS NVARCHAR(100)) as remark from {} WITH(NOLOCK)
-        where [date] > (GETDATE()-({}*({}-1)+1)) AND HoldingSharesLevel = '{}' 
+        (SELECT stock_id, SUM([people] - [last_period_people]) [集保區間增加], CAST(NULL AS NVARCHAR(100)) as remark FROM {} WITH(NOLOCK)
+        WHERE [date] > (GETDATE()-({}*({}-1)+1)) AND HoldingSharesLevel = '{}' 
         GROUP BY stock_id HAVING SUM([people] - [last_period_people]) >= {})
         '''.format(ref_table, period_base, number, interval, amount)
     else:
         query = '''
-        (select stock_id, SUM([percent] - [last_period_percent]) [集保區間增加], CAST(NULL AS NVARCHAR(100)) as remark from {} WITH(NOLOCK)
-        where [date] > (GETDATE()-({}*({}-1)+1)) AND HoldingSharesLevel = '{}' 
+        (SELECT stock_id, SUM([percent] - [last_period_percent]) [集保區間增加], CAST(NULL AS NVARCHAR(100)) as remark FROM {} WITH(NOLOCK)
+        WHERE [date] > (GETDATE()-({}*({}-1)+1)) AND HoldingSharesLevel = '{}' 
         GROUP BY stock_id HAVING SUM([percent] - [last_period_percent]) >= {})
         '''.format(ref_table, period_base, number, interval, amount)
 
@@ -813,9 +813,9 @@ def create_query_0203(direct, days):
         days = -days
     
     query = '''(SELECT t1.stock_id, CAST(NULL AS NVARCHAR(100)) as remark FROM {} t1 
-    inner join (SELECT stock_id, MAX(date) as each_max_date FROM {} WHERE date > (GETDATE()-(10)) GROUP BY stock_id) t2
+    INNER JOIN (SELECT stock_id, MAX(date) as each_max_date FROM {} WHERE date > (GETDATE()-(10)) GROUP BY stock_id) t2
     on t2.stock_id = t1.stock_id AND limitup_limitdown_CNT {} {} 
-    inner join {} t3 on t3.stock_id = t2.stock_id AND t2.each_max_date = t3.date)'''.format(skill_info, skill_price_d, sign, str(days), skill_price_d)
+    INNER JOIN {} t3 on t3.stock_id = t2.stock_id AND t2.each_max_date = t3.date)'''.format(skill_info, skill_price_d, sign, str(days), skill_price_d)
 
     return query, 'stock_id'
 
@@ -1890,7 +1890,7 @@ def create_query_0612(period, direct, percent):
 def create_query_info_01(stock_id):
 
     query = '''
-    SELECT stock_name, stock_id, [type], industry_category, price from STOCK_SKILL_DB.dbo.TW_STOCK_INFO where stock_id = '{}'
+    SELECT stock_name, stock_id, [type], industry_category, price FROM STOCK_SKILL_DB.dbo.TW_STOCK_INFO WHERE stock_id = '{}'
     '''.format(stock_id)
     return query
 
@@ -1898,42 +1898,42 @@ def create_query_info_01(stock_id):
 def create_query_info_02(stock_id):
     query = '''
     SELECT 漲跌, 漲幅, 成交量, 開, 高, 低, 收 FROM (
-    SELECT stock_id , Trading_Volume '成交量', spread '漲跌', spread_ratio '漲幅', [open] '開', [max] '高', [min] '低', [close] '收', ROW_NUMBER() over (partition by stock_id order by date desc) desc_DATE 
-    from STOCK_SKILL_DB.dbo.TW_STOCK_PRICE_Daily where stock_id = '{}') a where desc_DATE = 1
+    SELECT stock_id , Trading_Volume '成交量', spread '漲跌', spread_ratio '漲幅', [open] '開', [max] '高', [min] '低', [close] '收', ROW_NUMBER() OVER (partition by stock_id ORDER BY date desc) desc_DATE 
+    FROM STOCK_SKILL_DB.dbo.TW_STOCK_PRICE_Daily WHERE stock_id = '{}') a WHERE desc_DATE = 1
     '''.format(stock_id)
     return query
 
 def create_query_info_03(stock_id):
 
     query = '''
-    SELECT * FROM  [STOCK_BASICINTO_DB].[dbo].[TW_STOCK_Company_BASICINFO] with(nolock) WHERE stock_id = '{}'
+    SELECT * FROM  [STOCK_BASICINTO_DB].[dbo].[TW_STOCK_Company_BASICINFO] WITH(NOLOCK) WHERE stock_id = '{}'
     '''.format(stock_id)
     return query
 
 def create_query_iq_01_01_01(stock_id, recent_period):
 
     query = '''
-    select date, 每股營業額, 營業毛利率, 營業利益率, 稅後淨利率, 每股稅後淨利, 每股淨值, 股東權益報酬率, 資產報酬率  from (
+    SELECT date, 每股營業額, 營業毛利率, 營業利益率, 稅後淨利率, 每股稅後淨利, 每股淨值, 股東權益報酬率, 資產報酬率  FROM (
     SELECT date, PER_STOCK_Margin '每股營業額', Gross_Profit_Margin '營業毛利率', Operating_Profit_Margin '營業利益率', AfterTax_Income_Margin '稅後淨利率'
     ,PER_STOCK_AfterTax '每股稅後淨利', PER_STOCK_PRICE '每股淨值',After_Return '股東權益報酬率', Total_Return '資產報酬率'
-    ,  ROW_NUMBER() over (partition by stock_id order by date desc) desc_DATE 
-    FROM [STOCK_BASICINTO_DB].[dbo].[TW_STOCK_FinancialStatements_Detail] with(nolock)
-    where date < DATEADD(QUARTER, -{}, GETDATE()) AND date >= DATEADD(QUARTER, -{}, GETDATE()) AND stock_id='{}') a
-    where desc_DATE <= 8
-    order by date desc
+    ,  ROW_NUMBER() over (partition by stock_id ORDER BY date desc) desc_DATE 
+    FROM [STOCK_BASICINTO_DB].[dbo].[TW_STOCK_FinancialStatements_Detail] WITH(NOLOCK)
+    WHERE date < DATEADD(QUARTER, -{}, GETDATE()) AND date >= DATEADD(QUARTER, -{}, GETDATE()) AND stock_id='{}') a
+    WHERE desc_DATE <= 8
+    ORDER BY date DESC
     '''.format(recent_period - 8, recent_period, stock_id)
     return query
 
 def create_query_iq_01_01_02(stock_id, recent_period):
 
     query = '''
-    select date, 營收成長率, 營業利益成長率, 稅前淨利成長率, 稅後淨利成長率 from (
-    SELECT date, Income_growth '營收成長率', Profit_Growth '營業利益成長率', PreTax_Growth '稅前淨利成長率', null as '稅後淨利成長率'
-    ,  ROW_NUMBER() over (partition by stock_id order by date desc) desc_DATE 
-    FROM [STOCK_BASICINTO_DB].[dbo].[TW_STOCK_FinancialStatements_Detail] with(nolock)
-    where date < DATEADD(QUARTER, -{}, GETDATE()) AND date >= DATEADD(QUARTER, -{}, GETDATE()) AND stock_id='{}') a
-    where desc_DATE <= 8
-    order by date desc
+    SELECT date, 營收成長率, 營業利益成長率, 稅前淨利成長率, 稅後淨利成長率 FROM (
+    SELECT date, Income_growth '營收成長率', Profit_Growth '營業利益成長率', PreTax_Growth '稅前淨利成長率', NULL AS '稅後淨利成長率'
+    ,  ROW_NUMBER() over (partition by stock_id ORDER BY date desc) desc_DATE 
+    FROM [STOCK_BASICINTO_DB].[dbo].[TW_STOCK_FinancialStatements_Detail] WITH(NOLOCK)
+    WHERE date < DATEADD(QUARTER, -{}, GETDATE()) AND date >= DATEADD(QUARTER, -{}, GETDATE()) AND stock_id='{}') a
+    WHERE desc_DATE <= 8
+    ORDER BY date DESC
     '''.format(recent_period - 8, recent_period, stock_id)
 
     return query
@@ -1941,13 +1941,13 @@ def create_query_iq_01_01_02(stock_id, recent_period):
 def create_query_iq_01_01_03(stock_id, recent_period):
 
     query = '''
-    select date, 流動比率, 速動比率, 負債比率 from (
+    SELECT date, 流動比率, 速動比率, 負債比率 FROM (
     SELECT date, Current_Rate '流動比率', Quick_Rate '速動比率', Debt_Rate '負債比率'
-    ,  ROW_NUMBER() over (partition by stock_id order by date desc) desc_DATE 
-    FROM [STOCK_BASICINTO_DB].[dbo].[TW_STOCK_FinancialStatements_Detail] with(nolock)
-    where date < DATEADD(QUARTER, -{}, GETDATE()) AND date >= DATEADD(QUARTER, -{}, GETDATE()) AND stock_id='{}') a
-    where desc_DATE <= 8
-    order by date desc
+    ,  ROW_NUMBER() over (partition by stock_id ORDER BY date desc) desc_DATE 
+    FROM [STOCK_BASICINTO_DB].[dbo].[TW_STOCK_FinancialStatements_Detail] WITH(NOLOCK)
+    WHERE date < DATEADD(QUARTER, -{}, GETDATE()) AND date >= DATEADD(QUARTER, -{}, GETDATE()) AND stock_id='{}') a
+    WHERE desc_DATE <= 8
+    ORDER BY date desc
     '''.format(recent_period - 8, recent_period, stock_id)
 
     return query
@@ -1955,13 +1955,13 @@ def create_query_iq_01_01_03(stock_id, recent_period):
 def create_query_iq_01_01_04(stock_id, recent_period):
 
     query = '''
-    select date, 應收帳款週轉率, 存貨周轉率 from (
+    SELECT date, 應收帳款週轉率, 存貨周轉率 FROM (
     SELECT date, Accounts_Receivable_Turnover_Rate '應收帳款週轉率', Inventory_Turnover '存貨周轉率'
-    ,  ROW_NUMBER() over (partition by stock_id order by date desc) desc_DATE 
-    FROM [STOCK_BASICINTO_DB].[dbo].[TW_STOCK_FinancialStatements_Detail] with(nolock)
-    where date < DATEADD(QUARTER, -{}, GETDATE()) AND date >= DATEADD(QUARTER, -{}, GETDATE()) AND stock_id='{}') a
-    where desc_DATE <= 8
-    order by date desc
+    ,  ROW_NUMBER() over (partition by stock_id ORDER BY date desc) desc_DATE 
+    FROM [STOCK_BASICINTO_DB].[dbo].[TW_STOCK_FinancialStatements_Detail] WITH(NOLOCK)
+    WHERE date < DATEADD(QUARTER, -{}, GETDATE()) AND date >= DATEADD(QUARTER, -{}, GETDATE()) AND stock_id='{}') a
+    WHERE desc_DATE <= 8
+    ORDER BY date desc
   '''.format(recent_period - 8, recent_period, stock_id)
 
     return query
@@ -1973,7 +1973,7 @@ def create_query_iq_01_02(stock_id):
     query = '''
     SELECT belong_year '所屬年度', YEAR(CashDividendPaymentDate) '發放年度', CashEarningsDistribution '現金股利(元)', StockEarningsDistribution '股票股利(元)'
     , CashEarningsDistribution+StockEarningsDistribution '股利合計(元)'
-    FROM [STOCK_BASICINTO_DB].[dbo].[TW_STOCK_Dividend] with(nolock) where stock_id = '{}' ORDER BY date DESC
+    FROM [STOCK_BASICINTO_DB].[dbo].[TW_STOCK_Dividend] WITH(NOLOCK) WHERE stock_id = '{}' ORDER BY date DESC
     '''.format(stock_id)
 
     return query
@@ -1981,42 +1981,48 @@ def create_query_iq_01_02(stock_id):
 def create_query_iq_01_03(stock_id):
     # --每股稅後盈餘(EPS)
     query = '''
-    select  年度, Q1, Q2, Q3, Q4, Q1+Q2+Q3+Q4 '合計'
-    from
+    SELECT  年度, Q1, Q2, Q3, Q4, Q1+Q2+Q3+Q4 '合計'
+    FROM
     (
     SELECT YEAR(date) '年度', 
-    case 
-    when MONTH(date) = 3 then 'Q1'
-    when MONTH(date) = 6 then 'Q2'
-    when MONTH(date) = 9 then 'Q3'
-    when MONTH(date) = 12 then 'Q4'
-    end Q, value
-    FROM [STOCK_BASICINTO_DB].[dbo].[TW_STOCK_FinancialStatements] with(nolock)
-    where type = 'EPS' AND stock_id = '{}'
+    CASE 
+    WHEN MONTH(date) = 3 THEN 'Q1'
+    WHEN MONTH(date) = 6 THEN 'Q2'
+    WHEN MONTH(date) = 9 THEN 'Q3'
+    WHEN MONTH(date) = 12 THEN 'Q4'
+    END Q, value
+    FROM [STOCK_BASICINTO_DB].[dbo].[TW_STOCK_FinancialStatements] WITH(NOLOCK)
+    WHERE type = 'EPS' AND stock_id = '{}'
     ) as A
     pivot
     (
-    max(value)
-    for Q in ([Q1], [Q2], [Q3], [Q4])
+    MAX(value)
+    FOR Q IN ([Q1], [Q2], [Q3], [Q4])
     ) as pv ORDER BY '年度' DESC
     '''.format(stock_id)
 
-    
+    return query
+
+def create_query_fig_01_03(stock_id):
+
+    query = '''
+    SELECT * FROM [STOCK_BASICINTO_DB].[dbo].[TW_STOCK_FinancialStatements] WHERE stock_id = '{}' AND type = 'EPS' ORDER BY date
+    '''.format(stock_id)
     return query
 
 def create_query_iq_01_04(stock_id):
 
     # ----殖利率
     query = '''
-    select YM '年度/月', dividend_yield '殖利率(%)' from(
-    select *,  ROW_NUMBER() over (partition by stock_id,YM order by date desc) desc_DATE
-    from(
+    SELECT YM '年度/月', dividend_yield '殖利率(%)' FROM(
+    SELECT *,  ROW_NUMBER() over (partition by stock_id,YM ORDER BY date desc) desc_DATE
+    FROM(
     SELECT *, convert(nvarchar(7), date, 111) YM
-    FROM [STOCK_SKILL_DB].[dbo].[TW_STOCK_PER] with(nolock)
-    where stock_id = '{}'
+    FROM [STOCK_SKILL_DB].[dbo].[TW_STOCK_PER] WITH(NOLOCK)
+    WHERE stock_id = '{}'
     ) a
     ) b
-    where desc_DATE = 1 order by YM DESC
+    WHERE desc_DATE = 1 ORDER BY YM DESC
     '''.format(stock_id)
     
     return query
@@ -2025,15 +2031,15 @@ def create_query_iq_01_05(stock_id):
 
     # ----本益比(P/E)
     query = '''
-    select YM '年度/月', PER '本益比' from(
-    select *,  ROW_NUMBER() over (partition by stock_id,YM order by date desc) desc_DATE
-    from(
+    SELECT YM '年度/月', PER '本益比' FROM(
+    SELECT *,  ROW_NUMBER() over (partition by stock_id,YM ORDER BY date desc) desc_DATE
+    FROM(
     SELECT *, convert(nvarchar(7), date, 111) YM
-    FROM [STOCK_SKILL_DB].[dbo].[TW_STOCK_PER] with(nolock)
-    where stock_id = '{}'
+    FROM [STOCK_SKILL_DB].[dbo].[TW_STOCK_PER] WITH(NOLOCK)
+    WHERE stock_id = '{}'
     ) a
     ) b
-    where desc_DATE = 1 ORDER BY YM DESC
+    WHERE desc_DATE = 1 ORDER BY YM DESC
     '''.format(stock_id)
     return query
 
@@ -2045,11 +2051,11 @@ def create_query_iq_02_01_01(stock_id):
     query = '''
 
     SELECT [date] '日期',sum([buy])/1000 '買進張數',sum([sell])/1000 '賣出張數', sum((buy-sell))/1000 '合計'
-    FROM [STOCK_COUNTER_DB].[dbo].[TW_STOCK_LEGALPERSON_Daily] with(nolock)
-    where name like '%Foreign%'
+    FROM [STOCK_COUNTER_DB].[dbo].[TW_STOCK_LEGALPERSON_Daily] WITH(NOLOCK)
+    WHERE name like '%Foreign%'
     and date >= DATEADD(MONTH, -1, GETDATE()) and stock_id = '{}'
     group by date
-    order by date desc'''.format(stock_id)
+    ORDER BY date desc'''.format(stock_id)
     return query
 
 def create_query_iq_02_01_02(stock_id):
@@ -2057,11 +2063,11 @@ def create_query_iq_02_01_02(stock_id):
     #--法人持股 投信 
     query = '''
     SELECT [date] '日期',sum([buy])/1000 ' 買進張數',sum([sell])/1000 ' 賣出張數', sum((buy-sell))/1000 ' 合計'
-    FROM [STOCK_COUNTER_DB].[dbo].[TW_STOCK_LEGALPERSON_Daily] with(nolock)
-    where name like '%Investment%'
+    FROM [STOCK_COUNTER_DB].[dbo].[TW_STOCK_LEGALPERSON_Daily] WITH(NOLOCK)
+    WHERE name like '%Investment%'
     and date >= DATEADD(MONTH, -1, GETDATE()) and stock_id = '{}'
     group by date
-    order by date desc'''.format(stock_id)
+    ORDER BY date desc'''.format(stock_id)
     return query
 
 def create_query_iq_02_01_03(stock_id):
@@ -2069,11 +2075,11 @@ def create_query_iq_02_01_03(stock_id):
     #--法人持股 自營商
     query = '''
     SELECT [date] '日期',sum([buy])/1000 '買進張數 ',sum([sell])/1000 '賣出張數 ', sum((buy-sell))/1000 '合計 '
-    FROM [STOCK_COUNTER_DB].[dbo].[TW_STOCK_LEGALPERSON_Daily] with(nolock)
-    where name like '%Dealer%'
+    FROM [STOCK_COUNTER_DB].[dbo].[TW_STOCK_LEGALPERSON_Daily] WITH(NOLOCK)
+    WHERE name like '%Dealer%'
     and date >= DATEADD(MONTH, -1, GETDATE()) and stock_id = '{}'
     group by date
-    order by date desc
+    ORDER BY date desc
     '''.format(stock_id)
 
     return query
@@ -2083,10 +2089,10 @@ def create_query_iq_02_01_04(stock_id):
     #--法人持股 三大法人
     query = '''
     SELECT [date] '日期',sum([buy])/1000 ' 買進張數 ',sum([sell])/1000 ' 賣出張數 ', sum((buy-sell))/1000 ' 合計 '
-    FROM [STOCK_COUNTER_DB].[dbo].[TW_STOCK_LEGALPERSON_Daily] with(nolock)
-    where date >= DATEADD(MONTH, -1, GETDATE()) and stock_id = '{}'
+    FROM [STOCK_COUNTER_DB].[dbo].[TW_STOCK_LEGALPERSON_Daily] WITH(NOLOCK)
+    WHERE date >= DATEADD(MONTH, -1, GETDATE()) and stock_id = '{}'
     group by date
-    order by date desc
+    ORDER BY date desc
     '''.format(stock_id)
 
     return query
@@ -2097,9 +2103,9 @@ def create_query_iq_02_02_01(stock_id):
     #-----融資
     query = '''
     SELECT date '日期', MarginPurchaseTodayBalance '餘額 ', MARGIN_SPREAD '增減(張) ', MARGIN_ratio '使用率% '
-    FROM [STOCK_COUNTER_DB].[dbo].[TW_STOCK_MARGINTRADE_SHORTSELL_Daily] with(nolock)
-    where date >= DATEADD(MONTH, -1, GETDATE()) AND stock_id = '{}'
-    order by date desc
+    FROM [STOCK_COUNTER_DB].[dbo].[TW_STOCK_MARGINTRADE_SHORTSELL_Daily] WITH(NOLOCK)
+    WHERE date >= DATEADD(MONTH, -1, GETDATE()) AND stock_id = '{}'
+    ORDER BY date desc
     '''.format(stock_id)
 
 
@@ -2110,9 +2116,9 @@ def create_query_iq_02_02_02(stock_id):
     # ----融卷
     query = '''
     SELECT date '日期', ShortSaleTodayBalance '餘額', SHORTSELL_SPREAD '增減(張)', SHORTSELL_ratio '使用率%'
-    FROM [STOCK_COUNTER_DB].[dbo].[TW_STOCK_MARGINTRADE_SHORTSELL_Daily] with(nolock)
-    where date >= DATEADD(MONTH, -1, GETDATE()) AND stock_id = '{}'
-    order by date desc
+    FROM [STOCK_COUNTER_DB].[dbo].[TW_STOCK_MARGINTRADE_SHORTSELL_Daily] WITH(NOLOCK)
+    WHERE date >= DATEADD(MONTH, -1, GETDATE()) AND stock_id = '{}'
+    ORDER BY date desc
     '''.format(stock_id)
 
     return query
@@ -2121,29 +2127,29 @@ def create_query_iq_02_02_03(stock_id):
 
     # ----借卷
     query = '''
-    SELECT a.date '日期', a.LOANSHARE '賣出', a.LOANSHARE '餘額', a.LOAD_SPREAD '增減(張)', null as '增減(金額)', b.Trading_Volume '成交量' , b.[close] '收盤價', b.spread_ratio '漲跌(%)'
-    FROM [STOCK_COUNTER_DB].[dbo].[TW_STOCK_LOANSHARE_Daily] a with(nolock)
-    inner join [STOCK_SKILL_DB].[dbo].[TW_STOCK_PRICE_Daily] b with(nolock) on a.stock_id = b.stock_id and a.date = b.date
-    where a.date >= DATEADD(MONTH, -1, GETDATE()) AND a.stock_id = '{}'
+    SELECT a.date '日期', a.LOANSHARE '賣出', a.LOANSHARE '餘額', a.LOAD_SPREAD '增減(張)', NULL AS '增減(金額)', b.Trading_Volume '成交量' , b.[close] '收盤價', b.spread_ratio '漲跌(%)'
+    FROM [STOCK_COUNTER_DB].[dbo].[TW_STOCK_LOANSHARE_Daily] a WITH(NOLOCK)
+    INNER JOIN [STOCK_SKILL_DB].[dbo].[TW_STOCK_PRICE_Daily] b WITH(NOLOCK) on a.stock_id = b.stock_id and a.date = b.date
+    WHERE a.date >= DATEADD(MONTH, -1, GETDATE()) AND a.stock_id = '{}'
     '''.format(stock_id)
     return query
 
 def create_query_iq_02_03(stock_id):
     # 集保庫存
     query = '''
-    select a.日期, a.集保張數/1000 '集保張數', (a.集保張數-b.集保張數)/1000 '增減(週)', (a.集保張數-b.集保張數)/(b.集保張數*10) '增減率%' from (
-    SELECT date '日期', unit '集保張數',  ROW_NUMBER() over (partition by stock_id order by date desc) desc_DATE
+    SELECT a.日期, a.集保張數/1000 '集保張數', (a.集保張數-b.集保張數)/1000 '增減(週)', (a.集保張數-b.集保張數)/(b.集保張數*10) '增減率%' FROM (
+    SELECT date '日期', unit '集保張數',  ROW_NUMBER() over (partition by stock_id ORDER BY date desc) desc_DATE
     FROM [STOCK_COUNTER_DB].[dbo].[TW_STOCK_HOLDRANGE]
-        where date >= DATEADD(YEAR, -1, GETDATE())
+        WHERE date >= DATEADD(YEAR, -1, GETDATE())
     and stock_id = '{}'
     and HoldingSharesLevel = 'total') a
-    inner join (
-    SELECT date '日期', unit '集保張數',  ROW_NUMBER() over (partition by stock_id order by date desc) desc_DATE
+    INNER JOIN (
+    SELECT date '日期', unit '集保張數',  ROW_NUMBER() over (partition by stock_id ORDER BY date desc) desc_DATE
     FROM [STOCK_COUNTER_DB].[dbo].[TW_STOCK_HOLDRANGE]
-        where date >= DATEADD(YEAR, -1, GETDATE())
+        WHERE date >= DATEADD(YEAR, -1, GETDATE())
     and stock_id = '{}'
     and HoldingSharesLevel = 'total') b on a.desc_DATE = b.desc_DATE-1
-    order by a.日期 DESC
+    ORDER BY a.日期 DESC
     '''.format(stock_id, stock_id)
     return query
 
@@ -2151,6 +2157,6 @@ def create_query_iq_02_04(stock_id):
 
     query = '''
     SELECT [ID] '身份別',[Name] '姓名',[Now_share] '持股張數',[share_ratio] '持股比例',[Pledge_number] '質押張數',[Pledge_ratio] '質押比例'
-    FROM [STOCK_BASICINTO_DB].[dbo].[TW_STOCK_Director_Supervisor] with(nolock) WHERE stock_id = '{}'
+    FROM [STOCK_BASICINTO_DB].[dbo].[TW_STOCK_Director_Supervisor] WITH(NOLOCK) WHERE stock_id = '{}'
     '''.format(stock_id)
     return query

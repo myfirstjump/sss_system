@@ -2,8 +2,10 @@ import pymssql
 import datetime
 from datetime import timedelta
 from string import ascii_lowercase
+
 import pandas as pd
 import os
+import matplotlib.pyplot as plt
 
             # now = datetime.datetime.now()
             # today = now.date()
@@ -116,16 +118,36 @@ def create_query_index_monthly_data():
 # ==================================
 
 
-# ===== 統計資料 =====
-data = pd.read_excel(folder_path + '\\TaiwanStockInfo_index_info.xlsx')
+# ===== 統計資料 ===== 觀察產業月份規律
+# data = pd.read_excel(folder_path + '\\TaiwanStockInfo_index_info.xlsx')
 
-tmp = data["date"].astype(str).str.split("-", n = 2, expand = True)
-data['date_month'] = tmp[1]
+# tmp = data["date"].astype(str).str.split("-", n = 2, expand = True)
+# data['date_month'] = tmp[1]
 
-data = data.groupby(['stock_name', 'date_month'])['spread_ratio'].agg(['mean', 'std'])
+# data = data.groupby(['stock_name', 'date_month'])['spread_ratio'].agg(['mean', 'std'])
 
 
-print(data.tail(100))
+# print(data.tail(100))
 
-data.to_excel(folder_path + '\\台股產業_各月份均值&標準差_2010-2021.xlsx')
+# data.to_excel(folder_path + '\\台股產業_各月份均值&標準差_2010-2021.xlsx')
 # ==================================
+
+
+# ===== 統計資料 ===== 
+data = pd.read_excel(folder_path + '\\TaiwanStockInfo_index_info.xlsx')
+industry_names = data['stock_name'].unique()
+
+# print(data.head(100))
+# print(data.dtypes)
+# print(industry_names)
+
+tpex_index = data[data['stock_id']=='TAIEX']
+tpex_index = tpex_index.sort_values(by='date', ascending=True)
+
+semi_index = data[data['stock_id']=='Semiconductor']
+semi_index = semi_index.sort_values(by='date', ascending=True)
+print(tpex_index.head(100))
+fig, ax = plt.subplots(figsize=(8, 6))
+ax.plot(tpex_index['date'], tpex_index['spread_ratio'])
+ax.plot(semi_index['date'], semi_index['spread_ratio'])
+plt.show()
