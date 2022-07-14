@@ -33,6 +33,10 @@ from pages import (
 
 from flask import Flask
 
+######################################################################
+#### THIS IS SSS_SYSTEM v1.0, update by myfirstjump 2022.07.15   #####
+######################################################################
+
 server = Flask(__name__)  # object to be referenced by WSGI handler
 
 app = dash.Dash(server=server, suppress_callback_exceptions=True)#, external_stylesheets=external_stylesheets)
