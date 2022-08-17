@@ -1,3 +1,9 @@
+
+from py_module.config import Configuration
+from py_module.data_reader import DataReader
+from py_module.dash_builder import DashBuilder
+from py_module.data_processing import DataProcessing
+
 import pymssql
 import datetime
 from datetime import timedelta
@@ -54,6 +60,13 @@ counter_holdrange_m = 'STOCK_Counter_DB.dbo.TW_STOCK_HOLDRANGE_monthly'
 
 folder_path = "D:\\myfirstjump_datasets\\tw_stock\\filter_report"
 
+
+config_obj = Configuration()
+reader_obj = DataReader()
+process_obj = DataProcessing()
+
+
+
 def sql_execute(query):
 
     conn = pymssql.connect(host='localhost', user = 'myfirstjump', password='myfirstjump', database='STOCK_SKILL_DB')
@@ -67,10 +80,10 @@ def sql_execute(query):
     conn.close()
     return data
 
-def create_query_index_monthly_data():
+def create_query_index_data(period_str):
 
     query = '''
-            SELECT * FROM STOCK_SKILL_DB.dbo.TW_STOCK_PRICE_Monthly WHERE date < '2022-01-01' AND stock_id IN  ('Automobile',
+            SELECT * FROM STOCK_SKILL_DB.dbo.TW_STOCK_PRICE_{} WHERE date < '2022-01-01' AND stock_id IN  ('Automobile',
         'BiotechnologyMedicalCare',
         'BuildingMaterialConstruction',
         'Cement',
@@ -103,17 +116,27 @@ def create_query_index_monthly_data():
         'TAIEX',
         'TPEx'
         )
+    '''.format(period_str)
+
+    return query
+
+def create_query_monthly_data():
+
+    query = '''
+            SELECT * FROM STOCK_SKILL_DB.dbo.TW_STOCK_PRICE_Monthly WHERE date < '2022-04-02'
     '''
 
     return query
 
 
 # ===== Query from DB後寫出檔案 =====
-# data_query = create_query_index_monthly_data()
+# data_query = create_query_index_data(period_str='Monthly')
+# # data_query = create_query_index_data(period_str='daily')
 # data = sql_execute(data_query)
 
 # data = pd.DataFrame.from_records(data)
-# data.to_excel(folder_path + '\\TaiwanStockInfo_index_info.xlsx', index=False)
+# # data.to_excel(folder_path + '\\TaiwanStockInfo_index_info.xlsx', index=False)
+# data.to_excel(folder_path + '\\TaiwanStockInfo_index_monthly_data.xlsx', index=False)
 # print(data.head(50))
 # ==================================
 
@@ -133,21 +156,53 @@ def create_query_index_monthly_data():
 # ==================================
 
 
+# ===== 統計資料 ===== 參數趨勢線
+# data = pd.read_excel(folder_path + '\\TaiwanStockInfo_index_info.xlsx')
+# industry_names = data['stock_name'].unique()
+
+# # print(data.head(100))
+# # print(data.dtypes)
+# # print(industry_names)
+
+# tpex_index = data[data['stock_id']=='TAIEX']
+# tpex_index = tpex_index.sort_values(by='date', ascending=True)
+
+# semi_index = data[data['stock_id']=='Semiconductor']
+# semi_index = semi_index.sort_values(by='date', ascending=True)
+# print(tpex_index.head(100))
+# fig, ax = plt.subplots(figsize=(8, 6))
+# ax.plot(tpex_index['date'], tpex_index['spread_ratio'])
+# ax.plot(semi_index['date'], semi_index['spread_ratio'])
+# plt.show()
 # ===== 統計資料 ===== 
-data = pd.read_excel(folder_path + '\\TaiwanStockInfo_index_info.xlsx')
-industry_names = data['stock_name'].unique()
 
-# print(data.head(100))
-# print(data.dtypes)
-# print(industry_names)
 
-tpex_index = data[data['stock_id']=='TAIEX']
-tpex_index = tpex_index.sort_values(by='date', ascending=True)
+# ===== 統計資料 ===== 觀察產業大起大落趨勢，來當作y值
 
-semi_index = data[data['stock_id']=='Semiconductor']
-semi_index = semi_index.sort_values(by='date', ascending=True)
-print(tpex_index.head(100))
-fig, ax = plt.subplots(figsize=(8, 6))
-ax.plot(tpex_index['date'], tpex_index['spread_ratio'])
-ax.plot(semi_index['date'], semi_index['spread_ratio'])
-plt.show()
+# data = pd.read_excel(folder_path + '\\TaiwanStockInfo_index_daily_data.xlsx')
+# fig, ax = plt.subplots(figsize=(8, 6))
+# semi_index = data[data['stock_id']=='Semiconductor']
+# semi_index = semi_index.sort_values(by='date', ascending=True)
+
+# # ax.plot(semi_index['date'], semi_index['spread_ratio'])
+# semi_index['spread_ratio'].plot.hist(bins=100)
+# plt.show()
+# print(semi_index['spread_ratio'].describe())
+# ===== 統計資料 ===== 
+
+
+
+data = pd.read_excel(folder_path + '\\TaiwanStockInfo_index_monthly_data.xlsx')
+data_close = data.pivot(index='date', columns='stock_id', values='close')
+data_y = process_obj.use_shift_to_get_new_columns(data_close, data_close.columns, 30, 'ratio')
+
+data_x = data.pivot(index='date', columns='stock_id', values=['Trading_Volume', 'spread_ratio'])
+
+print(data_y.head())
+print(data_x.head())
+data = data_x.merge(data_y, on='date')
+
+
+
+
+data.to_excel(folder_path + '\\test.xlsx')

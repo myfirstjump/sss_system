@@ -18,7 +18,8 @@ class DataPlot(object):
         return data
     
     def plot_01_02(self, data):
-        data = data.sort_values(by=['所屬年度'], ascending=True)
+        # data = data.sort_values(by=['所屬年度'], ascending=True)
+        data = data.iloc[::-1] #如果用padnas的sort_values，會因為中文問題而破壞本來SQL query的order。而SQL query的order用來畫圖的話是反過來的，所以用[::-1]做一個reverse。
         fig = go.Figure(data=[go.Scatter(x=data['所屬年度'], y=data['現金股利(元)'])])
 
         return fig

@@ -1,3 +1,4 @@
+
 import pandas as pd
 import numpy as np
 
@@ -37,6 +38,27 @@ class DataProcessing(object):
     def sss_data_preprocessing(self, data):
         data = data[['date','industry_category','stock_id','stock_name','type']]
         return data
+
+    def build_industry_records_table(self, data, industry_list):
+        '''
+        function
+            2022-08-17
+            為了做股市產業預估，建立模型輸入X,y，分別為X:[32]個產業的Volume和spread_ratio；y:32個產業，未來30個records後的spread_ratio。
+            用每天的交易量和漲跌幅，預測一個月後的漲跌幅。
+        inputs:
+            -.data
+                資料庫STOCK_SKILL_DB.dbo.TW_STOCK_PRICE_Monthly / Daily的資料格式，包含data, stock_id, open, ...., Trading_volume, spread_ratio ...等欄位。
+        output:
+            -.data_x 產業*2個欄位(美個產業有volume和spread_ratio)
+            -.data_y 產業個欄位(目標是預測每個產業一個月後的spread_ratio)
+        '''
+
+        close_data = data.pivot(index='date', columns='stock_id', values='close')
+        data_y = self.use_shift_to_get_new_columns(close_data, industry_list, future_steps=30, operation='ratio')
+
+        data_x = data.pivot(index='date', columns='stock_id', values=['Trading_Volume', 'spread_ratio'])
+
+        return data_x, data_y
     
     def get_stock_id_and_stock_name_list(self, data):
         series = data['stock_id'] + " " + data['stock_name']
@@ -151,3 +173,30 @@ class DataProcessing(object):
         else:
             dataframe['日期'] = dataframe['日期'].apply(lambda x: x.strftime('%Y/%m/%d')) # 為了後面轉為column name，所以先轉成字串
             return dataframe
+
+    def use_shift_to_get_new_columns(self, data, columns, future_steps=1, operation='ratio'):
+        """
+        functions:
+            基於預測需求，計算[未來spread ratio欄位]作為y值。例如，計算未來30天後之漲跌幅。
+        inputs:
+            -.data
+                row為time，column為features的dataframe
+            -.columns
+                用來計算的columns向量
+            -.future_steps
+                用未來多遠的值進行計算，例如30steps，以天為單位的話就是一個月後的值拿來計算。
+            -.operation
+                計算方式，例如ratio、subtract...
+        output:
+            [未來spread ratio欄位]的dataframe
+        """
+        data = data[columns]
+
+        if operation=='ratio':
+            data = (data.shift(-future_steps) - data) / data  # 後-前 / 前
+        elif operation=='subtract':
+            data = data.shift(-future_steps) - data
+        else:
+            data = (data.shift(-future_steps) - data) / data
+
+        return data
