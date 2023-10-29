@@ -60,6 +60,15 @@ class DataProcessing(object):
 
         return data_x, data_y
     
+    def industry_prediction_project_data_sampling(self, data, training_percent, valid_percent, test_percent):
+
+        '''
+        function
+            2022-09-04
+            對股票數據進行抽樣，並產生train、valid和test數據
+        '''
+        pass
+    
     def get_stock_id_and_stock_name_list(self, data):
         series = data['stock_id'] + " " + data['stock_name']
         options = []

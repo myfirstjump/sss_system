@@ -3,7 +3,7 @@ import dash_core_components as dcc
 import pandas as pd
 import pathlib
 import os
-import base64
+# import base64
 from pages import self_style
 from py_module.data_reader import DataReader
 from py_module.config import Configuration

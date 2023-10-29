@@ -8,6 +8,7 @@ import pymssql
 import datetime
 from datetime import timedelta
 from string import ascii_lowercase
+import random
 
 import pandas as pd
 import os
@@ -59,6 +60,7 @@ counter_holdrange_m = 'STOCK_Counter_DB.dbo.TW_STOCK_HOLDRANGE_monthly'
 
 
 folder_path = "D:\\myfirstjump_datasets\\tw_stock\\filter_report"
+output_folder = "D:\\myfirstjump_datasets\\tw_stock\\industry_prediction_project"
 
 
 config_obj = Configuration()
@@ -120,24 +122,41 @@ def create_query_index_data(period_str):
 
     return query
 
-def create_query_monthly_data():
+def create_query_data():
 
     query = '''
-            SELECT * FROM STOCK_SKILL_DB.dbo.TW_STOCK_PRICE_Monthly WHERE date < '2022-04-02'
+            SELECT [date]
+      ,t1.[stock_id]
+	  ,t2.Category
+      ,[Trading_Volume]
+      ,[close]
+      ,[spread]
+      ,[spread_ratio]
+  FROM [STOCK_SKILL_DB].[dbo].[TW_STOCK_PRICE_Monthly] t1
+  LEFT JOIN [STOCK_BASICINTO_DB].[dbo].[TW_STOCK_Company_BASICINFO] t2 ON t1.stock_id = t2.stock_id
+  WHERE [date] >= '2016-01-01'
+
     '''
 
     return query
 
 
-# ===== Query from DB後寫出檔案 =====
-# data_query = create_query_index_data(period_str='Monthly')
-# # data_query = create_query_index_data(period_str='daily')
-# data = sql_execute(data_query)
+def date_interval_non_overlap_selection(self, date_series, interval_length, sample_amount):
 
-# data = pd.DataFrame.from_records(data)
+    samples = []
+    
+
+    return samples
+
+# ===== Query from DB後寫出檔案 =====
+data_query = create_query_data()
+# data_query = create_query_index_data(period_str='daily')
+data = sql_execute(data_query)
+
+data = pd.DataFrame.from_records(data)
 # # data.to_excel(folder_path + '\\TaiwanStockInfo_index_info.xlsx', index=False)
-# data.to_excel(folder_path + '\\TaiwanStockInfo_index_monthly_data.xlsx', index=False)
-# print(data.head(50))
+data.to_excel(folder_path + '\\2023-06-20_個股月資料.xlsx', index=False)
+print(data.head(50))
 # ==================================
 
 
@@ -192,17 +211,28 @@ def create_query_monthly_data():
 
 
 
-data = pd.read_excel(folder_path + '\\TaiwanStockInfo_index_monthly_data.xlsx')
-data_close = data.pivot(index='date', columns='stock_id', values='close')
-data_y = process_obj.use_shift_to_get_new_columns(data_close, data_close.columns, 30, 'ratio')
+# data = pd.read_excel(folder_path + '\\2023-06-20_加權指數櫃買指數數據.xlsx')
+# date_series = data.date
+# data_close = data.pivot(index='date', columns='stock_id', values='close') #把stock_id欄位值變成新的欄位，並提出close當作欄位值，index為date
+# data_y = process_obj.use_shift_to_get_new_columns(data_close, data_close.columns, 30, 'ratio')
 
-data_x = data.pivot(index='date', columns='stock_id', values=['Trading_Volume', 'spread_ratio'])
+# data_x = data.pivot(index='date', columns='stock_id', values=['Trading_Volume', 'spread_ratio']) #把stock_id欄位值變成新的欄位，並提出['Trading_Volume', 'spread_ratio']當作欄位值，index為date
 
-print(data_y.head())
-print(data_x.head())
-data = data_x.merge(data_y, on='date')
-
-
+# print(data_y.shape)
+# print(data_x.shape)
 
 
-data.to_excel(folder_path + '\\test.xlsx')
+
+
+
+
+
+
+
+
+
+
+
+
+# data = data_x.merge(data_y, on='date')
+# data.to_excel(output_folder + '\\test.xlsx')
