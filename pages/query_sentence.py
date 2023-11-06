@@ -969,6 +969,7 @@ def create_query_0303(days, period, direct, lot):
 
     """於[3][日]內，成交量均[增加][1000]張之股票"""
     """BUG: 均增加1000，是否要用相減算?"""
+    date_cut = 0
     if direct == '1':
         sign = '>='
     else:
@@ -976,14 +977,19 @@ def create_query_0303(days, period, direct, lot):
 
     if period == 'w':
         ref_table = skill_price_w
+        date_cut = 7*days
     elif period == 'm':
         ref_table = skill_price_m
+        date_cut = 31*days
     elif period == 'q':
         ref_table = skill_price_q
+        date_cut = 92*days
     elif period == 'y':
         ref_table = skill_price_y
+        date_cut = 365*days
     else:
         ref_table = skill_price_d
+        date_cut = days
     
     # lot = lot * 1000
 
@@ -994,7 +1000,7 @@ def create_query_0303(days, period, direct, lot):
     WHERE date > (GETDATE()-({}+10))) part_tbl
     WHERE part_tbl.row_num <= {} AND part_tbl.Trading_spread {} {}
     GROUP BY part_tbl.stock_id HAVING COUNT(row_num) = {})
-    '''.format(ref_table, days, days, sign, lot, days)
+    '''.format(ref_table, date_cut, days, sign, lot, days)
 
 
     return query, '[成交量平均增減量]'
@@ -1002,6 +1008,7 @@ def create_query_0303(days, period, direct, lot):
 def create_query_0304(days, period, direct, lot):
 
     """0304 於[3][日]內，成交量均[減少][1000]張之股票"""
+    date_cut = 0
     if direct == '1':
         sign = '>='
     else:
@@ -1011,14 +1018,19 @@ def create_query_0304(days, period, direct, lot):
 
     if period == 'w':
         ref_table = skill_price_w
+        date_cut = 7*days
     elif period == 'm':
         ref_table = skill_price_m
+        date_cut = 31*days
     elif period == 'q':
         ref_table = skill_price_q
+        date_cut = 92*days
     elif period == 'y':
         ref_table = skill_price_y
+        date_cut = 365*days
     else:
         ref_table = skill_price_d
+        date_cut = days
 
     query = '''
     (SELECT stock_id, AVG(Trading_spread) [成交量平均增減量], CAST(NULL AS NVARCHAR(100)) as remark FROM
@@ -1027,7 +1039,7 @@ def create_query_0304(days, period, direct, lot):
     WHERE date > (GETDATE()-({}+10))) part_tbl
     WHERE part_tbl.row_num <= {} AND part_tbl.Trading_spread {} {}
     GROUP BY part_tbl.stock_id HAVING COUNT(row_num) = {})
-    '''.format(ref_table, days, days, sign, lot, days)
+    '''.format(ref_table, date_cut, days, sign, lot, days)
 
     return query, '[成交量平均增減量]'
     
@@ -1036,6 +1048,7 @@ def create_query_0304(days, period, direct, lot):
 def create_query_0305(days, period, direct, percent):
 
     """0305 於[3][日]內，成交量均[增加][20]%之股票"""
+    date_cut = 0
     if direct == '1':
         sign = '>='
     else:
@@ -1043,14 +1056,19 @@ def create_query_0305(days, period, direct, percent):
 
     if period == 'w':
         ref_table = skill_price_w
+        date_cut = 7*days
     elif period == 'm':
         ref_table = skill_price_m
+        date_cut = 31*days
     elif period == 'q':
         ref_table = skill_price_q
+        date_cut = 92*days
     elif period == 'y':
         ref_table = skill_price_y
+        date_cut = 365*days
     else:
         ref_table = skill_price_d
+        date_cut = days
 
     query = '''
     (SELECT stock_id, AVG(Trading_spread_ratio) [成交量平均增減%], CAST(NULL AS NVARCHAR(100)) as remark FROM
@@ -1059,7 +1077,7 @@ def create_query_0305(days, period, direct, percent):
     WHERE date > (GETDATE()-({}+10))) part_tbl
     WHERE part_tbl.row_num <= {} AND part_tbl.Trading_spread_ratio {} {}
     GROUP BY part_tbl.stock_id HAVING COUNT(row_num) = {})
-    '''.format(ref_table, days, days, sign, percent, days)
+    '''.format(ref_table, date_cut, days, sign, percent, days)
 
     return query, '[成交量平均增減%]'
 
@@ -1067,6 +1085,7 @@ def create_query_0305(days, period, direct, percent):
 def create_query_0306(days, period, direct, percent):
 
     """0305 於[3][日]內，成交量均[減少][20]%之股票"""
+    date_cut = 0
     if direct == '1':
         sign = '>='
     else:
@@ -1074,14 +1093,19 @@ def create_query_0306(days, period, direct, percent):
 
     if period == 'w':
         ref_table = skill_price_w
+        date_cut = 7*days
     elif period == 'm':
         ref_table = skill_price_m
+        date_cut = 31*days
     elif period == 'q':
         ref_table = skill_price_q
+        date_cut = 92*days
     elif period == 'y':
         ref_table = skill_price_y
+        date_cut = 365*days
     else:
         ref_table = skill_price_d
+        date_cut = days
 
     query = '''
     (SELECT stock_id, AVG(Trading_spread_ratio) [成交量平均增減%], CAST(NULL AS NVARCHAR(100)) as remark FROM
@@ -1090,7 +1114,7 @@ def create_query_0306(days, period, direct, percent):
     WHERE date > (GETDATE()-({}+10))) part_tbl
     WHERE part_tbl.row_num <= {} AND part_tbl.Trading_spread_ratio {} {}
     GROUP BY part_tbl.stock_id HAVING COUNT(row_num) = {})
-    '''.format(ref_table, days, days, sign, percent, days)
+    '''.format(ref_table, date_cut, days, sign, percent, days)
 
     return query, '[成交量平均增減%]'
 
