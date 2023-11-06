@@ -1,0 +1,15 @@
+version: '3'
+services:
+        python-app:
+                image: sss_system
+                build: .
+                volumes:
+                        - $(pwd):/app
+                ports:
+                        - "8050:8050"
+                networks:
+                        - sql_network
+        networks:
+                sql_network:
+                        external:
+                                name: sql_network

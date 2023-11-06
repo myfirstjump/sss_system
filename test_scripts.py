@@ -12,7 +12,7 @@ import random
 
 import pandas as pd
 import os
-import matplotlib.pyplot as plt
+# import matplotlib.pyplot as plt
 
             # now = datetime.datetime.now()
             # today = now.date()
@@ -71,7 +71,9 @@ process_obj = DataProcessing()
 
 def sql_execute(query):
 
-    conn = pymssql.connect(host='localhost', user = 'myfirstjump', password='myfirstjump', database='STOCK_SKILL_DB')
+    # conn = pymssql.connect(host='localhost', user = 'myfirstjump', password='myfirstjump', database='STOCK_SKILL_DB')
+
+    conn = pymssql.connect(server='172.18.32.1', port='1433', user = 'myfirstjump', password='myfirstjump', database='STOCK_SKILL_DB')
     cursor = conn.cursor(as_dict=True)
     cursor.execute(query)
     # data = [row for row in cursor]
@@ -155,7 +157,7 @@ data = sql_execute(data_query)
 
 data = pd.DataFrame.from_records(data)
 # # data.to_excel(folder_path + '\\TaiwanStockInfo_index_info.xlsx', index=False)
-data.to_excel(folder_path + '\\2023-06-20_個股月資料.xlsx', index=False)
+# data.to_excel(folder_path + '\\2023-06-20_個股月資料.xlsx', index=False)
 print(data.head(50))
 # ==================================
 

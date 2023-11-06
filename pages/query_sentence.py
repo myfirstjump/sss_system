@@ -822,6 +822,8 @@ def create_query_0203(direct, days):
 def create_query_0204(days, period, direct, percent):
 
     """0204 於[3][日]內[漲/跌幅]均超過[10]%之股票"""
+    date_cut = 0
+
     if direct == '1':
         sign = '>='
     else:
@@ -829,14 +831,19 @@ def create_query_0204(days, period, direct, percent):
 
     if period == 'w':
         ref_table = skill_price_w
+        date_cut = 7*days
     elif period == 'm':
         ref_table = skill_price_m
+        date_cut = 31*days
     elif period == 'q':
         ref_table = skill_price_q
+        date_cut = 92*days
     elif period == 'y':
         ref_table = skill_price_y
+        date_cut = 365*days
     else:
         ref_table = skill_price_d
+        date_cut = days
 
     query = '''
     (SELECT stock_id, CAST(NULL AS NVARCHAR(100)) as remark FROM
@@ -844,8 +851,8 @@ def create_query_0204(days, period, direct, percent):
     FROM {} WITH(NOLOCK)
     WHERE date > (GETDATE()-({}+10))) part_tbl
     WHERE part_tbl.row_num <= {} AND part_tbl.spread_ratio {} {}
-    GROUP BY stock_id HAVING count(row_num) = {})
-    '''.format(ref_table, days, days, sign, percent, days)
+    GROUP BY stock_id HAVING COUNT(row_num) = {})
+    '''.format(ref_table, date_cut, days, sign, percent, days)
 
     return query, 'stock_id'
 
@@ -1347,6 +1354,7 @@ def create_query_0501(days, period, direct, lot):
 def create_query_0502(days, period, direct, lot):
 
     """0502 融資於[3][日]內均[增加/減少][20]%以上"""
+    lot = lot * 0.01
     if direct == '1':
         sign = '>='
     else:
