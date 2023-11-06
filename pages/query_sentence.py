@@ -1139,16 +1139,22 @@ def create_query_0401(days, period, buy_sell, direct, lot):
         sign_0 = '<='
         lot = lot * -1000 #以每股為單位
 
+    date_cut = 0
     if period == 'w':
         ref_table = counter_legal_w
+        date_cut = 7*days
     elif period == 'm':
         ref_table = counter_legal_m
+        date_cut = 31*days
     elif period == 'q':
         ref_table = counter_legal_q
+        date_cut = 92*days
     elif period == 'y':
         ref_table = counter_legal_y
+        date_cut = 365*days
     else:
         ref_table = counter_legal_d
+        date_cut = days
 
     query = '''
     (SELECT stock_id, AVG(part_tbl.buy - part_tbl.sell) [外資平均買賣超], CAST(NULL AS NVARCHAR(100)) as remark FROM
@@ -1157,7 +1163,7 @@ def create_query_0401(days, period, buy_sell, direct, lot):
     WHERE date > (GETDATE()-({}+10)) AND name = 'Foreign_Investor') part_tbl
     WHERE part_tbl.row_num <= {}
     GROUP BY part_tbl.stock_id HAVING SUM(part_tbl.buy) - SUM(part_tbl.sell) {} {} AND SUM(part_tbl.buy) - SUM(part_tbl.sell) {} 0)
-    '''.format(ref_table, days, days, sign, lot, sign_0)
+    '''.format(ref_table, date_cut, days, sign, lot, sign_0)
 
     return query, '[外資平均買賣超]'
 
@@ -1181,16 +1187,22 @@ def create_query_0402(days, period, buy_sell, direct, lot):
         sign_0 = '<='
         lot = lot * -1000
 
+    date_cut = 0
     if period == 'w':
         ref_table = counter_legal_w
+        date_cut = 7*days
     elif period == 'm':
         ref_table = counter_legal_m
+        date_cut = 31*days
     elif period == 'q':
         ref_table = counter_legal_q
+        date_cut = 92*days
     elif period == 'y':
         ref_table = counter_legal_y
+        date_cut = 365*days
     else:
         ref_table = counter_legal_d
+        date_cut = days
 
     query = '''
     (SELECT stock_id, AVG(part_tbl.buy - part_tbl.sell) [外資平均買賣超], CAST(NULL AS NVARCHAR(100)) as remark FROM
@@ -1199,7 +1211,7 @@ def create_query_0402(days, period, buy_sell, direct, lot):
     WHERE date > (GETDATE()-({}+10)) AND name = 'Foreign_Investor') part_tbl
     WHERE part_tbl.row_num <= {}
     GROUP BY part_tbl.stock_id HAVING SUM(part_tbl.buy) - SUM(part_tbl.sell) {} {} AND SUM(part_tbl.buy) - SUM(part_tbl.sell) {} 0)
-    '''.format(ref_table, days, days, sign, lot, sign_0)
+    '''.format(ref_table, date_cut, days, sign, lot, sign_0)
 
     return query, '[外資平均買賣超]'
 
@@ -1223,16 +1235,22 @@ def create_query_0403(days, period, buy_sell, direct, lot):
         sign_0 = '<='
         lot = lot * -1000
 
+    date_cut = 0
     if period == 'w':
         ref_table = counter_legal_w
+        date_cut = 7*days
     elif period == 'm':
         ref_table = counter_legal_m
+        date_cut = 31*days
     elif period == 'q':
         ref_table = counter_legal_q
+        date_cut = 92*days
     elif period == 'y':
         ref_table = counter_legal_y
+        date_cut = 365*days
     else:
         ref_table = counter_legal_d
+        date_cut = days
 
     query = '''
     (SELECT stock_id, AVG(part_tbl.buy - part_tbl.sell) [投信平均買賣超], CAST(NULL AS NVARCHAR(100)) as remark FROM
@@ -1241,7 +1259,7 @@ def create_query_0403(days, period, buy_sell, direct, lot):
     WHERE date > (GETDATE()-({}+10)) AND name = 'Investment_Trust') part_tbl
     WHERE part_tbl.row_num <= {}
     GROUP BY part_tbl.stock_id HAVING SUM(part_tbl.buy) - SUM(part_tbl.sell) {} {} AND SUM(part_tbl.buy) - SUM(part_tbl.sell) {} 0)
-    '''.format(ref_table, days, days, sign, lot, sign_0)
+    '''.format(ref_table, date_cut, days, sign, lot, sign_0)
 
     return query, '[投信平均買賣超]'
 
@@ -1265,16 +1283,22 @@ def create_query_0404(days, period, buy_sell, direct, lot):
         sign_0 = '<='
         lot = lot * -1000
     
+    date_cut = 0
     if period == 'w':
         ref_table = counter_legal_w
+        date_cut = 7*days
     elif period == 'm':
         ref_table = counter_legal_m
+        date_cut = 31*days
     elif period == 'q':
         ref_table = counter_legal_q
+        date_cut = 92*days
     elif period == 'y':
         ref_table = counter_legal_y
+        date_cut = 365*days
     else:
-        ref_table = counter_legal_d    
+        ref_table = counter_legal_d
+        date_cut = days 
 
     query = '''
     (SELECT stock_id, AVG(part_tbl.buy - part_tbl.sell) [投信平均買賣超], CAST(NULL AS NVARCHAR(100)) as remark FROM
@@ -1283,7 +1307,7 @@ def create_query_0404(days, period, buy_sell, direct, lot):
     WHERE date > (GETDATE()-({}+10)) AND name = 'Investment_Trust') part_tbl
     WHERE part_tbl.row_num <= {}
     GROUP BY part_tbl.stock_id HAVING SUM(part_tbl.buy) - SUM(part_tbl.sell) {} {} AND SUM(part_tbl.buy) - SUM(part_tbl.sell) {} 0)
-    '''.format(ref_table, days, days, sign, lot, sign_0)
+    '''.format(ref_table, date_cut, days, sign, lot, sign_0)
 
     return query, '[投信平均買賣超]'
 
@@ -1307,16 +1331,22 @@ def create_query_0405(days, period, buy_sell, direct, lot):
         sign_0 = '<='
         lot = lot * -1000
 
+    date_cut = 0
     if period == 'w':
         ref_table = counter_legal_w
+        date_cut = 7*days
     elif period == 'm':
         ref_table = counter_legal_m
+        date_cut = 31*days
     elif period == 'q':
         ref_table = counter_legal_q
+        date_cut = 92*days
     elif period == 'y':
         ref_table = counter_legal_y
+        date_cut = 365*days
     else:
-        ref_table = counter_legal_d  
+        ref_table = counter_legal_d
+        date_cut = days 
 
     query = '''
     (SELECT stock_id, AVG(part_tbl.buy - part_tbl.sell) [自營商平均買賣超], CAST(NULL AS NVARCHAR(100)) as remark FROM
@@ -1325,7 +1355,7 @@ def create_query_0405(days, period, buy_sell, direct, lot):
     WHERE date > (GETDATE()-({}+10)) AND name = 'Dealer_Hedging') part_tbl
     WHERE part_tbl.row_num <= {}
     GROUP BY part_tbl.stock_id HAVING SUM(part_tbl.buy) - SUM(part_tbl.sell) {} {} AND SUM(part_tbl.buy) - SUM(part_tbl.sell) {} 0)
-    '''.format(ref_table, days, days, sign, lot, sign_0)
+    '''.format(ref_table, date_cut, days, sign, lot, sign_0)
 
     return query, '[自營商平均買賣超]'
 
@@ -1349,16 +1379,22 @@ def create_query_0406(days, period, buy_sell, direct, lot):
         sign_0 = '<='
         lot = lot * -1000
     
+    date_cut = 0
     if period == 'w':
         ref_table = counter_legal_w
+        date_cut = 7*days
     elif period == 'm':
         ref_table = counter_legal_m
+        date_cut = 31*days
     elif period == 'q':
         ref_table = counter_legal_q
+        date_cut = 92*days
     elif period == 'y':
         ref_table = counter_legal_y
+        date_cut = 365*days
     else:
         ref_table = counter_legal_d
+        date_cut = days 
 
     query = '''
     (SELECT stock_id, AVG(part_tbl.buy - part_tbl.sell) [自營商平均買賣超], CAST(NULL AS NVARCHAR(100)) as remark FROM
@@ -1367,7 +1403,7 @@ def create_query_0406(days, period, buy_sell, direct, lot):
     WHERE date > (GETDATE()-({}+10)) AND name = 'Dealer_Hedging') part_tbl
     WHERE part_tbl.row_num <= {}
     GROUP BY part_tbl.stock_id HAVING SUM(part_tbl.buy) - SUM(part_tbl.sell) {} {} AND SUM(part_tbl.buy) - SUM(part_tbl.sell) {} 0)
-    '''.format(ref_table, days, days, sign, lot, sign_0)
+    '''.format(ref_table, date_cut, days, sign, lot, sign_0)
 
     return query, '[自營商平均買賣超]'
 
@@ -1382,16 +1418,22 @@ def create_query_0501(days, period, direct, lot):
         sign = '<='
         lot = -lot
     
+    date_cut = 0
     if period == 'w':
-        ref_table = counter_margin_w 
+        ref_table = counter_margin_w
+        date_cut = 7*days
     elif period == 'm':
         ref_table = counter_margin_m
+        date_cut = 31*days
     elif period == 'q':
         ref_table = counter_margin_q
+        date_cut = 92*days
     elif period == 'y':
         ref_table = counter_margin_y
+        date_cut = 365*days
     else:
         ref_table = counter_margin_d
+        date_cut = days
 
     query = '''
     (SELECT stock_id, SUM(MARGIN_SPREAD) [融資增加數], CAST(NULL AS NVARCHAR(100)) as remark FROM
@@ -1400,7 +1442,7 @@ def create_query_0501(days, period, direct, lot):
     WHERE date > (GETDATE()-({}+10))) part_tbl
     WHERE part_tbl.row_num <= {}
     GROUP BY part_tbl.stock_id HAVING SUM(part_tbl.MARGIN_SPREAD) {} {} )
-    '''.format(ref_table, days, days, sign, lot)
+    '''.format(ref_table, date_cut, days, sign, lot)
 
     return query, '[融資增加數]'
 
@@ -1414,16 +1456,22 @@ def create_query_0502(days, period, direct, lot):
         sign = '<='
         lot = -lot
     
+    date_cut = 0
     if period == 'w':
-        ref_table = counter_margin_w 
+        ref_table = counter_margin_w
+        date_cut = 7*days
     elif period == 'm':
         ref_table = counter_margin_m
+        date_cut = 31*days
     elif period == 'q':
         ref_table = counter_margin_q
+        date_cut = 92*days
     elif period == 'y':
         ref_table = counter_margin_y
+        date_cut = 365*days
     else:
         ref_table = counter_margin_d
+        date_cut = days
 
     query = '''
     (SELECT stock_id, AVG(MARGIN_ratio) [融資平均增加%], CAST(NULL AS NVARCHAR(100)) as remark FROM
@@ -1432,7 +1480,7 @@ def create_query_0502(days, period, direct, lot):
     WHERE date > (GETDATE()-({}+10))) part_tbl
     WHERE part_tbl.row_num <= {} AND part_tbl.MARGIN_ratio {} {}
     GROUP BY part_tbl.stock_id HAVING  count(row_num) = {})
-    '''.format(ref_table, days, days, sign, lot, days)
+    '''.format(ref_table, date_cut, days, sign, lot, days)
 
     return query, '[融資平均增加%]'
 
@@ -1445,16 +1493,22 @@ def create_query_0503(days, period, direct, lot):
         sign = '<='
         lot = -lot
     
+    date_cut = 0
     if period == 'w':
-        ref_table = counter_margin_w 
+        ref_table = counter_margin_w
+        date_cut = 7*days
     elif period == 'm':
         ref_table = counter_margin_m
+        date_cut = 31*days
     elif period == 'q':
         ref_table = counter_margin_q
+        date_cut = 92*days
     elif period == 'y':
         ref_table = counter_margin_y
+        date_cut = 365*days
     else:
         ref_table = counter_margin_d
+        date_cut = days
 
     query = '''
     (SELECT stock_id, SUM(SHORTSELL_SPREAD) [融券增加數], CAST(NULL AS NVARCHAR(100)) as remark FROM
@@ -1463,7 +1517,7 @@ def create_query_0503(days, period, direct, lot):
     WHERE date > (GETDATE()-({}+10))) part_tbl
     WHERE part_tbl.row_num <= {}
     GROUP BY part_tbl.stock_id HAVING SUM(part_tbl.SHORTSELL_SPREAD) {} {} )
-    '''.format(ref_table, days, days, sign, lot)
+    '''.format(ref_table, date_cut, days, sign, lot)
 
     return query, '[融券增加數]'
 
@@ -1476,16 +1530,22 @@ def create_query_0504(days, period, direct, lot):
         sign = '<='
         lot = -lot
     
+    date_cut = 0
     if period == 'w':
-        ref_table = counter_margin_w 
+        ref_table = counter_margin_w
+        date_cut = 7*days
     elif period == 'm':
         ref_table = counter_margin_m
+        date_cut = 31*days
     elif period == 'q':
         ref_table = counter_margin_q
+        date_cut = 92*days
     elif period == 'y':
         ref_table = counter_margin_y
+        date_cut = 365*days
     else:
         ref_table = counter_margin_d
+        date_cut = days
 
     query = '''
     (SELECT stock_id, AVG(SHORTSELL_ratio) [融券平均增加%], CAST(NULL AS NVARCHAR(100)) as remark FROM
@@ -1494,7 +1554,7 @@ def create_query_0504(days, period, direct, lot):
     WHERE date > (GETDATE()-({}+10))) part_tbl
     WHERE part_tbl.row_num <= {} AND part_tbl.SHORTSELL_ratio {} {}
     GROUP BY part_tbl.stock_id HAVING  COUNT(row_num) = {})
-    '''.format(ref_table, days, days, sign, lot, days)
+    '''.format(ref_table, date_cut, days, sign, lot, days)
 
     return query, '[融券平均增加%]'
 
@@ -1509,16 +1569,22 @@ def create_query_0505(days, period, direct, lot):
     
     lot = lot * 1000 #每股為單位
     
+    date_cut = 0
     if period == 'w':
         ref_table = counter_loanshare_w
+        date_cut = 7*days
     elif period == 'm':
         ref_table = counter_loanshare_m
+        date_cut = 31*days
     elif period == 'q':
         ref_table = counter_loanshare_q
+        date_cut = 92*days
     elif period == 'y':
         ref_table = counter_loanshare_y
+        date_cut = 365*days
     else:
         ref_table = counter_loanshare_d
+        date_cut = days
 
     query = '''
     (SELECT stock_id, SUM(load_spread) [借券增加數(股)], CAST(NULL AS NVARCHAR(100)) as remark FROM
@@ -1527,7 +1593,7 @@ def create_query_0505(days, period, direct, lot):
     WHERE date > (GETDATE()-({}+10))) part_tbl
     WHERE part_tbl.row_num <= {}
     GROUP BY part_tbl.stock_id HAVING SUM(part_tbl.load_spread) {} {} )
-    '''.format(ref_table, days, days, sign, lot)
+    '''.format(ref_table, date_cut, days, sign, lot)
 
     return query, '[借券增加數(股)]'
 
@@ -1540,16 +1606,22 @@ def create_query_0506(days, period, direct, lot):
         sign = '<='
         lot = -lot
     
+    date_cut = 0
     if period == 'w':
         ref_table = counter_loanshare_w
+        date_cut = 7*days
     elif period == 'm':
         ref_table = counter_loanshare_m
+        date_cut = 31*days
     elif period == 'q':
         ref_table = counter_loanshare_q
+        date_cut = 92*days
     elif period == 'y':
         ref_table = counter_loanshare_y
+        date_cut = 365*days
     else:
         ref_table = counter_loanshare_d
+        date_cut = days
 
     query = '''
     (SELECT stock_id, AVG(load_ratio) [借券平均增加%], CAST(NULL AS NVARCHAR(100)) as remark FROM
@@ -1558,7 +1630,7 @@ def create_query_0506(days, period, direct, lot):
     WHERE date > (GETDATE()-({}+10))) part_tbl
     WHERE part_tbl.row_num <= {} AND part_tbl.load_ratio {} {}
     GROUP BY part_tbl.stock_id HAVING COUNT(row_num) = {})
-    '''.format(ref_table, days, days, sign, lot, days)
+    '''.format(ref_table, date_cut, days, sign, lot, days)
 
     return query, '[借券平均增加%]'
 
