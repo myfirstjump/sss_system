@@ -1446,15 +1446,15 @@ def create_query_0501(days, period, direct, lot):
 
     return query, '[融資增加數]'
 
-def create_query_0502(days, period, direct, lot):
+def create_query_0502(days, period, direct, rate):
 
     """0502 融資於[3][日]內均[增加/減少][20]%以上"""
-    lot = lot * 0.01
+    rate = rate * 0.01
     if direct == '1':
         sign = '>='
     else:
         sign = '<='
-        lot = -lot
+        rate = -rate
     
     date_cut = 0
     if period == 'w':
@@ -1474,13 +1474,13 @@ def create_query_0502(days, period, direct, lot):
         date_cut = days
 
     query = '''
-    (SELECT stock_id, AVG(MARGIN_ratio) [融資平均增加%], CAST(NULL AS NVARCHAR(100)) as remark FROM
+    (SELECT stock_id, AVG(MARGIN_ratio)*100 [融資平均增加%], CAST(NULL AS NVARCHAR(100)) as remark FROM
     (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY date DESC) row_num
     FROM {} WITH(NOLOCK)
     WHERE date > (GETDATE()-({}+10))) part_tbl
     WHERE part_tbl.row_num <= {} AND part_tbl.MARGIN_ratio {} {}
     GROUP BY part_tbl.stock_id HAVING  count(row_num) = {})
-    '''.format(ref_table, date_cut, days, sign, lot, days)
+    '''.format(ref_table, date_cut, days, sign, rate, days)
 
     return query, '[融資平均增加%]'
 
@@ -1521,14 +1521,15 @@ def create_query_0503(days, period, direct, lot):
 
     return query, '[融券增加數]'
 
-def create_query_0504(days, period, direct, lot):
+def create_query_0504(days, period, direct, rate):
 
     """0504 融券於[3][日]內均[增加/減少][20]%以上"""
+    rate = rate * 0.01
     if direct == '1':
         sign = '>='
     else:
         sign = '<='
-        lot = -lot
+        rate = -rate
     
     date_cut = 0
     if period == 'w':
@@ -1548,13 +1549,13 @@ def create_query_0504(days, period, direct, lot):
         date_cut = days
 
     query = '''
-    (SELECT stock_id, AVG(SHORTSELL_ratio) [融券平均增加%], CAST(NULL AS NVARCHAR(100)) as remark FROM
+    (SELECT stock_id, AVG(SHORTSELL_ratio)*100 [融券平均增加%], CAST(NULL AS NVARCHAR(100)) as remark FROM
     (SELECT *,  ROW_NUMBER() OVER(PARTITION BY stock_id ORDER BY date DESC) row_num
     FROM {} WITH(NOLOCK)
     WHERE date > (GETDATE()-({}+10))) part_tbl
     WHERE part_tbl.row_num <= {} AND part_tbl.SHORTSELL_ratio {} {}
     GROUP BY part_tbl.stock_id HAVING  COUNT(row_num) = {})
-    '''.format(ref_table, date_cut, days, sign, lot, days)
+    '''.format(ref_table, date_cut, days, sign, rate, days)
 
     return query, '[融券平均增加%]'
 
@@ -1597,14 +1598,15 @@ def create_query_0505(days, period, direct, lot):
 
     return query, '[借券增加數(股)]'
 
-def create_query_0506(days, period, direct, lot):
+def create_query_0506(days, period, direct, rate):
 
     """0506 借券於[3][日]內均[增加/減少][20]%以上"""
+    rate = rate * 0.01
     if direct == '1':
         sign = '>='
     else:
         sign = '<='
-        lot = -lot
+        rate = -rate
     
     date_cut = 0
     if period == 'w':
@@ -1630,7 +1632,7 @@ def create_query_0506(days, period, direct, lot):
     WHERE date > (GETDATE()-({}+10))) part_tbl
     WHERE part_tbl.row_num <= {} AND part_tbl.load_ratio {} {}
     GROUP BY part_tbl.stock_id HAVING COUNT(row_num) = {})
-    '''.format(ref_table, date_cut, days, sign, lot, days)
+    '''.format(ref_table, date_cut, days, sign, rate, days)
 
     return query, '[借券平均增加%]'
 
