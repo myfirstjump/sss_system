@@ -859,6 +859,7 @@ def create_query_0204(days, period, direct, percent):
 def create_query_0205(days, period, direct, percent):
 
     """於[3][日]內[上漲/下跌][超過][20]元之股票"""
+    date_cut = 0
     if direct == '1':
         sign = '>='
     else:
@@ -866,14 +867,19 @@ def create_query_0205(days, period, direct, percent):
 
     if period == 'w':
         ref_table = skill_price_w
+        date_cut = 7*days
     elif period == 'm':
         ref_table = skill_price_m
+        date_cut = 31*days
     elif period == 'q':
         ref_table = skill_price_q
+        date_cut = 92*days
     elif period == 'y':
         ref_table = skill_price_y
+        date_cut = 365*days
     else:
         ref_table = skill_price_d
+        date_cut = days
 
     query = '''
     (SELECT stock_id, CAST(NULL AS NVARCHAR(100)) as remark FROM
@@ -882,7 +888,7 @@ def create_query_0205(days, period, direct, percent):
     WHERE date > (GETDATE()-({}+10))) part_tbl
     WHERE part_tbl.row_num <= {} AND part_tbl.spread {} {}
     GROUP BY stock_id HAVING count(row_num) = {})
-    '''.format(ref_table, days, days, sign, percent, days)
+    '''.format(ref_table, date_cut, days, sign, percent, days)
 
     return query, 'stock_id'
 
