@@ -929,9 +929,10 @@ def create_query_0301(days, period, direct, lot):
 
     return query, '[平均成交量]'
 
-def create_query_0302(days, period, direct, percent):
+def create_query_0302(days, period, direct, lot):
 
     """於[3][日]內，成交量平均[小於][1000]張之股票"""
+    date_cut = 0
     if direct == '1':
         sign = '>='
     else:
@@ -939,14 +940,19 @@ def create_query_0302(days, period, direct, percent):
 
     if period == 'w':
         ref_table = skill_price_w
+        date_cut = 7*days
     elif period == 'm':
         ref_table = skill_price_m
+        date_cut = 31*days
     elif period == 'q':
         ref_table = skill_price_q
+        date_cut = 92*days
     elif period == 'y':
         ref_table = skill_price_y
+        date_cut = 365*days
     else:
         ref_table = skill_price_d
+        date_cut = days
 
     query = '''
     (SELECT stock_id, AVG(Trading_Volume) [平均成交量], CAST(NULL AS NVARCHAR(100)) as remark FROM
@@ -955,7 +961,7 @@ def create_query_0302(days, period, direct, percent):
     WHERE date > (GETDATE()-({}+10))) part_tbl
     WHERE part_tbl.row_num <= {}
     GROUP BY part_tbl.stock_id HAVING AVG(Trading_Volume) {} {})
-    '''.format(ref_table, days, days, sign, percent)
+    '''.format(ref_table, date_cut, days, sign, lot)
 
     return query, '[平均成交量]'
 
